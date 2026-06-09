@@ -39,9 +39,12 @@ export default function AdminPage() {
   const [selectedPaketPendalaman, setSelectedPaketPendalaman] = useState<any>(null)
 
   // Form state
-  const [showForm, setShowForm] = useState(false)
-  const [editData, setEditData] = useState<any>(null)
-  const [formData, setFormData] = useState<any>({})
+const [showForm, setShowForm] = useState(false)
+const [editData, setEditData] = useState<any>(null)
+const [formData, setFormData] = useState<any>({})
+const [showEditSoal, setShowEditSoal] = useState(false)
+const [editSoalData, setEditSoalData] = useState<any>(null)
+const [editSoalForm, setEditSoalForm] = useState<any>({})
 
   useEffect(() => {
     const init = async () => {
@@ -119,6 +122,42 @@ export default function AdminPage() {
   }
 
   const resetForm = () => { setShowForm(false); setEditData(null); setFormData({}) }
+
+  const handleSaveSoal = async () => {
+  await supabase.from('soal').update({
+    pertanyaan: editSoalForm.pertanyaan,
+    gambar_url: editSoalForm.gambar_url || null,
+    pilihan_a: editSoalForm.pilihan_a,
+    pilihan_b: editSoalForm.pilihan_b,
+    pilihan_c: editSoalForm.pilihan_c,
+    pilihan_d: editSoalForm.pilihan_d,
+    pilihan_e: editSoalForm.pilihan_e,
+    jawaban_benar: editSoalForm.jawaban_benar,
+    pembahasan: editSoalForm.pembahasan,
+    is_premium: editSoalForm.is_premium === 'true',
+  }).eq('id', editSoalData.id)
+  await loadSoalTO(selectedPaket.id)
+  setShowEditSoal(false)
+  setEditSoalData(null)
+  setEditSoalForm({})
+}
+const handleSaveSoalPendalaman = async () => {
+  await supabase.from('soal_pendalaman').update({
+    pertanyaan: editSoalForm.pertanyaan,
+    gambar_url: editSoalForm.gambar_url || null,
+    pilihan_a: editSoalForm.pilihan_a,
+    pilihan_b: editSoalForm.pilihan_b,
+    pilihan_c: editSoalForm.pilihan_c,
+    pilihan_d: editSoalForm.pilihan_d,
+    pilihan_e: editSoalForm.pilihan_e,
+    jawaban_benar: editSoalForm.jawaban_benar,
+    pembahasan: editSoalForm.pembahasan,
+  }).eq('id', editSoalData.id)
+  await loadSoalPendalaman(selectedPaketPendalaman.id)
+  setShowEditSoal(false)
+  setEditSoalData(null)
+  setEditSoalForm({})
+}
   const openAdd = () => { setEditData(null); setFormData({}); setShowForm(true) }
 
   const navTo = (v: View) => { setView(v); resetForm(); setSelectedPaket(null); setSelectedTopik(null); setSelectedPaketPendalaman(null) }
@@ -532,13 +571,33 @@ export default function AdminPage() {
                           <Badge v={s.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
                         </td>
                         <td className="px-5 py-3 text-center">
-                          <button onClick={async () => {
-                            await handleDelete('soal', s.id)
-                            await loadSoalTO(selectedPaket.id)
-                          }} className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">
-                            Hapus
-                          </button>
-                        </td>
+  <div className="flex items-center justify-center gap-2">
+    <button onClick={() => {
+      setEditSoalData(s)
+      setEditSoalForm({
+        pertanyaan: s.pertanyaan,
+        gambar_url: s.gambar_url || '',
+        pilihan_a: s.pilihan_a,
+        pilihan_b: s.pilihan_b,
+        pilihan_c: s.pilihan_c,
+        pilihan_d: s.pilihan_d,
+        pilihan_e: s.pilihan_e,
+        jawaban_benar: s.jawaban_benar,
+        pembahasan: s.pembahasan,
+        is_premium: s.is_premium ? 'true' : 'false',
+      })
+      setShowEditSoal(true)
+    }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+      Edit
+    </button>
+    <button onClick={async () => {
+      await handleDelete('soal', s.id)
+      await loadSoalTO(selectedPaket.id)
+    }} className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">
+      Hapus
+    </button>
+  </div>
+</td>
                       </tr>
                     ))}
                     {soalTO.length === 0 && (
@@ -549,6 +608,76 @@ export default function AdminPage() {
               </div>
             </div>
           )}
+
+          {/* MODAL EDIT SOAL TO */}
+{showEditSoal && editSoalData && (
+  <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div className="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-xl max-h-[90vh] overflow-y-auto">
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="font-black text-gray-800">Edit Soal #{editSoalData.id}</h3>
+        <button onClick={() => setShowEditSoal(false)}
+          className="text-gray-400 hover:text-gray-700 text-xl">✕</button>
+      </div>
+      <div className="flex flex-col gap-3">
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Pertanyaan</label>
+          <textarea rows={4} value={editSoalForm.pertanyaan || ''} onChange={e => setEditSoalForm({...editSoalForm, pertanyaan: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+        </div>
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">URL Gambar (kosongkan jika tidak ada)</label>
+          <input value={editSoalForm.gambar_url || ''} onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+          {editSoalForm.gambar_url && (
+            <img src={editSoalForm.gambar_url} alt="preview" className="mt-2 max-h-32 rounded-lg object-contain border border-gray-100"/>
+          )}
+        </div>
+<div className="flex flex-col gap-3">
+            {['a','b','c','d','e'].map(op => (
+            <div key={op}>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">Pilihan {op.toUpperCase()}</label>
+              <input value={editSoalForm[`pilihan_${op}`] || ''} onChange={e => setEditSoalForm({...editSoalForm, [`pilihan_${op}`]: e.target.value})}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-semibold text-gray-500 mb-1 block">Jawaban Benar</label>
+            <select value={editSoalForm.jawaban_benar || ''} onChange={e => setEditSoalForm({...editSoalForm, jawaban_benar: e.target.value})}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+              {['A','B','C','D','E'].map(op => <option key={op} value={op}>{op}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-500 mb-1 block">Tipe</label>
+            <select value={editSoalForm.is_premium} onChange={e => setEditSoalForm({...editSoalForm, is_premium: e.target.value})}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+              <option value="false">Gratis</option>
+              <option value="true">Premium</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Pembahasan</label>
+          <textarea rows={3} value={editSoalForm.pembahasan || ''} onChange={e => setEditSoalForm({...editSoalForm, pembahasan: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+        </div>
+        <div className="flex gap-3 pt-2">
+          <button onClick={handleSaveSoal}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
+            Simpan Perubahan
+          </button>
+          <button onClick={() => setShowEditSoal(false)}
+            className="border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm transition">
+            Batal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
           {/* ── PENDALAMAN MATERI (list topik → paket) ───────────── */}
           {view === 'pendalaman' && !selectedTopik && (
             <div>
@@ -748,13 +877,32 @@ export default function AdminPage() {
                           {s.gambar_url ? <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">Ada</span> : <span className="text-xs text-gray-300">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
-                          <button onClick={async () => {
-                            await handleDelete('soal_pendalaman', s.id)
-                            await loadSoalPendalaman(selectedPaketPendalaman.id)
-                          }} className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">
-                            Hapus
-                          </button>
-                        </td>
+  <div className="flex items-center justify-center gap-2">
+    <button onClick={() => {
+      setEditSoalData(s)
+      setEditSoalForm({
+        pertanyaan: s.pertanyaan,
+        gambar_url: s.gambar_url || '',
+        pilihan_a: s.pilihan_a,
+        pilihan_b: s.pilihan_b,
+        pilihan_c: s.pilihan_c,
+        pilihan_d: s.pilihan_d,
+        pilihan_e: s.pilihan_e,
+        jawaban_benar: s.jawaban_benar,
+        pembahasan: s.pembahasan,
+      })
+      setShowEditSoal(true)
+    }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+      Edit
+    </button>
+    <button onClick={async () => {
+      await handleDelete('soal_pendalaman', s.id)
+      await loadSoalPendalaman(selectedPaketPendalaman.id)
+    }} className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">
+      Hapus
+    </button>
+  </div>
+</td>
                       </tr>
                     ))}
                     {soalPendalaman.length === 0 && (
@@ -1073,6 +1221,64 @@ export default function AdminPage() {
             </div>
           )}
 
+       {/* MODAL EDIT SOAL PENDALAMAN */}
+{showEditSoal && editSoalData && !selectedPaket && (
+  <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div className="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-xl max-h-[90vh] overflow-y-auto">
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="font-black text-gray-800">Edit Soal #{editSoalData.id}</h3>
+        <button onClick={() => setShowEditSoal(false)}
+          className="text-gray-400 hover:text-gray-700 text-xl">✕</button>
+      </div>
+      <div className="flex flex-col gap-3">
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Pertanyaan</label>
+          <textarea rows={4} value={editSoalForm.pertanyaan || ''} onChange={e => setEditSoalForm({...editSoalForm, pertanyaan: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+        </div>
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">URL Gambar (kosongkan jika tidak ada)</label>
+          <input value={editSoalForm.gambar_url || ''} onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+          {editSoalForm.gambar_url && (
+            <img src={editSoalForm.gambar_url} alt="preview" className="mt-2 max-h-32 rounded-lg object-contain border border-gray-100"/>
+          )}
+        </div>
+        <div className="flex flex-col gap-3">
+          {['a','b','c','d','e'].map(op => (
+            <div key={op}>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">Pilihan {op.toUpperCase()}</label>
+              <input value={editSoalForm[`pilihan_${op}`] || ''} onChange={e => setEditSoalForm({...editSoalForm, [`pilihan_${op}`]: e.target.value})}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            </div>
+          ))}
+        </div>
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Jawaban Benar</label>
+          <select value={editSoalForm.jawaban_benar || ''} onChange={e => setEditSoalForm({...editSoalForm, jawaban_benar: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+            {['A','B','C','D','E'].map(op => <option key={op} value={op}>{op}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Pembahasan</label>
+          <textarea rows={3} value={editSoalForm.pembahasan || ''} onChange={e => setEditSoalForm({...editSoalForm, pembahasan: e.target.value})}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+        </div>
+        <div className="flex gap-3 pt-2">
+          <button onClick={handleSaveSoalPendalaman}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
+            Simpan Perubahan
+          </button>
+          <button onClick={() => setShowEditSoal(false)}
+            className="border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm transition">
+            Batal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
         </main>
 
         <footer className="text-center text-xs text-gray-400 py-4 border-t border-gray-100">

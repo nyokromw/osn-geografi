@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+
 export default function TryoutPage() {
   const params = useParams()
   const router = useRouter()
