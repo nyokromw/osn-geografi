@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+import { getUserStatus, bisaAkses } from '../../lib/checkAkses'
 
 export default function TryoutPage() {
   const params = useParams()
@@ -26,8 +27,17 @@ export default function TryoutPage() {
       if (!user) { router.push('/login'); return }
       setUserId(user.id)
 
-      const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId).single()
+const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId).single()
       if (!p) { router.push('/dashboard'); return }
+
+      // Cek akses
+      const statusUser = await getUserStatus()
+      const aksesKonten = p.akses || (p.is_premium ? 'premium' : 'gratis')
+      if (!bisaAkses(statusUser, aksesKonten)) {
+        router.push('/dashboard?akses=ditolak')
+        return
+      }
+
       setPaket(p)
       setTimeLeft((p.durasi_menit || 120) * 60)
 

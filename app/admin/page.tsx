@@ -494,7 +494,7 @@ const handleResetPassword = async (email: string) => {
               )}
             </div>
           )}
-          
+
           {/* ── PAKET TRYOUT (list) ───────────────────────────────── */}
           {view === 'paket_tryout' && (
             <div>
@@ -521,8 +521,12 @@ const handleResetPassword = async (email: string) => {
                     {inp('Tahun (contoh: 2024)', 'tahun', 'number')}
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
                     {sel('status', [{ value: 'aktif', label: 'Aktif' }, { value: 'nonaktif', label: 'Nonaktif' }], 'Status')}
-                    {sel('is_premium', [{ value: 'false', label: 'Gratis' }, { value: 'true', label: 'Premium' }], 'Tipe Akses')}
-                    <div className="md:col-span-2">{inp('Deskripsi singkat (opsional)', 'deskripsi')}</div>
+{sel('akses', [
+                      { value: 'gratis', label: 'Gratis' },
+                      { value: 'premium', label: 'Premium' },
+                      { value: 'platinum', label: 'Platinum' },
+                    ], 'Tipe Akses')}
+                                        <div className="md:col-span-2">{inp('Deskripsi singkat (opsional)', 'deskripsi')}</div>
                   </div>
                   <div className="mt-3">
                     <FormBtns onSave={() => handleSave('paket_to', {
@@ -839,8 +843,12 @@ const handleResetPassword = async (email: string) => {
                     {inp('Nama paket (contoh: Latihan Soal Hidrosfer)', 'nama')}
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
                     {sel('status', [{ value: 'aktif', label: 'Aktif' }, { value: 'nonaktif', label: 'Nonaktif' }], 'Status')}
-                    {sel('is_premium', [{ value: 'false', label: 'Gratis' }, { value: 'true', label: 'Premium' }], 'Tipe Akses')}
-                    <div className="md:col-span-2">{inp('Deskripsi (opsional)', 'deskripsi')}</div>
+{sel('akses', [
+                      { value: 'gratis', label: 'Gratis' },
+                      { value: 'premium', label: 'Premium' },
+                      { value: 'platinum', label: 'Platinum' },
+                    ], 'Tipe Akses')}
+                                        <div className="md:col-span-2">{inp('Deskripsi (opsional)', 'deskripsi')}</div>
                   </div>
                   <div className="mt-3">
                     <FormBtns onSave={() => handleSave('paket_pendalaman', {

@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+import { getUserStatus, bisaAkses } from '../../lib/checkAkses'
 
 export default function PendalamanPage() {
   const params = useParams()
@@ -25,14 +26,23 @@ export default function PendalamanPage() {
       if (!user) { router.push('/login'); return }
       setUserId(user.id)
 
-      const { data: p } = await supabase
+const { data: p } = await supabase
         .from('paket_pendalaman')
         .select('*, topik_materi(nama)')
         .eq('id', paketId)
         .single()
       if (!p) { router.push('/dashboard'); return }
-      setPaket(p)
 
+      // Cek akses
+      const statusUser = await getUserStatus()
+      const aksesKonten = p.akses || (p.is_premium ? 'premium' : 'gratis')
+      if (!bisaAkses(statusUser, aksesKonten)) {
+        router.push('/dashboard?akses=ditolak')
+        return
+      }
+
+      setPaket(p)
+      
       const { data: soal } = await supabase
         .from('soal_pendalaman')
         .select('*')

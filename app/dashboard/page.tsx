@@ -29,13 +29,20 @@ export default function DashboardPage() {
   // Drill-down
   const [selectedTopik, setSelectedTopik] = useState<any>(null)
 
-  useEffect(() => {
+useEffect(() => {
     const init = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { window.location.href = '/login'; return }
+
+      // Cek kalau diredirect karena akses ditolak
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('akses') === 'ditolak') {
+        alert('Konten ini membutuhkan akses premium. Silakan upgrade paket Anda.')
+        window.history.replaceState({}, '', '/dashboard')
+      }
       setUser(user)
 
-      const { data: prof } = await supabase.from('profiles').select('*').eq('id', user.id).single()
+const { data: prof } = await supabase.from('profiles').select('*').eq('id', user.id).single()
       setProfile(prof)
 
       const { data: hasil } = await supabase
@@ -92,7 +99,19 @@ export default function DashboardPage() {
     : stats.rataRata >= 200 ? { label: '⭐ Baik', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' }
     : stats.rataRata >= 100 ? { label: '📈 Berkembang', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' }
     : { label: '📚 Perlu Latihan', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200' }
-    
+  
+ const statusAkun = profile?.status || 'gratis'
+  const statusExpired = profile?.status_expired
+    ? new Date(profile.status_expired) < new Date() ? 'gratis' : profile.status
+    : null
+
+  const statusConfig: Record<string, { label: string, color: string, bg: string, icon: string }> = {
+    gratis: { label: 'Gratis', color: 'text-gray-600', bg: 'bg-gray-100', icon: '🎓' },
+    premium: { label: 'Premium', color: 'text-yellow-700', bg: 'bg-yellow-100', icon: '⭐' },
+    platinum: { label: 'Platinum', color: 'text-purple-700', bg: 'bg-purple-100', icon: '💎' },
+  }
+  const currentStatus = statusConfig[statusAkun] || statusConfig.gratis
+
   const navTo = (tab: Tab) => { setActiveTab(tab); setSelectedTopik(null) }
 
   const menus = [
@@ -150,6 +169,14 @@ export default function DashboardPage() {
                 {nama.split(' ').slice(0, 2).join(' ')}
               </div>
               <div className="text-xs text-gray-400 truncate">{user?.email}</div>
+            <div className={`text-xs font-bold mt-1 px-2 py-0.5 rounded-full w-fit ${currentStatus.bg} ${currentStatus.color}`}>
+              {currentStatus.icon} {currentStatus.label}
+              {statusExpired && statusAkun !== 'gratis' && (
+                <span className="font-normal ml-1">
+                  · s/d {new Date(profile.status_expired).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </span>
+              )}
+            </div>
             </div>
           </div>
           {profile?.role === 'admin' && (
@@ -227,11 +254,11 @@ export default function DashboardPage() {
               {/* STAT CARDS */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 {[
-                  { label: 'TO Dikerjakan', value: stats.totalTO, color: 'bg-blue-600', icon: '📝' },
-                  { label: 'Skor Tertinggi', value: stats.totalTO > 0 ? stats.tertinggi : '—', color: 'bg-green-500', icon: '🏆' },
-                  { label: 'Rata-rata Poin', value: stats.totalTO > 0 ? stats.rataRata : '—', color: 'bg-yellow-500', icon: '📊' },
-                  { label: 'Skor Terendah', value: stats.totalTO > 0 ? stats.terendah : '—', color: 'bg-red-400', icon: '📉' },
-                ].map((s, i) => (
+                { label: 'TO Dikerjakan', value: stats.totalTO, color: 'bg-blue-600', icon: '📝' },
+                { label: 'Skor Tertinggi', value: stats.totalTO > 0 ? stats.tertinggi : '—', color: 'bg-green-500', icon: '🏆' },
+                { label: 'Rata-rata Poin', value: stats.totalTO > 0 ? stats.rataRata : '—', color: 'bg-yellow-500', icon: '📊' },
+                { label: 'Skor Terendah', value: stats.totalTO > 0 ? stats.terendah : '—', color: 'bg-red-400', icon: '📉' },
+              ].map((s, i) => (
                   <div key={i} className={`${s.color} text-white rounded-xl p-4 flex items-center justify-between`}>
                     <div>
                       <div className="text-xs font-semibold opacity-80">{s.label}</div>
@@ -241,7 +268,30 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
-
+{/* STATUS AKUN */}
+              <div className={`rounded-xl border p-4 mb-6 flex items-center justify-between ${currentStatus.bg} border-opacity-50`}>
+                <div>
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Status Akun</div>
+                  <div className={`text-2xl font-black ${currentStatus.color}`}>
+                    {currentStatus.icon} {currentStatus.label}
+                  </div>
+                  {statusAkun !== 'gratis' && profile?.status_expired && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      Aktif hingga {new Date(profile.status_expired).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </div>
+                  )}
+                  {statusAkun === 'gratis' && (
+                    <div className="text-xs text-gray-500 mt-1">Upgrade untuk akses konten premium</div>
+                  )}
+                </div>
+                {statusAkun === 'gratis' && (
+                  <button onClick={() => setActiveTab('paket')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition shrink-0">
+                    Upgrade →
+                  </button>
+                )}
+              </div>
+              
               {/* LEVEL + AKSES CEPAT */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
 
