@@ -45,6 +45,9 @@ const [formData, setFormData] = useState<any>({})
 const [showEditSoal, setShowEditSoal] = useState(false)
 const [editSoalData, setEditSoalData] = useState<any>(null)
 const [editSoalForm, setEditSoalForm] = useState<any>({})
+const [showEditUser, setShowEditUser] = useState(false)
+const [editUserData, setEditUserData] = useState<any>(null)
+const [editUserForm, setEditUserForm] = useState<any>({})
 
   useEffect(() => {
     const init = async () => {
@@ -158,6 +161,29 @@ const handleSaveSoalPendalaman = async () => {
   setEditSoalData(null)
   setEditSoalForm({})
 }
+const handleSaveUser = async () => {
+  const updateData: any = {
+    nama: editUserForm.nama,
+    role: editUserForm.role,
+    status: editUserForm.status,
+    status_expired: editUserForm.status === 'gratis' ? null
+      : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+  }
+  await supabase.from('profiles').update(updateData).eq('id', editUserData.id)
+  await loadAll()
+  setShowEditUser(false)
+  setEditUserData(null)
+  setEditUserForm({})
+}
+
+const handleResetPassword = async (email: string) => {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/reset-password`,
+  })
+  if (error) alert('Gagal kirim email reset.')
+  else alert(`Email reset password sudah dikirim ke ${email}`)
+}
+
   const openAdd = () => { setEditData(null); setFormData({}); setShowForm(true) }
 
   const navTo = (v: View) => { setView(v); resetForm(); setSelectedPaket(null); setSelectedTopik(null); setSelectedPaketPendalaman(null) }
@@ -350,7 +376,7 @@ const handleSaveSoalPendalaman = async () => {
             </div>
           )}
 
-          {/* ── DATA SISWA ────────────────────────────────────────── */}
+         {/* ── DATA SISWA ────────────────────────────────────────── */}
           {view === 'siswa' && (
             <div>
               <div className="mb-5">
@@ -361,7 +387,7 @@ const handleSaveSoalPendalaman = async () => {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>No</Th><Th>Nama</Th><Th>Role</Th><Th>Bergabung</Th>
+                      <Th>No</Th><Th>Nama</Th><Th>Role</Th><Th>Status</Th><Th>Expired</Th><Th>Bergabung</Th><ThC>Aksi</ThC>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
@@ -372,17 +398,103 @@ const handleSaveSoalPendalaman = async () => {
                         <td className="px-5 py-3">
                           <Badge v={s.role} map={{ admin: 'bg-red-100 text-red-600', siswa: 'bg-blue-100 text-blue-600' }} />
                         </td>
+                        <td className="px-5 py-3">
+                          <Badge v={s.status || 'gratis'} map={{
+                            gratis: 'bg-gray-100 text-gray-600',
+                            premium: 'bg-yellow-100 text-yellow-700',
+                            platinum: 'bg-purple-100 text-purple-700',
+                          }} />
+                        </td>
+                        <td className="px-5 py-3 text-gray-400 text-xs">
+                          {s.status_expired
+                            ? new Date(s.status_expired).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : '—'}
+                        </td>
                         <td className="px-5 py-3 text-gray-400 text-xs">
                           {new Date(s.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </td>
+                        <td className="px-5 py-3 text-center">
+                          <button onClick={() => {
+                            setEditUserData(s)
+                            setEditUserForm({
+                              nama: s.nama,
+                              role: s.role,
+                              status: s.status || 'gratis',
+                            })
+                            setShowEditUser(true)
+                          }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+                            Edit
+                          </button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+
+              {/* MODAL EDIT USER */}
+              {showEditUser && editUserData && (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                  <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl">
+                    <div className="flex items-center justify-between mb-5">
+                      <h3 className="font-black text-gray-800">Edit User</h3>
+                      <button onClick={() => setShowEditUser(false)}
+                        className="text-gray-400 hover:text-gray-700 text-xl">✕</button>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Nama</label>
+                        <input value={editUserForm.nama || ''} onChange={e => setEditUserForm({...editUserForm, nama: e.target.value})}
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Email</label>
+                        <input value={editUserData.email || '—'} disabled
+                          className="w-full border border-gray-100 rounded-lg px-3 py-2 text-sm text-gray-400 bg-gray-50"/>
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Role</label>
+                        <select value={editUserForm.role || 'siswa'} onChange={e => setEditUserForm({...editUserForm, role: e.target.value})}
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+                          <option value="siswa">Siswa</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Status Akses</label>
+                        <select value={editUserForm.status || 'gratis'} onChange={e => setEditUserForm({...editUserForm, status: e.target.value})}
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+                          <option value="gratis">Gratis</option>
+                          <option value="premium">Premium</option>
+                          <option value="platinum">Platinum</option>
+                        </select>
+                      </div>
+                      {editUserForm.status !== 'gratis' && (
+                        <div className="text-xs text-gray-400 bg-gray-50 px-3 py-2 rounded-lg">
+                          Expired otomatis: <strong>{new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</strong>
+                        </div>
+                      )}
+                      <div className="flex gap-3 pt-2">
+                        <button onClick={handleSaveUser}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+                          Simpan
+                        </button>
+                        <button onClick={() => handleResetPassword(editUserData.email)}
+                          className="flex-1 border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 transition">
+                          Reset Password
+                        </button>
+                      </div>
+                      <button onClick={() => setShowEditUser(false)}
+                        className="text-center text-gray-400 text-xs hover:text-gray-600 transition">
+                        Batal
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
-
+          
           {/* ── PAKET TRYOUT (list) ───────────────────────────────── */}
           {view === 'paket_tryout' && (
             <div>
