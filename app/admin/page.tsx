@@ -105,12 +105,13 @@ const [editUserForm, setEditUserForm] = useState<any>({})
     setSoalPendalaman(data || [])
   }
 
-  const handleDelete = async (table: string, id: number, extra?: () => void) => {
-    if (!confirm('Yakin hapus?')) return
-    await supabase.from(table).delete().eq('id', id)
-    await loadAll()
-    if (extra) extra()
-  }
+const handleDelete = async (table: string, id: number, extra?: () => void) => {
+  if (!confirm('Yakin hapus?')) return
+  const { error, data } = await supabase.from(table).delete().eq('id', id)
+  console.log('delete result:', { error, data })
+  await loadAll()
+  if (extra) extra()
+}
 
   const handleSave = async (table: string, data: any) => {
     if (editData) {
