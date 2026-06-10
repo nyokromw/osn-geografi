@@ -13,19 +13,19 @@ export default function TryoutPage() {
   const [paket, setPaket] = useState<any>(null)
   const [soalList, setSoalList] = useState<any[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [jawaban, setJawaban] = useState<Record<number, string>>(() => {
-  if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem(`tryout-${paketId}`)
-    return saved ? JSON.parse(saved) : {}
-  }
-  return {}
-})
+  const [jawaban, setJawaban] = useState<Record<number, string>>({})
   const [timeLeft, setTimeLeft] = useState(0)
   const [submitted, setSubmitted] = useState(false)
   const [hasil, setHasil] = useState<any>(null)
   const [zoomImg, setZoomImg] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [userId, setUserId] = useState<string | null>(null)
+  // Simpan jawaban selama belum submit
+useEffect(() => {
+  if (!submitted && Object.keys(jawaban).length > 0) {
+    localStorage.setItem(`tryout-${paketId}`, JSON.stringify(jawaban))
+  }
+}, [jawaban, paketId, submitted])
 useEffect(() => {
   if (Object.keys(jawaban).length > 0 && !submitted) {
     localStorage.setItem(`tryout-${paketId}`, JSON.stringify(jawaban))
@@ -40,7 +40,6 @@ useEffect(() => {
 const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId).single()
       if (!p) { router.push('/dashboard'); return }
 
-      // Cek akses
       const statusUser = await getUserStatus()
       const aksesKonten = p.akses || (p.is_premium ? 'premium' : 'gratis')
       if (!bisaAkses(statusUser, aksesKonten)) {
@@ -49,6 +48,8 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
       }
 
       setPaket(p)
+
+      // Lanjutkan progress HANYA jika jawaban DAN timer tersimpan
       const savedJawaban = localStorage.getItem(`tryout-${p.id}`)
       const savedTime = localStorage.getItem(`tryout-time-${p.id}`)
       if (savedJawaban && savedTime && Number(savedTime) > 0) {
@@ -91,8 +92,9 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
       skor: benar,
       total_poin: totalPoin,
     })
-    setHasil({ benar, salah, kosong, totalPoin })
+    localStorage.removeItem(`tryout-${paketId}`)
     localStorage.removeItem(`tryout-time-${paketId}`)
+    setHasil({ benar, salah, kosong, totalPoin })
     setSubmitted(true)
     setShowConfirm(false)
   }, [userId, paket, soalList, jawaban, paketId])
@@ -102,12 +104,7 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
   if (timeLeft <= 0) { handleSubmit(); return }
   localStorage.setItem(`tryout-time-${paketId}`, String(timeLeft))
   const t = setTimeout(() => setTimeLeft(p => p - 1), 1000)
-  return () => {
-    clearTimeout(t)
-    if (submitted) {
-      localStorage.removeItem(`tryout-time-${paketId}`)
-    }
-  }
+  return () => clearTimeout(t)
 }, [timeLeft, loading, submitted, handleSubmit, paketId])
 
   if (loading) return (
