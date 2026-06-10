@@ -13,11 +13,22 @@ export default function PendalamanPage() {
   const [paket, setPaket] = useState<any>(null)
   const [soalList, setSoalList] = useState<any[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [jawaban, setJawaban] = useState<Record<number, string>>({})
+const [jawaban, setJawaban] = useState<Record<number, string>>(() => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem(`pendalaman-${paketId}`)
+    return saved ? JSON.parse(saved) : {}
+  }
+  return {}
+})
   const [submitted, setSubmitted] = useState(false)
   const [hasil, setHasil] = useState<any>(null)
   const [zoomImg, setZoomImg] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  useEffect(() => {
+  if (Object.keys(jawaban).length > 0) {
+    localStorage.setItem(`pendalaman-${paketId}`, JSON.stringify(jawaban))
+  }
+}, [jawaban, paketId])
   const [userId, setUserId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -74,6 +85,7 @@ const { data: p } = await supabase
       total_poin: totalPoin,
     })
     setHasil({ benar, salah, kosong, totalPoin })
+    localStorage.removeItem(`pendalaman-${paketId}`)
     setSubmitted(true)
     setShowConfirm(false)
   }, [userId, paket, soalList, jawaban, paketId])
