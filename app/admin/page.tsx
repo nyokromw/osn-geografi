@@ -632,7 +632,34 @@ const handleResetPassword = async (email: string) => {
                   <h3 className="font-bold text-gray-800 mb-4">{editData ? 'Edit Soal' : 'Tambah Soal Baru'}</h3>
                   <div className="flex flex-col gap-3">
                     {ta('Tulis pertanyaan di sini...', 'pertanyaan', 4)}
-                    {inp('URL Gambar (kosongkan jika tidak ada)', 'gambar_url')}
+   <div>
+                      <label className="text-xs font-semibold text-gray-500 mb-1 block">Gambar Soal (opsional)</label>
+                      <div className="flex gap-2">
+                        <input placeholder="URL gambar atau upload di bawah" value={formData.gambar_url || ''}
+                          onChange={e => setFormData({...formData, gambar_url: e.target.value})}
+                          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                        <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
+                          Upload
+                          <input type="file" accept="image/*" className="hidden" onChange={async e => {
+                            const file = e.target.files?.[0]
+                            if (!file) return
+                            const ext = file.name.split('.').pop()
+                            const fileName = `${Date.now()}.${ext}`
+                            const { data, error } = await supabase.storage
+                              .from('soal-images')
+                              .upload(fileName, file)
+                            if (error) { alert('Gagal upload: ' + error.message); return }
+                            const { data: urlData } = supabase.storage
+                              .from('soal-images')
+                              .getPublicUrl(fileName)
+                            setFormData({...formData, gambar_url: urlData.publicUrl})
+                          }}/>
+                        </label>
+                      </div>
+                      {formData.gambar_url && (
+                        <img src={formData.gambar_url} alt="preview" className="mt-2 max-h-32 rounded-lg object-contain border border-gray-100"/>
+                      )}
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                       {['a', 'b', 'c', 'd', 'e'].map(op => (
                         <div key={op}>
@@ -742,9 +769,29 @@ const handleResetPassword = async (email: string) => {
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
         </div>
         <div>
-          <label className="text-xs font-semibold text-gray-500 mb-1 block">URL Gambar (kosongkan jika tidak ada)</label>
-          <input value={editSoalForm.gambar_url || ''} onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Gambar Soal (opsional)</label>
+          <div className="flex gap-2">
+            <input placeholder="URL gambar atau upload" value={editSoalForm.gambar_url || ''}
+              onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
+              className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
+              Upload
+              <input type="file" accept="image/*" className="hidden" onChange={async e => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                const ext = file.name.split('.').pop()
+                const fileName = `${Date.now()}.${ext}`
+                const { data, error } = await supabase.storage
+                  .from('soal-images')
+                  .upload(fileName, file)
+                if (error) { alert('Gagal upload: ' + error.message); return }
+                const { data: urlData } = supabase.storage
+                  .from('soal-images')
+                  .getPublicUrl(fileName)
+                setEditSoalForm({...editSoalForm, gambar_url: urlData.publicUrl})
+              }}/>
+            </label>
+          </div>
           {editSoalForm.gambar_url && (
             <img src={editSoalForm.gambar_url} alt="preview" className="mt-2 max-h-32 rounded-lg object-contain border border-gray-100"/>
           )}
@@ -949,7 +996,34 @@ const handleResetPassword = async (email: string) => {
                   <h3 className="font-bold text-gray-800 mb-4">Tambah Soal Pendalaman</h3>
                   <div className="flex flex-col gap-3">
                     {ta('Tulis pertanyaan di sini...', 'pertanyaan', 4)}
-                    {inp('URL Gambar (kosongkan jika tidak ada)', 'gambar_url')}
+                    <div>
+                      <label className="text-xs font-semibold text-gray-500 mb-1 block">Gambar Soal (opsional)</label>
+                      <div className="flex gap-2">
+                        <input placeholder="URL gambar atau upload di bawah" value={formData.gambar_url || ''}
+                          onChange={e => setFormData({...formData, gambar_url: e.target.value})}
+                          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                        <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
+                          Upload
+                          <input type="file" accept="image/*" className="hidden" onChange={async e => {
+                            const file = e.target.files?.[0]
+                            if (!file) return
+                            const ext = file.name.split('.').pop()
+                            const fileName = `${Date.now()}.${ext}`
+                            const { data, error } = await supabase.storage
+                              .from('soal-images')
+                              .upload(fileName, file)
+                            if (error) { alert('Gagal upload: ' + error.message); return }
+                            const { data: urlData } = supabase.storage
+                              .from('soal-images')
+                              .getPublicUrl(fileName)
+                            setFormData({...formData, gambar_url: urlData.publicUrl})
+                          }}/>
+                        </label>
+                      </div>
+                      {formData.gambar_url && (
+                        <img src={formData.gambar_url} alt="preview" className="mt-2 max-h-32 rounded-lg object-contain border border-gray-100"/>
+                      )}
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                       {['a', 'b', 'c', 'd', 'e'].map(op => (
                         <div key={op}>
@@ -1358,9 +1432,29 @@ const handleResetPassword = async (email: string) => {
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
         </div>
         <div>
-          <label className="text-xs font-semibold text-gray-500 mb-1 block">URL Gambar (kosongkan jika tidak ada)</label>
-          <input value={editSoalForm.gambar_url || ''} onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+          <label className="text-xs font-semibold text-gray-500 mb-1 block">Gambar Soal (opsional)</label>
+          <div className="flex gap-2">
+            <input placeholder="URL gambar atau upload" value={editSoalForm.gambar_url || ''}
+              onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
+              className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
+              Upload
+              <input type="file" accept="image/*" className="hidden" onChange={async e => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                const ext = file.name.split('.').pop()
+                const fileName = `${Date.now()}.${ext}`
+                const { data, error } = await supabase.storage
+                  .from('soal-images')
+                 .upload(fileName, file)
+                if (error) { alert('Gagal upload: ' + error.message); return }
+                const { data: urlData } = supabase.storage
+                  .from('soal-images')
+                  .getPublicUrl(fileName)
+                setEditSoalForm({...editSoalForm, gambar_url: urlData.publicUrl})
+              }}/>
+            </label>
+          </div>
           {editSoalForm.gambar_url && (
             <img src={editSoalForm.gambar_url} alt="preview" className="mt-2 max-h-32 rounded-lg object-contain border border-gray-100"/>
           )}
