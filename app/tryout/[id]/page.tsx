@@ -27,10 +27,10 @@ export default function TryoutPage() {
   const [showConfirm, setShowConfirm] = useState(false)
   const [userId, setUserId] = useState<string | null>(null)
 useEffect(() => {
-  if (Object.keys(jawaban).length > 0) {
+  if (Object.keys(jawaban).length > 0 && !submitted) {
     localStorage.setItem(`tryout-${paketId}`, JSON.stringify(jawaban))
   }
-}, [jawaban, paketId])
+}, [jawaban, paketId, submitted])
   useEffect(() => {
     const init = async () => {
       const { data: { user } } = await supabase.auth.getUser()
@@ -49,8 +49,16 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
       }
 
       setPaket(p)
+      const savedJawaban = localStorage.getItem(`tryout-${p.id}`)
       const savedTime = localStorage.getItem(`tryout-time-${p.id}`)
-      setTimeLeft(savedTime ? Number(savedTime) : (p.durasi_menit || 120) * 60)
+      if (savedJawaban && savedTime && Number(savedTime) > 0) {
+        setJawaban(JSON.parse(savedJawaban))
+        setTimeLeft(Number(savedTime))
+      } else {
+        localStorage.removeItem(`tryout-${p.id}`)
+        localStorage.removeItem(`tryout-time-${p.id}`)
+        setTimeLeft((p.durasi_menit || 120) * 60)
+      }
 
       const { data: soal } = await supabase
         .from('soal')
@@ -94,7 +102,12 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
   if (timeLeft <= 0) { handleSubmit(); return }
   localStorage.setItem(`tryout-time-${paketId}`, String(timeLeft))
   const t = setTimeout(() => setTimeLeft(p => p - 1), 1000)
-  return () => clearTimeout(t)
+  return () => {
+    clearTimeout(t)
+    if (submitted) {
+      localStorage.removeItem(`tryout-time-${paketId}`)
+    }
+  }
 }, [timeLeft, loading, submitted, handleSubmit, paketId])
 
   if (loading) return (
