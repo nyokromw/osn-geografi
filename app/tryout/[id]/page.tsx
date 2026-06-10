@@ -49,7 +49,8 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
       }
 
       setPaket(p)
-      setTimeLeft((p.durasi_menit || 120) * 60)
+      const savedTime = localStorage.getItem(`tryout-time-${p.id}`)
+      setTimeLeft(savedTime ? Number(savedTime) : (p.durasi_menit || 120) * 60)
 
       const { data: soal } = await supabase
         .from('soal')
@@ -83,17 +84,18 @@ const { data: p } = await supabase.from('paket_to').select('*').eq('id', paketId
       total_poin: totalPoin,
     })
     setHasil({ benar, salah, kosong, totalPoin })
-    localStorage.removeItem(`tryout-${paketId}`)
+    localStorage.removeItem(`tryout-time-${paketId}`)
     setSubmitted(true)
     setShowConfirm(false)
   }, [userId, paket, soalList, jawaban, paketId])
 
   useEffect(() => {
-    if (loading || submitted) return
-    if (timeLeft <= 0) { handleSubmit(); return }
-    const t = setTimeout(() => setTimeLeft(p => p - 1), 1000)
-    return () => clearTimeout(t)
-  }, [timeLeft, loading, submitted, handleSubmit])
+  if (loading || submitted) return
+  if (timeLeft <= 0) { handleSubmit(); return }
+  localStorage.setItem(`tryout-time-${paketId}`, String(timeLeft))
+  const t = setTimeout(() => setTimeLeft(p => p - 1), 1000)
+  return () => clearTimeout(t)
+}, [timeLeft, loading, submitted, handleSubmit, paketId])
 
   if (loading) return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
