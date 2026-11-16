@@ -1,5 +1,8 @@
 'use client'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { ClipboardList, FileText, Images, LayoutDashboard, Layers3, LogOut, Megaphone, Menu, Receipt, ShieldCheck, Ticket, UserRound, Users, Video, X } from 'lucide-react'
+import { Brand, PageLoading } from '../components/atlas'
 import { supabase } from '../lib/supabase'
 
 type View =
@@ -13,7 +16,9 @@ type View =
 export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [view, setView] = useState<View>('dashboard')
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [packageQuery, setPackageQuery] = useState('')
 
   // Stats
   const [stats, setStats] = useState({ totalSiswa: 0, totalTO: 0, rataRata: 0, totalTransaksi: 0 })
@@ -187,65 +192,60 @@ const handleResetPassword = async (email: string) => {
 
   const openAdd = () => { setEditData(null); setFormData({}); setShowForm(true) }
 
-  const navTo = (v: View) => { setView(v); resetForm(); setSelectedPaket(null); setSelectedTopik(null); setSelectedPaketPendalaman(null) }
+  const navTo = (view: View) => {
+    setView(view)
+    resetForm()
+    setSelectedPaket(null)
+    setSelectedTopik(null)
+    setSelectedPaketPendalaman(null)
+    setDrawerOpen(false)
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }
 
-  if (loading) return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <p className="text-gray-400 animate-pulse">Memuat panel admin...</p>
-    </div>
-  )
+  if (loading) return <PageLoading>Memuat panel admin…</PageLoading>
 
   const menuGroups = [
-    {
-      group: 'Manajemen', items: [
-        { label: 'Dashboard', key: 'dashboard', icon: '⊞' },
-        { label: 'Data Siswa', key: 'siswa', icon: '👥' },
-      ]
-    },
-    {
-      group: 'Tryout', items: [
-        { label: 'Paket Tryout', key: 'paket_tryout', icon: '📋' },
-        { label: 'Pendalaman Materi', key: 'pendalaman', icon: '🧩' },
-      ]
-    },
-    {
-      group: 'Materi', items: [
-        { label: 'Video Pembelajaran', key: 'video', icon: '▶️' },
-        { label: 'Modul / PDF', key: 'modul', icon: '📄' },
-      ]
-    },
-    {
-      group: 'Transaksi', items: [
-        { label: 'Paket Membership', key: 'membership', icon: '💎' },
-        { label: 'Daftar Transaksi', key: 'transaksi', icon: '🧾' },
-      ]
-    },
-    {
-      group: 'Lainnya', items: [
-        { label: 'Pengumuman', key: 'pengumuman', icon: '📢' },
-        { label: 'Banner', key: 'banner', icon: '🖼️' },
-      ]
-    },
-  ]
+    { group: 'Manajemen', items: [
+      { label: 'Dashboard', key: 'dashboard', Icon: LayoutDashboard },
+      { label: 'Data siswa', key: 'siswa', Icon: Users },
+    ] },
+    { group: 'Ujian', items: [
+      { label: 'Paket tryout', key: 'paket_tryout', Icon: ClipboardList },
+      { label: 'Pendalaman materi', key: 'pendalaman', Icon: Layers3 },
+    ] },
+    { group: 'Materi', items: [
+      { label: 'Video pembelajaran', key: 'video', Icon: Video },
+      { label: 'Modul / PDF', key: 'modul', Icon: FileText },
+    ] },
+    { group: 'Transaksi', items: [
+      { label: 'Paket membership', key: 'membership', Icon: Ticket },
+      { label: 'Daftar transaksi', key: 'transaksi', Icon: Receipt },
+    ] },
+    { group: 'Publikasi', items: [
+      { label: 'Pengumuman', key: 'pengumuman', Icon: Megaphone },
+      { label: 'Banner', key: 'banner', Icon: Images },
+    ] },
+  ] as const
 
   const activeKey = ['soal_tryout'].includes(view) ? 'paket_tryout'
     : ['soal_pendalaman'].includes(view) ? 'pendalaman'
     : view
+  const visiblePackages = paketTO.filter(paket => String(paket.nama).toLowerCase().includes(packageQuery.trim().toLowerCase()))
 
   // Input field helpers
   const inp = (placeholder: string, key: string, type = 'text') => (
     <input type={type} placeholder={placeholder} value={formData[key] || ''}
       onChange={e => setFormData({ ...formData, [key]: type === 'number' ? Number(e.target.value) : e.target.value })}
-      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400" />
+      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400" />
   )
   const ta = (placeholder: string, key: string, rows = 3) => (
     <textarea placeholder={placeholder} rows={rows} value={formData[key] || ''}
       onChange={e => setFormData({ ...formData, [key]: e.target.value })}
-      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400" />
+      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400" />
   )
   const sel = (key: string, opts: { value: any, label: string }[], placeholder = 'Pilih...') => (
     <select value={formData[key] ?? ''} onChange={e => setFormData({ ...formData, [key]: e.target.value })}
-      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
       <option value="">{placeholder}</option>
       {opts.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
     </select>
@@ -253,16 +253,16 @@ const handleResetPassword = async (email: string) => {
 
   const FormBtns = ({ onSave }: { onSave: () => void }) => (
     <div className="flex gap-3 pt-2">
-      <button onClick={onSave} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">Simpan</button>
+      <button onClick={onSave} className="bg-forest-600 hover:bg-forest-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">Simpan</button>
       <button onClick={resetForm} className="border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm transition">Batal</button>
     </div>
   )
 
   const Th = ({ children }: { children: any }) => (
-    <th className="text-left px-5 py-3 text-gray-500 font-bold text-xs uppercase">{children}</th>
+    <th scope="col" className="text-left px-5 py-3 text-gray-500 font-semibold text-xs">{children}</th>
   )
   const ThC = ({ children }: { children: any }) => (
-    <th className="text-center px-5 py-3 text-gray-500 font-bold text-xs uppercase">{children}</th>
+    <th scope="col" className="text-center px-5 py-3 text-gray-500 font-semibold text-xs">{children}</th>
   )
 
   const Badge = ({ v, map }: { v: string, map: Record<string, string> }) => {
@@ -271,64 +271,64 @@ const handleResetPassword = async (email: string) => {
   }
 
   return (
-    <div className="min-h-screen flex" style={{ colorScheme: 'light', background: '#f9fafb' }}>
-
-      {/* SIDEBAR */}
-      <aside style={{ width: sidebarOpen ? '240px' : '0' }}
-        className="transition-all duration-300 bg-white border-r border-gray-200 flex flex-col shrink-0 fixed h-full z-30 overflow-hidden">
-        <div className="px-4 py-4 border-b border-gray-100 shrink-0">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center font-black text-white text-xs">A</div>
-            <div>
-              <div className="font-black text-gray-800 text-sm">OSN<span className="text-blue-600">Geo</span>.id</div>
-              <div className="text-xs text-red-500 font-bold">Super Admin</div>
-            </div>
-          </div>
+    <div className="atlas-admin-shell" data-collapsed={sidebarCollapsed} data-drawer={drawerOpen}
+      onKeyDown={event => { if (event.key === 'Escape' && drawerOpen) setDrawerOpen(false) }}>
+      {drawerOpen && (
+        <button type="button" className="atlas-admin-overlay" onClick={() => setDrawerOpen(false)} aria-label="Tutup menu admin" />
+      )}
+      <aside className="atlas-admin-sidebar" id="admin-sidebar">
+        <div className="flex min-h-[4.25rem] shrink-0 items-center gap-2 border-b border-gray-200 px-4">
+          <Brand />
+          <button type="button" className="atlas-admin-mobile-toggle ml-auto rounded-md p-2 text-gray-600 hover:bg-gray-100"
+            onClick={() => setDrawerOpen(false)} aria-label="Tutup navigasi">
+            <X size={18} aria-hidden="true" />
+          </button>
         </div>
-        <nav className="flex-1 overflow-y-auto py-3 px-2">
-          {menuGroups.map((g, gi) => (
-            <div key={gi} className="mb-3">
-              <div className="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-1">{g.group}</div>
-              {g.items.map((m) => (
-                <button key={m.key} onClick={() => navTo(m.key as View)}
-                  className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition mb-0.5 w-full text-left ${
-                    activeKey === m.key ? 'bg-red-600 text-white' : 'text-gray-600 hover:bg-gray-100'
-                  }`}>
-                  <span>{m.icon}</span><span className="whitespace-nowrap">{m.label}</span>
+        <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Navigasi admin">
+          {menuGroups.map(group => (
+            <div key={group.group} className="mb-4">
+              <p className="mb-1 px-2 text-xs font-semibold text-gray-500">{group.group}</p>
+              {group.items.map(({ key, label, Icon }) => (
+                <button key={key} type="button" onClick={() => navTo(key)} aria-current={activeKey === key ? 'page' : undefined}
+                  className={'mb-0.5 flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2.5 text-left text-sm font-semibold ' +
+                    (activeKey === key ? 'bg-forest-100 text-forest-800' : 'text-gray-600 hover:bg-gray-100')}>
+                  <Icon size={17} className="shrink-0" aria-hidden="true" /> {label}
                 </button>
               ))}
             </div>
           ))}
-          <div className="mt-2 border-t border-gray-100 pt-3">
-            <a href="/dashboard" className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">
-              <span>👤</span><span>Dashboard Siswa</span>
-            </a>
-          </div>
+          <Link href="/dashboard" className="mt-3 flex items-center gap-2.5 border-t border-gray-200 px-2.5 py-3 text-sm font-semibold text-gray-600">
+            <UserRound size={17} aria-hidden="true" /> Dashboard siswa
+          </Link>
         </nav>
-        <div className="px-2 py-3 border-t border-gray-100 shrink-0">
-          <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }}
-            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 w-full transition">
-            <span>🚪</span><span>Log Out</span>
+        <div className="border-t border-gray-200 p-3">
+          <button type="button" onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }}
+            className="atlas-button w-full justify-start">
+            <LogOut size={17} aria-hidden="true" /> Keluar akun
           </button>
         </div>
       </aside>
 
-      {/* MAIN */}
-      <div className="flex-1 flex flex-col" style={{ marginLeft: sidebarOpen ? '240px' : '0' }}>
-        <header className="bg-white border-b border-gray-200 px-5 py-3 flex items-center justify-between sticky top-0 z-20">
-          <div className="flex items-center gap-3">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-gray-500 hover:text-gray-800 p-1.5 rounded-lg hover:bg-gray-100 transition">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <h1 className="font-black text-gray-800 text-sm">Panel Admin</h1>
+      <div className="min-w-0">
+        <header className="atlas-topbar">
+          <div className="atlas-topbar-inner atlas-admin-head">
+            <div className="flex items-center gap-3">
+              <button type="button" className="atlas-button atlas-admin-mobile-toggle"
+                aria-label="Buka menu admin" aria-controls="admin-sidebar" aria-expanded={drawerOpen}
+                onClick={() => setDrawerOpen(true)}><Menu size={18} aria-hidden="true" /></button>
+              <button type="button" className="atlas-button atlas-admin-desktop-toggle"
+                aria-label={sidebarCollapsed ? 'Tampilkan menu admin' : 'Sembunyikan menu admin'}
+                aria-controls="admin-sidebar" aria-expanded={!sidebarCollapsed}
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}><Menu size={18} aria-hidden="true" /></button>
+              <h1 className="font-bold">Panel admin</h1>
+            </div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-forest-100 px-2.5 py-1.5 text-xs font-semibold text-forest-800">
+              <ShieldCheck size={14} aria-hidden="true" /> Administrator
+            </span>
           </div>
-          <span className="text-xs bg-red-100 text-red-600 border border-red-200 font-bold px-2 py-1 rounded-full">Super Admin</span>
         </header>
 
-        <main className="flex-1 p-5">
+        <main className="atlas-admin-content atlas-work-content">
           {/* ── DASHBOARD ─────────────────────────────────────────── */}
           {view === 'dashboard' && (
             <div>
@@ -336,22 +336,16 @@ const handleResetPassword = async (email: string) => {
                 <h2 className="text-xl font-black text-gray-800">Dashboard Admin</h2>
                 <p className="text-gray-500 text-sm">Ringkasan aktivitas OSNGeo.id</p>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <dl className="atlas-stat-strip mb-6">
                 {[
-                  { label: 'Total Siswa', value: stats.totalSiswa, color: 'bg-blue-600', icon: '👥' },
-                  { label: 'TO Dikerjakan', value: stats.totalTO, color: 'bg-green-500', icon: '📝' },
-                  { label: 'Rata-rata Poin', value: stats.rataRata, color: 'bg-yellow-500', icon: '📊' },
-                  { label: 'Total Transaksi', value: stats.totalTransaksi, color: 'bg-purple-500', icon: '🧾' },
-                ].map((s, i) => (
-                  <div key={i} className={`${s.color} text-white rounded-xl p-4 flex items-center justify-between`}>
-                    <div>
-                      <div className="text-xs opacity-80">{s.label}</div>
-                      <div className="text-3xl font-black mt-1">{s.value}</div>
-                    </div>
-                    <div className="text-3xl opacity-20">{s.icon}</div>
-                  </div>
+                  ['Total siswa', stats.totalSiswa],
+                  ['Tryout dikerjakan', stats.totalTO],
+                  ['Rata-rata poin', stats.rataRata],
+                  ['Total transaksi', stats.totalTransaksi],
+                ].map(([label, value]) => (
+                  <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
                 ))}
-              </div>
+              </dl>
               <div className="bg-white border border-gray-200 rounded-xl">
                 <div className="px-5 py-3 border-b border-gray-100">
                   <h3 className="font-bold text-gray-800 text-sm">Hasil TO Terbaru</h3>
@@ -368,7 +362,7 @@ const handleResetPassword = async (email: string) => {
                           <span>{new Date(h.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}</span>
                         </div>
                       </div>
-                      <div className={`text-xl font-black ${h.total_poin >= 0 ? 'text-blue-600' : 'text-red-500'}`}>{h.total_poin}</div>
+                      <div className={`text-xl font-black ${h.total_poin >= 0 ? 'text-forest-600' : 'text-red-500'}`}>{h.total_poin}</div>
                     </div>
                   ))}
                   {hasil.length === 0 && <div className="px-5 py-8 text-center text-gray-400 text-sm">Belum ada data.</div>}
@@ -384,7 +378,7 @@ const handleResetPassword = async (email: string) => {
                 <h2 className="text-xl font-black text-gray-800">Data Siswa</h2>
                 <p className="text-gray-500 text-sm">{siswa.length} akun terdaftar</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -397,7 +391,7 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 text-gray-400 text-xs">{i + 1}</td>
                         <td className="px-5 py-3 font-medium text-gray-800">{s.nama || '—'}</td>
                         <td className="px-5 py-3">
-                          <Badge v={s.role} map={{ admin: 'bg-red-100 text-red-600', siswa: 'bg-blue-100 text-blue-600' }} />
+                          <Badge v={s.role} map={{ admin: 'bg-red-100 text-red-600', siswa: 'bg-forest-100 text-forest-600' }} />
                         </td>
                         <td className="px-5 py-3">
                           <Badge v={s.status || 'gratis'} map={{
@@ -423,7 +417,7 @@ const handleResetPassword = async (email: string) => {
                               status: s.status || 'gratis',
                             })
                             setShowEditUser(true)
-                          }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+                          }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
                             Edit
                           </button>
                         </td>
@@ -446,7 +440,7 @@ const handleResetPassword = async (email: string) => {
                       <div>
                         <label className="text-xs font-semibold text-gray-500 mb-1 block">Nama</label>
                         <input value={editUserForm.nama || ''} onChange={e => setEditUserForm({...editUserForm, nama: e.target.value})}
-                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
                       </div>
                       <div>
                         <label className="text-xs font-semibold text-gray-500 mb-1 block">Email</label>
@@ -456,7 +450,7 @@ const handleResetPassword = async (email: string) => {
                       <div>
                         <label className="text-xs font-semibold text-gray-500 mb-1 block">Role</label>
                         <select value={editUserForm.role || 'siswa'} onChange={e => setEditUserForm({...editUserForm, role: e.target.value})}
-                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
                           <option value="siswa">Siswa</option>
                           <option value="admin">Admin</option>
                         </select>
@@ -464,7 +458,7 @@ const handleResetPassword = async (email: string) => {
                       <div>
                         <label className="text-xs font-semibold text-gray-500 mb-1 block">Status Akses</label>
                         <select value={editUserForm.status || 'gratis'} onChange={e => setEditUserForm({...editUserForm, status: e.target.value})}
-                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+                          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
                           <option value="gratis">Gratis</option>
                           <option value="premium">Premium</option>
                           <option value="platinum">Platinum</option>
@@ -477,7 +471,7 @@ const handleResetPassword = async (email: string) => {
                       )}
                       <div className="flex gap-3 pt-2">
                         <button onClick={handleSaveUser}
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+                          className="flex-1 bg-forest-600 hover:bg-forest-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
                           Simpan
                         </button>
                         <button onClick={() => handleResetPassword(editUserData.email)}
@@ -499,15 +493,20 @@ const handleResetPassword = async (email: string) => {
           {/* ── PAKET TRYOUT (list) ───────────────────────────────── */}
           {view === 'paket_tryout' && (
             <div>
-              <div className="mb-5 flex items-center justify-between">
+              <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <h2 className="text-xl font-black text-gray-800">Paket Tryout</h2>
                   <p className="text-gray-500 text-sm">{paketTO.length} paket</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
+                <button onClick={openAdd} className="atlas-button atlas-button--primary">
                   + Tambah Paket
                 </button>
               </div>
+              <label className="mb-4 block max-w-sm text-sm font-semibold">
+                Cari paket
+                <input type="search" className="atlas-field mt-1.5 block" value={packageQuery}
+                  onChange={event => setPackageQuery(event.target.value)} placeholder="Nama paket tryout" />
+              </label>
 
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
@@ -544,7 +543,7 @@ const handleResetPassword = async (email: string) => {
                 </div>
               )}
 
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -553,8 +552,8 @@ const handleResetPassword = async (email: string) => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
-                    {paketTO.map((p, i) => (
-                      <tr key={i} className="hover:bg-gray-50">
+                    {visiblePackages.map(p => (
+                      <tr key={p.id} className="hover:bg-gray-50">
                         <td className="px-5 py-3 font-medium text-gray-800">{p.nama}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs">{p.jenis || '—'}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs">{p.tahun || '—'}</td>
@@ -563,7 +562,7 @@ const handleResetPassword = async (email: string) => {
                           <Badge v={p.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
                         </td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={p.status || 'aktif'} map={{ aktif: 'bg-blue-100 text-blue-700', nonaktif: 'bg-gray-100 text-gray-500' }} />
+                          <Badge v={p.status || 'aktif'} map={{ aktif: 'bg-forest-100 text-forest-700', nonaktif: 'bg-gray-100 text-gray-500' }} />
                         </td>
                         <td className="px-5 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
@@ -571,7 +570,7 @@ const handleResetPassword = async (email: string) => {
                               setSelectedPaket(p)
                               await loadSoalTO(p.id)
                               setView('soal_tryout')
-                            }} className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">
+                            }} className="text-xs bg-forest-600 hover:bg-forest-700 text-white px-3 py-1 rounded transition">
                               Kelola Soal
                             </button>
                             <button onClick={() => {
@@ -586,7 +585,7 @@ const handleResetPassword = async (email: string) => {
                                 deskripsi: p.deskripsi,
                               })
                               setShowForm(true)
-                            }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+                            }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
                               Edit
                             </button>
                             <button onClick={() => handleDelete('paket_to', p.id)}
@@ -597,8 +596,10 @@ const handleResetPassword = async (email: string) => {
                         </td>
                       </tr>
                     ))}
-                    {paketTO.length === 0 && (
-                      <tr><td colSpan={7} className="px-5 py-8 text-center text-gray-400 text-sm">Belum ada paket tryout.</td></tr>
+                    {visiblePackages.length === 0 && (
+                      <tr><td colSpan={7} className="px-5 py-8 text-center text-gray-500 text-sm">
+                        {packageQuery.trim() ? 'Paket tidak ditemukan.' : 'Belum ada paket tryout.'}
+                      </td></tr>
                     )}
                   </tbody>
                 </table>
@@ -612,7 +613,7 @@ const handleResetPassword = async (email: string) => {
               {/* Breadcrumb */}
               <div className="flex items-center gap-2 mb-5 text-sm">
                 <button onClick={() => { setView('paket_tryout'); setSelectedPaket(null); resetForm() }}
-                  className="text-blue-600 hover:underline font-medium">Paket Tryout</button>
+                  className="text-forest-600 hover:underline font-medium">Paket Tryout</button>
                 <span className="text-gray-400">›</span>
                 <span className="font-bold text-gray-800">{selectedPaket.nama}</span>
               </div>
@@ -622,7 +623,7 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">{selectedPaket.nama}</h2>
                   <p className="text-gray-500 text-sm">{soalTO.length} soal · {selectedPaket.jenis} · {selectedPaket.durasi_menit} menit</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
                   + Tambah Soal
                 </button>
               </div>
@@ -637,7 +638,7 @@ const handleResetPassword = async (email: string) => {
                       <div className="flex gap-2">
                         <input placeholder="URL gambar atau upload di bawah" value={formData.gambar_url || ''}
                           onChange={e => setFormData({...formData, gambar_url: e.target.value})}
-                          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
                         <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
                           Upload
                           <input type="file" accept="image/*" className="hidden" onChange={async e => {
@@ -668,7 +669,7 @@ const handleResetPassword = async (email: string) => {
                         </div>
                       ))}
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {sel('jawaban_benar', ['A','B','C','D','E'].map(x => ({ value: x, label: x })), 'Jawaban Benar')}
                       {sel('is_premium', [{ value: 'false', label: 'Gratis' }, { value: 'true', label: 'Premium' }], 'Tipe')}
                     </div>
@@ -693,7 +694,7 @@ const handleResetPassword = async (email: string) => {
                 </div>
               )}
 
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -709,7 +710,7 @@ const handleResetPassword = async (email: string) => {
                           <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded">{s.jawaban_benar}</span>
                         </td>
                         <td className="px-5 py-3 text-center">
-                          {s.gambar_url ? <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">Ada</span> : <span className="text-xs text-gray-300">—</span>}
+                          {s.gambar_url ? <span className="text-xs bg-forest-100 text-forest-600 px-2 py-0.5 rounded">Ada</span> : <span className="text-xs text-gray-300">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
                           <Badge v={s.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
@@ -731,7 +732,7 @@ const handleResetPassword = async (email: string) => {
         is_premium: s.is_premium ? 'true' : 'false',
       })
       setShowEditSoal(true)
-    }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+    }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
       Edit
     </button>
     <button onClick={async () => {
@@ -766,14 +767,14 @@ const handleResetPassword = async (email: string) => {
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Pertanyaan</label>
           <textarea rows={4} value={editSoalForm.pertanyaan || ''} onChange={e => setEditSoalForm({...editSoalForm, pertanyaan: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
         </div>
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Gambar Soal (opsional)</label>
           <div className="flex gap-2">
             <input placeholder="URL gambar atau upload" value={editSoalForm.gambar_url || ''}
               onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
-              className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+              className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
             <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
               Upload
               <input type="file" accept="image/*" className="hidden" onChange={async e => {
@@ -801,22 +802,22 @@ const handleResetPassword = async (email: string) => {
             <div key={op}>
               <label className="text-xs font-semibold text-gray-500 mb-1 block">Pilihan {op.toUpperCase()}</label>
               <input value={editSoalForm[`pilihan_${op}`] || ''} onChange={e => setEditSoalForm({...editSoalForm, [`pilihan_${op}`]: e.target.value})}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className="text-xs font-semibold text-gray-500 mb-1 block">Jawaban Benar</label>
             <select value={editSoalForm.jawaban_benar || ''} onChange={e => setEditSoalForm({...editSoalForm, jawaban_benar: e.target.value})}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
               {['A','B','C','D','E'].map(op => <option key={op} value={op}>{op}</option>)}
             </select>
           </div>
           <div>
             <label className="text-xs font-semibold text-gray-500 mb-1 block">Tipe</label>
             <select value={editSoalForm.is_premium} onChange={e => setEditSoalForm({...editSoalForm, is_premium: e.target.value})}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
               <option value="false">Gratis</option>
               <option value="true">Premium</option>
             </select>
@@ -825,11 +826,11 @@ const handleResetPassword = async (email: string) => {
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Pembahasan</label>
           <textarea rows={3} value={editSoalForm.pembahasan || ''} onChange={e => setEditSoalForm({...editSoalForm, pembahasan: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
         </div>
         <div className="flex gap-3 pt-2">
           <button onClick={handleSaveSoal}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
+            className="bg-forest-600 hover:bg-forest-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
             Simpan Perubahan
           </button>
           <button onClick={() => setShowEditSoal(false)}
@@ -854,7 +855,7 @@ const handleResetPassword = async (email: string) => {
                   const jumlahPaket = paketPendalaman.filter(p => p.topik_id === t.id).length
                   return (
                     <button key={t.id} onClick={() => setSelectedTopik(t)}
-                      className="bg-white border border-gray-200 rounded-xl p-4 text-left hover:border-blue-400 hover:shadow-sm transition">
+                      className="bg-white border border-gray-200 rounded-xl p-4 text-left hover:border-forest-400 hover:shadow-sm transition">
                       <div className="font-bold text-gray-800 text-sm mb-1">{t.nama}</div>
                       <div className="text-xs text-gray-400">{jumlahPaket} paket pendalaman</div>
                     </button>
@@ -869,7 +870,7 @@ const handleResetPassword = async (email: string) => {
             <div>
               <div className="flex items-center gap-2 mb-5 text-sm">
                 <button onClick={() => { setSelectedTopik(null); resetForm() }}
-                  className="text-blue-600 hover:underline font-medium">Pendalaman Materi</button>
+                  className="text-forest-600 hover:underline font-medium">Pendalaman Materi</button>
                 <span className="text-gray-400">›</span>
                 <span className="font-bold text-gray-800">{selectedTopik.nama}</span>
               </div>
@@ -879,7 +880,7 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">{selectedTopik.nama}</h2>
                   <p className="text-gray-500 text-sm">Paket pendalaman untuk topik ini</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
                   + Tambah Paket
                 </button>
               </div>
@@ -911,7 +912,7 @@ const handleResetPassword = async (email: string) => {
                 </div>
               )}
 
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -927,7 +928,7 @@ const handleResetPassword = async (email: string) => {
                           <Badge v={p.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
                         </td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={p.status || 'aktif'} map={{ aktif: 'bg-blue-100 text-blue-700', nonaktif: 'bg-gray-100 text-gray-500' }} />
+                          <Badge v={p.status || 'aktif'} map={{ aktif: 'bg-forest-100 text-forest-700', nonaktif: 'bg-gray-100 text-gray-500' }} />
                         </td>
                         <td className="px-5 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
@@ -935,7 +936,7 @@ const handleResetPassword = async (email: string) => {
                               setSelectedPaketPendalaman(p)
                               await loadSoalPendalaman(p.id)
                               resetForm()
-                            }} className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">
+                            }} className="text-xs bg-forest-600 hover:bg-forest-700 text-white px-3 py-1 rounded transition">
                               Kelola Soal
                             </button>
                             <button onClick={() => {
@@ -948,7 +949,7 @@ const handleResetPassword = async (email: string) => {
                                 deskripsi: p.deskripsi,
                               })
                               setShowForm(true)
-                            }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+                            }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
                               Edit
                             </button>
                             <button onClick={() => handleDelete('paket_pendalaman', p.id)}
@@ -973,10 +974,10 @@ const handleResetPassword = async (email: string) => {
             <div>
               <div className="flex items-center gap-2 mb-5 text-sm flex-wrap">
                 <button onClick={() => { setSelectedTopik(null); setSelectedPaketPendalaman(null); resetForm() }}
-                  className="text-blue-600 hover:underline font-medium">Pendalaman Materi</button>
+                  className="text-forest-600 hover:underline font-medium">Pendalaman Materi</button>
                 <span className="text-gray-400">›</span>
                 <button onClick={() => { setSelectedPaketPendalaman(null); resetForm() }}
-                  className="text-blue-600 hover:underline font-medium">{selectedTopik.nama}</button>
+                  className="text-forest-600 hover:underline font-medium">{selectedTopik.nama}</button>
                 <span className="text-gray-400">›</span>
                 <span className="font-bold text-gray-800">{selectedPaketPendalaman.nama}</span>
               </div>
@@ -986,7 +987,7 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">{selectedPaketPendalaman.nama}</h2>
                   <p className="text-gray-500 text-sm">{soalPendalaman.length} soal · {selectedTopik.nama}</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
                   + Tambah Soal
                 </button>
               </div>
@@ -1001,7 +1002,7 @@ const handleResetPassword = async (email: string) => {
                       <div className="flex gap-2">
                         <input placeholder="URL gambar atau upload di bawah" value={formData.gambar_url || ''}
                           onChange={e => setFormData({...formData, gambar_url: e.target.value})}
-                          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
                         <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
                           Upload
                           <input type="file" accept="image/*" className="hidden" onChange={async e => {
@@ -1053,7 +1054,7 @@ const handleResetPassword = async (email: string) => {
                 </div>
               )}
 
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -1069,7 +1070,7 @@ const handleResetPassword = async (email: string) => {
                           <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded">{s.jawaban_benar}</span>
                         </td>
                         <td className="px-5 py-3 text-center">
-                          {s.gambar_url ? <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">Ada</span> : <span className="text-xs text-gray-300">—</span>}
+                          {s.gambar_url ? <span className="text-xs bg-forest-100 text-forest-600 px-2 py-0.5 rounded">Ada</span> : <span className="text-xs text-gray-300">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
   <div className="flex items-center justify-center gap-2">
@@ -1087,7 +1088,7 @@ const handleResetPassword = async (email: string) => {
         pembahasan: s.pembahasan,
       })
       setShowEditSoal(true)
-    }} className="text-xs text-blue-600 border border-blue-200 px-2 py-1 rounded transition">
+    }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
       Edit
     </button>
     <button onClick={async () => {
@@ -1117,12 +1118,12 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">Video Pembelajaran</h2>
                   <p className="text-gray-500 text-sm">{videoList.length} video</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Video</button>
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Video</button>
               </div>
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
                   <h3 className="font-bold text-gray-800 mb-4">Tambah Video</h3>
-                  <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
                     {inp('Judul video', 'judul')}
                     {inp('YouTube ID (contoh: dQw4w9WgXcQ)', 'youtube_id')}
                     {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih Topik')}
@@ -1137,7 +1138,7 @@ const handleResetPassword = async (email: string) => {
                   })} />
                 </div>
               )}
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -1174,12 +1175,12 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">Modul / PDF</h2>
                   <p className="text-gray-500 text-sm">{modulList.length} modul</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Modul</button>
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Modul</button>
               </div>
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
                   <h3 className="font-bold text-gray-800 mb-4">Tambah Modul</h3>
-                  <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
                     {inp('Judul modul', 'judul')}
                     {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih Topik')}
                     <div className="col-span-2">{inp('URL File (Google Drive / langsung)', 'file_url')}</div>
@@ -1195,7 +1196,7 @@ const handleResetPassword = async (email: string) => {
                   })} />
                 </div>
               )}
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -1211,7 +1212,7 @@ const handleResetPassword = async (email: string) => {
                           <Badge v={m.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
                         </td>
                         <td className="px-5 py-3 text-center">
-                          {m.file_url ? <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-blue-600 hover:underline">Buka</a> : <span className="text-gray-300 text-xs">—</span>}
+                          {m.file_url ? <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-forest-600 hover:underline">Buka</a> : <span className="text-gray-300 text-xs">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
                           <button onClick={() => handleDelete('modul_materi', m.id)}
@@ -1234,12 +1235,12 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">Paket Membership</h2>
                   <p className="text-gray-500 text-sm">{membershipList.length} paket</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Paket</button>
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Paket</button>
               </div>
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
                   <h3 className="font-bold text-gray-800 mb-4">{editData ? 'Edit Paket Membership' : 'Tambah Paket Membership'}</h3>
-                  <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
                     {inp('Nama paket', 'nama')}
                     {inp('Harga (Rp)', 'harga', 'number')}
                     {inp('Durasi (hari)', 'durasi_hari', 'number')}
@@ -1259,7 +1260,7 @@ const handleResetPassword = async (email: string) => {
                 {membershipList.map((m, i) => (
                   <div key={i} className="bg-white border border-gray-200 rounded-xl p-5">
                     <div className="font-black text-gray-800 mb-1">{m.nama}</div>
-                    <div className="text-2xl font-black text-blue-600 mb-1">Rp {m.harga?.toLocaleString('id-ID')}</div>
+                    <div className="text-2xl font-black text-forest-600 mb-1">Rp {m.harga?.toLocaleString('id-ID')}</div>
                     <div className="text-xs text-gray-400 mb-3">{m.durasi_hari} hari · {m.deskripsi}</div>
                     <div className="flex gap-2">
                       <button onClick={() => {
@@ -1272,7 +1273,7 @@ const handleResetPassword = async (email: string) => {
                           fitur: m.fitur,
                         })
                         setShowForm(true)
-                      }} className="text-xs text-blue-600 border border-blue-200 px-3 py-1 rounded transition">Edit</button>
+                      }} className="text-xs text-forest-600 border border-forest-200 px-3 py-1 rounded transition">Edit</button>
                       <button onClick={() => handleDelete('paket_membership', m.id)}
                         className="text-xs text-red-500 border border-red-200 px-3 py-1 rounded transition">Hapus</button>
                     </div>
@@ -1292,7 +1293,7 @@ const handleResetPassword = async (email: string) => {
                 <h2 className="text-xl font-black text-gray-800">Daftar Transaksi</h2>
                 <p className="text-gray-500 text-sm">{transaksiList.length} transaksi</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
@@ -1308,7 +1309,7 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 text-center">
                           <Badge v={t.status} map={{
                             selesai: 'bg-green-100 text-green-700',
-                            dibayar: 'bg-blue-100 text-blue-700',
+                            dibayar: 'bg-forest-100 text-forest-700',
                             gagal: 'bg-red-100 text-red-700',
                             pending: 'bg-yellow-100 text-yellow-700',
                           }} />
@@ -1338,7 +1339,7 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">Pengumuman</h2>
                   <p className="text-gray-500 text-sm">{pengumumanList.length} pengumuman</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah</button>
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah</button>
               </div>
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
@@ -1377,12 +1378,12 @@ const handleResetPassword = async (email: string) => {
                   <h2 className="text-xl font-black text-gray-800">Banner</h2>
                   <p className="text-gray-500 text-sm">{bannerList.length} banner</p>
                 </div>
-                <button onClick={openAdd} className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Banner</button>
+                <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Banner</button>
               </div>
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
                   <h3 className="font-bold text-gray-800 mb-4">Tambah Banner</h3>
-                  <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
                     {inp('Judul banner', 'judul')}
                     {inp('URL Gambar', 'gambar_url')}
                     <div className="col-span-2">{inp('Link tujuan (opsional)', 'link')}</div>
@@ -1402,7 +1403,7 @@ const handleResetPassword = async (email: string) => {
                     <div className="p-4 flex items-center justify-between">
                       <div>
                         <div className="font-bold text-sm text-gray-800">{b.judul}</div>
-                        {b.link && <a href={b.link} target="_blank" rel="noreferrer" className="text-xs text-blue-500 hover:underline">{b.link}</a>}
+                        {b.link && <a href={b.link} target="_blank" rel="noreferrer" className="text-xs text-forest-500 hover:underline">{b.link}</a>}
                       </div>
                       <button onClick={() => handleDelete('banner', b.id)}
                         className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition ml-3 shrink-0">Hapus</button>
@@ -1429,14 +1430,14 @@ const handleResetPassword = async (email: string) => {
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Pertanyaan</label>
           <textarea rows={4} value={editSoalForm.pertanyaan || ''} onChange={e => setEditSoalForm({...editSoalForm, pertanyaan: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
         </div>
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Gambar Soal (opsional)</label>
           <div className="flex gap-2">
             <input placeholder="URL gambar atau upload" value={editSoalForm.gambar_url || ''}
               onChange={e => setEditSoalForm({...editSoalForm, gambar_url: e.target.value})}
-              className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+              className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
             <label className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm cursor-pointer transition shrink-0">
               Upload
               <input type="file" accept="image/*" className="hidden" onChange={async e => {
@@ -1464,25 +1465,25 @@ const handleResetPassword = async (email: string) => {
             <div key={op}>
               <label className="text-xs font-semibold text-gray-500 mb-1 block">Pilihan {op.toUpperCase()}</label>
               <input value={editSoalForm[`pilihan_${op}`] || ''} onChange={e => setEditSoalForm({...editSoalForm, [`pilihan_${op}`]: e.target.value})}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
             </div>
           ))}
         </div>
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Jawaban Benar</label>
           <select value={editSoalForm.jawaban_benar || ''} onChange={e => setEditSoalForm({...editSoalForm, jawaban_benar: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400">
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
             {['A','B','C','D','E'].map(op => <option key={op} value={op}>{op}</option>)}
           </select>
         </div>
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Pembahasan</label>
           <textarea rows={3} value={editSoalForm.pembahasan || ''} onChange={e => setEditSoalForm({...editSoalForm, pembahasan: e.target.value})}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-400"/>
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
         </div>
         <div className="flex gap-3 pt-2">
           <button onClick={handleSaveSoalPendalaman}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
+            className="bg-forest-600 hover:bg-forest-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
             Simpan Perubahan
           </button>
           <button onClick={() => setShowEditSoal(false)}
