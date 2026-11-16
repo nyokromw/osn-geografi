@@ -1,23 +1,45 @@
 'use client'
+
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import type { User } from '@supabase/supabase-js'
+import { ArrowRight, BookOpen, ClipboardList, FileText, LayoutDashboard, Layers3, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, Video } from 'lucide-react'
+import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
 import { supabase } from '../lib/supabase'
+import { LearningProgress, type StudyResult } from './learning-progress'
 
-type Tab = 'dashboard' | 'tryout' | 'pendalaman' | 'video' | 'modul' | 'pengumuman' | 'paket'
+const menu = [
+  { key: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard },
+  { key: 'tryout', label: 'Tryout', Icon: ClipboardList },
+  { key: 'pendalaman', label: 'Pendalaman', Icon: Layers3 },
+  { key: 'video', label: 'Video', Icon: Video },
+  { key: 'modul', label: 'Modul', Icon: FileText },
+  { key: 'pengumuman', label: 'Pengumuman', Icon: Megaphone },
+  { key: 'paket', label: 'Paket dan akses', Icon: Ticket },
+] as const
 
-const MAX_POIN = 400
+type Tab = (typeof menu)[number]['key']
+type Profile = { nama: string | null; status: string | null; status_expired: string | null; role: string | null }
+
+const resultColumns = 'id, created_at, total_poin, total_soal, poin_benar, poin_salah, poin_kosong'
+const dateFormat = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+
+function formatDate(date: string | null) {
+  if (!date) return ''
+  const value = new Date(date)
+  return Number.isFinite(value.getTime()) ? dateFormat.format(value) : ''
+}
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [accessDenied, setAccessDenied] = useState(false)
+  const [riwayat, setRiwayat] = useState<StudyResult[]>([])
+  const [practiceResults, setPracticeResults] = useState<StudyResult[]>([])
+  const [loadErrors, setLoadErrors] = useState({ tryout: false, latihan: false })
 
-  // Stats
-  const [stats, setStats] = useState({ totalTO: 0, rataRata: 0, tertinggi: 0, terendah: 0 })
-  const [riwayat, setRiwayat] = useState<any[]>([])
-
-  // Data
   const [paketTO, setPaketTO] = useState<any[]>([])
   const [topikList, setTopikList] = useState<any[]>([])
   const [paketPendalaman, setPaketPendalaman] = useState<any[]>([])
@@ -25,47 +47,30 @@ export default function DashboardPage() {
   const [modulList, setModulList] = useState<any[]>([])
   const [pengumumanList, setPengumumanList] = useState<any[]>([])
   const [membershipList, setMembershipList] = useState<any[]>([])
-
-  // Drill-down
   const [selectedTopik, setSelectedTopik] = useState<any>(null)
 
-useEffect(() => {
+  useEffect(() => {
+    let active = true
     const init = async () => {
       const { data: { user } } = await supabase.auth.getUser()
+      if (!active) return
       if (!user) { window.location.href = '/login'; return }
-
-      // Cek kalau diredirect karena akses ditolak
-      const params = new URLSearchParams(window.location.search)
-      if (params.get('akses') === 'ditolak') {
-        alert('Konten ini membutuhkan akses premium. Silakan upgrade paket Anda.')
-        window.history.replaceState({}, '', '/dashboard')
-      }
       setUser(user)
 
-const { data: prof } = await supabase.from('profiles').select('*').eq('id', user.id).single()
-      setProfile(prof)
-
-      const { data: hasil } = await supabase
-        .from('hasil_to')
-        .select('*, paket_to(nama)')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: true })
-
-      if (hasil && hasil.length > 0) {
-        const poinList = hasil.map((h: any) => h.total_poin)
-        setStats({
-          totalTO: hasil.length,
-          rataRata: Math.round(poinList.reduce((a: number, b: number) => a + b, 0) / hasil.length),
-          tertinggi: Math.max(...poinList),
-          terendah: Math.min(...poinList),
-        })
-        setRiwayat(hasil)
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('akses') === 'ditolak') {
+        setAccessDenied(true)
+        window.history.replaceState({}, '', '/dashboard')
       }
 
-      const [
-        { data: pt }, { data: tp }, { data: pp },
-        { data: v }, { data: m }, { data: pg }, { data: mb }
-      ] = await Promise.all([
+      const [account, tryouts, practices, pt, tp, pp, v, m, pg, mb] = await Promise.all([
+        supabase.from('profiles').select('nama, status, status_expired, role').eq('id', user.id).single(),
+        supabase.from('hasil_to').select(resultColumns + ', paket_to(nama)')
+          .eq('user_id', user.id).order('created_at', { ascending: true, nullsFirst: true }).order('id')
+          .overrideTypes<StudyResult[], { merge: false }>(),
+        supabase.from('hasil_pendalaman').select(resultColumns + ', paket_pendalaman(nama)')
+          .eq('user_id', user.id).order('created_at', { ascending: false, nullsFirst: false }).order('id', { ascending: false })
+          .limit(12).overrideTypes<StudyResult[], { merge: false }>(),
         supabase.from('paket_to').select('*').eq('status', 'aktif').order('urutan'),
         supabase.from('topik_materi').select('*').order('urutan'),
         supabase.from('paket_pendalaman').select('*, topik_materi(nama)').eq('status', 'aktif').order('id'),
@@ -74,335 +79,145 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
         supabase.from('pengumuman').select('*').eq('aktif', true).order('created_at', { ascending: false }),
         supabase.from('paket_membership').select('*').order('id'),
       ])
+      if (!active) return
 
-      setPaketTO(pt || [])
-      setTopikList(tp || [])
-      setPaketPendalaman(pp || [])
-      setVideoList(v || [])
-      setModulList(m || [])
-      setPengumumanList(pg || [])
-      setMembershipList(mb || [])
-
+      setProfile(account.data)
+      setRiwayat(tryouts.data ?? [])
+      setPracticeResults((practices.data ?? []).slice().reverse())
+      setLoadErrors({ tryout: !!tryouts.error, latihan: !!practices.error })
+      setPaketTO(pt.data ?? [])
+      setTopikList(tp.data ?? [])
+      setPaketPendalaman(pp.data ?? [])
+      setVideoList(v.data ?? [])
+      setModulList(m.data ?? [])
+      setPengumumanList(pg.data ?? [])
+      setMembershipList(mb.data ?? [])
       setLoading(false)
     }
-    init()
+    void init()
+    return () => { active = false }
   }, [])
 
-  if (loading) return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <p className="text-gray-400 animate-pulse">Memuat dashboard...</p>
-    </div>
-  )
+  if (loading) return <PageLoading>Memuat dashboard…</PageLoading>
 
-  const level =
-    stats.rataRata >= 300 ? { label: '🏆 Luar Biasa', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-200' }
-    : stats.rataRata >= 200 ? { label: '⭐ Baik', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' }
-    : stats.rataRata >= 100 ? { label: '📈 Berkembang', color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' }
-    : { label: '📚 Perlu Latihan', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200' }
-  
- const statusAkun = profile?.status || 'gratis'
-  const statusExpired = profile?.status_expired
-    ? new Date(profile.status_expired) < new Date() ? 'gratis' : profile.status
-    : null
-
-  const statusConfig: Record<string, { label: string, color: string, bg: string, icon: string }> = {
-    gratis: { label: 'Gratis', color: 'text-gray-600', bg: 'bg-gray-100', icon: '🎓' },
-    premium: { label: 'Premium', color: 'text-yellow-700', bg: 'bg-yellow-100', icon: '⭐' },
-    platinum: { label: 'Platinum', color: 'text-purple-700', bg: 'bg-purple-100', icon: '💎' },
-  }
-  const currentStatus = statusConfig[statusAkun] || statusConfig.gratis
-
-  const navTo = (tab: Tab) => { setActiveTab(tab); setSelectedTopik(null) }
-
-  const menus = [
-    {
-      group: 'Utama', items: [
-        { label: 'Dashboard', key: 'dashboard', icon: '⊞' },
-        { label: 'Pengumuman', key: 'pengumuman', icon: '📢' },
-      ]
-    },
-    {
-      group: 'Ujian', items: [
-        { label: 'Tryout', key: 'tryout', icon: '📝' },
-        { label: 'Pendalaman Materi', key: 'pendalaman', icon: '🧩' },
-      ]
-    },
-    {
-      group: 'Materi', items: [
-        { label: 'Modul / PDF', key: 'modul', icon: '📄' },
-        { label: 'Video Pembelajaran', key: 'video', icon: '▶️' },
-      ]
-    },
-    {
-      group: 'Lainnya', items: [
-        { label: 'Paket & Upgrade', key: 'paket', icon: '💎' },
-      ]
-    },
+  const points = riwayat.flatMap(item => item.total_poin === null ? [] : [item.total_poin])
+  const stats = [
+    ['Tryout selesai', loadErrors.tryout ? '—' : riwayat.length],
+    ['Poin tertinggi', points.length ? Math.max(...points) : '—'],
+    ['Rata-rata poin', points.length ? Math.round(points.reduce((total, value) => total + value, 0) / points.length) : '—'],
+    ['Poin terendah', points.length ? Math.min(...points) : '—'],
   ]
-
   const nama = user?.user_metadata?.nama || profile?.nama || 'Siswa'
-  const inisial = nama.charAt(0).toUpperCase()
+  const namaDepan = String(nama).trim().split(/\s+/)[0] || 'Siswa'
+  const statusAkun = profile?.status || 'gratis'
+  const activeMembership = statusAkun !== 'gratis' && (!profile?.status_expired || new Date(profile.status_expired) >= new Date())
+  const membershipName = activeMembership ? statusAkun.charAt(0).toUpperCase() + statusAkun.slice(1) : 'Gratis'
+
+  const navTo = (tab: Tab) => {
+    setActiveTab(tab)
+    setSelectedTopik(null)
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }
 
   return (
-    <div className="min-h-screen flex" style={{ colorScheme: 'light', background: '#f9fafb' }}>
-
-      {/* SIDEBAR */}
-      <aside style={{ width: sidebarOpen ? '256px' : '0' }}
-        className="transition-all duration-300 bg-white border-r border-gray-200 flex flex-col shrink-0 fixed h-full z-30 overflow-hidden">
-
-        {/* LOGO */}
-        <div className="px-5 py-4 border-b border-gray-100 shrink-0">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-sm">G</div>
-            <span className="font-black text-gray-800">OSN<span className="text-blue-600">Geo</span>.id</span>
-          </div>
-        </div>
-
-        {/* USER INFO */}
-        <div className="px-5 py-4 border-b border-gray-100 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-black text-sm">
-              {inisial}
-            </div>
-            <div className="overflow-hidden">
-              <div className="font-bold text-sm text-gray-800 leading-tight truncate">
-                {nama.split(' ').slice(0, 2).join(' ')}
-              </div>
-              <div className="text-xs text-gray-400 truncate">{user?.email}</div>
-            <div className={`text-xs font-bold mt-1 px-2 py-0.5 rounded-full w-fit ${currentStatus.bg} ${currentStatus.color}`}>
-              {currentStatus.icon} {currentStatus.label}
-              {statusExpired && statusAkun !== 'gratis' && (
-                <span className="font-normal ml-1">
-                  · s/d {new Date(profile.status_expired).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </span>
-              )}
-            </div>
-            </div>
-          </div>
-          {profile?.role === 'admin' && (
-            <a href="/admin"
-              className="mt-3 flex items-center justify-center w-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold py-1.5 rounded-lg transition">
-              Panel Admin
-            </a>
-          )}
-        </div>
-
-        {/* MENU */}
-        <nav className="flex-1 overflow-y-auto py-3 px-3">
-          {menus.map((g, gi) => (
-            <div key={gi} className="mb-4">
-              <div className="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-1">{g.group}</div>
-              {g.items.map((m) => (
-                <button key={m.key} onClick={() => navTo(m.key as Tab)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition mb-0.5 w-full text-left ${
-                    activeTab === m.key ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-100'
-                  }`}>
-                  <span>{m.icon}</span>
-                  <span className="whitespace-nowrap">{m.label}</span>
-                </button>
-              ))}
-            </div>
+    <>
+      <WorkspaceHeader title="Ruang belajar">
+        {profile?.role === 'admin' && (
+          <Link href="/admin" className="atlas-button" aria-label="Panel admin" title="Panel admin">
+            <ShieldCheck size={16} aria-hidden="true" /><span className="hidden sm:inline">Admin</span>
+          </Link>
+        )}
+        <a href="https://wa.me/6285157220761" target="_blank" rel="noreferrer"
+          className="atlas-button" aria-label="Bantuan WhatsApp" title="Bantuan WhatsApp">
+          <MessageCircle size={16} aria-hidden="true" /><span className="hidden sm:inline">Bantuan</span>
+        </a>
+        <button type="button" className="atlas-button" aria-label="Keluar akun" title="Keluar akun"
+          onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }}>
+          <LogOut size={16} aria-hidden="true" /><span className="hidden sm:inline">Keluar</span>
+        </button>
+      </WorkspaceHeader>
+      <div className="atlas-tabs-wrap">
+        <nav className="atlas-container atlas-tabs" aria-label="Ruang belajar">
+          {menu.map(({ key, label, Icon }) => (
+            <button key={key} type="button" aria-current={activeTab === key ? 'page' : undefined} onClick={() => navTo(key)}>
+              <Icon size={16} aria-hidden="true" /> {label}
+            </button>
           ))}
         </nav>
+      </div>
 
-        {/* LOGOUT */}
-        <div className="px-3 py-3 border-t border-gray-100 shrink-0">
-          <button onClick={async () => { await supabase.auth.signOut(); window.location.href = '/login' }}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 w-full transition">
-            <span>🚪</span><span>Log Out</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* MAIN */}
-      <div className="flex-1 flex flex-col transition-all duration-300" style={{ marginLeft: sidebarOpen ? '256px' : '0' }}>
-
-        {/* TOPBAR */}
-        <header className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-20">
-          <div className="flex items-center gap-3">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-gray-500 hover:text-gray-800 p-1.5 rounded-lg hover:bg-gray-100 transition">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <h1 className="font-black text-gray-800 text-sm capitalize">{activeTab === 'dashboard' ? 'Dashboard' : menus.flatMap(g => g.items).find(m => m.key === activeTab)?.label}</h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <a href="https://wa.me/6285157220761" target="_blank"
-              className="bg-green-500 hover:bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">
-              WA Support
-            </a>
-            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-black text-sm">
-              {inisial}
-            </div>
-          </div>
-        </header>
-
-        {/* KONTEN */}
-        <main className="flex-1 p-6">
-{/* ── DASHBOARD UTAMA ───────────────────────────────────── */}
-          {activeTab === 'dashboard' && (
-            <div>
-              <div className="mb-6">
-                <h1 className="text-2xl font-black text-gray-800">Dashboard</h1>
-                <p className="text-gray-500 text-sm mt-0.5">
-                  Selamat datang, {nama.split(' ')[0]}! Semangat belajar OSN Geografi.
-                </p>
+      <main className="atlas-container atlas-work-content">
+        {accessDenied && (
+          <div className="mb-4"><Notice error>Konten ini memerlukan akses premium. Pilih Paket dan akses untuk melihat opsi yang tersedia.</Notice></div>
+        )}
+        {activeTab === 'dashboard' && (
+          <div className="space-y-7">
+            <header className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h1 className="atlas-title">Halo, {namaDepan}.</h1>
+                <p className="mt-2 text-sm text-gray-500">{user?.email || 'Pantau hasil belajar dan pilih latihan berikutnya.'}</p>
               </div>
-
-              {/* STAT CARDS */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                {[
-                { label: 'TO Dikerjakan', value: stats.totalTO, color: 'bg-blue-600', icon: '📝' },
-                { label: 'Skor Tertinggi', value: stats.totalTO > 0 ? stats.tertinggi : '—', color: 'bg-green-500', icon: '🏆' },
-                { label: 'Rata-rata Poin', value: stats.totalTO > 0 ? stats.rataRata : '—', color: 'bg-yellow-500', icon: '📊' },
-                { label: 'Skor Terendah', value: stats.totalTO > 0 ? stats.terendah : '—', color: 'bg-red-400', icon: '📉' },
-              ].map((s, i) => (
-                  <div key={i} className={`${s.color} text-white rounded-xl p-4 flex items-center justify-between`}>
-                    <div>
-                      <div className="text-xs font-semibold opacity-80">{s.label}</div>
-                      <div className="text-3xl font-black mt-1">{s.value}</div>
-                    </div>
-                    <div className="text-3xl opacity-20">{s.icon}</div>
-                  </div>
-                ))}
-              </div>
-{/* STATUS AKUN */}
-              <div className={`rounded-xl border p-4 mb-6 flex items-center justify-between ${currentStatus.bg} border-opacity-50`}>
-                <div>
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Status Akun</div>
-                  <div className={`text-2xl font-black ${currentStatus.color}`}>
-                    {currentStatus.icon} {currentStatus.label}
-                  </div>
-                  {statusAkun !== 'gratis' && profile?.status_expired && (
-                    <div className="text-xs text-gray-500 mt-1">
-                      Aktif hingga {new Date(profile.status_expired).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                    </div>
-                  )}
-                  {statusAkun === 'gratis' && (
-                    <div className="text-xs text-gray-500 mt-1">Upgrade untuk akses konten premium</div>
-                  )}
-                </div>
-                {statusAkun === 'gratis' && (
-                  <button onClick={() => setActiveTab('paket')}
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition shrink-0">
-                    Upgrade →
-                  </button>
+              <button type="button" className="atlas-button" onClick={() => navTo('paket')}>
+                <Ticket size={16} aria-hidden="true" /> Akses {membershipName}
+                {activeMembership && profile?.status_expired && (
+                  <span className="text-xs text-gray-500">· s.d. {formatDate(profile.status_expired)}</span>
                 )}
-              </div>
-              
-              {/* LEVEL + AKSES CEPAT */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+              </button>
+            </header>
 
-                {/* LEVEL PERFORMA */}
-                <div className={`rounded-xl border p-5 ${stats.totalTO > 0 ? `${level.bg} ${level.border}` : 'bg-gray-50 border-gray-200'}`}>
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Level Performa</div>
-                  {stats.totalTO > 0 ? (
-                    <div>
-                      <div className={`text-4xl font-black ${level.color}`}>{level.label}</div>
-                      <div className="text-gray-500 text-sm mt-1">
-                        Rata-rata {stats.rataRata} poin dari {MAX_POIN} maksimal
-                      </div>
-                      <div className="mt-3 h-2 bg-white/60 rounded-full overflow-hidden">
-                        <div className="h-full rounded-full transition-all"
-                          style={{
-                            width: `${Math.min(Math.max((stats.rataRata + 100) / 500 * 100, 0), 100)}%`,
-                            background: stats.rataRata >= 240 ? '#22c55e' : stats.rataRata >= 120 ? '#eab308' : stats.rataRata >= 0 ? '#3b82f6' : '#ef4444'
-                          }} />
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-gray-400 text-sm">Kerjakan tryout pertama untuk melihat level performa kamu.</p>
-                  )}
-                </div>
+            <dl className="atlas-stat-strip">
+              {stats.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+            </dl>
 
-                {/* AKSES CEPAT */}
-                <div className="bg-white border border-gray-200 rounded-xl p-5">
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Akses Cepat</div>
-                  <div className="flex flex-col gap-2">
-                    <button onClick={() => setActiveTab('tryout')}
-                      className="flex items-center justify-between bg-blue-50 hover:bg-blue-100 border border-blue-200 px-4 py-3 rounded-lg transition">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">📝</span>
-                        <div className="text-left">
-                          <div className="text-sm font-bold text-blue-700">Tryout</div>
-                          <div className="text-xs text-blue-500">{paketTO.length} paket tersedia</div>
-                        </div>
-                      </div>
-                      <span className="text-blue-400 text-sm">→</span>
-                    </button>
-                    <button onClick={() => setActiveTab('pendalaman')}
-                      className="flex items-center justify-between bg-purple-50 hover:bg-purple-100 border border-purple-200 px-4 py-3 rounded-lg transition">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">🧩</span>
-                        <div className="text-left">
-                          <div className="text-sm font-bold text-purple-700">Pendalaman Materi</div>
-                          <div className="text-xs text-purple-500">{topikList.length} topik OSN Geografi</div>
-                        </div>
-                      </div>
-                      <span className="text-purple-400 text-sm">→</span>
-                    </button>
-                    <button onClick={() => setActiveTab('video')}
-                      className="flex items-center justify-between bg-green-50 hover:bg-green-100 border border-green-200 px-4 py-3 rounded-lg transition">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">▶️</span>
-                        <div className="text-left">
-                          <div className="text-sm font-bold text-green-700">Video Pembelajaran</div>
-                          <div className="text-xs text-green-500">{videoList.length} video tersedia</div>
-                        </div>
-                      </div>
-                      <span className="text-green-400 text-sm">→</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <LearningProgress tryouts={riwayat} practices={practiceResults} loadErrors={loadErrors}
+              openPractice={mode => navTo(mode === 'tryout' ? 'tryout' : 'pendalaman')} />
 
-              {/* RIWAYAT TO */}
-              <div className="bg-white border border-gray-200 rounded-xl mb-6">
-                <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-                  <h2 className="font-bold text-gray-800">Riwayat Tryout</h2>
-                  <span className="text-xs text-gray-400">{riwayat.length} sesi</span>
-                </div>
-                {riwayat.length > 0 ? (
-                  <div className="divide-y divide-gray-50">
-                    {riwayat.slice().reverse().map((h, i) => (
-                      <div key={i} className="px-5 py-3.5 flex items-center justify-between hover:bg-gray-50 transition">
-                        <div>
-                          <div className="font-semibold text-sm text-gray-800">{h.paket_to?.nama || 'Tryout'}</div>
-                          <div className="text-xs text-gray-400 mt-0.5 flex flex-wrap gap-2">
-                            <span className="text-green-600">✓ {h.poin_benar} benar</span>
-                            <span className="text-red-500">✗ {h.poin_salah} salah</span>
-                            <span className="text-gray-400">— {h.poin_kosong} kosong</span>
-                            <span>{new Date(h.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+            <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+              <section className="atlas-card">
+                <header className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
+                  <h2 className="font-bold">Riwayat tryout</h2>
+                  <span className="text-xs text-gray-500">{riwayat.length} sesi</span>
+                </header>
+                {riwayat.length ? (
+                  <ul className="divide-y divide-gray-100">
+                    {riwayat.slice().reverse().map(item => (
+                      <li key={item.id} className="flex items-center justify-between gap-4 px-4 py-3.5">
+                        <div className="min-w-0">
+                          <h3 className="break-words text-sm font-semibold">{item.paket_to?.nama || 'Tryout'}</h3>
+                          <div className="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-xs text-gray-500">
+                            {item.poin_benar !== null && <span>{item.poin_benar} benar</span>}
+                            {item.poin_salah !== null && <span>{item.poin_salah} salah</span>}
+                            {item.poin_kosong !== null && <span>{item.poin_kosong} kosong</span>}
+                            {item.created_at && <time dateTime={item.created_at}>{formatDate(item.created_at)}</time>}
                           </div>
                         </div>
-                        <div className={`text-2xl font-black ml-4 ${h.total_poin >= 0 ? 'text-blue-600' : 'text-red-500'}`}>
-                          {h.total_poin}
-                        </div>
-                      </div>
+                        <div className="shrink-0 text-right"><strong className="block text-xl tabular-nums">{item.total_poin ?? '—'}</strong><span className="text-xs text-gray-500">poin</span></div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 ) : (
-                  <div className="px-5 py-8 text-center text-gray-400 text-sm">
-                    Belum ada riwayat tryout. Mulai dari menu Tryout di sidebar!
-                  </div>
+                  <p className="px-4 py-5 text-sm text-gray-500">{loadErrors.tryout ? 'Riwayat tryout belum dapat dimuat.' : 'Belum ada riwayat tryout.'}</p>
                 )}
-              </div>
-
-              {/* BANNER UPGRADE */}
-              <div className="bg-blue-600 text-white rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div>
-                  <div className="font-black text-lg mb-1">Upgrade ke Paket Lengkap</div>
-                  <p className="text-blue-200 text-sm">Akses 60 paket TO + kursus intensif bersama pembina OSN.</p>
+              </section>
+              <section className="atlas-card bg-forest-50 p-4">
+                <h2 className="font-bold">Lanjut belajar</h2>
+                <div className="mt-3 grid gap-2">
+                  {[
+                    { tab: 'tryout', Icon: ClipboardList, label: 'Tryout', detail: paketTO.length + ' paket' },
+                    { tab: 'pendalaman', Icon: Layers3, label: 'Pendalaman materi', detail: topikList.length + ' topik' },
+                    { tab: 'video', Icon: BookOpen, label: 'Video pembelajaran', detail: videoList.length + ' video' },
+                  ].map(({ tab, Icon, label, detail }) => (
+                    <button key={tab} type="button" className="atlas-button justify-start text-left" onClick={() => navTo(tab as Tab)}>
+                      <Icon size={17} aria-hidden="true" />
+                      <span className="grow">{label}<small className="block font-normal text-gray-500">{detail}</small></span>
+                      <ArrowRight size={16} aria-hidden="true" />
+                    </button>
+                  ))}
                 </div>
-                <button onClick={() => setActiveTab('paket')}
-                  className="bg-yellow-400 hover:bg-yellow-300 text-black px-6 py-2.5 rounded-lg font-black text-sm transition whitespace-nowrap shrink-0">
-                  Lihat Paket →
-                </button>
-              </div>
+              </section>
             </div>
-          )}
+          </div>
+        )}
 
           {/* ── TRYOUT ───────────────────────────────────────────── */}
           {activeTab === 'tryout' && (
@@ -425,7 +240,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {list.map((p) => (
-                        <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition">
+                        <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:border-forest-300 hover:shadow-sm transition">
                           <div className="flex items-start justify-between mb-3">
                             <div>
                               <div className="font-bold text-gray-800 text-sm">{p.nama}</div>
@@ -445,7 +260,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                             </button>
                           ) : (
                             <a href={`/tryout/${p.id}`}
-                              className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 rounded-lg transition text-center">
+                              className="block w-full bg-forest-600 hover:bg-forest-700 text-white text-sm font-bold py-2 rounded-lg transition text-center">
                               Mulai Tryout →
                             </a>
                           )}
@@ -496,7 +311,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                 <div>
                   <div className="flex items-center gap-2 mb-5 text-sm">
                     <button onClick={() => setSelectedTopik(null)}
-                      className="text-blue-600 hover:underline font-medium">Pendalaman Materi</button>
+                      className="text-forest-600 hover:underline font-medium">Pendalaman Materi</button>
                     <span className="text-gray-400">›</span>
                     <span className="font-bold text-gray-800">{selectedTopik.nama}</span>
                   </div>
@@ -523,7 +338,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                           </button>
                         ) : (
                           <a href={`/pendalaman/${p.id}`}
-                            className="block w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold py-2 rounded-lg transition text-center">
+                            className="block w-full bg-forest-600 hover:bg-forest-700 text-white text-sm font-bold py-2 rounded-lg transition text-center">
                             Mulai Latihan →
                           </a>
                         )}
@@ -571,7 +386,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                             className="text-xs text-yellow-600 font-bold hover:underline">Upgrade →</button>
                         ) : (
                           <a href={`https://youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noreferrer"
-                            className="text-xs text-blue-600 font-bold hover:underline">Tonton →</a>
+                            className="text-xs text-forest-600 font-bold hover:underline">Tonton →</a>
                         )}
                       </div>
                     </div>
@@ -611,7 +426,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                           className="text-xs text-yellow-600 font-bold hover:underline">Upgrade →</button>
                       ) : (
                         <a href={m.file_url} target="_blank" rel="noreferrer"
-                          className="text-xs text-blue-600 font-bold hover:underline">Unduh →</a>
+                          className="text-xs text-forest-600 font-bold hover:underline">Unduh →</a>
                       )}
                     </div>
                   </div>
@@ -660,9 +475,9 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {membershipList.map((m, i) => (
-                  <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-sm transition">
+                  <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 hover:border-forest-300 hover:shadow-sm transition">
                     <div className="font-black text-gray-800 text-lg mb-1">{m.nama}</div>
-                    <div className="text-3xl font-black text-blue-600 mb-1">
+                    <div className="text-3xl font-black text-forest-600 mb-1">
                       Rp {m.harga?.toLocaleString('id-ID')}
                     </div>
                     <div className="text-xs text-gray-400 mb-4">{m.durasi_hari} hari · {m.deskripsi}</div>
@@ -678,7 +493,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
                     )}
                     <a href={`https://wa.me/6285157220761?text=Halo,%20saya%20ingin%20berlangganan%20${encodeURIComponent(m.nama)}%20di%20OSNGeo.id`}
                       target="_blank" rel="noreferrer"
-                      className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-lg transition text-center">
+                      className="block w-full bg-forest-600 hover:bg-forest-700 text-white text-sm font-bold py-2.5 rounded-lg transition text-center">
                       Hubungi Admin →
                     </a>
                   </div>
@@ -692,12 +507,7 @@ const { data: prof } = await supabase.from('profiles').select('*').eq('id', user
             </div>
           )}
 
-        </main>
-
-        <footer className="text-center text-xs text-gray-400 py-4 border-t border-gray-100">
-          © 2025 OSNGeo.id
-        </footer>
-      </div>
-    </div>
+      </main>
+    </>
   )
 }

@@ -1,343 +1,204 @@
 'use client'
+
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { ArrowRight, ArrowUpRight, BookOpen, ClipboardList, Compass, Layers3, MessageCircle, TrendingUp } from 'lucide-react'
+import { AtlasMap, Brand } from './components/atlas'
 import { supabase } from './lib/supabase'
 
+const whatsapp = 'https://wa.me/6285157220761'
+
+const sections = [
+  ['Keunggulan', '#kenapa'],
+  ['Materi', '#topik'],
+  ['Paket', '#paket'],
+  ['Gratis', '#gratis'],
+]
+
+const journeys = [
+  { title: 'Tryout', description: 'Simulasi ujian dengan timer.', href: '#gratis', Icon: ClipboardList },
+  { title: 'Pendalaman materi', description: 'Latihan soal per topik.', href: '#topik', Icon: Layers3 },
+  { title: 'Video dan modul', description: 'Materi untuk belajar mandiri.', href: '#kenapa', Icon: BookOpen },
+]
+
+type Topic = { id: number; nama: string }
+type Announcement = { id: number; judul: string; isi: string; created_at: string }
+type Membership = { id: number; nama: string; harga: number; durasi_hari: number; deskripsi: string | null; fitur: string | null }
+
 export default function Home() {
-  const [paketMembership, setPaketMembership] = useState<any[]>([])
-  const [pengumuman, setPengumuman] = useState<any[]>([])
-  const [jumlahPaketGratis, setJumlahPaketGratis] = useState(0)
-  const [jumlahVideo, setJumlahVideo] = useState(0)
-  const [jumlahSoal, setJumlahSoal] = useState(0)
-  const [jumlahPaket, setJumlahPaket] = useState(0)
-  const [topikList, setTopikList] = useState<any[]>([])
+  const [memberships, setMemberships] = useState<Membership[]>([])
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [topics, setTopics] = useState<Topic[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let active = true
     const load = async () => {
-      const [
-        { data: mb }, { data: pg }, { data: pt }, { data: v },
-        { data: sq }, { data: tp }
-      ] = await Promise.all([
-        supabase.from('paket_membership').select('*').order('id'),
-        supabase.from('pengumuman').select('*').eq('aktif', true).order('created_at', { ascending: false }).limit(3),
-        supabase.from('paket_to').select('id').eq('status', 'aktif'),
-        supabase.from('video_pembelajaran').select('id').eq('is_premium', false),
-        supabase.from('soal').select('id'),
-        supabase.from('topik_materi').select('*').order('urutan'),
-      ])
-      setPaketMembership(mb || [])
-      setPengumuman(pg || [])
-      setJumlahPaketGratis(pt?.filter((p: any) => !p.is_premium)?.length || 0)
-      setJumlahVideo(v?.length || 0)
-      setJumlahSoal(sq?.length || 0)
-      setJumlahPaket(pt?.length || 0)
-      setTopikList(tp || [])
+      try {
+        const [plans, news, catalog] = await Promise.all([
+          supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur').order('id'),
+          supabase.from('pengumuman').select('id, judul, isi, created_at').eq('aktif', true).order('created_at', { ascending: false }).limit(3),
+          supabase.from('topik_materi').select('id, nama').order('urutan'),
+        ])
+        if (!active) return
+        setMemberships(plans.data ?? [])
+        setAnnouncements(news.data ?? [])
+        setTopics(catalog.data ?? [])
+      } finally {
+        if (active) setLoading(false)
+      }
     }
-    load()
+    void load()
+    return () => { active = false }
   }, [])
 
-  const iconTopik: Record<string, string> = {
-    'Geomorfologi': '🏔️',
-    'Klimatologi': '🌦️',
-    'Hidrologi': '💧',
-    'Oseanografi': '🌊',
-    'Kependudukan': '👥',
-    'Geografi Ekonomi': '📈',
-    'Penginderaan Jauh': '🛰️',
-    'SIG': '🗺️',
-    'Mitigasi Bencana': '🚨',
-    'Geografi Regional': '🌏',
-    'Kartografi': '📍',
-    'Biogeografi': '🌿',
-    'Geografi Budaya': '🏛️',
-  }
-
   return (
-    <main className="min-h-screen bg-white text-gray-900 font-sans">
-
-      {/* NAVBAR */}
-      <nav className="flex items-center justify-between px-10 py-4 border-b border-gray-100 sticky top-0 z-50 bg-white">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-sm">G</div>
-          <span className="font-black text-gray-800">OSN<span className="text-blue-600">Geo</span>.id</span>
-        </div>
-        <ul className="hidden md:flex gap-8 list-none text-sm text-gray-500">
-          <li><a href="#kenapa" className="hover:text-gray-900 transition">Keunggulan</a></li>
-          <li><a href="#topik" className="hover:text-gray-900 transition">Materi</a></li>
-          <li><a href="#paket" className="hover:text-gray-900 transition">Paket</a></li>
-          <li><a href="#gratis" className="hover:text-gray-900 transition">Gratis</a></li>
-          {pengumuman.length > 0 && <li><a href="#pengumuman" className="hover:text-gray-900 transition">Pengumuman</a></li>}
-        </ul>
-        <div className="flex items-center gap-2">
-          <a href="/login" className="text-sm text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg border border-gray-200 hover:border-gray-300 transition">
-            Masuk
-          </a>
-          <a href="/register" className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
-            Daftar
-          </a>
-        </div>
-      </nav>
-
-      {/* PENGUMUMAN TICKER */}
-      {pengumuman.length > 0 && (
-        <div className="bg-blue-600 text-white text-xs py-2 px-6 flex items-center gap-3">
-          <span className="font-bold shrink-0 bg-white/20 px-2 py-0.5 rounded">📢 Info</span>
-          <span className="truncate">{pengumuman[0].judul} — {pengumuman[0].isi}</span>
-        </div>
-      )}
-
-      {/* HERO */}
-      <section className="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
-        <div className="inline-block text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full mb-6">
-          Platform Persiapan OSN Geografi Terlengkap di Indonesia
-        </div>
-        <h1 className="text-4xl md:text-6xl font-black leading-tight mb-5 text-gray-900">
-          Juara OSN Geografi<br />
-          <span className="text-blue-600">Dimulai dari Sini</span>
-        </h1>
-        <p className="text-gray-500 text-base max-w-xl mx-auto leading-relaxed mb-8">
-          Latihan soal, tryout online, video pembahasan, dan bimbingan intensif untuk membantu siswa meraih prestasi terbaik di Olimpiade Sains Nasional Geografi.
-        </p>
-        <div className="flex gap-3 justify-center flex-wrap mb-6">
-          <a href="/register" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition">
-            Mulai Gratis
-          </a>
-          <a href="#paket" className="border border-gray-200 hover:border-gray-300 text-gray-600 px-6 py-2.5 rounded-lg text-sm transition">
-            Lihat Paket
-          </a>
-        </div>
-
-        {/* CHECKLIST */}
-        <div className="flex flex-wrap justify-center gap-3 text-xs text-gray-500 mb-12">
-          {[
-            `${jumlahPaket > 0 ? jumlahPaket + '+' : '60+'} Paket Tryout`,
-            `${jumlahSoal > 0 ? jumlahSoal.toLocaleString('id-ID') + '+' : '6.000+'} Soal Geografi`,
-            'Sistem Penilaian Setara OSN',
-            'Dashboard Kemajuan Belajar',
-          ].map((t, i) => (
-            <span key={i} className="flex items-center gap-1.5 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full">
-              <span className="text-green-500">✓</span>{t}
-            </span>
-          ))}
-        </div>
-
-        {/* STATS */}
-        <div className="flex gap-8 md:gap-16 justify-center pt-10 border-t border-gray-100 flex-wrap">
-          {[
-            { value: jumlahPaket > 0 ? `${jumlahPaket}+` : '60+', label: 'Paket Tryout' },
-            { value: jumlahSoal > 0 ? `${jumlahSoal.toLocaleString('id-ID')}+` : '6.000+', label: 'Soal OSN' },
-            { value: topikList.length > 0 ? `${topikList.length}` : '13', label: 'Topik Materi' },
-            { value: jumlahVideo > 0 ? `${jumlahVideo}+` : '10+', label: 'Video Gratis' },
-          ].map((s, i) => (
-            <div key={i} className="text-center">
-              <div className="text-3xl font-black text-gray-800">{s.value}</div>
-              <div className="text-xs text-gray-400 mt-1">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* KENAPA OSNGEO.ID */}
-      <section id="kenapa" className="bg-gray-50 border-y border-gray-100 py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-10 text-center">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Keunggulan</div>
-            <h2 className="text-3xl font-black text-gray-800 mb-2">Mengapa OSNGeo.id?</h2>
-            <p className="text-gray-500 text-sm max-w-lg mx-auto">Dirancang khusus untuk membantu siswa meraih hasil terbaik di OSN Geografi.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { icon: '📍', title: 'Soal Sesuai Kisi-kisi OSN', desc: 'Soal disusun berdasarkan kisi-kisi OSN terbaru, dari tingkat kabupaten hingga nasional.' },
-              { icon: '🎯', title: 'Sistem Penilaian Resmi', desc: 'Benar +4, Salah -1, Kosong 0 — persis seperti sistem penilaian OSN asli.' },
-              { icon: '📊', title: 'Dashboard Kemajuan', desc: 'Pantau perkembangan nilai, riwayat tryout, dan level performa secara real-time.' },
-              { icon: '💡', title: 'Pembahasan Mendalam', desc: 'Setiap soal dilengkapi pembahasan detail yang mudah dipahami.' },
-              { icon: '🛰️', title: 'Materi Lengkap', desc: 'Mencakup seluruh topik OSN Geografi dari geomorfologi hingga penginderaan jauh.' },
-              { icon: '📱', title: 'Akses Kapan Saja', desc: 'Belajar dari mana saja dan kapan saja melalui browser di HP atau laptop.' },
-            ].map((f, i) => (
-              <div key={i} className="bg-white rounded-xl p-5 border border-gray-200 hover:border-blue-200 hover:shadow-sm transition">
-                <div className="text-2xl mb-3">{f.icon}</div>
-                <div className="font-bold text-sm text-gray-800 mb-1">{f.title}</div>
-                <p className="text-gray-500 text-xs leading-relaxed">{f.desc}</p>
-              </div>
+    <>
+      <header className="atlas-topbar">
+        <div className="atlas-container atlas-topbar-inner">
+          <Brand />
+          <nav aria-label="Navigasi utama" className="hidden items-center gap-6 text-sm font-medium text-gray-600 md:flex">
+            {sections.map(([name, href]) => (
+              <a key={href} className="hover:text-forest-700 hover:underline hover:underline-offset-4" href={href}>{name}</a>
             ))}
+          </nav>
+          <div className="atlas-top-actions">
+            <Link href="/login" className="atlas-button">Masuk</Link>
+            <Link href="/register" className="atlas-button atlas-button--primary">Daftar</Link>
           </div>
         </div>
-      </section>
-
-      {/* COCOK UNTUK */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="mb-10 text-center">
-          <div className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Target Pengguna</div>
-          <h2 className="text-3xl font-black text-gray-800 mb-2">Cocok Untuk Siapa?</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {[
-            { icon: '🎓', title: 'Siswa SMA', desc: 'Peserta OSN Geografi tingkat kabupaten hingga nasional.' },
-            { icon: '👨‍🏫', title: 'Guru Pembina', desc: 'Pembina OSN yang ingin menyiapkan siswanya dengan tryout berkualitas.' },
-            { icon: '🏫', title: 'Sekolah', desc: 'Sekolah yang ingin melakukan simulasi seleksi OSN internal.' },
-            { icon: '🏆', title: 'Peserta KSN', desc: 'Peserta Kompetisi Sains Nasional tingkat sekolah hingga nasional.' },
-          ].map((t, i) => (
-            <div key={i} className="border border-gray-200 rounded-xl p-5 text-center hover:border-blue-200 hover:shadow-sm transition">
-              <div className="text-3xl mb-3">{t.icon}</div>
-              <div className="font-bold text-sm text-gray-800 mb-1">{t.title}</div>
-              <p className="text-gray-500 text-xs leading-relaxed">{t.desc}</p>
+      </header>
+      <main>
+        <div className="atlas-container">
+          <section className="atlas-hero">
+            <div className="atlas-hero-copy">
+              <h1>Siap untuk <em>OSN Geografi.</em></h1>
+              <p className="text-base leading-relaxed lg:text-lg">
+                Persiapkan olimpiade lewat tryout, latihan per topik, dan pembahasan geografi.
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                <Link href="/register" className="atlas-button atlas-button--primary">
+                  Mulai gratis <ArrowRight size={17} aria-hidden="true" />
+                </Link>
+                <a href="#paket" className="atlas-button">Lihat paket</a>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* TOPIK MATERI */}
-      {topikList.length > 0 && (
-        <section id="topik" className="bg-gray-50 border-y border-gray-100 py-16">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="mb-10 text-center">
-              <div className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Materi</div>
-              <h2 className="text-3xl font-black text-gray-800 mb-2">Topik yang Dipelajari</h2>
-              <p className="text-gray-500 text-sm max-w-lg mx-auto">Mencakup seluruh {topikList.length} topik OSN Geografi secara komprehensif.</p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {topikList.map((t, i) => (
-                <div key={i} className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center gap-3 hover:border-blue-200 transition">
-                  <span className="text-xl shrink-0">{iconTopik[t.nama] || '📚'}</span>
-                  <span className="text-sm font-medium text-gray-700">{t.nama}</span>
-                </div>
+            <AtlasMap priority />
+          </section>
+          <nav className="atlas-journeys" aria-label="Pilihan belajar">
+            {journeys.map(({ title, description, href, Icon }) => (
+              <a key={title} href={href} className="atlas-journey">
+                <span className="atlas-icon"><Icon aria-hidden="true" /></span>
+                <span>
+                  <strong className="block text-sm font-bold">{title}</strong>
+                  <small className="block text-xs text-gray-500">{description}</small>
+                </span>
+                <ArrowUpRight className="atlas-journey-arrow" size={16} aria-hidden="true" />
+              </a>
+            ))}
+          </nav>
+          <section id="kenapa" className="atlas-section">
+            <h2 className="atlas-subtitle">Belajar dan ukur kemajuanmu</h2>
+            <div className="mt-6 grid gap-3 md:grid-cols-3">
+              {[
+                { Icon: Compass, label: 'Latihan terarah', detail: 'Pilih topik yang perlu kamu perdalam dan pelajari pembahasannya.' },
+                { Icon: BookOpen, label: 'Materi mandiri', detail: 'Pelajari konsep dan cara mengerjakan soal lewat video dan modul.' },
+                { Icon: TrendingUp, label: 'Grafik kemajuan', detail: 'Lihat perubahan poin dan persentase jawaban benar dari sesi ke sesi.' },
+              ].map(({ Icon, label, detail }) => (
+                <article key={label} className="atlas-card p-5">
+                  <span className="atlas-icon"><Icon aria-hidden="true" /></span>
+                  <h3 className="mt-3 text-base font-bold">{label}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-gray-500">{detail}</p>
+                </article>
               ))}
             </div>
+          </section>
+        </div>
+        <section id="topik" className="atlas-section border-y border-gray-200 bg-white">
+          <div className="atlas-container">
+            <h2 className="atlas-subtitle">Topik geografi</h2>
+            {topics.length ? (
+              <ul className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {topics.map(topic => (
+                  <li key={topic.id} className="flex items-center gap-3 rounded-lg border border-gray-200 px-4 py-3 text-sm font-semibold">
+                    <Compass size={17} className="shrink-0 text-forest-500" aria-hidden="true" /> {topic.nama}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-3 text-sm text-gray-500">{loading ? 'Memuat topik…' : 'Daftar topik belum tersedia.'}</p>
+            )}
           </div>
         </section>
-      )}
-
-      {/* PAKET MEMBERSHIP */}
-      <section id="paket" className="max-w-5xl mx-auto px-6 py-16">
-        <div className="mb-10 text-center">
-          <div className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Paket Membership</div>
-          <h2 className="text-3xl font-black text-gray-800 mb-2">Pilih Paket yang Tepat</h2>
-          <p className="text-gray-500 text-sm max-w-lg mx-auto">Akses penuh ke semua konten tryout, pendalaman materi, dan video pembelajaran.</p>
-        </div>
-
-        {paketMembership.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {paketMembership.map((p, i) => {
-              const featured = i === Math.floor(paketMembership.length / 2)
-              const fiturList = p.fitur ? String(p.fitur).split('\n').filter(Boolean) : []
-              return (
-                <div key={p.id} className={`rounded-xl p-6 relative transition ${
-                  featured ? 'border-2 border-blue-500 shadow-sm' : 'border border-gray-200 hover:border-blue-300 hover:shadow-sm'
-                }`}>
-                  {featured && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-black px-3 py-0.5 rounded-full">
-                      Terpopuler
-                    </div>
-                  )}
-                  <div className="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded w-fit mb-4 mt-2">{p.nama}</div>
-                  <div className="text-2xl font-black text-gray-800 mb-1">Rp {p.harga?.toLocaleString('id-ID')}</div>
-                  <div className="text-xs text-gray-400 mb-4">{p.durasi_hari} hari · {p.deskripsi}</div>
-                  {fiturList.length > 0 && (
-                    <ul className="text-xs text-gray-500 space-y-1.5 mb-5">
-                      {fiturList.map((f: string, fi: number) => (
-                        <li key={fi} className="flex items-start gap-1.5">
-                          <span className="text-green-500 shrink-0">✓</span>{f}
-                        </li>
-                      ))}
+        <section id="paket" className="atlas-container atlas-section">
+          <h2 className="atlas-subtitle">Paket belajar</h2>
+          <p className="mt-2 text-sm text-gray-500">Pilih akses belajar sesuai kebutuhanmu.</p>
+          {memberships.length ? (
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {memberships.map(plan => (
+                <article key={plan.id} className="atlas-card flex flex-col p-5">
+                  <h3 className="font-bold">{plan.nama}</h3>
+                  <p className="mt-2 text-2xl font-bold tabular-nums">Rp {plan.harga.toLocaleString('id-ID')}</p>
+                  <p className="mt-1 text-sm text-gray-500">{plan.durasi_hari} hari</p>
+                  {plan.deskripsi && <p className="mt-3 text-sm text-gray-600">{plan.deskripsi}</p>}
+                  {plan.fitur && (
+                    <ul className="my-4 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                      {plan.fitur.split('\n').map(line => line.trim()).filter(Boolean)
+                        .map((line, index) => <li key={index}>{line}</li>)}
                     </ul>
                   )}
-                  <a href={`https://wa.me/6285157220761?text=Halo,%20saya%20ingin%20info%20${encodeURIComponent(p.nama)}%20OSNGeo.id`}
-                    target="_blank"
-                    className={`block text-center w-full py-2.5 rounded-lg text-sm font-semibold transition ${
-                      featured ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'border border-gray-200 hover:border-blue-300 text-gray-700 hover:text-blue-600'
-                    }`}>
-                    Info & Daftar
-                  </a>
-                </div>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="text-center py-12 text-gray-400 text-sm">Paket segera tersedia.</div>
-        )}
-      </section>
-
-      {/* GRATIS */}
-      <section id="gratis" className="bg-blue-600 py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-8 text-center">
-            <div className="text-xs font-semibold text-blue-200 uppercase tracking-widest mb-2">Uji Coba Gratis</div>
-            <h2 className="text-3xl font-black text-white mb-2">Coba Dulu, Bayar Nanti</h2>
-            <p className="text-blue-200 text-sm max-w-lg mx-auto">Daftar gratis dan langsung akses konten latihan tanpa kartu kredit.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            {[
-              { icon: '📝', title: `${jumlahPaketGratis > 0 ? jumlahPaketGratis : 5} Paket Tryout Gratis`, desc: 'Simulasi OSN lengkap dengan timer, sistem poin resmi, dan pembahasan otomatis.' },
-              { icon: '▶️', title: `${jumlahVideo > 0 ? jumlahVideo : 10} Video Pembahasan`, desc: 'Pembahasan soal OSN dari berbagai tahun yang bisa ditonton kapan saja.' },
-              { icon: '📊', title: 'Dashboard & Statistik', desc: 'Pantau perkembangan nilai dan riwayat tryout di dashboard pribadi.' },
-            ].map((f, i) => (
-              <div key={i} className="bg-white/10 border border-white/20 rounded-xl p-5 hover:bg-white/20 transition">
-                <div className="text-2xl mb-2">{f.icon}</div>
-                <div className="font-bold text-sm text-white mb-1">{f.title}</div>
-                <p className="text-blue-200 text-xs leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-3 flex-wrap justify-center">
-            <a href="/register" className="bg-white hover:bg-gray-100 text-blue-600 px-6 py-2.5 rounded-lg text-sm font-bold transition">
-              Daftar Gratis Sekarang
-            </a>
-            <a href="https://wa.me/6285157220761" target="_blank"
-              className="border border-white/40 hover:border-white text-white px-6 py-2.5 rounded-lg text-sm transition">
-              Hubungi Admin
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* PENGUMUMAN */}
-      {pengumuman.length > 0 && (
-        <section id="pengumuman" className="max-w-5xl mx-auto px-6 py-16">
-          <div className="mb-6">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Pengumuman</div>
-            <h2 className="text-2xl font-black text-gray-800">Info Terbaru</h2>
-          </div>
-          <div className="flex flex-col gap-3">
-            {pengumuman.map((p, i) => (
-              <div key={i} className="bg-blue-50 rounded-xl px-5 py-4 border border-blue-100">
-                <div className="font-bold text-sm text-gray-800 mb-1">{p.judul}</div>
-                <div className="text-gray-500 text-xs">{p.isi}</div>
-                <div className="text-gray-400 text-xs mt-1">
-                  {new Date(p.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                </div>
-              </div>
-            ))}
+                  <div className="mt-auto pt-4">
+                    <a className="atlas-button w-full" target="_blank" rel="noreferrer"
+                      href={whatsapp + '?text=' + encodeURIComponent('Halo, saya ingin info ' + plan.nama + ' OSNGEO.id')}>
+                      Info dan daftar <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-5 text-sm text-gray-500">{loading ? 'Memuat paket…' : 'Daftar paket belum tersedia.'}</p>
+          )}
+        </section>
+        <section id="gratis" className="atlas-section border-y border-forest-200 bg-forest-100">
+          <div className="atlas-container flex flex-wrap items-center justify-between gap-5">
+            <div>
+              <h2 className="atlas-subtitle">Coba latihan gratis</h2>
+              <p className="mt-2 max-w-prose text-sm text-gray-600">Daftar untuk mencoba paket tryout dan video gratis serta melihat hasilnya di dashboard.</p>
+            </div>
+            <Link href="/register" className="atlas-button atlas-button--primary">
+              Buat akun gratis <ArrowRight size={17} aria-hidden="true" />
+            </Link>
           </div>
         </section>
-      )}
-
-      {/* FOOTER */}
-      <footer className="border-t border-gray-100 py-8 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <div className="font-black text-gray-800 mb-1">OSN<span className="text-blue-600">Geo</span>.id</div>
-            <p className="text-gray-400 text-xs">Platform Persiapan OSN Geografi Terlengkap di Indonesia</p>
-          </div>
-          <div className="flex gap-6 text-xs text-gray-400">
-            <a href="#kenapa" className="hover:text-gray-700 transition">Keunggulan</a>
-            <a href="#topik" className="hover:text-gray-700 transition">Materi</a>
-            <a href="#paket" className="hover:text-gray-700 transition">Paket</a>
-            <a href="#gratis" className="hover:text-gray-700 transition">Gratis</a>
-            <a href="/login" className="hover:text-gray-700 transition">Masuk</a>
-          </div>
-          <a href="https://wa.me/6285157220761" target="_blank"
-            className="text-xs bg-green-50 hover:bg-green-100 text-green-700 border border-green-200 px-4 py-2 rounded-lg transition">
-            WA: 0851-5722-0761
+        {announcements.length > 0 && (
+          <section id="pengumuman" className="atlas-container atlas-section">
+            <h2 className="atlas-subtitle">Pengumuman</h2>
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
+              {announcements.map(item => (
+                <article key={item.id} className="atlas-card p-5">
+                  <h3 className="font-bold">{item.judul}</h3>
+                  <p className="mt-2 whitespace-pre-line text-sm text-gray-600">{item.isi}</p>
+                  <time className="mt-3 block text-xs text-gray-500" dateTime={item.created_at}>
+                    {new Date(item.created_at).toLocaleDateString('id-ID')}
+                  </time>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
+      <footer className="border-t border-gray-200 bg-white py-6">
+        <div className="atlas-container flex flex-wrap items-center justify-between gap-4">
+          <Brand />
+          <nav className="flex flex-wrap gap-4 text-sm text-gray-600" aria-label="Tautan footer">
+            {sections.map(([name, href]) => <a key={href} className="hover:underline" href={href}>{name}</a>)}
+          </nav>
+          <a href={whatsapp} target="_blank" rel="noreferrer" className="atlas-button">
+            <MessageCircle size={16} aria-hidden="true" /> Hubungi admin
           </a>
         </div>
-        <div className="text-center text-gray-300 text-xs mt-6">© 2025 OSNGeo.id</div>
       </footer>
-
-      {/* WA FLOATING */}
-      <a href="https://wa.me/6285157220761?text=Halo,%20saya%20ingin%20tanya%20tentang%20OSNGeo.id"
-        target="_blank"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg transition">
-        Hubungi Admin
-      </a>
-    </main>
+    </>
   )
 }

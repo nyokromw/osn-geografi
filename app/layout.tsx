@@ -1,20 +1,32 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = localFont({
+  src: "./fonts/dm-sans.woff2",
+  variable: "--atlas-sans",
+  weight: "400 700",
+  display: "swap",
+});
+
+const display = localFont({
+  src: [
+    { path: "./fonts/instrument-serif.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" },
+  ],
+  variable: "--atlas-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "OSNGeo.id — Platform Latihan OSN Geografi",
-  description: "Platform tryout dan bimbel OSN Geografi terlengkap di Indonesia",
+  title: "OSNGEO.id — Persiapan OSN Geografi",
+  description: "Persiapkan OSN Geografi dengan tryout, latihan per topik, video, dan modul belajar.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" style={{ colorScheme: 'light' }}>
-      <body className={`${inter.className} bg-white text-gray-900`}>
-        {children}
-      </body>
+    <html lang="id" className={[sans.variable, display.variable].join(" ")}>
+      <body>{children}</body>
     </html>
   );
 }
