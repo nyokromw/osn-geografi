@@ -138,7 +138,7 @@ export default function Home() {
           <div className="atlas-container flex flex-wrap items-center justify-between gap-5">
             <div>
               <h2 className="atlas-subtitle">Coba latihan gratis</h2>
-              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba 4 tryout OSN-K dan 3 cuplikan pendalaman gratis. Pantau hasilnya di dashboard.</p>
+              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba 4 tryout OSN-K dan latihan pendalaman gratis per topik. Pantau hasilnya di dashboard.</p>
             </div>
             <Link href="/register" className="atlas-button atlas-button--primary">
               Buat akun gratis <ArrowRight size={17} aria-hidden="true" />
