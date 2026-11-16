@@ -2,7 +2,8 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
-import { getUserStatus, bisaAkses } from '../../lib/checkAkses'
+import { getUserStatus } from '../../lib/checkAkses'
+import { bisaAkses, requiredAccess } from '../../lib/membership'
 import { PageLoading } from '../../components/atlas'
 import { ExamResults, ExamScreen, type ExamScore, type Question } from '../../components/exam'
 
@@ -37,17 +38,16 @@ const [jawaban, setJawaban] = useState<Record<number, string>>(() => {
       if (!user) { router.push('/login'); return }
       setUserId(user.id)
 
-const { data: p } = await supabase
+      const { data: p } = await supabase
         .from('paket_pendalaman')
         .select('*, topik_materi(nama)')
         .eq('id', paketId)
         .single()
-      if (!p) { router.push('/dashboard'); return }
+      if (!p || p.status !== 'aktif') { router.push('/dashboard'); return }
 
       // Cek akses
-      const statusUser = await getUserStatus()
-      const aksesKonten = p.akses || (p.is_premium ? 'premium' : 'gratis')
-      if (!bisaAkses(statusUser, aksesKonten)) {
+      const statusUser = await getUserStatus(user.id)
+      if (!bisaAkses(statusUser, requiredAccess(p))) {
         router.push('/dashboard?akses=ditolak')
         return
       }

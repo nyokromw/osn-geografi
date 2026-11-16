@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ClipboardList, FileText, Images, LayoutDashboard, Layers3, LogOut, Megaphone, Menu, Receipt, ShieldCheck, Ticket, UserRound, Users, Video, X } from 'lucide-react'
 import { Brand, PageLoading } from '../components/atlas'
+import { accessLabels, membershipExpiry, membershipFeatures, requiredAccess, rupiah, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 
 type View =
@@ -25,6 +26,14 @@ type StudentProfile = {
   created_at: string | null
 }
 
+const accessOptions = Object.entries(accessLabels).map(([value, label]) => ({ value, label }))
+const mediaAccessOptions = accessOptions.filter(({ value }) => value !== 'premium')
+const accessBadge = {
+  Gratis: 'bg-green-100 text-green-700',
+  Premium: 'bg-yellow-100 text-yellow-700',
+  Platinum: 'bg-purple-100 text-purple-700',
+}
+
 export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [view, setView] = useState<View>('dashboard')
@@ -45,7 +54,7 @@ export default function AdminPage() {
   const [soalPendalaman, setSoalPendalaman] = useState<any[]>([])
   const [videoList, setVideoList] = useState<any[]>([])
   const [modulList, setModulList] = useState<any[]>([])
-  const [membershipList, setMembershipList] = useState<any[]>([])
+  const [membershipList, setMembershipList] = useState<MembershipPlan[]>([])
   const [transaksiList, setTransaksiList] = useState<any[]>([])
   const [pengumumanList, setPengumumanList] = useState<any[]>([])
   const [bannerList, setBannerList] = useState<any[]>([])
@@ -64,7 +73,8 @@ const [editSoalData, setEditSoalData] = useState<any>(null)
 const [editSoalForm, setEditSoalForm] = useState<any>({})
 const [showEditUser, setShowEditUser] = useState(false)
 const [editUserData, setEditUserData] = useState<StudentProfile | null>(null)
-const [editUserForm, setEditUserForm] = useState<any>({})
+const [editUserForm, setEditUserForm] = useState({ nama: '', role: 'siswa', planId: '' })
+const [savingUser, setSavingUser] = useState(false)
 
   useEffect(() => {
     const init = async () => {
@@ -132,10 +142,12 @@ const handleDelete = async (table: string, id: number, extra?: () => void) => {
 }
 
   const handleSave = async (table: string, data: any) => {
-    if (editData) {
-      await supabase.from(table).update(data).eq('id', editData.id)
-    } else {
-      await supabase.from(table).insert(data)
+    const { error } = editData
+      ? await supabase.from(table).update(data).eq('id', editData.id)
+      : await supabase.from(table).insert(data)
+    if (error) {
+      alert('Data gagal disimpan. Periksa isian dan coba lagi.')
+      return
     }
     await loadAll()
     setShowForm(false)
@@ -181,23 +193,44 @@ const handleSaveSoalPendalaman = async () => {
   setEditSoalForm({})
 }
 const handleSaveUser = async () => {
-  if (!editUserData) return
-  const updateData = {
-    nama: editUserForm.nama,
-    role: editUserForm.role,
-    status: editUserForm.status,
-    status_expired: editUserForm.status === 'gratis' ? null
-      : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+  if (!editUserData || savingUser) return
+  const updateData: Partial<StudentProfile> = { nama: editUserForm.nama, role: editUserForm.role }
+  const planId = editUserForm.planId
+  if (planId === 'gratis') {
+    updateData.status = 'gratis'
+    updateData.status_expired = null
+  } else if (planId) {
+    const plan = membershipList.find(item => item.id === Number(planId))
+    if (!plan || plan.akses === 'gratis' || !plan.durasi_hari || plan.durasi_hari < 1) {
+      alert('Pilih paket berbayar dengan durasi yang valid.')
+      return
+    }
+    const now = Date.now()
+    const currentExpiry = editUserData.status_expired ? membershipExpiry(editUserData.status_expired) : NaN
+    const start = plan.akses === editUserData.status && currentExpiry > now ? currentExpiry : now
+    updateData.status = plan.akses
+    updateData.status_expired = new Date(start + plan.durasi_hari * 86_400_000).toISOString()
   }
-  const { error } = await supabase.from('profiles').update(updateData).eq('id', editUserData.id)
-  if (error) {
-    alert('Perubahan data siswa gagal disimpan. Coba lagi.')
-    return
+
+  setSavingUser(true)
+  try {
+    let update = supabase.from('profiles').update(updateData).eq('id', editUserData.id)
+    if (planId) {
+      const { status, status_expired: expiry } = editUserData
+      update = status === null ? update.is('status', null) : update.eq('status', status)
+      update = expiry === null ? update.is('status_expired', null) : update.eq('status_expired', expiry)
+    }
+    const { data, error } = await update.select('id').maybeSingle()
+    if (error || !data) {
+      alert('Perubahan data siswa gagal disimpan. Muat ulang data siswa lalu coba lagi.')
+      return
+    }
+    await loadAll()
+    setShowEditUser(false)
+    setEditUserData(null)
+  } finally {
+    setSavingUser(false)
   }
-  await loadAll()
-  setShowEditUser(false)
-  setEditUserData(null)
-  setEditUserForm({})
 }
 
 const handleResetPassword = async (email: string) => {
@@ -252,7 +285,7 @@ const handleResetPassword = async (email: string) => {
 
   // Input field helpers
   const inp = (placeholder: string, key: string, type = 'text') => (
-    <input type={type} placeholder={placeholder} value={formData[key] || ''}
+    <input type={type} placeholder={placeholder} value={formData[key] ?? ''}
       onChange={e => setFormData({ ...formData, [key]: type === 'number' ? Number(e.target.value) : e.target.value })}
       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400" />
   )
@@ -426,7 +459,7 @@ const handleResetPassword = async (email: string) => {
                         </td>
                         <td className="px-5 py-3 text-gray-400 text-xs">
                           {s.status_expired
-                            ? new Date(s.status_expired).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+                            ? new Date(membershipExpiry(s.status_expired)).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
                             : '—'}
                         </td>
                         <td className="px-5 py-3 text-gray-400 text-xs">
@@ -438,9 +471,9 @@ const handleResetPassword = async (email: string) => {
                           <button onClick={() => {
                             setEditUserData(s)
                             setEditUserForm({
-                              nama: s.nama,
-                              role: s.role,
-                              status: s.status || 'gratis',
+                              nama: s.nama || '',
+                              role: s.role || 'siswa',
+                              planId: '',
                             })
                             setShowEditUser(true)
                           }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
@@ -459,7 +492,7 @@ const handleResetPassword = async (email: string) => {
                   <div className="max-h-[90svh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
                     <div className="flex items-center justify-between mb-5">
                       <h3 className="font-black text-gray-800">Edit User</h3>
-                      <button onClick={() => setShowEditUser(false)}
+                      <button disabled={savingUser} aria-label="Tutup edit siswa" onClick={() => setShowEditUser(false)}
                         className="text-gray-400 hover:text-gray-700 text-xl">✕</button>
                     </div>
                     <div className="flex flex-col gap-3">
@@ -491,30 +524,28 @@ const handleResetPassword = async (email: string) => {
                         </select>
                       </div>
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Status Akses</label>
-                        <select value={editUserForm.status || 'gratis'} onChange={e => setEditUserForm({...editUserForm, status: e.target.value})}
+                        <label htmlFor="student-plan" className="text-xs font-semibold text-gray-500 mb-1 block">Paket yang diaktifkan</label>
+                        <select id="student-plan" disabled={savingUser} value={editUserForm.planId} onChange={e => setEditUserForm({...editUserForm, planId: e.target.value})}
                           className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
+                          <option value="">Pertahankan akses saat ini</option>
                           <option value="gratis">Gratis</option>
-                          <option value="premium">Premium</option>
-                          <option value="platinum">Platinum</option>
+                          {membershipList.filter(plan => plan.akses !== 'gratis' && (plan.durasi_hari ?? 0) > 0).map(plan => (
+                            <option key={plan.id} value={plan.id}>{plan.nama} · {plan.durasi_hari} hari</option>
+                          ))}
                         </select>
+                        <p className="mt-2 text-xs text-gray-600">Pilih paket setelah pembayaran diverifikasi via WhatsApp. Memilih tingkat yang sama akan memperpanjang akses yang masih aktif.</p>
                       </div>
-                      {editUserForm.status !== 'gratis' && (
-                        <div className="text-xs text-gray-400 bg-gray-50 px-3 py-2 rounded-lg">
-                          Expired otomatis: <strong>{new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</strong>
-                        </div>
-                      )}
                       <div className="flex gap-3 pt-2">
-                        <button onClick={handleSaveUser}
-                          className="flex-1 bg-forest-600 hover:bg-forest-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
-                          Simpan
+                        <button disabled={savingUser} onClick={handleSaveUser}
+                          className="flex-1 bg-forest-600 hover:bg-forest-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition disabled:opacity-50">
+                          {savingUser ? 'Menyimpan…' : 'Simpan'}
                         </button>
                         <button disabled={!editUserData.email} onClick={() => { if (editUserData.email) void handleResetPassword(editUserData.email) }}
                           className="flex-1 border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 transition disabled:opacity-50">
                           Reset Password
                         </button>
                       </div>
-                      <button onClick={() => setShowEditUser(false)}
+                      <button disabled={savingUser} onClick={() => setShowEditUser(false)}
                         className="text-center text-gray-400 text-xs hover:text-gray-600 transition">
                         Batal
                       </button>
@@ -556,12 +587,8 @@ const handleResetPassword = async (email: string) => {
                     {inp('Tahun (contoh: 2024)', 'tahun', 'number')}
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
                     {sel('status', [{ value: 'aktif', label: 'Aktif' }, { value: 'nonaktif', label: 'Nonaktif' }], 'Status')}
-{sel('akses', [
-                      { value: 'gratis', label: 'Gratis' },
-                      { value: 'premium', label: 'Premium' },
-                      { value: 'platinum', label: 'Platinum' },
-                    ], 'Tipe Akses')}
-                                        <div className="md:col-span-2">{inp('Deskripsi singkat (opsional)', 'deskripsi')}</div>
+                    {sel('akses', accessOptions, 'Tipe akses (Gratis)')}
+                    <div className="md:col-span-2">{inp('Deskripsi singkat (opsional)', 'deskripsi')}</div>
                   </div>
                   <div className="mt-3">
                     <FormBtns onSave={() => handleSave('paket_to', {
@@ -570,7 +597,9 @@ const handleResetPassword = async (email: string) => {
                       tahun: formData.tahun || null,
                       durasi_menit: formData.durasi_menit || 120,
                       status: formData.status || 'aktif',
-                      is_premium: formData.is_premium === 'true',
+                      aktif: formData.status !== 'nonaktif',
+                      akses: formData.akses || 'gratis',
+                      is_premium: Boolean(formData.akses && formData.akses !== 'gratis'),
                       deskripsi: formData.deskripsi || null,
                       ...(editData ? {} : { urutan: paketTO.length + 1 }),
                     })} />
@@ -594,7 +623,7 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 text-gray-500 text-xs">{p.tahun || '—'}</td>
                         <td className="px-5 py-3 text-center text-gray-500 text-xs">{p.durasi_menit} mnt</td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={p.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
+                          <Badge v={accessLabels[requiredAccess(p)]} map={accessBadge} />
                         </td>
                         <td className="px-5 py-3 text-center">
                           <Badge v={p.status || 'aktif'} map={{ aktif: 'bg-forest-100 text-forest-700', nonaktif: 'bg-gray-100 text-gray-500' }} />
@@ -616,7 +645,7 @@ const handleResetPassword = async (email: string) => {
                                 tahun: p.tahun,
                                 durasi_menit: p.durasi_menit,
                                 status: p.status,
-                                is_premium: p.is_premium ? 'true' : 'false',
+                                akses: requiredAccess(p),
                                 deskripsi: p.deskripsi,
                               })
                               setShowForm(true)
@@ -927,12 +956,8 @@ const handleResetPassword = async (email: string) => {
                     {inp('Nama paket (contoh: Latihan Soal Hidrosfer)', 'nama')}
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
                     {sel('status', [{ value: 'aktif', label: 'Aktif' }, { value: 'nonaktif', label: 'Nonaktif' }], 'Status')}
-{sel('akses', [
-                      { value: 'gratis', label: 'Gratis' },
-                      { value: 'premium', label: 'Premium' },
-                      { value: 'platinum', label: 'Platinum' },
-                    ], 'Tipe Akses')}
-                                        <div className="md:col-span-2">{inp('Deskripsi (opsional)', 'deskripsi')}</div>
+                    {sel('akses', accessOptions, 'Tipe akses (Gratis)')}
+                    <div className="md:col-span-2">{inp('Deskripsi (opsional)', 'deskripsi')}</div>
                   </div>
                   <div className="mt-3">
                     <FormBtns onSave={() => handleSave('paket_pendalaman', {
@@ -940,7 +965,8 @@ const handleResetPassword = async (email: string) => {
                       nama: formData.nama,
                       durasi_menit: formData.durasi_menit || 60,
                       status: formData.status || 'aktif',
-                      is_premium: formData.is_premium === 'true',
+                      akses: formData.akses || 'gratis',
+                      is_premium: Boolean(formData.akses && formData.akses !== 'gratis'),
                       deskripsi: formData.deskripsi || null,
                     })} />
                   </div>
@@ -960,7 +986,7 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 font-medium text-gray-800">{p.nama}</td>
                         <td className="px-5 py-3 text-center text-gray-500 text-xs">{p.durasi_menit} mnt</td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={p.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
+                          <Badge v={accessLabels[requiredAccess(p)]} map={accessBadge} />
                         </td>
                         <td className="px-5 py-3 text-center">
                           <Badge v={p.status || 'aktif'} map={{ aktif: 'bg-forest-100 text-forest-700', nonaktif: 'bg-gray-100 text-gray-500' }} />
@@ -980,7 +1006,7 @@ const handleResetPassword = async (email: string) => {
                                 nama: p.nama,
                                 durasi_menit: p.durasi_menit,
                                 status: p.status,
-                                is_premium: p.is_premium ? 'true' : 'false',
+                                akses: requiredAccess(p),
                                 deskripsi: p.deskripsi,
                               })
                               setShowForm(true)
@@ -1162,13 +1188,14 @@ const handleResetPassword = async (email: string) => {
                     {inp('Judul video', 'judul')}
                     {inp('YouTube ID (contoh: dQw4w9WgXcQ)', 'youtube_id')}
                     {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih Topik')}
-                    {sel('is_premium', [{ value: 'false', label: 'Gratis' }, { value: 'true', label: 'Premium' }], 'Tipe')}
+                    {sel('akses', mediaAccessOptions, 'Tipe akses (Gratis)')}
                   </div>
                   <FormBtns onSave={() => handleSave('video_pembelajaran', {
                     judul: formData.judul,
                     youtube_id: formData.youtube_id,
                     topik_id: Number(formData.topik_id),
-                    is_premium: formData.is_premium === 'true',
+                    akses: formData.akses || 'gratis',
+                    is_premium: formData.akses === 'platinum',
                     urutan: videoList.length + 1,
                   })} />
                 </div>
@@ -1187,7 +1214,7 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 text-gray-500 text-xs">{v.topik_materi?.nama || '—'}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs font-mono">{v.youtube_id}</td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={v.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
+                          <Badge v={accessLabels[requiredAccess(v, true)]} map={accessBadge} />
                         </td>
                         <td className="px-5 py-3 text-center">
                           <button onClick={() => handleDelete('video_pembelajaran', v.id)}
@@ -1219,14 +1246,15 @@ const handleResetPassword = async (email: string) => {
                     {inp('Judul modul', 'judul')}
                     {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih Topik')}
                     <div className="col-span-2">{inp('URL File (Google Drive / langsung)', 'file_url')}</div>
-                    {sel('is_premium', [{ value: 'false', label: 'Gratis' }, { value: 'true', label: 'Premium' }], 'Tipe')}
+                    {sel('akses', mediaAccessOptions, 'Tipe akses (Gratis)')}
                     {inp('Deskripsi (opsional)', 'deskripsi')}
                   </div>
                   <FormBtns onSave={() => handleSave('modul_materi', {
                     judul: formData.judul,
                     topik_id: Number(formData.topik_id),
                     file_url: formData.file_url,
-                    is_premium: formData.is_premium === 'true',
+                    akses: formData.akses || 'gratis',
+                    is_premium: formData.akses === 'platinum',
                     deskripsi: formData.deskripsi || null,
                   })} />
                 </div>
@@ -1244,7 +1272,7 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 font-medium text-gray-800">{m.judul}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs">{m.topik_materi?.nama || '—'}</td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={m.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
+                          <Badge v={accessLabels[requiredAccess(m, true)]} map={accessBadge} />
                         </td>
                         <td className="px-5 py-3 text-center">
                           {m.file_url ? <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-forest-600 hover:underline">Buka</a> : <span className="text-gray-300 text-xs">—</span>}
@@ -1280,23 +1308,29 @@ const handleResetPassword = async (email: string) => {
                     {inp('Harga (Rp)', 'harga', 'number')}
                     {inp('Durasi (hari)', 'durasi_hari', 'number')}
                     {inp('Deskripsi singkat', 'deskripsi')}
+                    {sel('akses', accessOptions, 'Tingkat akses (Gratis)')}
+                    {sel('aktif', [{ value: 'true', label: 'Siap dipesan' }, { value: 'false', label: 'Dalam persiapan' }], 'Ketersediaan')}
                     <div className="col-span-2">{ta('Fitur (pisahkan dengan enter)', 'fitur', 3)}</div>
                   </div>
                   <FormBtns onSave={() => handleSave('paket_membership', {
                     nama: formData.nama,
-                    harga: formData.harga,
-                    durasi_hari: formData.durasi_hari,
+                    harga: formData.harga ?? 0,
+                    durasi_hari: formData.akses && formData.akses !== 'gratis' ? formData.durasi_hari || 30 : null,
                     deskripsi: formData.deskripsi,
-                    fitur: formData.fitur,
+                    fitur: membershipFeatures(formData.fitur).join('\n'),
+                    akses: formData.akses || 'gratis',
+                    aktif: formData.akses === 'gratis' || !formData.akses || formData.aktif === 'true',
                   })} />
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {membershipList.map((m, i) => (
-                  <div key={i} className="bg-white border border-gray-200 rounded-xl p-5">
+                {membershipList.map(m => (
+                  <div key={m.id} className="bg-white border border-gray-200 rounded-xl p-5">
                     <div className="font-black text-gray-800 mb-1">{m.nama}</div>
-                    <div className="text-2xl font-black text-forest-600 mb-1">Rp {m.harga?.toLocaleString('id-ID')}</div>
-                    <div className="text-xs text-gray-400 mb-3">{m.durasi_hari} hari · {m.deskripsi}</div>
+                    <div className="text-2xl font-black text-forest-600 mb-1">{rupiah(m.harga)}</div>
+                    <p className="mb-3 text-xs text-gray-600">
+                      {m.akses === 'gratis' ? 'Tanpa batas waktu' : `${m.durasi_hari} hari · ${m.aktif ? 'Siap dipesan' : 'Dalam persiapan'}`}
+                    </p>
                     <div className="flex gap-2">
                       <button onClick={() => {
                         setEditData(m)
@@ -1305,7 +1339,9 @@ const handleResetPassword = async (email: string) => {
                           harga: m.harga,
                           durasi_hari: m.durasi_hari,
                           deskripsi: m.deskripsi,
-                          fitur: m.fitur,
+                          fitur: membershipFeatures(m.fitur).join('\n'),
+                          akses: m.akses,
+                          aktif: String(m.aktif === true),
                         })
                         setShowForm(true)
                       }} className="text-xs text-forest-600 border border-forest-200 px-3 py-1 rounded transition">Edit</button>

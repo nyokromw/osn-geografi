@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { ArrowRight, BookOpen, ClipboardList, FileText, LayoutDashboard, Layers3, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, Video } from 'lucide-react'
 import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
+import { MembershipPlans } from '../components/membership-plans'
+import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 import { LearningProgress, type StudyResult } from './learning-progress'
 
@@ -26,8 +28,8 @@ const dateFormat = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'sh
 
 function formatDate(date: string | null) {
   if (!date) return ''
-  const value = new Date(date)
-  return Number.isFinite(value.getTime()) ? dateFormat.format(value) : ''
+  const value = membershipExpiry(date)
+  return Number.isFinite(value) ? dateFormat.format(value) : ''
 }
 
 export default function DashboardPage() {
@@ -46,7 +48,7 @@ export default function DashboardPage() {
   const [videoList, setVideoList] = useState<any[]>([])
   const [modulList, setModulList] = useState<any[]>([])
   const [pengumumanList, setPengumumanList] = useState<any[]>([])
-  const [membershipList, setMembershipList] = useState<any[]>([])
+  const [membershipList, setMembershipList] = useState<MembershipPlan[]>([])
   const [selectedTopik, setSelectedTopik] = useState<any>(null)
 
   useEffect(() => {
@@ -88,8 +90,9 @@ export default function DashboardPage() {
       setPaketTO(pt.data ?? [])
       setTopikList(tp.data ?? [])
       setPaketPendalaman(pp.data ?? [])
-      setVideoList(v.data ?? [])
-      setModulList(m.data ?? [])
+      const access = account.data?.role === 'admin' ? 'platinum' : activeAccess(account.data)
+      setVideoList((v.data ?? []).filter(item => item.aktif !== false && bisaAkses(access, requiredAccess(item, true))))
+      setModulList((m.data ?? []).filter(item => item.aktif !== false && bisaAkses(access, requiredAccess(item, true))))
       setPengumumanList(pg.data ?? [])
       setMembershipList(mb.data ?? [])
       setLoading(false)
@@ -109,9 +112,8 @@ export default function DashboardPage() {
   ]
   const nama = user?.user_metadata?.nama || profile?.nama || 'Siswa'
   const namaDepan = String(nama).trim().split(/\s+/)[0] || 'Siswa'
-  const statusAkun = profile?.status || 'gratis'
-  const activeMembership = statusAkun !== 'gratis' && (!profile?.status_expired || new Date(profile.status_expired) >= new Date())
-  const membershipName = activeMembership ? statusAkun.charAt(0).toUpperCase() + statusAkun.slice(1) : 'Gratis'
+  const statusAkun = activeAccess(profile)
+  const learningAccess = profile?.role === 'admin' ? 'platinum' : statusAkun
 
   const navTo = (tab: Tab) => {
     setActiveTab(tab)
@@ -127,7 +129,7 @@ export default function DashboardPage() {
             <ShieldCheck size={16} aria-hidden="true" /><span className="hidden sm:inline">Admin</span>
           </Link>
         )}
-        <a href="https://wa.me/6285157220761" target="_blank" rel="noreferrer"
+        <a href={adminWhatsApp} target="_blank" rel="noreferrer"
           className="atlas-button" aria-label="Bantuan WhatsApp" title="Bantuan WhatsApp">
           <MessageCircle size={16} aria-hidden="true" /><span className="hidden sm:inline">Bantuan</span>
         </a>
@@ -148,7 +150,7 @@ export default function DashboardPage() {
 
       <main className="atlas-container atlas-work-content">
         {accessDenied && (
-          <div className="mb-4"><Notice error>Konten ini memerlukan akses premium. Pilih Paket dan akses untuk melihat opsi yang tersedia.</Notice></div>
+          <div className="mb-4"><Notice error>Konten ini memerlukan paket berbayar. Buka Paket dan akses untuk melihat pilihannya.</Notice></div>
         )}
         {activeTab === 'dashboard' && (
           <div className="space-y-7">
@@ -158,8 +160,8 @@ export default function DashboardPage() {
                 <p className="mt-2 text-sm text-gray-500">{user?.email || 'Pantau hasil belajar dan pilih latihan berikutnya.'}</p>
               </div>
               <button type="button" className="atlas-button" onClick={() => navTo('paket')}>
-                <Ticket size={16} aria-hidden="true" /> Akses {membershipName}
-                {activeMembership && profile?.status_expired && (
+                <Ticket size={16} aria-hidden="true" /> Akses {accessLabels[statusAkun]}
+                {statusAkun !== 'gratis' && profile?.status_expired && (
                   <span className="text-xs text-gray-500">· s.d. {formatDate(profile.status_expired)}</span>
                 )}
               </button>
@@ -247,14 +249,14 @@ export default function DashboardPage() {
                               <div className="text-xs text-gray-400 mt-0.5">{p.tahun || ''} · {p.durasi_menit} menit</div>
                             </div>
                             <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 ${
-                              p.is_premium ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
+                              requiredAccess(p) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
                             }`}>
-                              {p.is_premium ? 'Premium' : 'Gratis'}
+                              {accessLabels[requiredAccess(p)]}
                             </span>
                           </div>
                           {p.deskripsi && <p className="text-xs text-gray-400 mb-3">{p.deskripsi}</p>}
-                          {p.is_premium ? (
-                            <button onClick={() => setActiveTab('paket')}
+                          {!bisaAkses(learningAccess, requiredAccess(p)) ? (
+                            <button onClick={() => navTo('paket')}
                               className="w-full bg-yellow-400 hover:bg-yellow-300 text-black text-sm font-bold py-2 rounded-lg transition">
                               Upgrade untuk Akses
                             </button>
@@ -325,14 +327,14 @@ export default function DashboardPage() {
                             <div className="text-xs text-gray-400 mt-0.5">{p.durasi_menit} menit</div>
                           </div>
                           <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 ${
-                            p.is_premium ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
+                            requiredAccess(p) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
                           }`}>
-                            {p.is_premium ? 'Premium' : 'Gratis'}
+                            {accessLabels[requiredAccess(p)]}
                           </span>
                         </div>
                         {p.deskripsi && <p className="text-xs text-gray-400 mb-3">{p.deskripsi}</p>}
-                        {p.is_premium ? (
-                          <button onClick={() => setActiveTab('paket')}
+                        {!bisaAkses(learningAccess, requiredAccess(p)) ? (
+                          <button onClick={() => navTo('paket')}
                             className="w-full bg-yellow-400 hover:bg-yellow-300 text-black text-sm font-bold py-2 rounded-lg transition">
                             Upgrade untuk Akses
                           </button>
@@ -377,17 +379,12 @@ export default function DashboardPage() {
                       <div className="text-xs text-gray-400 mb-3">{v.topik_materi?.nama || '—'}</div>
                       <div className="flex items-center justify-between">
                         <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                          v.is_premium ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
+                          requiredAccess(v, true) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
                         }`}>
-                          {v.is_premium ? 'Premium' : 'Gratis'}
+                          {accessLabels[requiredAccess(v, true)]}
                         </span>
-                        {v.is_premium ? (
-                          <button onClick={() => setActiveTab('paket')}
-                            className="text-xs text-yellow-600 font-bold hover:underline">Upgrade →</button>
-                        ) : (
-                          <a href={`https://youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noreferrer"
-                            className="text-xs text-forest-600 font-bold hover:underline">Tonton →</a>
-                        )}
+                        <a href={`https://youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noreferrer"
+                          className="text-xs text-forest-600 font-bold hover:underline">Tonton →</a>
                       </div>
                     </div>
                   </div>
@@ -417,14 +414,11 @@ export default function DashboardPage() {
                     {m.deskripsi && <p className="text-xs text-gray-400 mb-3">{m.deskripsi}</p>}
                     <div className="flex items-center justify-between mt-3">
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                        m.is_premium ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
+                        requiredAccess(m, true) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
                       }`}>
-                        {m.is_premium ? 'Premium' : 'Gratis'}
+                        {accessLabels[requiredAccess(m, true)]}
                       </span>
-                      {m.is_premium ? (
-                        <button onClick={() => setActiveTab('paket')}
-                          className="text-xs text-yellow-600 font-bold hover:underline">Upgrade →</button>
-                      ) : (
+                      {m.file_url && (
                         <a href={m.file_url} target="_blank" rel="noreferrer"
                           className="text-xs text-forest-600 font-bold hover:underline">Unduh →</a>
                       )}
@@ -469,41 +463,9 @@ export default function DashboardPage() {
           {/* ── PAKET & UPGRADE ───────────────────────────────────── */}
           {activeTab === 'paket' && (
             <div>
-              <div className="mb-6">
-                <h2 className="text-xl font-black text-gray-800">Paket & Upgrade</h2>
-                <p className="text-gray-500 text-sm">Pilih paket untuk akses konten premium</p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {membershipList.map((m, i) => (
-                  <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 hover:border-forest-300 hover:shadow-sm transition">
-                    <div className="font-black text-gray-800 text-lg mb-1">{m.nama}</div>
-                    <div className="text-3xl font-black text-forest-600 mb-1">
-                      Rp {m.harga?.toLocaleString('id-ID')}
-                    </div>
-                    <div className="text-xs text-gray-400 mb-4">{m.durasi_hari} hari · {m.deskripsi}</div>
-                    {m.fitur && (
-                      <div className="mb-4 flex flex-col gap-1">
-                        {String(m.fitur).split('\n').filter(Boolean).map((f: string, fi: number) => (
-                          <div key={fi} className="flex items-start gap-2 text-sm text-gray-600">
-                            <span className="text-green-500 mt-0.5 shrink-0">✓</span>
-                            <span>{f}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <a href={`https://wa.me/6285157220761?text=Halo,%20saya%20ingin%20berlangganan%20${encodeURIComponent(m.nama)}%20di%20OSNGeo.id`}
-                      target="_blank" rel="noreferrer"
-                      className="block w-full bg-forest-600 hover:bg-forest-700 text-white text-sm font-bold py-2.5 rounded-lg transition text-center">
-                      Hubungi Admin →
-                    </a>
-                  </div>
-                ))}
-                {membershipList.length === 0 && (
-                  <div className="col-span-3 bg-white border border-gray-200 rounded-xl px-5 py-12 text-center text-gray-400 text-sm">
-                    Belum ada paket tersedia.
-                  </div>
-                )}
-              </div>
+              <h2 className="atlas-subtitle">Paket dan akses</h2>
+              <p className="mt-2 text-sm text-gray-600">Akses saat ini {accessLabels[statusAkun]}{statusAkun !== 'gratis' && profile?.status_expired ? ` hingga ${formatDate(profile.status_expired)}` : ''}.</p>
+              <MembershipPlans plans={membershipList} onFree={() => navTo('tryout')} />
             </div>
           )}
 
