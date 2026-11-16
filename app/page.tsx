@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ArrowRight, ArrowUpRight, BookOpen, ClipboardList, Compass, Layers3, MessageCircle, TrendingUp } from 'lucide-react'
 import { AtlasMap, Brand } from './components/atlas'
+import { MembershipPlans } from './components/membership-plans'
+import { adminWhatsApp, type MembershipPlan } from './lib/membership'
 import { supabase } from './lib/supabase'
-
-const whatsapp = 'https://wa.me/6285157220761'
 
 const sections = [
   ['Keunggulan', '#kenapa'],
@@ -23,10 +23,9 @@ const journeys = [
 
 type Topic = { id: number; nama: string }
 type Announcement = { id: number; judul: string; isi: string; created_at: string }
-type Membership = { id: number; nama: string; harga: number; durasi_hari: number; deskripsi: string | null; fitur: string | null }
 
 export default function Home() {
-  const [memberships, setMemberships] = useState<Membership[]>([])
+  const [memberships, setMemberships] = useState<MembershipPlan[]>([])
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [topics, setTopics] = useState<Topic[]>([])
   const [loading, setLoading] = useState(true)
@@ -36,7 +35,7 @@ export default function Home() {
     const load = async () => {
       try {
         const [plans, news, catalog] = await Promise.all([
-          supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur').order('id'),
+          supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur, akses, aktif').order('id'),
           supabase.from('pengumuman').select('id, judul, isi, created_at').eq('aktif', true).order('created_at', { ascending: false }).limit(3),
           supabase.from('topik_materi').select('id, nama').order('urutan'),
         ])
@@ -133,38 +132,13 @@ export default function Home() {
         <section id="paket" className="atlas-container atlas-section">
           <h2 className="atlas-subtitle">Paket belajar</h2>
           <p className="mt-2 text-sm text-gray-500">Pilih akses belajar sesuai kebutuhanmu.</p>
-          {memberships.length ? (
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              {memberships.map(plan => (
-                <article key={plan.id} className="atlas-card flex flex-col p-5">
-                  <h3 className="font-bold">{plan.nama}</h3>
-                  <p className="mt-2 text-2xl font-bold tabular-nums">Rp {plan.harga.toLocaleString('id-ID')}</p>
-                  <p className="mt-1 text-sm text-gray-500">{plan.durasi_hari} hari</p>
-                  {plan.deskripsi && <p className="mt-3 text-sm text-gray-600">{plan.deskripsi}</p>}
-                  {plan.fitur && (
-                    <ul className="my-4 list-disc space-y-1 pl-5 text-sm text-gray-600">
-                      {plan.fitur.split('\n').map(line => line.trim()).filter(Boolean)
-                        .map((line, index) => <li key={index}>{line}</li>)}
-                    </ul>
-                  )}
-                  <div className="mt-auto pt-4">
-                    <a className="atlas-button w-full" target="_blank" rel="noreferrer"
-                      href={whatsapp + '?text=' + encodeURIComponent('Halo, saya ingin info ' + plan.nama + ' OSNGEO.id')}>
-                      Info dan daftar <ArrowUpRight size={16} aria-hidden="true" />
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-5 text-sm text-gray-500">{loading ? 'Memuat paket…' : 'Daftar paket belum tersedia.'}</p>
-          )}
+          <MembershipPlans plans={memberships} loading={loading} />
         </section>
         <section id="gratis" className="atlas-section border-y border-forest-200 bg-forest-100">
           <div className="atlas-container flex flex-wrap items-center justify-between gap-5">
             <div>
               <h2 className="atlas-subtitle">Coba latihan gratis</h2>
-              <p className="mt-2 max-w-prose text-sm text-gray-600">Daftar untuk mencoba paket tryout dan video gratis serta melihat hasilnya di dashboard.</p>
+              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba 4 tryout OSN-K dan 3 cuplikan pendalaman gratis. Pantau hasilnya di dashboard.</p>
             </div>
             <Link href="/register" className="atlas-button atlas-button--primary">
               Buat akun gratis <ArrowRight size={17} aria-hidden="true" />
@@ -194,7 +168,7 @@ export default function Home() {
           <nav className="flex flex-wrap gap-4 text-sm text-gray-600" aria-label="Tautan footer">
             {sections.map(([name, href]) => <a key={href} className="hover:underline" href={href}>{name}</a>)}
           </nav>
-          <a href={whatsapp} target="_blank" rel="noreferrer" className="atlas-button">
+          <a href={adminWhatsApp} target="_blank" rel="noreferrer" className="atlas-button">
             <MessageCircle size={16} aria-hidden="true" /> Hubungi admin
           </a>
         </div>
