@@ -13,6 +13,18 @@ type View =
   | 'membership' | 'transaksi'
   | 'pengumuman' | 'banner'
 
+type StudentProfile = {
+  id: string
+  nama: string | null
+  email: string | null
+  provinsi: string | null
+  nomor_hp: string | null
+  role: string | null
+  status: string | null
+  status_expired: string | null
+  created_at: string | null
+}
+
 export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [view, setView] = useState<View>('dashboard')
@@ -24,7 +36,7 @@ export default function AdminPage() {
   const [stats, setStats] = useState({ totalSiswa: 0, totalTO: 0, rataRata: 0, totalTransaksi: 0 })
 
   // Data lists
-  const [siswa, setSiswa] = useState<any[]>([])
+  const [siswa, setSiswa] = useState<StudentProfile[]>([])
   const [hasil, setHasil] = useState<any[]>([])
   const [paketTO, setPaketTO] = useState<any[]>([])
   const [soalTO, setSoalTO] = useState<any[]>([])
@@ -51,7 +63,7 @@ const [showEditSoal, setShowEditSoal] = useState(false)
 const [editSoalData, setEditSoalData] = useState<any>(null)
 const [editSoalForm, setEditSoalForm] = useState<any>({})
 const [showEditUser, setShowEditUser] = useState(false)
-const [editUserData, setEditUserData] = useState<any>(null)
+const [editUserData, setEditUserData] = useState<StudentProfile | null>(null)
 const [editUserForm, setEditUserForm] = useState<any>({})
 
   useEffect(() => {
@@ -72,7 +84,8 @@ const [editUserForm, setEditUserForm] = useState<any>({})
       { data: pp }, { data: v }, { data: m }, { data: mb },
       { data: tr }, { data: pg }, { data: bn }
     ] = await Promise.all([
-      supabase.from('profiles').select('*').order('created_at', { ascending: false }),
+      supabase.from('profiles').select('id, nama, email, provinsi, nomor_hp, role, status, status_expired, created_at')
+        .order('created_at', { ascending: false, nullsFirst: false }),
       supabase.from('hasil_to').select('*, profiles(nama), paket_to(nama)').order('created_at', { ascending: false }).limit(50),
       supabase.from('paket_to').select('*').order('urutan'),
       supabase.from('topik_materi').select('*').order('urutan'),
@@ -168,14 +181,19 @@ const handleSaveSoalPendalaman = async () => {
   setEditSoalForm({})
 }
 const handleSaveUser = async () => {
-  const updateData: any = {
+  if (!editUserData) return
+  const updateData = {
     nama: editUserForm.nama,
     role: editUserForm.role,
     status: editUserForm.status,
     status_expired: editUserForm.status === 'gratis' ? null
       : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
   }
-  await supabase.from('profiles').update(updateData).eq('id', editUserData.id)
+  const { error } = await supabase.from('profiles').update(updateData).eq('id', editUserData.id)
+  if (error) {
+    alert('Perubahan data siswa gagal disimpan. Coba lagi.')
+    return
+  }
   await loadAll()
   setShowEditUser(false)
   setEditUserData(null)
@@ -378,20 +396,26 @@ const handleResetPassword = async (email: string) => {
                 <h2 className="text-xl font-black text-gray-800">Data Siswa</h2>
                 <p className="text-gray-500 text-sm">{siswa.length} akun terdaftar</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
-                <table className="w-full text-sm">
+              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll" role="region" aria-label="Tabel data siswa" tabIndex={0}>
+                <table className="w-full min-w-[61rem] text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>No</Th><Th>Nama</Th><Th>Role</Th><Th>Status</Th><Th>Expired</Th><Th>Bergabung</Th><ThC>Aksi</ThC>
+                      <Th>No</Th><Th>Nama dan email</Th><Th>Asal provinsi</Th><Th>Nomor HP</Th>
+                      <Th>Role</Th><Th>Status</Th><Th>Expired</Th><Th>Bergabung</Th><ThC>Aksi</ThC>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {siswa.map((s, i) => (
-                      <tr key={i} className="hover:bg-gray-50">
+                      <tr key={s.id} className="hover:bg-gray-50">
                         <td className="px-5 py-3 text-gray-400 text-xs">{i + 1}</td>
-                        <td className="px-5 py-3 font-medium text-gray-800">{s.nama || '—'}</td>
                         <td className="px-5 py-3">
-                          <Badge v={s.role} map={{ admin: 'bg-red-100 text-red-600', siswa: 'bg-forest-100 text-forest-600' }} />
+                          <span className="block font-semibold text-gray-800">{s.nama || '—'}</span>
+                          <span className="block break-all text-xs text-gray-500">{s.email || '—'}</span>
+                        </td>
+                        <td className="px-5 py-3 text-gray-700">{s.provinsi || '—'}</td>
+                        <td className="whitespace-nowrap px-5 py-3 tabular-nums text-gray-700">{s.nomor_hp || '—'}</td>
+                        <td className="px-5 py-3">
+                          <Badge v={s.role || 'siswa'} map={{ admin: 'bg-red-100 text-red-600', siswa: 'bg-forest-100 text-forest-600' }} />
                         </td>
                         <td className="px-5 py-3">
                           <Badge v={s.status || 'gratis'} map={{
@@ -406,7 +430,9 @@ const handleResetPassword = async (email: string) => {
                             : '—'}
                         </td>
                         <td className="px-5 py-3 text-gray-400 text-xs">
-                          {new Date(s.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          {s.created_at
+                            ? new Date(s.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : '—'}
                         </td>
                         <td className="px-5 py-3 text-center">
                           <button onClick={() => {
@@ -430,7 +456,7 @@ const handleResetPassword = async (email: string) => {
               {/* MODAL EDIT USER */}
               {showEditUser && editUserData && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                  <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl">
+                  <div className="max-h-[90svh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
                     <div className="flex items-center justify-between mb-5">
                       <h3 className="font-black text-gray-800">Edit User</h3>
                       <button onClick={() => setShowEditUser(false)}
@@ -442,11 +468,20 @@ const handleResetPassword = async (email: string) => {
                         <input value={editUserForm.nama || ''} onChange={e => setEditUserForm({...editUserForm, nama: e.target.value})}
                           className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
                       </div>
-                      <div>
-                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Email</label>
-                        <input value={editUserData.email || '—'} disabled
-                          className="w-full border border-gray-100 rounded-lg px-3 py-2 text-sm text-gray-400 bg-gray-50"/>
-                      </div>
+                      <dl className="grid gap-3 rounded-lg bg-gray-50 p-3 text-sm sm:grid-cols-2">
+                        <div className="sm:col-span-2">
+                          <dt className="text-xs font-semibold text-gray-500">Email</dt>
+                          <dd className="mt-1 break-all">{editUserData.email || '—'}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-semibold text-gray-500">Asal provinsi</dt>
+                          <dd className="mt-1">{editUserData.provinsi || '—'}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-semibold text-gray-500">Nomor HP</dt>
+                          <dd className="mt-1 tabular-nums">{editUserData.nomor_hp || '—'}</dd>
+                        </div>
+                      </dl>
                       <div>
                         <label className="text-xs font-semibold text-gray-500 mb-1 block">Role</label>
                         <select value={editUserForm.role || 'siswa'} onChange={e => setEditUserForm({...editUserForm, role: e.target.value})}
@@ -474,8 +509,8 @@ const handleResetPassword = async (email: string) => {
                           className="flex-1 bg-forest-600 hover:bg-forest-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
                           Simpan
                         </button>
-                        <button onClick={() => handleResetPassword(editUserData.email)}
-                          className="flex-1 border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 transition">
+                        <button disabled={!editUserData.email} onClick={() => { if (editUserData.email) void handleResetPassword(editUserData.email) }}
+                          className="flex-1 border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 transition disabled:opacity-50">
                           Reset Password
                         </button>
                       </div>
