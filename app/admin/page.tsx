@@ -5,6 +5,7 @@ import { ClipboardList, FileText, Images, LayoutDashboard, Layers3, LogOut, Mega
 import { Brand, PageLoading } from '../components/atlas'
 import { accessLabels, membershipExpiry, membershipFeatures, requiredAccess, rupiah, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
+import { getYouTubeVideoId } from '../lib/youtube'
 import { loadStudentOverview, type StudentProfile } from './student-data'
 import { StudentRoster } from './students'
 
@@ -1164,18 +1165,27 @@ const handleResetPassword = async (email: string) => {
                   <h3 className="font-bold text-gray-800 mb-4">Tambah Video</h3>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
                     {inp('Judul video', 'judul')}
-                    {inp('YouTube ID (contoh: dQw4w9WgXcQ)', 'youtube_id')}
-                    {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih Topik')}
+                    {inp('Tautan atau ID YouTube', 'youtube_id')}
+                    {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih topik (opsional)')}
                     {sel('akses', mediaAccessOptions, 'Tipe akses (Gratis)')}
                   </div>
-                  <FormBtns onSave={() => handleSave('video_pembelajaran', {
-                    judul: formData.judul,
-                    youtube_id: formData.youtube_id,
-                    topik_id: Number(formData.topik_id),
-                    akses: formData.akses || 'gratis',
-                    is_premium: formData.akses === 'platinum',
-                    urutan: videoList.length + 1,
-                  })} />
+                  <FormBtns onSave={() => {
+                    const youtubeId = getYouTubeVideoId(formData.youtube_id)
+                    const title = typeof formData.judul === 'string' ? formData.judul.trim() : ''
+                    if (!title || !youtubeId) {
+                      alert('Isi judul dan tempel tautan atau ID video YouTube yang valid.')
+                      return
+                    }
+
+                    void handleSave('video_pembelajaran', {
+                      judul: title,
+                      youtube_id: youtubeId,
+                      topik_id: formData.topik_id ? Number(formData.topik_id) : null,
+                      akses: formData.akses || 'gratis',
+                      is_premium: formData.akses === 'platinum',
+                      urutan: videoList.length + 1,
+                    })
+                  }} />
                 </div>
               )}
               <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">

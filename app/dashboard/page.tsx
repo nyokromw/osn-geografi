@@ -9,6 +9,7 @@ import { MembershipPlans } from '../components/membership-plans'
 import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type AccessLevel, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 import { LearningProgress, type StudyResult } from './learning-progress'
+import { LearningVideoCard, type LearningVideo } from './learning-video'
 
 const menu = [
   { key: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard },
@@ -61,7 +62,7 @@ export default function DashboardPage() {
   const [paketTO, setPaketTO] = useState<TryoutPackage[]>([])
   const [topikList, setTopikList] = useState<any[]>([])
   const [paketPendalaman, setPaketPendalaman] = useState<any[]>([])
-  const [videoList, setVideoList] = useState<any[]>([])
+  const [videoList, setVideoList] = useState<LearningVideo[]>([])
   const [modulList, setModulList] = useState<any[]>([])
   const [pengumumanList, setPengumumanList] = useState<any[]>([])
   const [membershipList, setMembershipList] = useState<MembershipPlan[]>([])
@@ -77,12 +78,13 @@ export default function DashboardPage() {
       setUser(user)
 
       const params = new URLSearchParams(window.location.search)
+      const tab = params.get('tab')
       if (params.get('akses') === 'ditolak') {
         setAccessDenied(true)
         setActiveTab('paket')
         window.history.replaceState({}, '', '/dashboard')
-      } else if (params.get('tab') === 'modul') {
-        setActiveTab('modul')
+      } else if (tab === 'modul' || tab === 'video') {
+        setActiveTab(tab)
         window.history.replaceState({}, '', '/dashboard')
       }
 
@@ -411,30 +413,7 @@ export default function DashboardPage() {
                 <p className="text-gray-500 text-sm">{videoList.length} video tersedia</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {videoList.map((v, i) => (
-                  <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-sm transition">
-                    <a href={`https://youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noreferrer">
-                      <img
-                        src={`https://img.youtube.com/vi/${v.youtube_id}/mqdefault.jpg`}
-                        alt={v.judul}
-                        className="w-full h-40 object-cover"
-                      />
-                    </a>
-                    <div className="p-4">
-                      <div className="font-bold text-sm text-gray-800 mb-1">{v.judul}</div>
-                      <div className="text-xs text-gray-400 mb-3">{v.topik_materi?.nama || '—'}</div>
-                      <div className="flex items-center justify-between">
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                          requiredAccess(v, true) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
-                        }`}>
-                          {accessLabels[requiredAccess(v, true)]}
-                        </span>
-                        <a href={`https://youtube.com/watch?v=${v.youtube_id}`} target="_blank" rel="noreferrer"
-                          className="text-xs text-forest-600 font-bold hover:underline">Tonton →</a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {videoList.map(video => <LearningVideoCard key={video.id} video={video} />)}
                 {videoList.length === 0 && (
                   <div className="col-span-3 bg-white border border-gray-200 rounded-xl px-5 py-12 text-center text-gray-400 text-sm">
                     Belum ada video tersedia.
