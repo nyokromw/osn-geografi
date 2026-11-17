@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
-import { ArrowRight, BookOpen, ClipboardList, FileText, LayoutDashboard, Layers3, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, Video } from 'lucide-react'
+import { ArrowRight, BookOpen, ClipboardList, FileText, LayoutDashboard, Layers3, Lock, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, Video } from 'lucide-react'
 import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
 import { MembershipPlans } from '../components/membership-plans'
-import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type MembershipPlan } from '../lib/membership'
+import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type AccessLevel, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 import { LearningProgress, type StudyResult } from './learning-progress'
 
@@ -22,6 +22,22 @@ const menu = [
 
 type Tab = (typeof menu)[number]['key']
 type Profile = { nama: string | null; status: string | null; status_expired: string | null; role: string | null }
+type TryoutPackage = {
+  id: number
+  nama: string
+  jenis: string
+  tahun: number | null
+  durasi_menit: number
+  deskripsi: string | null
+  akses?: string | null
+  is_premium?: boolean | null
+}
+
+const tryoutAccessStyles: Record<AccessLevel, { card: string; badge: string }> = {
+  gratis: { card: 'border-emerald-200 bg-emerald-50', badge: 'bg-emerald-100 text-emerald-900' },
+  premium: { card: 'border-amber-200 bg-amber-50', badge: 'bg-amber-100 text-amber-900' },
+  platinum: { card: 'border-violet-200 bg-violet-50', badge: 'bg-violet-100 text-violet-900' },
+}
 
 const resultColumns = 'id, created_at, total_poin, total_soal, poin_benar, poin_salah, poin_kosong'
 const dateFormat = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -42,13 +58,14 @@ export default function DashboardPage() {
   const [practiceResults, setPracticeResults] = useState<StudyResult[]>([])
   const [loadErrors, setLoadErrors] = useState({ tryout: false, latihan: false })
 
-  const [paketTO, setPaketTO] = useState<any[]>([])
+  const [paketTO, setPaketTO] = useState<TryoutPackage[]>([])
   const [topikList, setTopikList] = useState<any[]>([])
   const [paketPendalaman, setPaketPendalaman] = useState<any[]>([])
   const [videoList, setVideoList] = useState<any[]>([])
   const [modulList, setModulList] = useState<any[]>([])
   const [pengumumanList, setPengumumanList] = useState<any[]>([])
   const [membershipList, setMembershipList] = useState<MembershipPlan[]>([])
+  const [upgradePlanId, setUpgradePlanId] = useState<number | null>(null)
   const [selectedTopik, setSelectedTopik] = useState<any>(null)
 
   useEffect(() => {
@@ -62,6 +79,7 @@ export default function DashboardPage() {
       const params = new URLSearchParams(window.location.search)
       if (params.get('akses') === 'ditolak') {
         setAccessDenied(true)
+        setActiveTab('paket')
         window.history.replaceState({}, '', '/dashboard')
       }
 
@@ -101,6 +119,13 @@ export default function DashboardPage() {
     return () => { active = false }
   }, [])
 
+  useEffect(() => {
+    if (activeTab !== 'paket' || upgradePlanId === null) return
+    const plan = document.getElementById(`membership-plan-${upgradePlanId}`)
+    plan?.scrollIntoView({ block: 'start' })
+    plan?.focus({ preventScroll: true })
+  }, [activeTab, upgradePlanId])
+
   if (loading) return <PageLoading>Memuat dashboard…</PageLoading>
 
   const points = riwayat.flatMap(item => item.total_poin === null ? [] : [item.total_poin])
@@ -118,7 +143,16 @@ export default function DashboardPage() {
   const navTo = (tab: Tab) => {
     setActiveTab(tab)
     setSelectedTopik(null)
+    setAccessDenied(false)
+    setUpgradePlanId(null)
     window.scrollTo({ top: 0, behavior: 'auto' })
+  }
+
+  const openUpgrade = (access: AccessLevel) => {
+    const plans = membershipList.filter(plan => plan.akses === access)
+    const target = plans.find(plan => plan.aktif) ?? plans[0]
+    navTo('paket')
+    setUpgradePlanId(target?.id ?? null)
   }
 
   return (
@@ -150,7 +184,7 @@ export default function DashboardPage() {
 
       <main className="atlas-container atlas-work-content">
         {accessDenied && (
-          <div className="mb-4"><Notice error>Konten ini memerlukan paket berbayar. Buka Paket dan akses untuk melihat pilihannya.</Notice></div>
+          <div className="mb-4"><Notice error>Konten ini memerlukan paket berbayar. Pilih tingkat akses yang sesuai.</Notice></div>
         )}
         {activeTab === 'dashboard' && (
           <div className="space-y-7">
@@ -241,33 +275,42 @@ export default function DashboardPage() {
                       <span className="text-xs text-gray-400">{list.length} paket</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {list.map((p) => (
-                        <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:border-forest-300 hover:shadow-sm transition">
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <div className="font-bold text-gray-800 text-sm">{p.nama}</div>
-                              <div className="text-xs text-gray-400 mt-0.5">{p.tahun || ''} · {p.durasi_menit} menit</div>
+                      {list.map(p => {
+                        const access = requiredAccess(p)
+                        const style = tryoutAccessStyles[access]
+                        const locked = !bisaAkses(learningAccess, access)
+                        const packageDetails = [p.tahun, p.durasi_menit && `${p.durasi_menit} menit`].filter(Boolean)
+                        return (
+                          <article key={p.id} className={`flex h-full flex-col rounded-2xl border p-4 sm:p-5 ${style.card}`}>
+                            <div className="mb-3 flex items-start justify-between gap-2">
+                              <div className="min-w-0">
+                                <h4 className="break-words text-sm font-bold text-gray-900">{p.nama}</h4>
+                                {packageDetails.length > 0 && <p className="mt-1 text-xs text-gray-600">{packageDetails.join(' · ')}</p>}
+                              </div>
+                              <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${style.badge}`}>
+                                {accessLabels[access]}
+                              </span>
                             </div>
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 ${
-                              requiredAccess(p) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
-                            }`}>
-                              {accessLabels[requiredAccess(p)]}
-                            </span>
-                          </div>
-                          {p.deskripsi && <p className="text-xs text-gray-400 mb-3">{p.deskripsi}</p>}
-                          {!bisaAkses(learningAccess, requiredAccess(p)) ? (
-                            <button onClick={() => navTo('paket')}
-                              className="w-full bg-yellow-400 hover:bg-yellow-300 text-black text-sm font-bold py-2 rounded-lg transition">
-                              Upgrade untuk Akses
-                            </button>
-                          ) : (
-                            <a href={`/tryout/${p.id}`}
-                              className="block w-full bg-forest-600 hover:bg-forest-700 text-white text-sm font-bold py-2 rounded-lg transition text-center">
-                              Mulai Tryout →
-                            </a>
-                          )}
-                        </div>
-                      ))}
+                            {p.deskripsi && <p className="mb-4 text-xs leading-relaxed text-gray-700">{p.deskripsi}</p>}
+                            <div className="mt-auto space-y-2">
+                              {locked ? (
+                                <>
+                                  <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+                                    <Lock size={14} aria-hidden="true" /> Terkunci
+                                  </p>
+                                  <button type="button" onClick={() => openUpgrade(access)} className="atlas-button w-full">
+                                    Upgrade ke {accessLabels[access]} <ArrowRight size={15} aria-hidden="true" />
+                                  </button>
+                                </>
+                              ) : (
+                                <Link href={`/tryout/${p.id}`} prefetch={false} className="atlas-button atlas-button--primary w-full">
+                                  Mulai Tryout <ArrowRight size={15} aria-hidden="true" />
+                                </Link>
+                              )}
+                            </div>
+                          </article>
+                        )
+                      })}
                     </div>
                   </div>
                 )
@@ -465,7 +508,7 @@ export default function DashboardPage() {
             <div>
               <h2 className="atlas-subtitle">Paket dan akses</h2>
               <p className="mt-2 text-sm text-gray-600">Akses saat ini {accessLabels[statusAkun]}{statusAkun !== 'gratis' && profile?.status_expired ? ` hingga ${formatDate(profile.status_expired)}` : ''}.</p>
-              <MembershipPlans plans={membershipList} onFree={() => navTo('tryout')} />
+              <MembershipPlans plans={membershipList} onFree={() => navTo('tryout')} highlightPlanId={upgradePlanId} />
             </div>
           )}
 

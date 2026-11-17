@@ -2,10 +2,11 @@ import Link from 'next/link'
 import { ArrowRight, Check, MessageCircle } from 'lucide-react'
 import { membershipFeatures, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
 
-export function MembershipPlans({ plans, loading, onFree }: {
+export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
   plans: MembershipPlan[]
   loading?: boolean
   onFree?: () => void
+  highlightPlanId?: number | null
 }) {
   if (!plans.length) {
     return <p className="mt-5 text-sm text-gray-600">{loading ? 'Memuat paket…' : 'Daftar paket belum tersedia.'}</p>
@@ -20,8 +21,11 @@ export function MembershipPlans({ plans, loading, onFree }: {
             ? plans.find(item => item.akses === plan.akses && item.durasi_hari === 30)
             : undefined
           const annualComparison = monthly ? monthly.harga * 12 : 0
+          const highlighted = plan.id === highlightPlanId
           return (
-            <article key={plan.id} className={`atlas-card flex flex-col p-4 sm:p-5 ${free ? 'sm:col-span-2 xl:col-span-1' : ''}`}>
+            <article key={plan.id} id={highlighted ? `membership-plan-${plan.id}` : undefined}
+              tabIndex={highlighted ? -1 : undefined}
+              className={`atlas-card flex flex-col p-4 sm:p-5 ${free ? 'sm:col-span-2 xl:col-span-1' : ''} ${highlighted ? 'scroll-mt-24 ring-2 ring-forest-500' : ''}`}>
               <h3 className="font-bold text-forest-900">{plan.nama}</h3>
               {plan.aktif === false && (
                 <p className="mt-1 text-xs font-semibold text-gray-600">Dalam persiapan</p>

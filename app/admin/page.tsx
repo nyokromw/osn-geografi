@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ClipboardList, FileText, Images, LayoutDashboard, Layers3, LogOut, Megaphone, Menu, Receipt, ShieldCheck, Ticket, UserRound, Users, Video, X } from 'lucide-react'
 import { Brand, PageLoading } from '../components/atlas'
 import { accessLabels, membershipExpiry, membershipFeatures, requiredAccess, rupiah, type MembershipPlan } from '../lib/membership'
@@ -49,6 +49,7 @@ export default function AdminPage() {
   const [hasil, setHasil] = useState<any[]>([])
   const [paketTO, setPaketTO] = useState<any[]>([])
   const [soalTO, setSoalTO] = useState<any[]>([])
+  const [soalTryoutError, setSoalTryoutError] = useState('')
   const [topikList, setTopikList] = useState<any[]>([])
   const [paketPendalaman, setPaketPendalaman] = useState<any[]>([])
   const [soalPendalaman, setSoalPendalaman] = useState<any[]>([])
@@ -71,6 +72,9 @@ const [formData, setFormData] = useState<any>({})
 const [showEditSoal, setShowEditSoal] = useState(false)
 const [editSoalData, setEditSoalData] = useState<any>(null)
 const [editSoalForm, setEditSoalForm] = useState<any>({})
+const [editSoalError, setEditSoalError] = useState('')
+const [savingSoal, setSavingSoal] = useState(false)
+const paketFormRef = useRef<HTMLDivElement>(null)
 const [showEditUser, setShowEditUser] = useState(false)
 const [editUserData, setEditUserData] = useState<StudentProfile | null>(null)
 const [editUserForm, setEditUserForm] = useState({ nama: '', role: 'siswa', planId: '' })
@@ -87,6 +91,13 @@ const [savingUser, setSavingUser] = useState(false)
     }
     init()
   }, [])
+
+  useEffect(() => {
+    if (view === 'paket_tryout' && showForm && editData) {
+      paketFormRef.current?.scrollIntoView({ block: 'start' })
+      paketFormRef.current?.focus({ preventScroll: true })
+    }
+  }, [view, showForm, editData])
 
   const loadAll = async () => {
     const [
@@ -124,8 +135,9 @@ const [savingUser, setSavingUser] = useState(false)
   }
 
   const loadSoalTO = async (paketId: number) => {
-    const { data } = await supabase.from('soal').select('*').eq('paket_id', paketId).order('id')
-    setSoalTO(data || [])
+    const { data, error } = await supabase.from('soal').select('*').eq('paket_id', paketId).order('id')
+    setSoalTO(data ?? [])
+    setSoalTryoutError(error ? 'Soal gagal dimuat. Buka kembali paket untuk mencoba lagi.' : '')
   }
 
   const loadSoalPendalaman = async (paketId: number) => {
@@ -157,24 +169,42 @@ const handleDelete = async (table: string, id: number, extra?: () => void) => {
 
   const resetForm = () => { setShowForm(false); setEditData(null); setFormData({}) }
 
+  const closeSoalEditor = () => {
+    setShowEditSoal(false)
+    setEditSoalData(null)
+    setEditSoalForm({})
+    setEditSoalError('')
+  }
+
   const handleSaveSoal = async () => {
-  await supabase.from('soal').update({
-    pertanyaan: editSoalForm.pertanyaan,
-    gambar_url: editSoalForm.gambar_url || null,
-    pilihan_a: editSoalForm.pilihan_a,
-    pilihan_b: editSoalForm.pilihan_b,
-    pilihan_c: editSoalForm.pilihan_c,
-    pilihan_d: editSoalForm.pilihan_d,
-    pilihan_e: editSoalForm.pilihan_e,
-    jawaban_benar: editSoalForm.jawaban_benar,
-    pembahasan: editSoalForm.pembahasan,
-    is_premium: editSoalForm.is_premium === 'true',
-  }).eq('id', editSoalData.id)
-  await loadSoalTO(selectedPaket.id)
-  setShowEditSoal(false)
-  setEditSoalData(null)
-  setEditSoalForm({})
-}
+    if (!selectedPaket || !editSoalData || savingSoal) return
+    setSavingSoal(true)
+    setEditSoalError('')
+    try {
+      const { data, error } = await supabase.from('soal').update({
+        pertanyaan: editSoalForm.pertanyaan,
+        gambar_url: editSoalForm.gambar_url || null,
+        pilihan_a: editSoalForm.pilihan_a,
+        pilihan_b: editSoalForm.pilihan_b,
+        pilihan_c: editSoalForm.pilihan_c,
+        pilihan_d: editSoalForm.pilihan_d,
+        pilihan_e: editSoalForm.pilihan_e,
+        jawaban_benar: editSoalForm.jawaban_benar,
+        pembahasan: editSoalForm.pembahasan,
+      }).eq('id', editSoalData.id).eq('paket_id', selectedPaket.id).select('id').maybeSingle()
+
+      if (error || !data) {
+        setEditSoalError(error?.message || 'Perubahan belum tersimpan. Buka kembali soal dan coba lagi.')
+        return
+      }
+      await loadSoalTO(selectedPaket.id)
+      closeSoalEditor()
+    } catch {
+      setEditSoalError('Koneksi terganggu saat menyimpan soal. Coba lagi.')
+    } finally {
+      setSavingSoal(false)
+    }
+  }
 const handleSaveSoalPendalaman = async () => {
   await supabase.from('soal_pendalaman').update({
     pertanyaan: editSoalForm.pertanyaan,
@@ -575,8 +605,8 @@ const handleResetPassword = async (email: string) => {
               </label>
 
               {showForm && (
-                <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
-                  <h3 className="font-bold text-gray-800 mb-4">{editData ? 'Edit Paket' : 'Tambah Paket Baru'}</h3>
+                <div ref={paketFormRef} tabIndex={-1} className="mb-5 scroll-mt-24 rounded-xl border border-gray-200 bg-white p-5">
+                  <h3 className="mb-4 font-bold text-gray-800">{editData ? 'Edit Paket' : 'Tambah Paket Baru'}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {inp('Nama paket (contoh: OSNK Paket 1)', 'nama')}
                     {sel('jenis', [
@@ -631,14 +661,17 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
                             <button onClick={async () => {
-                              setSelectedPaket(p)
                               await loadSoalTO(p.id)
+                              resetForm()
+                              closeSoalEditor()
+                              setSelectedPaket(p)
                               setView('soal_tryout')
+                              window.scrollTo({ top: 0, behavior: 'auto' })
                             }} className="text-xs bg-forest-600 hover:bg-forest-700 text-white px-3 py-1 rounded transition">
                               Kelola Soal
                             </button>
                             <button onClick={() => {
-                              setEditData(p)
+                              setEditData({ ...p })
                               setFormData({
                                 nama: p.nama,
                                 jenis: p.jenis,
@@ -735,10 +768,11 @@ const handleResetPassword = async (email: string) => {
                     </div>
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {sel('jawaban_benar', ['A','B','C','D','E'].map(x => ({ value: x, label: x })), 'Jawaban Benar')}
-                      {sel('is_premium', [{ value: 'false', label: 'Gratis' }, { value: 'true', label: 'Premium' }], 'Tipe')}
+                      <p className="self-center text-sm text-gray-600">Akses paket {accessLabels[requiredAccess(selectedPaket)]}</p>
                     </div>
                     {ta('Tulis pembahasan jawaban...', 'pembahasan', 2)}
                     <FormBtns onSave={async () => {
+                      const akses = requiredAccess(selectedPaket)
                       await handleSave('soal', {
                         paket_id: selectedPaket.id,
                         pertanyaan: formData.pertanyaan,
@@ -750,7 +784,8 @@ const handleResetPassword = async (email: string) => {
                         pilihan_e: formData.pilihan_e,
                         jawaban_benar: formData.jawaban_benar,
                         pembahasan: formData.pembahasan,
-                        is_premium: formData.is_premium === 'true',
+                        akses,
+                        is_premium: akses !== 'gratis',
                       })
                       await loadSoalTO(selectedPaket.id)
                     }} />
@@ -767,7 +802,7 @@ const handleResetPassword = async (email: string) => {
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {soalTO.map((s, i) => (
-                      <tr key={i} className="hover:bg-gray-50">
+                      <tr key={s.id} className="hover:bg-gray-50">
                         <td className="px-5 py-3 text-gray-400 text-xs">{i + 1}</td>
                         <td className="px-5 py-3 text-gray-800 max-w-xs"><p className="truncate">{s.pertanyaan}</p></td>
                         <td className="px-5 py-3 text-center">
@@ -777,11 +812,12 @@ const handleResetPassword = async (email: string) => {
                           {s.gambar_url ? <span className="text-xs bg-forest-100 text-forest-600 px-2 py-0.5 rounded">Ada</span> : <span className="text-xs text-gray-300">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
-                          <Badge v={s.is_premium ? 'Premium' : 'Gratis'} map={{ Premium: 'bg-yellow-100 text-yellow-700', Gratis: 'bg-green-100 text-green-700' }} />
+                          <Badge v={accessLabels[requiredAccess(selectedPaket)]} map={accessBadge} />
                         </td>
                         <td className="px-5 py-3 text-center">
   <div className="flex items-center justify-center gap-2">
     <button onClick={() => {
+      setEditSoalError('')
       setEditSoalData(s)
       setEditSoalForm({
         pertanyaan: s.pertanyaan,
@@ -793,7 +829,6 @@ const handleResetPassword = async (email: string) => {
         pilihan_e: s.pilihan_e,
         jawaban_benar: s.jawaban_benar,
         pembahasan: s.pembahasan,
-        is_premium: s.is_premium ? 'true' : 'false',
       })
       setShowEditSoal(true)
     }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
@@ -810,7 +845,9 @@ const handleResetPassword = async (email: string) => {
                       </tr>
                     ))}
                     {soalTO.length === 0 && (
-                      <tr><td colSpan={6} className="px-5 py-8 text-center text-gray-400 text-sm">Belum ada soal. Klik + Tambah Soal untuk mulai.</td></tr>
+                      <tr><td colSpan={6} className="px-5 py-8 text-center text-sm text-gray-600">
+                        {soalTryoutError ? <span role="alert" className="text-red-700">{soalTryoutError}</span> : 'Belum ada soal. Klik + Tambah Soal untuk mulai.'}
+                      </td></tr>
                     )}
                   </tbody>
                 </table>
@@ -819,18 +856,18 @@ const handleResetPassword = async (email: string) => {
           )}
 
           {/* MODAL EDIT SOAL TO */}
-{showEditSoal && editSoalData && (
+{view === 'soal_tryout' && selectedPaket && showEditSoal && editSoalData && (
   <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-    <div className="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-xl max-h-[90vh] overflow-y-auto">
+    <div role="dialog" aria-modal="true" aria-labelledby="edit-soal-tryout-title" className="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-xl max-h-[90vh] overflow-y-auto">
       <div className="flex items-center justify-between mb-5">
-        <h3 className="font-black text-gray-800">Edit Soal #{editSoalData.id}</h3>
-        <button onClick={() => setShowEditSoal(false)}
+        <h3 id="edit-soal-tryout-title" className="font-black text-gray-800">Edit Soal #{editSoalData.id}</h3>
+        <button onClick={closeSoalEditor} disabled={savingSoal} aria-label="Tutup edit soal"
           className="text-gray-400 hover:text-gray-700 text-xl">✕</button>
       </div>
       <div className="flex flex-col gap-3">
         <div>
-          <label className="text-xs font-semibold text-gray-500 mb-1 block">Pertanyaan</label>
-          <textarea rows={4} value={editSoalForm.pertanyaan || ''} onChange={e => setEditSoalForm({...editSoalForm, pertanyaan: e.target.value})}
+          <label htmlFor="edit-soal-tryout-pertanyaan" className="text-xs font-semibold text-gray-500 mb-1 block">Pertanyaan</label>
+          <textarea id="edit-soal-tryout-pertanyaan" rows={4} value={editSoalForm.pertanyaan || ''} onChange={e => setEditSoalForm({...editSoalForm, pertanyaan: e.target.value})}
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
         </div>
         <div>
@@ -878,26 +915,20 @@ const handleResetPassword = async (email: string) => {
               {['A','B','C','D','E'].map(op => <option key={op} value={op}>{op}</option>)}
             </select>
           </div>
-          <div>
-            <label className="text-xs font-semibold text-gray-500 mb-1 block">Tipe</label>
-            <select value={editSoalForm.is_premium} onChange={e => setEditSoalForm({...editSoalForm, is_premium: e.target.value})}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400">
-              <option value="false">Gratis</option>
-              <option value="true">Premium</option>
-            </select>
-          </div>
+          <p className="self-center text-sm text-gray-600">Akses paket {accessLabels[requiredAccess(selectedPaket)]}</p>
         </div>
         <div>
           <label className="text-xs font-semibold text-gray-500 mb-1 block">Pembahasan</label>
           <textarea rows={3} value={editSoalForm.pembahasan || ''} onChange={e => setEditSoalForm({...editSoalForm, pembahasan: e.target.value})}
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-forest-400"/>
         </div>
+        {editSoalError && <p role="alert" className="text-sm font-semibold text-red-700">{editSoalError}</p>}
         <div className="flex gap-3 pt-2">
-          <button onClick={handleSaveSoal}
-            className="bg-forest-600 hover:bg-forest-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
-            Simpan Perubahan
+          <button onClick={handleSaveSoal} disabled={savingSoal}
+            className="bg-forest-600 hover:bg-forest-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition disabled:opacity-60">
+            {savingSoal ? 'Menyimpan…' : 'Simpan Perubahan'}
           </button>
-          <button onClick={() => setShowEditSoal(false)}
+          <button onClick={closeSoalEditor} disabled={savingSoal}
             className="border border-gray-200 text-gray-600 px-4 py-2 rounded-lg text-sm transition">
             Batal
           </button>
