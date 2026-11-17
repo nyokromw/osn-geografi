@@ -6,6 +6,7 @@ import { Brand, PageLoading } from '../components/atlas'
 import { accessLabels, membershipExpiry, membershipFeatures, requiredAccess, rupiah, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 import { getYouTubeVideoId } from '../lib/youtube'
+import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFilter } from '../lib/tryout-levels'
 import { loadStudentOverview, type StudentProfile } from './student-data'
 import { StudentRoster } from './students'
 
@@ -31,6 +32,7 @@ export default function AdminPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [packageQuery, setPackageQuery] = useState('')
+  const [packageLevel, setPackageLevel] = useState<TryoutLevelFilter>('semua')
 
   // Stats
   const [stats, setStats] = useState<Awaited<ReturnType<typeof loadStudentOverview>> & {
@@ -304,7 +306,10 @@ const handleResetPassword = async (email: string) => {
   const activeKey = ['soal_tryout'].includes(view) ? 'paket_tryout'
     : ['soal_pendalaman'].includes(view) ? 'pendalaman'
     : view
-  const visiblePackages = paketTO.filter(paket => String(paket.nama).toLowerCase().includes(packageQuery.trim().toLowerCase()))
+  const packageSearch = packageQuery.trim().toLowerCase()
+  const visiblePackages = paketTO.filter(paket =>
+    (packageLevel === 'semua' || tryoutLevel(paket.jenis) === packageLevel) &&
+    String(paket.nama).toLowerCase().includes(packageSearch))
 
   // Input field helpers
   const inp = (placeholder: string, key: string, type = 'text') => (
@@ -540,27 +545,37 @@ const handleResetPassword = async (email: string) => {
               <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <h2 className="text-xl font-black text-gray-800">Paket Tryout</h2>
-                  <p className="text-gray-500 text-sm">{paketTO.length} paket</p>
+                  <p className="text-gray-500 text-sm" role="status">{visiblePackages.length} dari {paketTO.length} paket</p>
                 </div>
                 <button onClick={openAdd} className="atlas-button atlas-button--primary">
                   + Tambah Paket
                 </button>
               </div>
-              <label className="mb-4 block max-w-sm text-sm font-semibold">
-                Cari paket
-                <input type="search" className="atlas-field mt-1.5 block" value={packageQuery}
-                  onChange={event => setPackageQuery(event.target.value)} placeholder="Nama paket tryout" />
-              </label>
+              <div className="mb-4 grid max-w-2xl gap-3 sm:grid-cols-[2fr_1fr]">
+                <label className="block text-sm font-semibold">
+                  Cari paket
+                  <input type="search" className="atlas-field mt-1.5 block" value={packageQuery}
+                    onChange={event => setPackageQuery(event.target.value)} placeholder="Nama paket tryout" />
+                </label>
+                <label className="block text-sm font-semibold">
+                  Jenjang
+                  <select className="atlas-field mt-1.5 block" value={packageLevel}
+                    onChange={event => setPackageLevel(event.target.value as TryoutLevelFilter)}>
+                    <option value="semua">Semua jenjang</option>
+                    {tryoutLevelOptions.map(jenjang => <option key={jenjang} value={jenjang}>{tryoutLevelLabels[jenjang]}</option>)}
+                  </select>
+                </label>
+              </div>
 
               {showForm && (
                 <div ref={paketFormRef} tabIndex={-1} className="mb-5 scroll-mt-24 rounded-xl border border-gray-200 bg-white p-5">
                   <h3 className="mb-4 font-bold text-gray-800">{editData ? 'Edit Paket' : 'Tambah Paket Baru'}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {inp('Nama paket (contoh: OSNK Paket 1)', 'nama')}
+                    {inp('Nama paket (contoh: OSN-K Paket 1)', 'nama')}
                     {sel('jenis', [
-                      { value: 'OSNK', label: 'OSNK (Kabupaten/Kota)' },
-                      { value: 'OSNP', label: 'OSNP (Provinsi)' },
-                      { value: 'Nasional', label: 'Nasional' },
+                      { value: 'OSNK', label: 'OSN-K (Kabupaten/Kota)' },
+                      { value: 'OSNP', label: 'OSN-P (Provinsi)' },
+                      { value: 'Nasional', label: 'OSN Nasional' },
                     ], 'Pilih Jenis')}
                     {inp('Tahun (contoh: 2024)', 'tahun', 'number')}
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
@@ -589,7 +604,7 @@ const handleResetPassword = async (email: string) => {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>Nama Paket</Th><Th>Jenis</Th><Th>Tahun</Th>
+                      <Th>Nama Paket</Th><Th>Jenjang</Th><Th>Tahun</Th>
                       <ThC>Durasi</ThC><ThC>Tipe</ThC><ThC>Status</ThC><ThC>Aksi</ThC>
                     </tr>
                   </thead>
@@ -597,7 +612,7 @@ const handleResetPassword = async (email: string) => {
                     {visiblePackages.map(p => (
                       <tr key={p.id} className="hover:bg-gray-50">
                         <td className="px-5 py-3 font-medium text-gray-800">{p.nama}</td>
-                        <td className="px-5 py-3 text-gray-500 text-xs">{p.jenis || '—'}</td>
+                        <td className="px-5 py-3 text-gray-500 text-xs">{tryoutLevelLabels[tryoutLevel(p.jenis)]}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs">{p.tahun || '—'}</td>
                         <td className="px-5 py-3 text-center text-gray-500 text-xs">{p.durasi_menit} mnt</td>
                         <td className="px-5 py-3 text-center">
@@ -643,7 +658,7 @@ const handleResetPassword = async (email: string) => {
                     ))}
                     {visiblePackages.length === 0 && (
                       <tr><td colSpan={7} className="px-5 py-8 text-center text-gray-500 text-sm">
-                        {packageQuery.trim() ? 'Paket tidak ditemukan.' : 'Belum ada paket tryout.'}
+                        {paketTO.length ? 'Tidak ada paket yang cocok dengan filter.' : 'Belum ada paket tryout.'}
                       </td></tr>
                     )}
                   </tbody>

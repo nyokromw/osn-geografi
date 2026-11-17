@@ -8,6 +8,7 @@ import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
 import { MembershipPlans } from '../components/membership-plans'
 import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type AccessLevel, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
+import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFilter } from '../lib/tryout-levels'
 import { LearningProgress, type StudyResult } from './learning-progress'
 import { LearningVideoCard, type LearningVideo } from './learning-video'
 
@@ -54,6 +55,7 @@ export default function DashboardPage() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
+  const [tryoutFilter, setTryoutFilter] = useState<TryoutLevelFilter>('semua')
   const [accessDenied, setAccessDenied] = useState(false)
   const [riwayat, setRiwayat] = useState<StudyResult[]>([])
   const [practiceResults, setPracticeResults] = useState<StudyResult[]>([])
@@ -83,7 +85,7 @@ export default function DashboardPage() {
         setAccessDenied(true)
         setActiveTab('paket')
         window.history.replaceState({}, '', '/dashboard')
-      } else if (tab === 'modul' || tab === 'video') {
+      } else if (tab === 'modul' || tab === 'video' || tab === 'tryout') {
         setActiveTab(tab)
         window.history.replaceState({}, '', '/dashboard')
       }
@@ -268,14 +270,27 @@ export default function DashboardPage() {
                 <p className="text-gray-500 text-sm">Pilih paket tryout OSN Geografi yang ingin dikerjakan</p>
               </div>
 
-              {/* Filter jenis */}
-              {['OSNK', 'OSNP', 'Nasional'].map(jenis => {
-                const list = paketTO.filter(p => p.jenis === jenis)
+              {paketTO.length > 0 && (
+                <div role="group" aria-label="Filter jenjang tryout" className="mb-6 flex flex-wrap gap-2">
+                  {(['semua', ...tryoutLevelOptions] as TryoutLevelFilter[])
+                    .filter(jenjang => jenjang === 'semua' || paketTO.some(paket => tryoutLevel(paket.jenis) === jenjang))
+                    .map(jenjang => (
+                      <button key={jenjang} type="button" aria-pressed={tryoutFilter === jenjang}
+                        className={'atlas-button' + (tryoutFilter === jenjang ? ' atlas-button--primary' : '')}
+                        onClick={() => setTryoutFilter(jenjang)}>
+                        {jenjang === 'semua' ? 'Semua jenjang' : tryoutLevelLabels[jenjang]}
+                      </button>
+                    ))}
+                </div>
+              )}
+
+              {tryoutLevelOptions.filter(jenjang => tryoutFilter === 'semua' || tryoutFilter === jenjang).map(jenjang => {
+                const list = paketTO.filter(p => tryoutLevel(p.jenis) === jenjang)
                 if (list.length === 0) return null
                 return (
-                  <div key={jenis} className="mb-8">
+                  <section key={jenjang} aria-label={tryoutLevelLabels[jenjang]} className="mb-8">
                     <div className="flex items-center gap-3 mb-3">
-                      <h3 className="font-black text-gray-700">{jenis}</h3>
+                      <h3 className="font-black text-gray-700">{tryoutLevelLabels[jenjang]}</h3>
                       <div className="h-px flex-1 bg-gray-200" />
                       <span className="text-xs text-gray-400">{list.length} paket</span>
                     </div>
@@ -317,7 +332,7 @@ export default function DashboardPage() {
                         )
                       })}
                     </div>
-                  </div>
+                  </section>
                 )
               })}
 
