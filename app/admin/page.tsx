@@ -5,6 +5,8 @@ import { ClipboardList, FileText, Images, LayoutDashboard, Layers3, LogOut, Mega
 import { Brand, PageLoading } from '../components/atlas'
 import { accessLabels, membershipExpiry, membershipFeatures, requiredAccess, rupiah, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
+import { loadStudentOverview, type StudentProfile } from './student-data'
+import { StudentRoster } from './students'
 
 type View =
   | 'dashboard' | 'siswa'
@@ -13,18 +15,6 @@ type View =
   | 'video' | 'modul'
   | 'membership' | 'transaksi'
   | 'pengumuman' | 'banner'
-
-type StudentProfile = {
-  id: string
-  nama: string | null
-  email: string | null
-  provinsi: string | null
-  nomor_hp: string | null
-  role: string | null
-  status: string | null
-  status_expired: string | null
-  created_at: string | null
-}
 
 const accessOptions = Object.entries(accessLabels).map(([value, label]) => ({ value, label }))
 const mediaAccessOptions = accessOptions.filter(({ value }) => value !== 'premium')
@@ -42,10 +32,13 @@ export default function AdminPage() {
   const [packageQuery, setPackageQuery] = useState('')
 
   // Stats
-  const [stats, setStats] = useState({ totalSiswa: 0, totalTO: 0, rataRata: 0, totalTransaksi: 0 })
+  const [stats, setStats] = useState<Awaited<ReturnType<typeof loadStudentOverview>> & {
+    totalTO: number | null; rataRata: number | null; totalTransaksi: number | null
+  }>({ total: null, registered: null, premium: null, platinum: null, submissions: null,
+    totalTO: null, rataRata: null, totalTransaksi: null })
+  const [studentRevision, setStudentRevision] = useState(0)
 
   // Data lists
-  const [siswa, setSiswa] = useState<StudentProfile[]>([])
   const [hasil, setHasil] = useState<any[]>([])
   const [paketTO, setPaketTO] = useState<any[]>([])
   const [soalTO, setSoalTO] = useState<any[]>([])
@@ -101,24 +94,23 @@ const [savingUser, setSavingUser] = useState(false)
 
   const loadAll = async () => {
     const [
-      { data: s }, { data: h }, { data: pt }, { data: tp },
+      studentOverview, { data: h, count: totalTO }, { data: pt }, { data: tp },
       { data: pp }, { data: v }, { data: m }, { data: mb },
-      { data: tr }, { data: pg }, { data: bn }
+      { data: tr, count: totalTransaksi }, { data: pg }, { data: bn }
     ] = await Promise.all([
-      supabase.from('profiles').select('id, nama, email, provinsi, nomor_hp, role, status, status_expired, created_at')
-        .order('created_at', { ascending: false, nullsFirst: false }),
-      supabase.from('hasil_to').select('*, profiles(nama), paket_to(nama)').order('created_at', { ascending: false }).limit(50),
+      loadStudentOverview(),
+      supabase.from('hasil_to').select('*, profiles(nama), paket_to(nama)', { count: 'exact' })
+        .order('created_at', { ascending: false }).limit(50),
       supabase.from('paket_to').select('*').order('urutan'),
       supabase.from('topik_materi').select('*').order('urutan'),
       supabase.from('paket_pendalaman').select('*, topik_materi(nama)').order('id'),
       supabase.from('video_pembelajaran').select('*, topik_materi(nama)').order('urutan'),
       supabase.from('modul_materi').select('*, topik_materi(nama)').order('id'),
       supabase.from('paket_membership').select('*').order('id'),
-      supabase.from('transaksi').select('*, profiles(nama), paket_membership(nama)').order('created_at', { ascending: false }),
+      supabase.from('transaksi').select('*, profiles(nama), paket_membership(nama)', { count: 'exact' }).order('created_at', { ascending: false }),
       supabase.from('pengumuman').select('*').order('created_at', { ascending: false }),
       supabase.from('banner').select('*').order('id'),
     ])
-    setSiswa(s || [])
     setHasil(h || [])
     setPaketTO(pt || [])
     setTopikList(tp || [])
@@ -129,9 +121,8 @@ const [savingUser, setSavingUser] = useState(false)
     setTransaksiList(tr || [])
     setPengumumanList(pg || [])
     setBannerList(bn || [])
-    const totalTO = h?.length || 0
-    const rataRata = totalTO > 0 ? Math.round((h || []).reduce((a: number, b: any) => a + b.total_poin, 0) / totalTO) : 0
-    setStats({ totalSiswa: s?.length || 0, totalTO, rataRata, totalTransaksi: tr?.length || 0 })
+    const rataRata = h?.length ? Math.round(h.reduce((total, row) => total + row.total_poin, 0) / h.length) : null
+    setStats({ ...studentOverview, totalTO, rataRata, totalTransaksi })
   }
 
   const loadSoalTO = async (paketId: number) => {
@@ -256,6 +247,7 @@ const handleSaveUser = async () => {
       return
     }
     await loadAll()
+    setStudentRevision(value => value + 1)
     setShowEditUser(false)
     setEditUserData(null)
   } finally {
@@ -417,16 +409,26 @@ const handleResetPassword = async (email: string) => {
                 <h2 className="text-xl font-black text-gray-800">Dashboard Admin</h2>
                 <p className="text-gray-500 text-sm">Ringkasan aktivitas OSNGeo.id</p>
               </div>
-              <dl className="atlas-stat-strip mb-6">
-                {[
-                  ['Total siswa', stats.totalSiswa],
-                  ['Tryout dikerjakan', stats.totalTO],
-                  ['Rata-rata poin', stats.rataRata],
-                  ['Total transaksi', stats.totalTransaksi],
-                ].map(([label, value]) => (
-                  <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
-                ))}
-              </dl>
+              {[
+                [
+                  { label: 'Total siswa', value: stats.total },
+                  { label: 'Pendaftar 7 hari', value: stats.registered },
+                  { label: 'Premium aktif', value: stats.premium },
+                  { label: 'Platinum aktif', value: stats.platinum },
+                ],
+                [
+                  { label: 'Total pengerjaan tryout', value: stats.totalTO },
+                  { label: 'Pengerjaan tryout 7 hari', value: stats.submissions },
+                  { label: 'Rata-rata poin (50 terakhir)', value: stats.rataRata },
+                  { label: 'Total transaksi', value: stats.totalTransaksi },
+                ],
+              ].map(group => (
+                <dl key={group[0].label} className="atlas-stat-strip mb-6">
+                  {group.map(({ label, value }) => (
+                    <div key={label}><dt>{label}</dt><dd>{value?.toLocaleString('id-ID') ?? '—'}</dd></div>
+                  ))}
+                </dl>
+              ))}
               <div className="bg-white border border-gray-200 rounded-xl">
                 <div className="px-5 py-3 border-b border-gray-100">
                   <h3 className="font-bold text-gray-800 text-sm">Hasil TO Terbaru</h3>
@@ -455,66 +457,11 @@ const handleResetPassword = async (email: string) => {
          {/* ── DATA SISWA ────────────────────────────────────────── */}
           {view === 'siswa' && (
             <div>
-              <div className="mb-5">
-                <h2 className="text-xl font-black text-gray-800">Data Siswa</h2>
-                <p className="text-gray-500 text-sm">{siswa.length} akun terdaftar</p>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll" role="region" aria-label="Tabel data siswa" tabIndex={0}>
-                <table className="w-full min-w-[61rem] text-sm">
-                  <thead>
-                    <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>No</Th><Th>Nama dan email</Th><Th>Asal provinsi</Th><Th>Nomor HP</Th>
-                      <Th>Role</Th><Th>Status</Th><Th>Expired</Th><Th>Bergabung</Th><ThC>Aksi</ThC>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {siswa.map((s, i) => (
-                      <tr key={s.id} className="hover:bg-gray-50">
-                        <td className="px-5 py-3 text-gray-400 text-xs">{i + 1}</td>
-                        <td className="px-5 py-3">
-                          <span className="block font-semibold text-gray-800">{s.nama || '—'}</span>
-                          <span className="block break-all text-xs text-gray-500">{s.email || '—'}</span>
-                        </td>
-                        <td className="px-5 py-3 text-gray-700">{s.provinsi || '—'}</td>
-                        <td className="whitespace-nowrap px-5 py-3 tabular-nums text-gray-700">{s.nomor_hp || '—'}</td>
-                        <td className="px-5 py-3">
-                          <Badge v={s.role || 'siswa'} map={{ admin: 'bg-red-100 text-red-600', siswa: 'bg-forest-100 text-forest-600' }} />
-                        </td>
-                        <td className="px-5 py-3">
-                          <Badge v={s.status || 'gratis'} map={{
-                            gratis: 'bg-gray-100 text-gray-600',
-                            premium: 'bg-yellow-100 text-yellow-700',
-                            platinum: 'bg-purple-100 text-purple-700',
-                          }} />
-                        </td>
-                        <td className="px-5 py-3 text-gray-400 text-xs">
-                          {s.status_expired
-                            ? new Date(membershipExpiry(s.status_expired)).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-                            : '—'}
-                        </td>
-                        <td className="px-5 py-3 text-gray-400 text-xs">
-                          {s.created_at
-                            ? new Date(s.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-                            : '—'}
-                        </td>
-                        <td className="px-5 py-3 text-center">
-                          <button onClick={() => {
-                            setEditUserData(s)
-                            setEditUserForm({
-                              nama: s.nama || '',
-                              role: s.role || 'siswa',
-                              planId: '',
-                            })
-                            setShowEditUser(true)
-                          }} className="text-xs text-forest-600 border border-forest-200 px-2 py-1 rounded transition">
-                            Edit
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <StudentRoster revision={studentRevision} onEdit={student => {
+                setEditUserData(student)
+                setEditUserForm({ nama: student.nama || '', role: student.role || 'siswa', planId: '' })
+                setShowEditUser(true)
+              }} />
 
               {/* MODAL EDIT USER */}
               {showEditUser && editUserData && (
