@@ -81,6 +81,9 @@ export default function DashboardPage() {
         setAccessDenied(true)
         setActiveTab('paket')
         window.history.replaceState({}, '', '/dashboard')
+      } else if (params.get('tab') === 'modul') {
+        setActiveTab('modul')
+        window.history.replaceState({}, '', '/dashboard')
       }
 
       const [account, tryouts, practices, pt, tp, pp, v, m, pg, mb] = await Promise.all([
@@ -449,11 +452,13 @@ export default function DashboardPage() {
                 <p className="text-gray-500 text-sm">{modulList.length} modul tersedia</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {modulList.map((m, i) => (
-                  <div key={i} className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-sm transition">
+                {modulList.map(m => (
+                  <div key={m.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-sm transition">
                     <div className="text-3xl mb-3">📄</div>
                     <div className="font-bold text-sm text-gray-800 mb-1">{m.judul}</div>
-                    <div className="text-xs text-gray-400 mb-1">{m.topik_materi?.nama || '—'}</div>
+                    <div className="text-xs text-gray-500 mb-1">
+                      {m.jumlah_halaman ? m.jumlah_halaman + ' halaman' : m.topik_materi?.nama || '—'}
+                    </div>
                     {m.deskripsi && <p className="text-xs text-gray-400 mb-3">{m.deskripsi}</p>}
                     <div className="flex items-center justify-between mt-3">
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
@@ -461,7 +466,10 @@ export default function DashboardPage() {
                       }`}>
                         {accessLabels[requiredAccess(m, true)]}
                       </span>
-                      {m.file_url && (
+                      {m.jumlah_halaman ? (
+                        <Link href={'/modul/' + m.id} aria-label={'Baca ' + m.judul}
+                          className="text-xs text-forest-600 font-bold hover:underline">Baca modul →</Link>
+                      ) : m.file_url && (
                         <a href={m.file_url} target="_blank" rel="noreferrer"
                           className="text-xs text-forest-600 font-bold hover:underline">Unduh →</a>
                       )}
@@ -470,7 +478,14 @@ export default function DashboardPage() {
                 ))}
                 {modulList.length === 0 && (
                   <div className="col-span-3 bg-white border border-gray-200 rounded-xl px-5 py-12 text-center text-gray-400 text-sm">
-                    Belum ada modul tersedia.
+                    {learningAccess === 'platinum' ? 'Belum ada modul tersedia.' : (
+                      <div className="space-y-3">
+                        <p className="text-gray-600">Modul tersedia untuk akun Platinum.</p>
+                        <button type="button" className="atlas-button" onClick={() => openUpgrade('platinum')}>
+                          Lihat paket Platinum
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

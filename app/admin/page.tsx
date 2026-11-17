@@ -1306,7 +1306,12 @@ const handleResetPassword = async (email: string) => {
                           <Badge v={accessLabels[requiredAccess(m, true)]} map={accessBadge} />
                         </td>
                         <td className="px-5 py-3 text-center">
-                          {m.file_url ? <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-forest-600 hover:underline">Buka</a> : <span className="text-gray-300 text-xs">—</span>}
+                          {m.jumlah_halaman ? (
+                            <Link href={'/modul/' + m.id} target="_blank" rel="noreferrer"
+                              className="text-xs text-forest-600 hover:underline">Baca modul</Link>
+                          ) : m.file_url ? (
+                            <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-forest-600 hover:underline">Buka</a>
+                          ) : <span className="text-gray-300 text-xs">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
                           <button onClick={() => handleDelete('modul_materi', m.id)}
