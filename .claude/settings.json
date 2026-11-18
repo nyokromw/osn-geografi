@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Edit",
+      "Write",
+      "mcp__Supabase__execute_sql",
+      "mcp__Supabase__list_tables"
+    ]
+  }
+}
