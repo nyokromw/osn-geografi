@@ -6,8 +6,8 @@ import { ArrowLeft, LoaderCircle } from 'lucide-react'
 export function Brand() {
   return (
     <Link href="/" className="atlas-brand" aria-label="OSNGEO.id, beranda">
-      <Image src="/brand/compass.webp" width={34} height={34} alt="" unoptimized />
-      <span>OSN<span>GEO</span>.id</span>
+      <Image src="/brand/logo-mark.svg" width={36} height={36} alt="" unoptimized />
+      <span>OSNGEO<span>.id</span></span>
     </Link>
   )
 }

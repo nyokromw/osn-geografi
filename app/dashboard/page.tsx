@@ -522,7 +522,7 @@ export default function DashboardPage() {
             <div>
               <div className="mb-6">
                 <h2 className="text-xl font-black text-gray-800">Pengumuman</h2>
-                <p className="text-gray-500 text-sm">Informasi terbaru dari OSNGeo.id</p>
+                <p className="text-gray-500 text-sm">Informasi terbaru dari OSNGEO.id</p>
               </div>
               <div className="flex flex-col gap-4">
                 {pengumumanList.map((p, i) => (

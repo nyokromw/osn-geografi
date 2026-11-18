@@ -418,7 +418,7 @@ const handleResetPassword = async (email: string) => {
             <div>
               <div className="mb-5">
                 <h2 className="text-xl font-black text-gray-800">Dashboard Admin</h2>
-                <p className="text-gray-500 text-sm">Ringkasan aktivitas OSNGeo.id</p>
+                <p className="text-gray-500 text-sm">Ringkasan aktivitas OSNGEO.id</p>
               </div>
               {[
                 [
@@ -1603,7 +1603,7 @@ const handleResetPassword = async (email: string) => {
         </main>
 
         <footer className="text-center text-xs text-gray-400 py-4 border-t border-gray-100">
-          © 2025 OSNGeo.id — Panel Admin
+          © {new Date().getFullYear()} OSNGEO.id — Panel Admin
         </footer>
       </div>
     </div>
