@@ -1,7 +1,7 @@
 import { bisaAkses, requiredAccess, type AccessLevel } from './membership'
 import { tryoutLevel, type TryoutLevel } from './tryout-levels'
 
-export const predictionYear = 2026
+export const predictionYear = 2027
 export const tryoutCategoryLabels = { latihan: 'Latihan', prediksi: 'Prediksi' } as const
 export type TryoutCategory = keyof typeof tryoutCategoryLabels
 export type TryoutCategoryFilter = TryoutCategory | 'semua'

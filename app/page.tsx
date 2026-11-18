@@ -10,7 +10,7 @@ import { TryoutComparison } from './components/tryout-comparison'
 import type { LandingVideo } from './lib/landing-videos'
 import { adminWhatsApp, type MembershipPlan } from './lib/membership'
 import { supabase } from './lib/supabase'
-import type { TryoutCatalogEntry } from './lib/tryout-catalog'
+import { predictionYear, type TryoutCatalogEntry } from './lib/tryout-catalog'
 
 const sections = [
   ['Materi', '#topik'],
@@ -141,8 +141,8 @@ export default function Home() {
           </div>
         </section>
         <section id="tryout" className="atlas-container atlas-section">
-          <h2 className="atlas-subtitle">Latihan dan Prediksi 2026</h2>
-          <p className="mt-2 mb-5 max-w-prose text-sm text-gray-600">Jumlah paket per tingkat akses. Keterangan tersedia menunjukkan jumlah yang sudah bisa dikerjakan jika berbeda dari alokasi.</p>
+          <h2 className="atlas-subtitle">Latihan dan Prediksi {predictionYear}</h2>
+          <p className="mt-2 mb-5 max-w-prose text-sm text-gray-600">Platinum mencakup seluruh akses Premium. Keterangan tersedia menunjukkan jumlah paket yang sudah bisa dikerjakan jika berbeda dari alokasi.</p>
           <TryoutComparison catalog={tryouts} />
         </section>
         <section id="paket" className="atlas-container atlas-section">
