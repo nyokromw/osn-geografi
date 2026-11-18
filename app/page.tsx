@@ -46,7 +46,7 @@ export default function Home() {
           supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur, akses, aktif').order('id'),
           supabase.from('pengumuman').select('id, judul, isi, created_at').eq('aktif', true).order('created_at', { ascending: false }).limit(3),
           supabase.from('topik_materi').select('id, nama').order('urutan'),
-          supabase.from('video_beranda').select('posisi, judul, youtube_id').order('posisi'),
+          supabase.from('video_beranda').select('posisi, judul, youtube_id, thumbnail_url').order('posisi'),
           supabase.from('paket_to').select('jenis, kategori, tahun, akses, is_premium').eq('status', 'aktif'),
         ])
         if (!active) return

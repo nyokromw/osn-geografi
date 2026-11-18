@@ -3,9 +3,9 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { supabase } from '../lib/supabase'
 import { getYouTubeVideoId } from '../lib/youtube'
-import { landingVideoSlots, type LandingVideo } from '../lib/landing-videos'
+import { landingThumbnail, landingVideoSlots, thumbnailPattern, type LandingVideo } from '../lib/landing-videos'
 
-const blank = landingVideoSlots.map(posisi => ({ posisi, judul: '', youtube_id: '' }))
+const blank: LandingVideo[] = landingVideoSlots.map(posisi => ({ posisi, judul: '', youtube_id: '', thumbnail_url: '' }))
 
 export function LandingVideoSettings() {
   const [slots, setSlots] = useState<LandingVideo[]>(blank)
@@ -16,7 +16,7 @@ export function LandingVideoSettings() {
 
   useEffect(() => {
     let mounted = true
-    void supabase.from('video_beranda').select('posisi, judul, youtube_id').order('posisi').then(({ data, error }) => {
+    void supabase.from('video_beranda').select('posisi, judul, youtube_id, thumbnail_url').order('posisi').then(({ data, error }) => {
       if (!mounted) return
       if (error) setLoadError(true)
       else setSlots(blank.map(slot => data?.find(item => item.posisi === slot.posisi) ?? slot))
@@ -31,10 +31,16 @@ export function LandingVideoSettings() {
       posisi: slot.posisi,
       judul: slot.judul.trim(),
       youtube_id: getYouTubeVideoId(slot.youtube_id),
+      thumbnail_url: slot.thumbnail_url?.trim() || null,
     }))
     const invalid = updated.find(slot => !slot.judul || !slot.youtube_id)
     if (invalid) {
       setMessage({ error: true, text: 'Periksa judul dan tautan YouTube pada Video ' + invalid.posisi + '.' })
+      return
+    }
+    const badThumb = updated.find(slot => slot.thumbnail_url && !thumbnailPattern.test(slot.thumbnail_url))
+    if (badThumb) {
+      setMessage({ error: true, text: 'Thumbnail Video ' + badThumb.posisi + ' harus link https:// atau path seperti /brand/gambar.jpg.' })
       return
     }
     setSaving(true)
@@ -49,7 +55,7 @@ export function LandingVideoSettings() {
     }
   }
 
-  function change(position: number, field: 'judul' | 'youtube_id', value: string) {
+  function change(position: number, field: 'judul' | 'youtube_id' | 'thumbnail_url', value: string) {
     setSlots(current => current.map(slot => slot.posisi === position ? { ...slot, [field]: value } : slot))
   }
 
@@ -71,7 +77,7 @@ export function LandingVideoSettings() {
                   {previewId ? (
                     <a href={'https://www.youtube.com/watch?v=' + previewId} target="_blank" rel="noreferrer" title="Buka di YouTube">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={'https://img.youtube.com/vi/' + previewId + '/mqdefault.jpg'} alt={'Pratinjau ' + (slot.judul || 'video ' + slot.posisi)}
+                      <img src={slot.thumbnail_url?.trim() ? landingThumbnail(slot, previewId) : 'https://img.youtube.com/vi/' + previewId + '/mqdefault.jpg'} alt={'Pratinjau ' + (slot.judul || 'video ' + slot.posisi)}
                         className="absolute inset-0 size-full object-cover" />
                     </a>
                   ) : (
@@ -89,6 +95,11 @@ export function LandingVideoSettings() {
                     <input className="atlas-field" value={slot.youtube_id} required disabled={saving}
                       placeholder="https://www.youtube.com/watch?v=…"
                       onChange={event => change(slot.posisi, 'youtube_id', event.target.value)} />
+                  </label>
+                  <label className="grid gap-1 text-sm font-semibold">Thumbnail kustom <span className="font-normal text-gray-500">(opsional, kosongkan untuk memakai thumbnail YouTube)</span>
+                    <input className="atlas-field" value={slot.thumbnail_url ?? ''} disabled={saving}
+                      placeholder="https://… atau /brand/promo-thumbnail.jpg"
+                      onChange={event => change(slot.posisi, 'thumbnail_url', event.target.value)} />
                   </label>
                 </div>
               </fieldset>
