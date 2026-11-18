@@ -3,9 +3,8 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, ExternalLink, Play } from 'lucide-react'
 import { getYouTubeVideoId } from '../lib/youtube'
-import type { LandingVideo } from '../lib/landing-videos'
+import { landingThumbnail, type LandingVideo } from '../lib/landing-videos'
 
-const thumbnail = (id: string) => 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'
 
 export function LandingVideoCarousel({ videos }: { videos: LandingVideo[] }) {
   const items = videos.flatMap(video => {
@@ -36,8 +35,8 @@ export function LandingVideoCarousel({ videos }: { videos: LandingVideo[] }) {
             <button type="button" className="landing-video-play" aria-label={'Putar ' + video.judul} onClick={() => setPlaying(true)}>
               {/* The public thumbnail is hosted by YouTube. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={thumbnail(video.id)} alt="" fetchPriority={index === 0 ? 'high' : 'auto'} />
-              <span className="landing-video-badge">Contoh video</span>
+              <img src={landingThumbnail(video, video.id)} alt="" fetchPriority={index === 0 ? 'high' : 'auto'} />
+              {!video.thumbnail_url && <span className="landing-video-badge">Contoh video</span>}
               <span className="landing-video-play-icon"><Play size={26} fill="currentColor" aria-hidden="true" /></span>
             </button>
           )}
@@ -64,7 +63,7 @@ export function LandingVideoCarousel({ videos }: { videos: LandingVideo[] }) {
         {items.map((item, position) => (
           <button key={item.posisi} type="button" aria-pressed={index === position} onClick={() => select(position)}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={thumbnail(item.id)} alt="" loading="lazy" />
+            <img src={landingThumbnail(item, item.id)} alt="" loading="lazy" />
             <span>{item.judul}</span>
           </button>
         ))}
