@@ -9,6 +9,7 @@ import { MembershipPlans } from '../components/membership-plans'
 import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type AccessLevel, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFilter } from '../lib/tryout-levels'
+import { groupTryoutPackages, predictionYear, tryoutCategories, tryoutCategory, tryoutCategoryLabels, type TryoutCategoryFilter } from '../lib/tryout-catalog'
 import { LearningProgress, type StudyResult } from './learning-progress'
 import { LearningVideoCard, type LearningVideo } from './learning-video'
 
@@ -28,6 +29,7 @@ type TryoutPackage = {
   id: number
   nama: string
   jenis: string
+  kategori?: string | null
   tahun: number | null
   durasi_menit: number
   deskripsi: string | null
@@ -56,6 +58,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
   const [tryoutFilter, setTryoutFilter] = useState<TryoutLevelFilter>('semua')
+  const [categoryFilter, setCategoryFilter] = useState<TryoutCategoryFilter>('semua')
   const [accessDenied, setAccessDenied] = useState(false)
   const [riwayat, setRiwayat] = useState<StudyResult[]>([])
   const [practiceResults, setPracticeResults] = useState<StudyResult[]>([])
@@ -284,8 +287,26 @@ export default function DashboardPage() {
                 </div>
               )}
 
+              {paketTO.length > 0 && (
+                <div role="group" aria-label="Filter kategori tryout" className="mb-6 flex flex-wrap gap-2">
+                  {(['semua', ...tryoutCategories] as TryoutCategoryFilter[]).map(category => (
+                    <button key={category} type="button" aria-pressed={categoryFilter === category}
+                      className={'atlas-button' + (categoryFilter === category ? ' atlas-button--primary' : '')}
+                      onClick={() => setCategoryFilter(category)}>
+                      {category === 'semua' ? 'Semua kategori' : tryoutCategoryLabels[category]}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {categoryFilter === 'prediksi' && !paketTO.some(p =>
+                tryoutCategory(p.kategori) === 'prediksi' && p.tahun === predictionYear &&
+                (tryoutFilter === 'semua' || tryoutLevel(p.jenis) === tryoutFilter)
+              ) && <p className="atlas-notice mb-6">Prediksi {predictionYear} untuk jenjang ini belum diterbitkan.</p>}
+
               {tryoutLevelOptions.filter(jenjang => tryoutFilter === 'semua' || tryoutFilter === jenjang).map(jenjang => {
-                const list = paketTO.filter(p => tryoutLevel(p.jenis) === jenjang)
+                const list = paketTO.filter(p => tryoutLevel(p.jenis) === jenjang &&
+                  (categoryFilter === 'semua' || tryoutCategory(p.kategori) === categoryFilter))
                 if (list.length === 0) return null
                 return (
                   <section key={jenjang} aria-label={tryoutLevelLabels[jenjang]} className="mb-8">
@@ -294,49 +315,55 @@ export default function DashboardPage() {
                       <div className="h-px flex-1 bg-gray-200" />
                       <span className="text-xs text-gray-400">{list.length} paket</span>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {list.map(p => {
-                        const access = requiredAccess(p)
-                        const style = tryoutAccessStyles[access]
-                        const locked = !bisaAkses(learningAccess, access)
-                        const packageDetails = [p.tahun, p.durasi_menit && `${p.durasi_menit} menit`].filter(Boolean)
-                        return (
-                          <article key={p.id} className={`flex h-full flex-col rounded-2xl border p-4 sm:p-5 ${style.card}`}>
-                            <div className="mb-3 flex items-start justify-between gap-2">
-                              <div className="min-w-0">
-                                <h4 className="break-words text-sm font-bold text-gray-900">{p.nama}</h4>
-                                {packageDetails.length > 0 && <p className="mt-1 text-xs text-gray-600">{packageDetails.join(' · ')}</p>}
-                              </div>
-                              <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${style.badge}`}>
-                                {accessLabels[access]}
-                              </span>
-                            </div>
-                            {p.deskripsi && <p className="mb-4 text-xs leading-relaxed text-gray-700">{p.deskripsi}</p>}
-                            <div className="mt-auto space-y-2">
-                              {locked ? (
-                                <>
-                                  <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-700">
-                                    <Lock size={14} aria-hidden="true" /> Terkunci
-                                  </p>
-                                  <button type="button" onClick={() => openUpgrade(access)} className="atlas-button w-full">
-                                    Upgrade ke {accessLabels[access]} <ArrowRight size={15} aria-hidden="true" />
-                                  </button>
-                                </>
-                              ) : (
-                                <Link href={`/tryout/${p.id}`} prefetch={false} className="atlas-button atlas-button--primary w-full">
-                                  Mulai Tryout <ArrowRight size={15} aria-hidden="true" />
-                                </Link>
-                              )}
-                            </div>
-                          </article>
-                        )
-                      })}
-                    </div>
+                    {groupTryoutPackages(list).map(([category, packages]) => (
+                      <div key={category} className="mb-5">
+                        <h4 className="mb-2 text-sm font-bold text-forest-700">{category}</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {packages.map(p => {
+                            const access = requiredAccess(p)
+                            const style = tryoutAccessStyles[access]
+                            const locked = !bisaAkses(learningAccess, access)
+                            const packageDetails = [p.tahun, p.durasi_menit && `${p.durasi_menit} menit`].filter(Boolean)
+                            return (
+                              <article key={p.id} className={`flex h-full flex-col rounded-2xl border p-4 sm:p-5 ${style.card}`}>
+                                <div className="mb-3 flex items-start justify-between gap-2">
+                                  <div className="min-w-0">
+                                    <h5 className="break-words text-sm font-bold text-gray-900">{p.nama}</h5>
+                                    {packageDetails.length > 0 && <p className="mt-1 text-xs text-gray-600">{packageDetails.join(' · ')}</p>}
+                                  </div>
+                                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${style.badge}`}>
+                                    {accessLabels[access]}
+                                  </span>
+                                </div>
+                                {p.deskripsi && <p className="mb-4 text-xs leading-relaxed text-gray-700">{p.deskripsi}</p>}
+                                <div className="mt-auto space-y-2">
+                                  {locked ? (
+                                    <>
+                                      <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+                                        <Lock size={14} aria-hidden="true" /> Terkunci
+                                      </p>
+                                      <button type="button" onClick={() => openUpgrade(access)} className="atlas-button w-full">
+                                        Upgrade ke {accessLabels[access]} <ArrowRight size={15} aria-hidden="true" />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <Link href={`/tryout/${p.id}`} prefetch={false} className="atlas-button atlas-button--primary w-full">
+                                      Mulai Tryout <ArrowRight size={15} aria-hidden="true" />
+                                    </Link>
+                                  )}
+                                </div>
+                              </article>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    ))}
                   </section>
                 )
               })}
 
-              {paketTO.length === 0 && (
+              {!paketTO.some(p => (tryoutFilter === 'semua' || tryoutLevel(p.jenis) === tryoutFilter) &&
+                (categoryFilter === 'semua' || tryoutCategory(p.kategori) === categoryFilter)) && (
                 <div className="bg-white border border-gray-200 rounded-xl px-5 py-12 text-center text-gray-400 text-sm">
                   Belum ada paket tryout tersedia.
                 </div>

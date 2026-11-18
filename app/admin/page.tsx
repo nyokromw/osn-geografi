@@ -7,6 +7,8 @@ import { accessLabels, membershipExpiry, membershipFeatures, requiredAccess, rup
 import { supabase } from '../lib/supabase'
 import { getYouTubeVideoId } from '../lib/youtube'
 import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFilter } from '../lib/tryout-levels'
+import { predictionYear, tryoutCategories, tryoutCategory, tryoutCategoryLabel, tryoutCategoryLabels, type TryoutCategoryFilter } from '../lib/tryout-catalog'
+import { LandingVideoSettings } from './landing-videos'
 import { loadStudentOverview, type StudentProfile } from './student-data'
 import { StudentRoster } from './students'
 
@@ -16,7 +18,7 @@ type View =
   | 'pendalaman' | 'soal_pendalaman'
   | 'video' | 'modul'
   | 'membership' | 'transaksi'
-  | 'pengumuman' | 'banner'
+  | 'pengumuman' | 'banner' | 'video_beranda'
 
 const accessOptions = Object.entries(accessLabels).map(([value, label]) => ({ value, label }))
 const mediaAccessOptions = accessOptions.filter(({ value }) => value !== 'premium')
@@ -33,6 +35,7 @@ export default function AdminPage() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [packageQuery, setPackageQuery] = useState('')
   const [packageLevel, setPackageLevel] = useState<TryoutLevelFilter>('semua')
+  const [packageCategory, setPackageCategory] = useState<TryoutCategoryFilter>('semua')
 
   // Stats
   const [stats, setStats] = useState<Awaited<ReturnType<typeof loadStudentOverview>> & {
@@ -298,6 +301,7 @@ const handleResetPassword = async (email: string) => {
       { label: 'Daftar transaksi', key: 'transaksi', Icon: Receipt },
     ] },
     { group: 'Publikasi', items: [
+      { label: 'Video beranda', key: 'video_beranda', Icon: Video },
       { label: 'Pengumuman', key: 'pengumuman', Icon: Megaphone },
       { label: 'Banner', key: 'banner', Icon: Images },
     ] },
@@ -309,6 +313,7 @@ const handleResetPassword = async (email: string) => {
   const packageSearch = packageQuery.trim().toLowerCase()
   const visiblePackages = paketTO.filter(paket =>
     (packageLevel === 'semua' || tryoutLevel(paket.jenis) === packageLevel) &&
+    (packageCategory === 'semua' || tryoutCategory(paket.kategori) === packageCategory) &&
     String(paket.nama).toLowerCase().includes(packageSearch))
 
   // Input field helpers
@@ -539,6 +544,8 @@ const handleResetPassword = async (email: string) => {
             </div>
           )}
 
+          {view === 'video_beranda' && <LandingVideoSettings />}
+
           {/* ── PAKET TRYOUT (list) ───────────────────────────────── */}
           {view === 'paket_tryout' && (
             <div>
@@ -551,7 +558,7 @@ const handleResetPassword = async (email: string) => {
                   + Tambah Paket
                 </button>
               </div>
-              <div className="mb-4 grid max-w-2xl gap-3 sm:grid-cols-[2fr_1fr]">
+              <div className="mb-4 grid max-w-3xl gap-3 sm:grid-cols-[2fr_1fr_1fr]">
                 <label className="block text-sm font-semibold">
                   Cari paket
                   <input type="search" className="atlas-field mt-1.5 block" value={packageQuery}
@@ -563,6 +570,14 @@ const handleResetPassword = async (email: string) => {
                     onChange={event => setPackageLevel(event.target.value as TryoutLevelFilter)}>
                     <option value="semua">Semua jenjang</option>
                     {tryoutLevelOptions.map(jenjang => <option key={jenjang} value={jenjang}>{tryoutLevelLabels[jenjang]}</option>)}
+                  </select>
+                </label>
+                <label className="block text-sm font-semibold">
+                  Kategori
+                  <select className="atlas-field mt-1.5 block" value={packageCategory}
+                    onChange={event => setPackageCategory(event.target.value as TryoutCategoryFilter)}>
+                    <option value="semua">Semua kategori</option>
+                    {tryoutCategories.map(category => <option key={category} value={category}>{tryoutCategoryLabels[category]}</option>)}
                   </select>
                 </label>
               </div>
@@ -577,7 +592,15 @@ const handleResetPassword = async (email: string) => {
                       { value: 'OSNP', label: 'OSN-P (Provinsi)' },
                       { value: 'Nasional', label: 'OSN Nasional' },
                     ], 'Pilih Jenis')}
-                    {inp('Tahun (contoh: 2024)', 'tahun', 'number')}
+                    <label className="block text-xs font-semibold">Kategori tryout
+                      <select className="atlas-field mt-1 block" value={tryoutCategory(formData.kategori)}
+                        onChange={event => setFormData({ ...formData, kategori: event.target.value })}>
+                        {tryoutCategories.map(category => <option key={category} value={category}>{tryoutCategoryLabels[category]}</option>)}
+                      </select>
+                    </label>
+                    <label className="block text-xs font-semibold">Tahun
+                      {inp(`Contoh: ${predictionYear}`, 'tahun', 'number')}
+                    </label>
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
                     {sel('status', [{ value: 'aktif', label: 'Aktif' }, { value: 'nonaktif', label: 'Nonaktif' }], 'Status')}
                     {sel('akses', accessOptions, 'Tipe akses (Gratis)')}
@@ -587,14 +610,15 @@ const handleResetPassword = async (email: string) => {
                     <FormBtns onSave={() => handleSave('paket_to', {
                       nama: formData.nama,
                       jenis: formData.jenis,
-                      tahun: formData.tahun || null,
+                      kategori: tryoutCategory(formData.kategori),
+                      tahun: formData.tahun || (formData.kategori === 'prediksi' ? predictionYear : null),
                       durasi_menit: formData.durasi_menit || 120,
                       status: formData.status || 'aktif',
                       aktif: formData.status !== 'nonaktif',
                       akses: formData.akses || 'gratis',
                       is_premium: Boolean(formData.akses && formData.akses !== 'gratis'),
                       deskripsi: formData.deskripsi || null,
-                      ...(editData ? {} : { urutan: paketTO.length + 1 }),
+                      ...(editData ? {} : { urutan: Math.max(0, ...paketTO.map(p => Number(p.urutan) || 0)) + 1 }),
                     })} />
                   </div>
                 </div>
@@ -604,7 +628,7 @@ const handleResetPassword = async (email: string) => {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>Nama Paket</Th><Th>Jenjang</Th><Th>Tahun</Th>
+                      <Th>Nama Paket</Th><Th>Jenjang</Th><Th>Kategori</Th><Th>Tahun</Th>
                       <ThC>Durasi</ThC><ThC>Tipe</ThC><ThC>Status</ThC><ThC>Aksi</ThC>
                     </tr>
                   </thead>
@@ -613,6 +637,7 @@ const handleResetPassword = async (email: string) => {
                       <tr key={p.id} className="hover:bg-gray-50">
                         <td className="px-5 py-3 font-medium text-gray-800">{p.nama}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs">{tryoutLevelLabels[tryoutLevel(p.jenis)]}</td>
+                        <td className="px-5 py-3 text-gray-500 text-xs">{tryoutCategoryLabel(p)}</td>
                         <td className="px-5 py-3 text-gray-500 text-xs">{p.tahun || '—'}</td>
                         <td className="px-5 py-3 text-center text-gray-500 text-xs">{p.durasi_menit} mnt</td>
                         <td className="px-5 py-3 text-center">
@@ -638,6 +663,7 @@ const handleResetPassword = async (email: string) => {
                               setFormData({
                                 nama: p.nama,
                                 jenis: p.jenis,
+                                kategori: p.kategori,
                                 tahun: p.tahun,
                                 durasi_menit: p.durasi_menit,
                                 status: p.status,
@@ -657,7 +683,7 @@ const handleResetPassword = async (email: string) => {
                       </tr>
                     ))}
                     {visiblePackages.length === 0 && (
-                      <tr><td colSpan={7} className="px-5 py-8 text-center text-gray-500 text-sm">
+                      <tr><td colSpan={8} className="px-5 py-8 text-center text-gray-500 text-sm">
                         {paketTO.length ? 'Tidak ada paket yang cocok dengan filter.' : 'Belum ada paket tryout.'}
                       </td></tr>
                     )}

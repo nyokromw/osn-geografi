@@ -2,23 +2,28 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowRight, ArrowUpRight, BookOpen, ClipboardList, Compass, Layers3, MessageCircle, TrendingUp } from 'lucide-react'
-import { AtlasMap, Brand } from './components/atlas'
+import { ArrowRight, BookOpen, Compass, MessageCircle, TrendingUp } from 'lucide-react'
+import { Brand } from './components/atlas'
+import { LandingVideoCarousel } from './components/landing-video-carousel'
 import { MembershipPlans } from './components/membership-plans'
+import { TryoutComparison } from './components/tryout-comparison'
+import type { LandingVideo } from './lib/landing-videos'
 import { adminWhatsApp, type MembershipPlan } from './lib/membership'
 import { supabase } from './lib/supabase'
+import type { TryoutCatalogEntry } from './lib/tryout-catalog'
 
 const sections = [
-  ['Keunggulan', '#kenapa'],
   ['Materi', '#topik'],
+  ['Tryout', '#tryout'],
   ['Paket', '#paket'],
   ['Gratis', '#gratis'],
 ]
 
-const journeys = [
-  { title: 'Tryout', description: 'Simulasi ujian dengan timer.', href: '#gratis', Icon: ClipboardList },
-  { title: 'Pendalaman materi', description: 'Latihan soal per topik.', href: '#topik', Icon: Layers3 },
-  { title: 'Video dan modul', description: 'Materi untuk belajar mandiri.', href: '#kenapa', Icon: BookOpen },
+const highlights = [
+  ['Tryout OSN', 'Latihan dan prediksi dengan pembahasan'],
+  ['13 bab', 'Modul OSN Geografi'],
+  ['Video konsep', 'Contoh pembelajaran siap tonton'],
+  ['Rp0', 'Untuk mulai berlatih'],
 ]
 
 type Topic = { id: number; nama: string }
@@ -28,21 +33,27 @@ export default function Home() {
   const [memberships, setMemberships] = useState<MembershipPlan[]>([])
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [topics, setTopics] = useState<Topic[]>([])
+  const [videos, setVideos] = useState<LandingVideo[]>([])
+  const [tryouts, setTryouts] = useState<TryoutCatalogEntry[] | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let active = true
     const load = async () => {
       try {
-        const [plans, news, catalog] = await Promise.all([
+        const [plans, news, catalog, featured, packages] = await Promise.all([
           supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur, akses, aktif').order('id'),
           supabase.from('pengumuman').select('id, judul, isi, created_at').eq('aktif', true).order('created_at', { ascending: false }).limit(3),
           supabase.from('topik_materi').select('id, nama').order('urutan'),
+          supabase.from('video_beranda').select('posisi, judul, youtube_id').order('posisi'),
+          supabase.from('paket_to').select('jenis, kategori, tahun, akses, is_premium').eq('status', 'aktif'),
         ])
         if (!active) return
         setMemberships(plans.data ?? [])
         setAnnouncements(news.data ?? [])
         setTopics(catalog.data ?? [])
+        setVideos(featured.data ?? [])
+        setTryouts(packages.data)
       } finally {
         if (active) setLoading(false)
       }
@@ -63,39 +74,39 @@ export default function Home() {
           </nav>
           <div className="atlas-top-actions">
             <Link href="/login" className="atlas-button">Masuk</Link>
-            <Link href="/register" className="atlas-button atlas-button--primary">Daftar</Link>
+            <Link href="/register" className="atlas-button atlas-button--primary">Mulai Gratis</Link>
           </div>
         </div>
       </header>
-      <main>
-        <div className="atlas-container">
-          <section className="atlas-hero">
+      <main className="landing-home">
+        <div className="landing-hero-background">
+          <section className="atlas-container landing-hero">
             <div className="atlas-hero-copy">
-              <h1>Siap untuk <em>OSN Geografi.</em></h1>
+              <h1>Persiapan Lebih Matang dengan <span>OSNGEO.id</span></h1>
               <p className="text-base leading-relaxed lg:text-lg">
-                Persiapkan olimpiade lewat tryout, latihan per topik, dan pembahasan geografi.
+                Pelajari modul, video, latihan soal, dan try out dalam satu aplikasi OSNGEO.id
               </p>
               <div className="flex flex-wrap gap-2.5">
                 <Link href="/register" className="atlas-button atlas-button--primary">
-                  Mulai gratis <ArrowRight size={17} aria-hidden="true" />
+                  Mulai Gratis <ArrowRight size={17} aria-hidden="true" />
                 </Link>
-                <a href="#paket" className="atlas-button">Lihat paket</a>
+                <a href="#topik" className="atlas-button">Jelajahi Materi</a>
               </div>
+              <p className="landing-free-note">Mulai dengan tryout dan latihan per topik lengkap dengan pembahasan.</p>
             </div>
-            <AtlasMap priority />
+            {videos.length ? <LandingVideoCarousel videos={videos} /> : (
+              <div className="grid min-h-64 place-items-center text-sm text-gray-600" role="status">
+                {loading ? 'Memuat contoh video…' : 'Contoh video belum tersedia.'}
+              </div>
+            )}
           </section>
-          <nav className="atlas-journeys" aria-label="Pilihan belajar">
-            {journeys.map(({ title, description, href, Icon }) => (
-              <a key={title} href={href} className="atlas-journey">
-                <span className="atlas-icon"><Icon aria-hidden="true" /></span>
-                <span>
-                  <strong className="block text-sm font-bold">{title}</strong>
-                  <small className="block text-xs text-gray-500">{description}</small>
-                </span>
-                <ArrowUpRight className="atlas-journey-arrow" size={16} aria-hidden="true" />
-              </a>
-            ))}
-          </nav>
+          <div className="landing-highlights">
+            <ul className="atlas-container">
+              {highlights.map(([title, description]) => <li key={title}><strong>{title}</strong><span>{description}</span></li>)}
+            </ul>
+          </div>
+        </div>
+        <div className="atlas-container">
           <section id="kenapa" className="atlas-section">
             <h2 className="atlas-subtitle">Belajar dan ukur kemajuanmu</h2>
             <div className="mt-6 grid gap-3 md:grid-cols-3">
@@ -129,6 +140,11 @@ export default function Home() {
             )}
           </div>
         </section>
+        <section id="tryout" className="atlas-container atlas-section">
+          <h2 className="atlas-subtitle">Latihan dan Prediksi 2026</h2>
+          <p className="mt-2 mb-5 max-w-prose text-sm text-gray-600">Jumlah paket per tingkat akses. Keterangan tersedia menunjukkan jumlah yang sudah bisa dikerjakan jika berbeda dari alokasi.</p>
+          <TryoutComparison catalog={tryouts} />
+        </section>
         <section id="paket" className="atlas-container atlas-section">
           <h2 className="atlas-subtitle">Paket belajar</h2>
           <p className="mt-2 text-sm text-gray-500">Pilih akses belajar sesuai kebutuhanmu.</p>
@@ -138,7 +154,7 @@ export default function Home() {
           <div className="atlas-container flex flex-wrap items-center justify-between gap-5">
             <div>
               <h2 className="atlas-subtitle">Coba latihan gratis</h2>
-              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba 4 tryout OSN-K dan latihan pendalaman gratis per topik. Pantau hasilnya di dashboard.</p>
+              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba tryout OSN-K dan OSN-P serta latihan pendalaman gratis per topik. Pantau hasilnya di dashboard.</p>
             </div>
             <Link href="/register" className="atlas-button atlas-button--primary">
               Buat akun gratis <ArrowRight size={17} aria-hidden="true" />
