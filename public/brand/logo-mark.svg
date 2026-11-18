@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSNGEO.id">
+  <rect width="64" height="64" rx="15" fill="#1d4138"/>
+  <g fill="none" stroke="#fffefa" stroke-linecap="round">
+    <path d="M14.6 32h34.8M32 14.6c-5.2 4.6-7.8 10.4-7.8 17.4s2.6 12.8 7.8 17.4" stroke-width="2.2" opacity=".45"/>
+    <path d="M44.3 19.7A17.4 17.4 0 1 0 49.4 32" stroke-width="3.6"/>
+  </g>
+  <path d="M51.5 12.5 35.4 35.4 28.6 28.6Z" fill="#e0794f"/>
+  <path d="M12.5 51.5 28.6 28.6 35.4 35.4Z" fill="#fffefa"/>
+  <circle cx="32" cy="32" r="2.4" fill="#1d4138"/>
+</svg>

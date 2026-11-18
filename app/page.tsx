@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ArrowRight, BookOpen, Compass, MessageCircle, TrendingUp } from 'lucide-react'
+import Image from 'next/image'
 import { Brand } from './components/atlas'
 import { LandingVideoCarousel } from './components/landing-video-carousel'
 import { MembershipPlans } from './components/membership-plans'
@@ -82,6 +83,9 @@ export default function Home() {
         <div className="landing-hero-background">
           <section className="atlas-container landing-hero">
             <div className="atlas-hero-copy">
+              <p className="landing-hero-eyebrow">
+                <Image src="/brand/logo-mark.svg" width={22} height={22} alt="" unoptimized /> Olimpiade Sains Nasional · Geografi
+              </p>
               <h1>Persiapan Lebih Matang dengan <span>OSNGEO.id</span></h1>
               <p className="text-base leading-relaxed lg:text-lg">
                 Pelajari modul, video, latihan soal, dan try out dalam satu aplikasi OSNGEO.id
@@ -94,11 +98,12 @@ export default function Home() {
               </div>
               <p className="landing-free-note">Mulai dengan tryout dan latihan per topik lengkap dengan pembahasan.</p>
             </div>
-            {videos.length ? <LandingVideoCarousel videos={videos} /> : (
-              <div className="grid min-h-64 place-items-center text-sm text-gray-600" role="status">
-                {loading ? 'Memuat contoh video…' : 'Contoh video belum tersedia.'}
-              </div>
-            )}
+            {videos.length ? <LandingVideoCarousel videos={videos} />
+              : loading ? <div className="landing-hero-placeholder" role="status" aria-label="Memuat contoh video" />
+              : <div className="landing-video-empty">
+                  <Image src="/brand/logo-mark.svg" width={48} height={48} alt="" unoptimized />
+                  Contoh video segera hadir.
+                </div>}
           </section>
           <div className="landing-highlights">
             <ul className="atlas-container">
@@ -178,13 +183,16 @@ export default function Home() {
           </section>
         )}
       </main>
-      <footer className="border-t border-gray-200 bg-white py-6">
-        <div className="atlas-container flex flex-wrap items-center justify-between gap-4">
-          <Brand />
-          <nav className="flex flex-wrap gap-4 text-sm text-gray-600" aria-label="Tautan footer">
-            {sections.map(([name, href]) => <a key={href} className="hover:underline" href={href}>{name}</a>)}
+      <footer className="landing-footer">
+        <div className="atlas-container landing-footer-inner">
+          <div>
+            <Brand />
+            <p>Persiapan OSN Geografi · © {new Date().getFullYear()} OSNGEO.id</p>
+          </div>
+          <nav aria-label="Tautan footer">
+            {sections.map(([name, href]) => <a key={href} className="hover:text-forest-700 hover:underline" href={href}>{name}</a>)}
           </nav>
-          <a href={adminWhatsApp} target="_blank" rel="noreferrer" className="atlas-button">
+          <a href={adminWhatsApp} target="_blank" rel="noreferrer" className="atlas-button justify-self-start">
             <MessageCircle size={16} aria-hidden="true" /> Hubungi admin
           </a>
         </div>
