@@ -69,6 +69,22 @@ button:not(:disabled) { cursor: pointer; }
   background: var(--color-forest-100); color: var(--color-forest-700);
 }
 .atlas-icon svg { width: 1.2rem; height: 1.2rem; }
+.access-badge {
+  display: inline-flex; align-items: center; gap: .3rem; padding: .24rem .65rem; border-radius: 999px;
+  border: 1px solid transparent; font-size: .7rem; font-weight: 750; letter-spacing: .01em; line-height: 1.2; white-space: nowrap;
+}
+.access-badge::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; flex: none; }
+.access-badge[data-access="gratis"], .access-badge--gratis { background: #ddf3e3; border-color: #9fd3ae; color: #145a32; }
+.access-badge[data-access="premium"], .access-badge--premium {
+  background: linear-gradient(135deg, #ffe08a, #f2b13a); border-color: #d9951c; color: #4a2a00;
+}
+.access-badge[data-access="platinum"], .access-badge--platinum {
+  background: linear-gradient(135deg, #1e2a33, #43525e); border-color: #8fa3b1; color: #eef3f6;
+}
+.access-badge[data-access="platinum"]::before, .access-badge--platinum::before { background: linear-gradient(135deg, #ffffff, #b9c7d1); box-shadow: 0 0 6px #ffffffaa; }
+.plan-card[data-access="premium"] { border-top: 4px solid #f2b13a; }
+.plan-card[data-access="platinum"] { border-top: 4px solid #43525e; }
+.plan-card[data-access="gratis"] { border-top: 4px solid #4caf6e; }
 .atlas-card { border: 1px solid var(--color-gray-200); border-radius: .75rem; background: var(--color-white); }
 .atlas-topbar {
   position: sticky; top: 0; z-index: 20;

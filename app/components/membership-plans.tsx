@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, Check, MessageCircle } from 'lucide-react'
-import { membershipFeatures, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
+import { accessLabels, membershipFeatures, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
 
 export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
   plans: MembershipPlan[]
@@ -25,7 +25,9 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
           return (
             <article key={plan.id} id={highlighted ? `membership-plan-${plan.id}` : undefined}
               tabIndex={highlighted ? -1 : undefined}
-              className={`atlas-card flex flex-col p-4 sm:p-5 ${free ? 'sm:col-span-2 xl:col-span-1' : ''} ${highlighted ? 'scroll-mt-24 ring-2 ring-forest-500' : ''}`}>
+              data-access={plan.akses}
+              className={`atlas-card plan-card flex flex-col p-4 sm:p-5 ${free ? 'sm:col-span-2 xl:col-span-1' : ''} ${highlighted ? 'scroll-mt-24 ring-2 ring-forest-500' : ''}`}>
+              <span className="access-badge mb-3 self-start" data-access={plan.akses}>{accessLabels[plan.akses] ?? plan.akses}</span>
               <h3 className="font-bold text-forest-900">{plan.nama}</h3>
               {plan.aktif === false && (
                 <p className="mt-1 text-xs font-semibold text-gray-600">Dalam persiapan</p>

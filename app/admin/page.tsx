@@ -23,9 +23,9 @@ type View =
 const accessOptions = Object.entries(accessLabels).map(([value, label]) => ({ value, label }))
 const mediaAccessOptions = accessOptions.filter(({ value }) => value !== 'premium')
 const accessBadge = {
-  Gratis: 'bg-green-100 text-green-700',
-  Premium: 'bg-yellow-100 text-yellow-700',
-  Platinum: 'bg-purple-100 text-purple-700',
+  Gratis: 'access-badge access-badge--gratis',
+  Premium: 'access-badge access-badge--premium',
+  Platinum: 'access-badge access-badge--platinum',
 }
 
 export default function AdminPage() {
@@ -350,8 +350,8 @@ const handleResetPassword = async (email: string) => {
   )
 
   const Badge = ({ v, map }: { v: string, map: Record<string, string> }) => {
-    const cls = map[v] || 'bg-gray-100 text-gray-600'
-    return <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${cls}`}>{v}</span>
+    const cls = map[v]
+    return <span className={cls || 'rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600'}>{v}</span>
   }
 
   return (
@@ -1268,31 +1268,81 @@ const handleResetPassword = async (email: string) => {
                 </div>
                 <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">+ Tambah Modul</button>
               </div>
-              {showForm && (
-                <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
-                  <h3 className="font-bold text-gray-800 mb-4">Tambah Modul</h3>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
-                    {inp('Judul modul', 'judul')}
-                    {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih Topik')}
-                    <div className="col-span-2">{inp('URL File (Google Drive / langsung)', 'file_url')}</div>
-                    {sel('akses', mediaAccessOptions, 'Tipe akses (Gratis)')}
-                    {inp('Deskripsi (opsional)', 'deskripsi')}
+              {showForm && (() => {
+                const sumber = formData.sumber === 'halaman' ? 'halaman' : 'drive'
+                const lepasFolder = sumber === 'drive' && editData?.folder_halaman
+                const simpanModul = () => {
+                  const judul = String(formData.judul ?? '').trim()
+                  if (!judul || !formData.topik_id) { alert('Isi judul dan pilih topik.'); return }
+                  const dasar = { judul, topik_id: Number(formData.topik_id), deskripsi: formData.deskripsi || null }
+                  if (sumber === 'drive') {
+                    const url = String(formData.file_url ?? '').trim()
+                    if (!/^https:\/\/\S+$/.test(url)) { alert('Masukkan link yang diawali https:// (misalnya link Google Drive).'); return }
+                    if (lepasFolder && !confirm('Modul ini akan beralih dari pembaca terlindungi ke link Google Drive. Folder "' +
+                      editData.folder_halaman + '" dilepas (gambar tetap tersimpan di storage). Lanjutkan?')) return
+                    const akses = formData.akses || 'gratis'
+                    void handleSave('modul_materi', { ...dasar, file_url: url, folder_halaman: null, jumlah_halaman: null, daftar_isi: null, akses, is_premium: akses === 'platinum' })
+                  } else {
+                    const folder = String(formData.folder_halaman ?? '').trim()
+                    const halaman = Number(formData.jumlah_halaman)
+                    if (!/^[a-z0-9][a-z0-9-]{1,79}$/.test(folder) || !Number.isInteger(halaman) || halaman < 1) {
+                      alert('Isi nama folder halaman (huruf kecil, angka, tanda -) dan jumlah halaman.'); return
+                    }
+                    void handleSave('modul_materi', { ...dasar, file_url: null, folder_halaman: folder, jumlah_halaman: halaman, akses: 'platinum', is_premium: true })
+                  }
+                }
+                return (
+                  <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+                    <h3 className="font-bold text-gray-800 mb-4">{editData ? 'Edit modul' : 'Tambah modul'}</h3>
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
+                      <label className="grid gap-1 text-xs font-semibold text-gray-600">Judul modul{inp('Judul modul', 'judul')}</label>
+                      <label className="grid gap-1 text-xs font-semibold text-gray-600">Topik{sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih topik')}</label>
+                      <fieldset className="sm:col-span-2 grid gap-2">
+                        <legend className="mb-1 text-xs font-semibold text-gray-600">Sumber modul</legend>
+                        <div className="grid gap-2 sm:grid-cols-2">
+                          {([
+                            ['drive', 'Link Google Drive', 'Siswa membuka file lewat link (bisa diganti kapan saja).'],
+                            ['halaman', 'Pembaca terlindungi', 'Halaman gambar di storage, tidak bisa diunduh. Khusus Platinum.'],
+                          ] as const).map(([value, label, hint]) => (
+                            <label key={value} className={'flex cursor-pointer gap-2 rounded-lg border p-3 text-sm ' + (sumber === value ? 'border-forest-500 bg-forest-50' : 'border-gray-200')}>
+                              <input type="radio" name="sumber-modul" value={value} checked={sumber === value}
+                                onChange={() => setFormData({ ...formData, sumber: value })} className="mt-1 accent-forest-600" />
+                              <span><strong className="block">{label}</strong><span className="text-xs text-gray-500">{hint}</span></span>
+                            </label>
+                          ))}
+                        </div>
+                      </fieldset>
+                      {sumber === 'drive' ? (
+                        <>
+                          <label className="sm:col-span-2 grid gap-1 text-xs font-semibold text-gray-600">Link Google Drive / file
+                            {inp('https://drive.google.com/file/d/…/view', 'file_url')}
+                            <span className="font-normal text-gray-500">Pastikan berbagi link di Drive diatur ke &ldquo;Siapa saja yang memiliki link&rdquo;.</span>
+                          </label>
+                          <label className="grid gap-1 text-xs font-semibold text-gray-600">Tipe akses{sel('akses', mediaAccessOptions, 'Gratis')}</label>
+                          {lepasFolder && (
+                            <p className="sm:col-span-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                              Saat disimpan, modul ini berhenti memakai pembaca terlindungi (folder <code>{editData.folder_halaman}</code>, {editData.jumlah_halaman} halaman).
+                              Catat nama folder ini jika ingin kembali nanti.
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <label className="grid gap-1 text-xs font-semibold text-gray-600">Folder halaman di storage{inp('modul-01-xxxx', 'folder_halaman')}</label>
+                          <label className="grid gap-1 text-xs font-semibold text-gray-600">Jumlah halaman{inp('80', 'jumlah_halaman', 'number')}</label>
+                        </>
+                      )}
+                      <label className="sm:col-span-2 grid gap-1 text-xs font-semibold text-gray-600">Deskripsi (opsional){inp('Deskripsi singkat', 'deskripsi')}</label>
+                    </div>
+                    <FormBtns onSave={simpanModul} />
                   </div>
-                  <FormBtns onSave={() => handleSave('modul_materi', {
-                    judul: formData.judul,
-                    topik_id: Number(formData.topik_id),
-                    file_url: formData.file_url,
-                    akses: formData.akses || 'gratis',
-                    is_premium: formData.akses === 'platinum',
-                    deskripsi: formData.deskripsi || null,
-                  })} />
-                </div>
-              )}
+                )
+              })()}
               <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>Judul</Th><Th>Topik</Th><ThC>Tipe</ThC><ThC>File</ThC><ThC>Aksi</ThC>
+                      <Th>Judul</Th><Th>Topik</Th><ThC>Tipe</ThC><ThC>Sumber</ThC><ThC>Aksi</ThC>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
@@ -1306,14 +1356,27 @@ const handleResetPassword = async (email: string) => {
                         <td className="px-5 py-3 text-center">
                           {m.jumlah_halaman ? (
                             <Link href={'/modul/' + m.id} target="_blank" rel="noreferrer"
-                              className="text-xs text-forest-600 hover:underline">Baca modul</Link>
+                              className="text-xs text-forest-600 hover:underline">Pembaca · {m.jumlah_halaman} hlm</Link>
                           ) : m.file_url ? (
-                            <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-forest-600 hover:underline">Buka</a>
+                            <a href={m.file_url} target="_blank" rel="noreferrer" className="text-xs text-forest-600 hover:underline">Link Drive ↗</a>
                           ) : <span className="text-gray-300 text-xs">—</span>}
                         </td>
                         <td className="px-5 py-3 text-center">
-                          <button onClick={() => handleDelete('modul_materi', m.id)}
-                            className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">Hapus</button>
+                          <div className="flex justify-center gap-2">
+                            <button onClick={() => {
+                              setEditData(m)
+                              setFormData({
+                                judul: m.judul, topik_id: m.topik_id ?? '', deskripsi: m.deskripsi ?? '',
+                                akses: m.akses ?? 'gratis', file_url: m.file_url ?? '',
+                                folder_halaman: m.folder_halaman ?? '', jumlah_halaman: m.jumlah_halaman ?? '',
+                                sumber: m.folder_halaman ? 'halaman' : 'drive',
+                              })
+                              setShowForm(true)
+                              window.scrollTo({ top: 0, behavior: 'smooth' })
+                            }} className="text-xs text-forest-700 border border-forest-200 px-2 py-1 rounded transition hover:bg-forest-50">Edit</button>
+                            <button onClick={() => handleDelete('modul_materi', m.id)}
+                              className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">Hapus</button>
+                          </div>
                         </td>
                       </tr>
                     ))}

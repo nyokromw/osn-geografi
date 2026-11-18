@@ -21,7 +21,7 @@ export function TryoutComparison({ catalog }: { catalog: TryoutCatalogEntry[] | 
             <tbody className="divide-y divide-gray-200">
               {plans.map(access => (
                 <tr key={access}>
-                  <th scope="row" className="px-3 py-2.5 font-semibold">{accessLabels[access]}</th>
+                  <th scope="row" className="px-3 py-2.5"><span className="access-badge" data-access={access}>{accessLabels[access]}</span></th>
                   {tryoutCategories.map(category => {
                     const target = tryoutTargets[level][access][category]
                     const count = catalog && countTryoutPackages(catalog, level, category, access)

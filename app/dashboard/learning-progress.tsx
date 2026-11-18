@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useId, useRef, useState } from 'react'
-import { ArrowRight, ChartNoAxesCombined, ClipboardList } from 'lucide-react'
+import { ArrowRight, ChartNoAxesCombined, ClipboardList, Crosshair, Lightbulb, TrendingDown, TrendingUp, Trophy } from 'lucide-react'
 import './progress.css'
 
 export type StudyResult = {
   id: number
+  paket_id?: number | null
   created_at: string | null
   total_poin: number | null
   total_soal: number | null
@@ -32,7 +33,7 @@ const SESSION_LIMIT = 12
 const dateFormat = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
 const numberFormat = new Intl.NumberFormat('id-ID')
 const answerLabels = ['Benar', 'Salah', 'Kosong']
-const answerColors = ['#396957', '#a9543c', '#c3cec4']
+const answerColors = ["#396957", "#983f29", "#dcd3c4"]
 
 function countIsValid(value: number | null): value is number {
   return value !== null && Number.isInteger(value) && value >= 0
@@ -105,6 +106,8 @@ function TrendPlot({ values, metric, selectedId, select }: {
   const first = points[0]
   const last = points[points.length - 1]
   const area = points.length > 1 ? path + ' L ' + last.x + ' ' + bottom + ' H ' + first.x + ' Z' : ''
+  const mean = scores.reduce((sum, value) => sum + value, 0) / (scores.length || 1)
+  const bestValue = Math.max(...scores)
 
   return (
     <div ref={container} className="progress-plot">
@@ -127,6 +130,14 @@ function TrendPlot({ values, metric, selectedId, select }: {
         ))}
         {area && <path d={area} fill={'url(#' + gradient + ')'} aria-hidden="true" />}
         {points.length > 1 && <path d={path} className="progress-line" aria-hidden="true" />}
+        {points.length > 1 && (
+          <g aria-hidden="true">
+            <line className="progress-mean" x1={left} x2={right} y1={ordinate(mean)} y2={ordinate(mean)} />
+            <text className="progress-mean-label" x={right} y={ordinate(mean) - 6} textAnchor="end">
+              rata-rata {numberFormat.format(Math.round(mean))}{metric === 'correct' ? '%' : ''}
+            </text>
+          </g>
+        )}
         {points.map(({ x, y, session, index, value }, i) => (
           <g key={session.id} className="progress-point" role="button" tabIndex={0}
             aria-label={'Sesi ' + (index + 1) + ', ' + session.title + ', ' + formatMetric(value, metric)}
@@ -139,7 +150,7 @@ function TrendPlot({ values, metric, selectedId, select }: {
               select(session.id)
             }}>
             <circle className="progress-point-hit" cx={x} cy={y} r={13} fill="transparent" />
-            <circle className="progress-dot" cx={x} cy={y} r={session.id === selectedId ? 5 : 3.3} />
+            <circle className="progress-dot" data-best={values.length > 1 && value === bestValue} cx={x} cy={y} r={session.id === selectedId ? 5.5 : 3.8} />
             {(width >= 400 || i % 2 === 0 || i === points.length - 1) && (
               <text className="progress-axis" x={x} y={bottom + 18} textAnchor="middle" aria-hidden="true">{index + 1}</text>
             )}
@@ -178,6 +189,83 @@ function AnswerComposition({ session }: { session: Session | undefined }) {
   )
 }
 
+function average(values: number[]) {
+  return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null
+}
+
+function Insights({ sessions, metric }: { sessions: Session[]; metric: Metric }) {
+  const values = sessions.flatMap(session => session[metric] === null ? [] : [session[metric] as number])
+  const totals = sessions.reduce((sum, session) => {
+    if (!session.counts) return sum
+    return [sum[0] + session.counts[0], sum[1] + session.counts[1], sum[2] + session.counts[2]]
+  }, [0, 0, 0])
+  const answered = totals[0] + totals[1]
+  const all = answered + totals[2]
+  const precision = answered ? Math.round(totals[0] / answered * 100) : null
+  const blankRate = all ? Math.round(totals[2] / all * 100) : null
+
+  const recent = values.slice(-3)
+  const before = values.slice(-6, -3)
+  const trend = recent.length && before.length ? Math.round((average(recent) as number) - (average(before) as number)) : null
+  const best = sessions.reduce<Session | null>((top, session) =>
+    session[metric] !== null && (top === null || (session[metric] as number) > (top[metric] as number)) ? session : top, null)
+  const unit = metric === 'correct' ? '%' : ' poin'
+
+  const cards = [
+    {
+      Icon: trend !== null && trend < 0 ? TrendingDown : TrendingUp,
+      tone: trend === null ? 'neutral' : trend >= 0 ? 'good' : 'warn',
+      title: 'Arah kemajuan',
+      value: trend === null ? '—' : (trend > 0 ? '+' : '') + numberFormat.format(trend) + unit,
+      text: trend === null
+        ? 'Selesaikan minimal 4 sesi untuk membandingkan 3 sesi terakhir dengan sebelumnya.'
+        : trend > 0 ? 'Rata-rata 3 sesi terakhir lebih tinggi dari 3 sesi sebelumnya. Pertahankan!'
+        : trend < 0 ? 'Rata-rata 3 sesi terakhir menurun. Ulangi topik yang sering salah sebelum tryout berikutnya.'
+        : 'Hasilmu stabil. Coba paket yang sedikit lebih menantang.',
+    },
+    {
+      Icon: Crosshair,
+      tone: precision === null ? 'neutral' : precision >= 70 ? 'good' : precision >= 50 ? 'neutral' : 'warn',
+      title: 'Ketepatan menjawab',
+      value: precision === null ? '—' : precision + '%',
+      text: precision === null ? 'Rincian jawaban belum tersedia.'
+        : `Dari ${numberFormat.format(answered)} soal yang kamu jawab, ${precision}% benar.` +
+          (precision < 50 ? ' Fokus pada pemahaman konsep sebelum menambah kecepatan.' : ''),
+    },
+    {
+      Icon: Lightbulb,
+      tone: blankRate === null ? 'neutral' : blankRate > 25 ? 'warn' : 'good',
+      title: 'Soal dikosongkan',
+      value: blankRate === null ? '—' : blankRate + '%',
+      text: blankRate === null ? 'Rincian jawaban belum tersedia.'
+        : blankRate > 25 ? 'Cukup banyak soal kosong. Dengan skor +4/−1, menjawab setelah mengeliminasi opsi yang jelas salah biasanya lebih menguntungkan.'
+        : 'Kamu menjawab hampir semua soal. Bagus untuk manajemen waktu.',
+    },
+    {
+      Icon: Trophy,
+      tone: 'good',
+      title: 'Sesi terbaik',
+      value: best ? numberFormat.format(best[metric] as number) + unit : '—',
+      text: best ? `${best.title} · ${best.date}` : 'Belum ada sesi dengan nilai tercatat.',
+    },
+  ]
+
+  return (
+    <div className="progress-insights" aria-label="Analisis otomatis">
+      {cards.map(({ Icon, tone, title, value, text }) => (
+        <article key={title} className="progress-insight" data-tone={tone}>
+          <div className="progress-insight-head">
+            <span className="progress-insight-icon"><Icon size={16} aria-hidden="true" /></span>
+            <h4>{title}</h4>
+          </div>
+          <strong>{value}</strong>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 export function LearningProgress({ tryouts, practices, loadErrors, openPractice }: {
   tryouts: StudyResult[]
   practices: StudyResult[]
@@ -199,8 +287,9 @@ export function LearningProgress({ tryouts, practices, loadErrors, openPractice 
     <section aria-labelledby="learning-progress-title">
       <header className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
+          <span className="dash-eyebrow">Analisis belajar</span>
           <h2 className="atlas-subtitle" id="learning-progress-title">Kemajuan belajar</h2>
-          <p className="mt-1 text-sm text-gray-500">Hingga {SESSION_LIMIT} hasil terakhir dari akunmu.</p>
+          <p className="mt-1 text-sm text-gray-500">Dihitung dari {SESSION_LIMIT} hasil terakhir. Klik titik grafik untuk melihat detail sesi.</p>
         </div>
         <div className="progress-toggle" role="group" aria-label="Jenis hasil">
           <button type="button" aria-pressed={mode === 'tryout'} onClick={() => { setMode('tryout'); setSelectedId(undefined) }}>Tryout</button>
@@ -239,6 +328,7 @@ export function LearningProgress({ tryouts, practices, loadErrors, openPractice 
             <p className="mt-1 text-sm text-gray-500">{selected?.title}</p>
             <AnswerComposition session={selected} />
           </article>
+          <Insights sessions={sessions} metric={metric} />
         </div>
       ) : (
         <div className="atlas-card flex flex-wrap items-center justify-between gap-4 p-5">

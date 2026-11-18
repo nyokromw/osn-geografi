@@ -54,26 +54,46 @@ export function LandingVideoSettings() {
   }
 
   return (
-    <section className="max-w-2xl">
+    <section className="max-w-3xl">
       <h2 className="text-xl font-black">Video beranda</h2>
-      <p className="mt-1 text-sm text-gray-600">Pilih tiga video YouTube untuk karusel di halaman publik. Urutan mengikuti nomor slot.</p>
+      <p className="mt-1 text-sm text-gray-600">Pilih tiga video YouTube untuk karusel di halaman publik. Urutan mengikuti nomor slot. Pratinjau muncul otomatis setelah tautan ditempel.</p>
+      <a href="/" target="_blank" rel="noreferrer" className="atlas-link mt-2 inline-block text-sm">Lihat beranda ↗</a>
       {loading ? <p className="mt-4 text-sm text-gray-600">Memuat pengaturan…</p> : loadError ? (
         <p className="atlas-notice mt-4" data-error="true" role="alert">Pengaturan belum dapat dimuat. Muat ulang halaman untuk mencoba lagi.</p>
       ) : (
         <form className="mt-5 grid gap-4" onSubmit={save}>
-          {slots.map(slot => (
-            <fieldset key={slot.posisi} className="atlas-card grid gap-3 px-4 pb-4">
-              <legend className="px-1 text-sm font-bold">Video {slot.posisi}</legend>
-              <label className="grid gap-1 text-sm font-semibold">Judul video
-                <input className="atlas-field" value={slot.judul} maxLength={90} required disabled={saving}
-                  onChange={event => change(slot.posisi, 'judul', event.target.value)} />
-              </label>
-              <label className="grid gap-1 text-sm font-semibold">Tautan atau ID YouTube
-                <input className="atlas-field" value={slot.youtube_id} required disabled={saving}
-                  onChange={event => change(slot.posisi, 'youtube_id', event.target.value)} />
-              </label>
-            </fieldset>
-          ))}
+          {slots.map(slot => {
+            const previewId = getYouTubeVideoId(slot.youtube_id)
+            return (
+              <fieldset key={slot.posisi} className="atlas-card grid gap-4 px-4 pb-4 sm:grid-cols-[11rem_minmax(0,1fr)]">
+                <legend className="px-1 text-sm font-bold">Video {slot.posisi}{slot.posisi === 1 ? ' · tampil pertama' : ''}</legend>
+                <div className="relative aspect-video overflow-hidden rounded-lg bg-forest-800 text-[#fff7e7]">
+                  {previewId ? (
+                    <a href={'https://www.youtube.com/watch?v=' + previewId} target="_blank" rel="noreferrer" title="Buka di YouTube">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={'https://img.youtube.com/vi/' + previewId + '/mqdefault.jpg'} alt={'Pratinjau ' + (slot.judul || 'video ' + slot.posisi)}
+                        className="absolute inset-0 size-full object-cover" />
+                    </a>
+                  ) : (
+                    <span className="grid size-full place-items-center px-3 text-center text-xs">
+                      {slot.youtube_id ? 'Tautan belum valid' : 'Belum ada video'}
+                    </span>
+                  )}
+                </div>
+                <div className="grid gap-3">
+                  <label className="grid gap-1 text-sm font-semibold">Judul video
+                    <input className="atlas-field" value={slot.judul} maxLength={90} required disabled={saving}
+                      onChange={event => change(slot.posisi, 'judul', event.target.value)} />
+                  </label>
+                  <label className="grid gap-1 text-sm font-semibold">Tautan atau ID YouTube
+                    <input className="atlas-field" value={slot.youtube_id} required disabled={saving}
+                      placeholder="https://www.youtube.com/watch?v=…"
+                      onChange={event => change(slot.posisi, 'youtube_id', event.target.value)} />
+                  </label>
+                </div>
+              </fieldset>
+            )
+          })}
           {message && <p className="atlas-notice" data-error={message.error} role={message.error ? 'alert' : 'status'}>{message.text}</p>}
           <button className="atlas-button atlas-button--primary justify-self-start" type="submit" disabled={saving}>
             {saving ? 'Menyimpan…' : 'Simpan Video Beranda'}
