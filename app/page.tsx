@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ArrowRight, BookOpen, Compass, MessageCircle, TrendingUp } from 'lucide-react'
 import Image from 'next/image'
-import { AtlasMap, Brand } from './components/atlas'
+import { Brand } from './components/atlas'
 import { LandingVideoCarousel } from './components/landing-video-carousel'
 import { MembershipPlans } from './components/membership-plans'
 import { TryoutComparison } from './components/tryout-comparison'
@@ -100,7 +100,10 @@ export default function Home() {
             </div>
             {videos.length ? <LandingVideoCarousel videos={videos} />
               : loading ? <div className="landing-hero-placeholder" role="status" aria-label="Memuat contoh video" />
-              : <AtlasMap priority />}
+              : <div className="landing-video-empty">
+                  <Image src="/brand/logo-mark.svg" width={48} height={48} alt="" unoptimized />
+                  Contoh video segera hadir.
+                </div>}
           </section>
           <div className="landing-highlights">
             <ul className="atlas-container">
