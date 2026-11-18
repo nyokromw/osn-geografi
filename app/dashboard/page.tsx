@@ -43,6 +43,20 @@ const tryoutAccessStyles: Record<AccessLevel, { card: string; badge: string }> =
   platinum: { card: 'border-violet-200 bg-violet-50', badge: 'bg-violet-100 text-violet-900' },
 }
 
+const questionAccessLabels: Record<AccessLevel, string> = {
+  gratis: 'Gratis',
+  premium: 'Premium + Platinum',
+  platinum: 'Khusus Platinum',
+}
+
+function QuestionAccessBadge({ access }: { access: AccessLevel }) {
+  return (
+    <span className={`mt-2 inline-block rounded-full px-2.5 py-1 text-xs font-bold ${tryoutAccessStyles[access].badge}`}>
+      {questionAccessLabels[access]}
+    </span>
+  )
+}
+
 const resultColumns = 'id, created_at, total_poin, total_soal, poin_benar, poin_salah, poin_kosong'
 const dateFormat = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
 
@@ -326,14 +340,10 @@ export default function DashboardPage() {
                             const packageDetails = [p.tahun, p.durasi_menit && `${p.durasi_menit} menit`].filter(Boolean)
                             return (
                               <article key={p.id} className={`flex h-full flex-col rounded-2xl border p-4 sm:p-5 ${style.card}`}>
-                                <div className="mb-3 flex items-start justify-between gap-2">
-                                  <div className="min-w-0">
-                                    <h5 className="break-words text-sm font-bold text-gray-900">{p.nama}</h5>
-                                    {packageDetails.length > 0 && <p className="mt-1 text-xs text-gray-600">{packageDetails.join(' · ')}</p>}
-                                  </div>
-                                  <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${style.badge}`}>
-                                    {accessLabels[access]}
-                                  </span>
+                                <div className="mb-3">
+                                  <h5 className="break-words text-sm font-bold text-gray-900">{p.nama}</h5>
+                                  {packageDetails.length > 0 && <p className="mt-1 text-xs text-gray-600">{packageDetails.join(' · ')}</p>}
+                                  <QuestionAccessBadge access={access} />
                                 </div>
                                 {p.deskripsi && <p className="mb-4 text-xs leading-relaxed text-gray-700">{p.deskripsi}</p>}
                                 <div className="mt-auto space-y-2">
@@ -411,16 +421,10 @@ export default function DashboardPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {paketPendalaman.filter(p => p.topik_id === selectedTopik.id).map((p) => (
                       <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5 hover:border-purple-300 hover:shadow-sm transition">
-                        <div className="flex items-start justify-between mb-3">
-                          <div>
-                            <div className="font-bold text-gray-800 text-sm">{p.nama}</div>
-                            <div className="text-xs text-gray-400 mt-0.5">{p.durasi_menit} menit</div>
-                          </div>
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 ${
-                            requiredAccess(p) === 'gratis' ? 'bg-green-100 text-green-700' : 'bg-forest-100 text-forest-800'
-                          }`}>
-                            {accessLabels[requiredAccess(p)]}
-                          </span>
+                        <div className="mb-3">
+                          <div className="font-bold text-gray-800 text-sm">{p.nama}</div>
+                          <div className="text-xs text-gray-400 mt-0.5">{p.durasi_menit} menit</div>
+                          <QuestionAccessBadge access={requiredAccess(p)} />
                         </div>
                         {p.deskripsi && <p className="text-xs text-gray-400 mb-3">{p.deskripsi}</p>}
                         {!bisaAkses(learningAccess, requiredAccess(p)) ? (
