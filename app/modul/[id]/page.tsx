@@ -192,7 +192,16 @@ function Pembaca({ modul }: { modul: Modul }) {
     <>
       {!layarPenuh && <KepalaPembaca />}
       <main ref={areaPembaca} className={layarPenuh ? 'fixed inset-0 z-40 flex h-dvh flex-col bg-gray-50' : kelasKonten}>
-        <h1 className={layarPenuh ? 'sr-only' : 'mb-4 text-xl font-bold text-gray-900 sm:text-2xl'}>{modul.judul}</h1>
+        <header className={layarPenuh ? 'sr-only' : 'mb-4'}>
+          <span className="block text-xs font-bold uppercase tracking-[.08em] text-clay-600">Modul OSN Geografi</span>
+          <h1 className="mt-1 text-2xl font-bold tracking-[-.03em] text-gray-900 sm:text-3xl">{modul.judul}</h1>
+          <div className="mt-3 flex items-center gap-3 text-xs text-gray-500">
+            <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-200" aria-hidden="true">
+              <span className="block h-full rounded-full bg-forest-600 transition-[width]" style={{ width: (halaman / modul.jumlah_halaman * 100) + '%' }} />
+            </span>
+            <span className="tabular-nums">Halaman {halaman} dari {modul.jumlah_halaman}</span>
+          </div>
+        </header>
         <div className={'atlas-card z-10 flex flex-wrap items-center justify-between gap-2 p-2.5 sm:p-3 ' +
           (layarPenuh ? 'm-2 mt-[max(0.5rem,env(safe-area-inset-top))] shrink-0' : 'sticky top-[4.25rem] mb-4')}>
           <div className="flex items-center gap-1.5">
@@ -238,9 +247,9 @@ function Pembaca({ modul }: { modul: Modul }) {
           </div>
         </div>
         <div ref={areaHalaman} aria-busy={!tampil}
-          className={'overflow-auto bg-gray-100 ' + (layarPenuh
+          className={'overflow-auto bg-sand-50 ' + (layarPenuh
             ? 'flex min-h-0 flex-1 flex-col overscroll-contain p-2 sm:p-4'
-            : 'rounded-xl p-1 sm:p-3')}>
+            : 'rounded-2xl border border-gray-200 p-1 sm:p-4')}>
           {!tampil ? (
             <p className="px-3 py-16 text-center text-sm text-gray-600" role="status">Memuat halaman {halaman}…</p>
           ) : tampil.url ? (
@@ -248,7 +257,7 @@ function Pembaca({ modul }: { modul: Modul }) {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={tampil.url} alt={'Halaman ' + halaman + ' — ' + modul.judul}
               className={'mx-auto block h-auto select-none bg-white ' +
-                (layarPenuh ? 'my-auto w-auto shrink-0 shadow-md' : 'max-w-none')}
+                (layarPenuh ? 'my-auto w-auto shrink-0 shadow-md' : 'max-w-none rounded-sm shadow-[0_10px_30px_-12px_#1b322b55]')}
               style={ukuranGambar} draggable={false} onContextMenu={event => event.preventDefault()} />
           ) : (
             <div className="space-y-3 p-4">
