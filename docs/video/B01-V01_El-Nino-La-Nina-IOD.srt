@@ -1,0 +1,752 @@
+1
+00:00:03,000 --> 00:00:07,380
+Tahun dua ribu lima belas, langit Sumatra dan Kalimantan berwarna jingga.
+
+2
+00:00:07,750 --> 00:00:12,150
+Kabut asap menutup kota berminggu-minggu, sekolah diliburkan, dan pesawat
+
+3
+00:00:12,200 --> 00:00:13,380
+tidak bisa terbang.
+
+4
+00:00:13,790 --> 00:00:18,310
+Enam tahun kemudian, di tahun dua ribu dua puluh satu, ceritanya terbalik.
+
+5
+00:00:18,740 --> 00:00:22,990
+Hujan turun hampir tanpa henti, dan banjir terjadi di banyak daerah.
+
+6
+00:00:23,420 --> 00:00:25,730
+Wilayahnya sama, negaranya sama.
+
+7
+00:00:26,000 --> 00:00:27,180
+Lalu apa bedanya?
+
+8
+00:00:27,530 --> 00:00:30,260
+Jawabannya ada jauh di tengah Samudra Pasifik.
+
+9
+00:00:30,300 --> 00:00:35,410
+Di video ini, kita bahas tiga fenomena yang hampir selalu muncul di soal
+
+10
+00:00:35,460 --> 00:00:36,670
+olimpiade:
+
+11
+00:00:36,920 --> 00:00:39,100
+El Niño, La Niña, dan IOD.
+
+12
+00:00:39,490 --> 00:00:40,390
+Bonusnya, MJO.
+
+13
+00:00:40,450 --> 00:00:46,520
+Sepanjang video, ada delapan belas istilah penting yang akan muncul di layar.
+
+14
+00:00:46,980 --> 00:00:51,630
+Catat semuanya, karena istilah inilah yang sering dipakai soal untuk menjebak.
+
+15
+00:00:52,040 --> 00:00:53,160
+Istilah pertama:
+
+16
+00:00:53,340 --> 00:00:54,830
+variabilitas iklim.
+
+17
+00:00:55,260 --> 00:01:00,750
+Variabilitas iklim adalah penyimpangan iklim dari rata-ratanya dalam hitungan
+
+18
+00:01:00,800 --> 00:01:03,880
+bulan sampai beberapa tahun, lalu kembali normal.
+
+19
+00:01:03,930 --> 00:01:07,890
+El Niño, La Niña, dan IOD termasuk variabilitas iklim.
+
+20
+00:01:08,300 --> 00:01:12,210
+Ini berbeda dengan perubahan iklim, yaitu pergeseran rata-rata yang bertahan
+
+21
+00:01:12,260 --> 00:01:13,870
+puluhan tahun atau lebih.
+
+22
+00:01:14,290 --> 00:01:17,070
+Jadi, El Niño bukan perubahan iklim.
+
+23
+00:01:17,480 --> 00:01:21,650
+Sekarang kita mulai dari kondisi normal di Samudra Pasifik bagian ekuator.
+
+24
+00:01:22,060 --> 00:01:25,270
+Di sini, angin bertiup tetap dari timur ke barat.
+
+25
+00:01:25,530 --> 00:01:27,530
+Angin ini disebut angin pasat.
+
+26
+00:01:27,910 --> 00:01:32,020
+Angin pasat mendorong air laut yang hangat di permukaan ke arah barat, sehingga
+
+27
+00:01:32,070 --> 00:01:35,710
+air hangat menumpuk di sekitar Indonesia dan Papua Nugini.
+
+28
+00:01:35,730 --> 00:01:39,840
+Tumpukan air hangat ini disebut kolam air hangat, atau warm pool.
+
+29
+00:01:40,110 --> 00:01:44,590
+Di bawah permukaan laut, ada lapisan batas antara air hangat di atas dan
+
+30
+00:01:44,640 --> 00:01:46,060
+air dingin di bawah.
+
+31
+00:01:46,430 --> 00:01:48,550
+Lapisan ini disebut termoklin.
+
+32
+00:01:48,910 --> 00:01:53,130
+Karena air hangat terdorong ke barat, termoklin di barat menjadi dalam,
+
+33
+00:01:53,180 --> 00:01:56,940
+sedangkan di timur, dekat Peru, termoklin menjadi dangkal.
+
+34
+00:01:57,360 --> 00:02:01,610
+Di pantai Peru, air permukaan yang terdorong menjauh digantikan oleh air
+
+35
+00:02:01,660 --> 00:02:03,730
+dingin dari bawah yang kaya nutrien.
+
+36
+00:02:04,160 --> 00:02:07,240
+Peristiwa naiknya air dingin ini disebut upwelling.
+
+37
+00:02:07,260 --> 00:02:10,730
+Upwelling membuat perairan Peru sangat subur dan kaya ikan.
+
+38
+00:02:10,900 --> 00:02:12,410
+Bagaimana dengan udaranya?
+
+39
+00:02:12,750 --> 00:02:18,120
+Di atas kolam air hangat, udara memanas, naik, lalu membentuk awan dan hujan.
+
+40
+00:02:18,490 --> 00:02:21,090
+Proses naiknya udara ini disebut konveksi.
+
+41
+00:02:21,340 --> 00:02:24,730
+Di atas Pasifik timur yang dingin, udara justru turun.
+
+42
+00:02:25,050 --> 00:02:29,340
+Udara yang naik di barat dan turun di timur membentuk satu sel sirkulasi
+
+43
+00:02:29,390 --> 00:02:31,830
+raksasa, yang disebut sirkulasi Walker.
+
+44
+00:02:32,150 --> 00:02:33,510
+Inilah kondisi normal:
+
+45
+00:02:33,600 --> 00:02:37,770
+Indonesia cukup basah, Peru kering tetapi lautnya kaya ikan.
+
+46
+00:02:37,790 --> 00:02:41,610
+Sekarang bayangkan angin pasat melemah, bahkan kadang berbalik arah.
+
+47
+00:02:42,010 --> 00:02:44,140
+Air hangat tidak lagi tertahan di barat.
+
+48
+00:02:44,570 --> 00:02:47,820
+Kolam air hangat bergeser ke Pasifik tengah dan timur.
+
+49
+00:02:47,990 --> 00:02:50,300
+Pusat konveksi ikut pindah ke timur.
+
+50
+00:02:50,720 --> 00:02:55,560
+Akibatnya, udara di atas Indonesia cenderung turun, dan awan sulit terbentuk.
+
+51
+00:02:55,960 --> 00:02:57,200
+Inilah El Niño.
+
+52
+00:02:57,470 --> 00:02:59,020
+Rantai dampaknya panjang.
+
+53
+00:02:59,100 --> 00:03:02,890
+Curah hujan di Indonesia berkurang, terutama Juni sampai November.
+
+54
+00:03:03,260 --> 00:03:05,460
+Kemarau menjadi lebih panjang dan kering.
+
+55
+00:03:05,480 --> 00:03:09,660
+Lahan gambut mengering dan mudah terbakar, lalu muncul kebakaran hutan dan
+
+56
+00:03:09,710 --> 00:03:10,660
+kabut asap.
+
+57
+00:03:10,920 --> 00:03:13,590
+Produksi padi turun dan harga beras naik.
+
+58
+00:03:13,780 --> 00:03:18,430
+Debit waduk berkurang, sehingga pembangkit listrik tenaga air ikut terganggu.
+
+59
+00:03:18,860 --> 00:03:20,270
+Bagaimana dengan Peru?
+
+60
+00:03:20,680 --> 00:03:24,880
+Termoklin di timur menjadi lebih dalam, upwelling melemah, dan tangkapan
+
+61
+00:03:24,930 --> 00:03:25,990
+ikan anjlok.
+
+62
+00:03:26,340 --> 00:03:31,130
+Sebaliknya, hujan lebat bisa terjadi di pesisir Peru yang biasanya kering.
+
+63
+00:03:31,530 --> 00:03:33,880
+Di sini ada istilah penting berikutnya:
+
+64
+00:03:34,080 --> 00:03:36,170
+anomali suhu muka laut.
+
+65
+00:03:36,190 --> 00:03:39,210
+Anomali artinya selisih terhadap rata-rata normal.
+
+66
+00:03:39,560 --> 00:03:44,350
+Saat El Niño, anomali suhu muka laut di Pasifik tengah dan timur bernilai
+
+67
+00:03:44,400 --> 00:03:47,410
+positif, artinya lebih hangat dari biasanya.
+
+68
+00:03:47,850 --> 00:03:49,840
+La Niña adalah kebalikannya.
+
+69
+00:03:50,180 --> 00:03:51,990
+Angin pasat justru menguat.
+
+70
+00:03:52,430 --> 00:03:57,030
+Air hangat makin menumpuk di barat, konveksi di atas Indonesia makin kuat,
+
+71
+00:03:57,080 --> 00:03:59,050
+dan curah hujan di atas normal.
+
+72
+00:03:59,440 --> 00:04:04,300
+Dampaknya banjir, tanah longsor, dan gelombang tinggi yang mengganggu nelayan.
+
+73
+00:04:04,720 --> 00:04:07,670
+Di Peru, upwelling menguat dan ikan melimpah.
+
+74
+00:04:07,690 --> 00:04:11,570
+El Niño dan La Niña adalah sisi laut dari satu sistem besar.
+
+75
+00:04:11,780 --> 00:04:16,800
+Sisi atmosfernya disebut Osilasi Selatan, atau Southern Oscillation, yaitu
+
+76
+00:04:16,850 --> 00:04:21,030
+jungkat-jungkit tekanan udara antara Tahiti di Pasifik timur dan Darwin
+
+77
+00:04:21,080 --> 00:04:22,850
+di Australia utara.
+
+78
+00:04:23,270 --> 00:04:28,700
+Gabungan keduanya disebut ENSO, singkatan dari El Niño Southern Oscillation.
+
+79
+00:04:29,070 --> 00:04:33,460
+ENSO berulang tidak teratur, kira-kira setiap dua sampai tujuh tahun.
+
+80
+00:04:33,820 --> 00:04:38,200
+Bagaimana para ilmuwan menentukan sedang terjadi El Niño atau La Niña?
+
+81
+00:04:38,560 --> 00:04:40,000
+Mereka memakai indeks.
+
+82
+00:04:40,020 --> 00:04:44,890
+Yang pertama, ONI, atau Oceanic Niño Index.
+
+83
+00:04:45,250 --> 00:04:50,510
+ONI adalah anomali suhu muka laut rata-rata tiga bulanan di wilayah yang
+
+84
+00:04:50,560 --> 00:04:55,500
+disebut Niño 3.4, yaitu di Pasifik tengah, antara lima derajat
+
+85
+00:04:55,550 --> 00:04:58,400
+lintang utara dan lima derajat lintang selatan.
+
+86
+00:04:58,850 --> 00:04:59,930
+Aturannya begini.
+
+87
+00:05:00,350 --> 00:05:05,880
+Jika ONI sama dengan atau lebih dari plus nol koma lima derajat Celsius,
+
+88
+00:05:05,930 --> 00:05:10,830
+selama minimal lima periode tiga bulanan berturut-turut, berarti El Niño.
+
+89
+00:05:11,280 --> 00:05:16,230
+Jika sama dengan atau kurang dari minus nol koma lima, berarti La Niña.
+
+90
+00:05:16,270 --> 00:05:18,330
+Di antara keduanya disebut netral.
+
+91
+00:05:18,610 --> 00:05:20,140
+Kekuatannya juga dibagi.
+
+92
+00:05:20,380 --> 00:05:23,580
+Nol koma lima sampai nol koma sembilan termasuk lemah.
+
+93
+00:05:23,900 --> 00:05:26,050
+Satu sampai satu koma empat, sedang.
+
+94
+00:05:26,240 --> 00:05:29,380
+Satu koma lima sampai satu koma sembilan, kuat.
+
+95
+00:05:29,690 --> 00:05:31,760
+Dua atau lebih, sangat kuat.
+
+96
+00:05:32,150 --> 00:05:36,450
+El Niño tahun dua ribu lima belas mencapai sekitar dua koma enam, tergolong
+
+97
+00:05:36,500 --> 00:05:37,350
+sangat kuat.
+
+98
+00:05:37,740 --> 00:05:41,810
+Kebakaran saat itu menghanguskan sekitar dua koma enam juta hektare lahan.
+
+99
+00:05:41,830 --> 00:05:47,140
+Indeks kedua adalah SOI, atau Southern Oscillation Index, yaitu selisih
+
+100
+00:05:47,190 --> 00:05:49,580
+tekanan udara Tahiti dan Darwin.
+
+101
+00:05:49,770 --> 00:05:51,800
+Hati-hati, tandanya terbalik.
+
+102
+00:05:52,210 --> 00:05:55,210
+SOI negatif berkepanjangan justru menandakan El Niño, sedangkan SOI
+
+103
+00:05:55,260 --> 00:05:56,670
+positif menandakan La Niña.
+
+104
+00:05:56,790 --> 00:05:59,200
+Sekarang pindah ke Samudra Hindia.
+
+105
+00:05:59,220 --> 00:06:01,770
+Di sini ada jungkat-jungkit suhu laut antara bagian barat, dekat Afrika
+
+106
+00:06:01,820 --> 00:06:03,430
+Timur, dan bagian timur, di barat Sumatra.
+
+107
+00:06:03,700 --> 00:06:08,050
+Fenomena ini disebut Indian Ocean Dipole, atau IOD, dan indeksnya disebut
+
+108
+00:06:08,100 --> 00:06:10,820
+DMI, Dipole Mode Index.
+
+109
+00:06:11,210 --> 00:06:16,080
+IOD positif terjadi ketika perairan barat Sumatra lebih dingin dan Samudra
+
+110
+00:06:16,130 --> 00:06:17,910
+Hindia barat lebih hangat.
+
+111
+00:06:18,100 --> 00:06:21,560
+Konveksi bergeser ke barat, menjauhi Indonesia.
+
+112
+00:06:21,580 --> 00:06:27,820
+Akibatnya, hujan di Indonesia bagian barat, seperti Sumatra dan Jawa, berkurang.
+
+113
+00:06:27,920 --> 00:06:31,480
+Sementara itu, Afrika Timur justru banjir.
+
+114
+00:06:31,810 --> 00:06:34,750
+IOD negatif adalah kebalikannya.
+
+115
+00:06:34,770 --> 00:06:41,990
+Perairan barat Sumatra lebih hangat, sehingga hujan di Indonesia bagian
+
+116
+00:06:42,040 --> 00:06:43,810
+barat bertambah.
+
+117
+00:06:44,230 --> 00:06:49,320
+IOD biasanya mencapai puncak antara September dan November.
+
+118
+00:06:49,820 --> 00:06:53,640
+Perhatikan pembagian wilayahnya.
+
+119
+00:06:53,900 --> 00:06:59,620
+ENSO dari Pasifik berpengaruh lebih kuat ke Indonesia bagian tengah dan
+
+120
+00:06:59,670 --> 00:07:00,350
+timur.
+
+121
+00:07:00,390 --> 00:07:05,210
+IOD dari Samudra Hindia berpengaruh lebih kuat ke Indonesia bagian barat.
+
+122
+00:07:05,680 --> 00:07:08,710
+Pengaruh jarak jauh seperti ini disebut telekoneksi.
+
+123
+00:07:09,120 --> 00:07:12,740
+Yang paling berbahaya adalah ketika keduanya bekerja bersamaan.
+
+124
+00:07:13,200 --> 00:07:17,320
+El Niño dan IOD positif sama-sama mengurangi hujan.
+
+125
+00:07:17,760 --> 00:07:22,330
+Kombinasi ini terjadi pada tahun dua ribu lima belas, dua ribu sembilan
+
+126
+00:07:22,380 --> 00:07:26,690
+belas, dan dua ribu dua puluh tiga, dan hasilnya kemarau sangat parah.
+
+127
+00:07:26,710 --> 00:07:31,550
+Sebaliknya, La Niña dan IOD negatif bersamaan membuat hujan berlebih,
+
+128
+00:07:31,600 --> 00:07:35,700
+seperti pada tahun dua ribu sepuluh, dua ribu enam belas, dan dua ribu dua
+
+129
+00:07:35,750 --> 00:07:36,660
+puluh dua.
+
+130
+00:07:37,050 --> 00:07:41,170
+Terakhir, MJO, atau Madden Julian Oscillation.
+
+131
+00:07:41,600 --> 00:07:44,420
+MJO adalah gugusan awan dan hujan berskala besar yang merambat ke arah
+
+132
+00:07:44,470 --> 00:07:48,670
+timur di sepanjang ekuator, dari Samudra Hindia ke Pasifik, dengan periode
+
+133
+00:07:48,720 --> 00:07:50,620
+tiga puluh sampai enam puluh hari.
+
+134
+00:07:50,640 --> 00:07:53,290
+Perjalanannya dibagi menjadi delapan fase.
+
+135
+00:07:53,680 --> 00:07:59,320
+Saat MJO aktif melintasi Benua Maritim Indonesia, yaitu fase empat dan
+
+136
+00:07:59,370 --> 00:08:05,070
+lima, peluang hujan lebat meningkat selama satu sampai dua minggu, lalu
+
+137
+00:08:05,120 --> 00:08:07,010
+diikuti periode yang lebih kering.
+
+138
+00:08:07,410 --> 00:08:10,090
+Jadi, susun berdasarkan skala waktunya.
+
+139
+00:08:10,500 --> 00:08:13,170
+Monsun mengatur musim, sekitar enam bulan.
+
+140
+00:08:13,620 --> 00:08:18,020
+MJO mengatur periode basah dan kering dalam satu musim, tiga puluh sampai
+
+141
+00:08:18,070 --> 00:08:19,270
+enam puluh hari.
+
+142
+00:08:19,610 --> 00:08:21,530
+IOD berskala tahunan.
+
+143
+00:08:21,980 --> 00:08:24,570
+ENSO berulang dua sampai tujuh tahun.
+
+144
+00:08:25,000 --> 00:08:27,650
+Dan perubahan iklim berlangsung puluhan tahun.
+
+145
+00:08:27,690 --> 00:08:30,980
+Sekarang, coba kerjakan soal ini.
+
+146
+00:08:35,130 --> 00:08:37,940
+Pertama, ONI plus satu koma dua.
+
+147
+00:08:38,350 --> 00:08:44,090
+Karena di atas nol koma lima, berarti El Niño, dan karena di antara satu
+
+148
+00:08:44,140 --> 00:08:48,370
+sampai satu koma empat, kekuatannya sedang.
+
+149
+00:08:48,390 --> 00:08:52,540
+Kedua, DMI plus nol koma sembilan, berarti IOD positif.
+
+150
+00:08:52,900 --> 00:08:54,880
+Keduanya sama-sama mengurangi hujan.
+
+151
+00:08:55,280 --> 00:09:00,380
+IOD positif menekan Indonesia barat, dan El Niño menekan Indonesia tengah
+
+152
+00:09:00,430 --> 00:09:01,140
+dan timur.
+
+153
+00:09:01,160 --> 00:09:05,510
+Jadi, wilayah yang paling berisiko adalah wilayah yang terkena keduanya
+
+154
+00:09:05,560 --> 00:09:10,580
+dan sedang memasuki puncak kemarau, seperti Sumatra bagian selatan, Jawa,
+
+155
+00:09:10,630 --> 00:09:13,550
+Kalimantan bagian selatan, dan Nusa Tenggara.
+
+156
+00:09:13,910 --> 00:09:14,860
+Jawabannya C.
+
+157
+00:09:14,910 --> 00:09:17,920
+Ada tiga jebakan yang sering muncul.
+
+158
+00:09:18,270 --> 00:09:23,610
+Pertama, saat El Niño, laut Pasifik timur menghangat, tetapi Indonesia justru
+
+159
+00:09:23,660 --> 00:09:24,210
+kering.
+
+160
+00:09:24,590 --> 00:09:25,610
+Jangan terbalik.
+
+161
+00:09:25,870 --> 00:09:29,200
+Kedua, SOI negatif berarti El Niño, bukan La Niña.
+
+162
+00:09:29,220 --> 00:09:31,060
+Ketiga, IOD positif berarti perairan barat Sumatra lebih dingin, bukan
+
+163
+00:09:31,110 --> 00:09:31,690
+lebih hangat.
+
+164
+00:09:31,730 --> 00:09:36,360
+Sebelum selesai, mari ulang delapan belas istilah tadi.
+
+165
+00:09:36,380 --> 00:09:39,620
+Variabilitas iklim.
+
+166
+00:09:39,910 --> 00:09:41,380
+Angin pasat.
+
+167
+00:09:41,660 --> 00:09:42,640
+Kolam air hangat.
+
+168
+00:09:42,680 --> 00:09:43,850
+Termoklin.
+
+169
+00:09:44,020 --> 00:09:44,960
+Upwelling.
+
+170
+00:09:45,160 --> 00:09:46,040
+Konveksi.
+
+171
+00:09:46,220 --> 00:09:47,130
+Sirkulasi Walker.
+
+172
+00:09:47,470 --> 00:09:48,840
+El Niño.
+
+173
+00:09:49,050 --> 00:09:49,930
+La Niña.
+
+174
+00:09:50,090 --> 00:09:50,950
+Anomali suhu muka laut.
+
+175
+00:09:51,220 --> 00:09:52,870
+Osilasi Selatan.
+
+176
+00:09:53,160 --> 00:09:54,500
+ENSO.
+
+177
+00:09:54,810 --> 00:09:55,630
+ONI.
+
+178
+00:09:56,000 --> 00:09:58,390
+Niño 3.4.
+
+179
+00:09:58,700 --> 00:09:59,660
+SOI.
+
+180
+00:09:59,940 --> 00:10:01,830
+IOD dan DMI.
+
+181
+00:10:02,070 --> 00:10:03,060
+Telekoneksi.
+
+182
+00:10:03,380 --> 00:10:05,000
+Dan MJO.
+
+183
+00:10:05,430 --> 00:10:09,260
+Kalau kamu sudah bisa menjelaskan semuanya dengan kata-katamu sendiri, kamu
+
+184
+00:10:09,310 --> 00:10:12,020
+siap menghadapi soal olimpiade tentang topik ini.
+
+185
+00:10:12,040 --> 00:10:17,470
+Latihan soalnya ada di OSNGEO.id, menu Soal Pendalaman Materi,
+
+186
+00:10:17,520 --> 00:10:18,340
+Bab satu.
+
+187
+00:10:18,610 --> 00:10:22,370
+Video berikutnya membahas efek rumah kaca dan pemanasan global.
+
+188
+00:10:22,500 --> 00:10:23,690
+Sampai jumpa!
+

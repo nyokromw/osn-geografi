@@ -1,0 +1,760 @@
+1
+00:00:03,000 --> 00:00:06,890
+Tahun dua ribu dua puluh empat tercatat sebagai tahun terpanas sepanjang
+
+2
+00:00:06,940 --> 00:00:07,770
+pengukuran.
+
+3
+00:00:08,190 --> 00:00:12,580
+Di Demak, Jawa Tengah, sebagian rumah di Desa Timbulsloko kini berdiri di
+
+4
+00:00:12,630 --> 00:00:13,900
+atas air laut.
+
+5
+00:00:14,340 --> 00:00:18,800
+Di Papua, es abadi di Puncak Jaya terus menyusut dan diperkirakan segera
+
+6
+00:00:18,850 --> 00:00:19,420
+hilang.
+
+7
+00:00:19,840 --> 00:00:22,780
+Tiga cerita ini terhubung oleh satu proses yang sama:
+
+8
+00:00:23,080 --> 00:00:24,360
+efek rumah kaca.
+
+9
+00:00:24,760 --> 00:00:27,310
+Di video ini, kita bahas dari dasarnya.
+
+10
+00:00:27,330 --> 00:00:32,430
+Bagaimana bumi menerima dan melepas energi, kenapa gas tertentu bisa memerangkap
+
+11
+00:00:32,480 --> 00:00:37,600
+panas, bagaimana menghitung emisi dengan GWP, apa buktinya, apa dampaknya
+
+12
+00:00:37,650 --> 00:00:40,760
+bagi Indonesia, dan apa yang bisa dilakukan.
+
+13
+00:00:41,190 --> 00:00:44,450
+Ada delapan belas istilah penting yang akan muncul di layar.
+
+14
+00:00:44,900 --> 00:00:46,090
+Catat semuanya.
+
+15
+00:00:46,460 --> 00:00:48,000
+Kita mulai dari matahari.
+
+16
+00:00:48,340 --> 00:00:51,400
+Semua benda memancarkan radiasi sesuai suhunya.
+
+17
+00:00:51,780 --> 00:00:55,380
+Makin panas bendanya, makin pendek panjang gelombangnya.
+
+18
+00:00:55,410 --> 00:00:59,510
+Matahari sangat panas, sekitar lima ribu delapan ratus kelvin, sehingga
+
+19
+00:00:59,560 --> 00:01:03,460
+memancarkan radiasi gelombang pendek, terutama cahaya tampak.
+
+20
+00:01:03,790 --> 00:01:07,830
+Bumi jauh lebih dingin, sekitar dua ratus delapan puluh delapan kelvin,
+
+21
+00:01:07,880 --> 00:01:12,080
+sehingga memancarkan radiasi gelombang panjang, yaitu sinar inframerah yang
+
+22
+00:01:12,130 --> 00:01:13,520
+tidak terlihat mata.
+
+23
+00:01:13,830 --> 00:01:15,150
+Ingat pasangan ini:
+
+24
+00:01:15,290 --> 00:01:18,100
+gelombang pendek masuk, gelombang panjang keluar.
+
+25
+00:01:18,410 --> 00:01:20,420
+Tidak semua cahaya matahari diserap.
+
+26
+00:01:20,580 --> 00:01:23,070
+Sebagian dipantulkan kembali ke angkasa.
+
+27
+00:01:23,090 --> 00:01:26,900
+Perbandingan cahaya yang dipantulkan terhadap cahaya yang diterima disebut
+
+28
+00:01:26,950 --> 00:01:27,640
+albedo.
+
+29
+00:01:28,050 --> 00:01:32,040
+Salju segar memiliki albedo sangat tinggi, delapan puluh sampai sembilan
+
+30
+00:01:32,090 --> 00:01:32,960
+puluh persen.
+
+31
+00:01:33,370 --> 00:01:37,180
+Hutan dan laut sangat rendah, hanya lima sampai lima belas persen.
+
+32
+00:01:37,510 --> 00:01:41,600
+Albedo rata-rata bumi sekitar tiga puluh persen, dan penyumbang terbesarnya
+
+33
+00:01:41,650 --> 00:01:42,700
+adalah awan.
+
+34
+00:01:43,120 --> 00:01:44,840
+Sekarang kita hitung energinya.
+
+35
+00:01:45,180 --> 00:01:49,170
+Bayangkan seratus satuan radiasi matahari masuk ke puncak atmosfer.
+
+36
+00:01:49,560 --> 00:01:55,960
+Sekitar tiga puluh satuan dipantulkan kembali ke angkasa.
+
+37
+00:01:55,990 --> 00:01:59,880
+Sekitar dua puluh satuan diserap atmosfer dan awan.
+
+38
+00:02:00,180 --> 00:02:06,440
+Sisanya, sekitar lima puluh satuan, diserap permukaan bumi.
+
+39
+00:02:06,460 --> 00:02:10,120
+Permukaan yang memanas lalu melepas energi ke atas lewat radiasi inframerah,
+
+40
+00:02:10,170 --> 00:02:12,850
+lewat udara hangat yang naik, dan lewat penguapan air.
+
+41
+00:02:13,210 --> 00:02:15,640
+Dalam jangka panjang, energi yang masuk harus sama dengan energi yang keluar.
+
+42
+00:02:15,820 --> 00:02:17,960
+Keseimbangan ini disebut neraca energi.
+
+43
+00:02:17,980 --> 00:02:19,690
+Di sinilah gas rumah kaca berperan.
+
+44
+00:02:19,720 --> 00:02:22,900
+Gas seperti uap air, karbon dioksida, dan metana hampir tidak menghalangi
+
+45
+00:02:22,950 --> 00:02:24,440
+cahaya matahari yang masuk.
+
+46
+00:02:24,870 --> 00:02:28,980
+Tetapi gas-gas ini menyerap sinar inframerah yang dipancarkan bumi, lalu
+
+47
+00:02:29,030 --> 00:02:33,400
+memancarkannya kembali ke segala arah, termasuk kembali ke permukaan.
+
+48
+00:02:33,850 --> 00:02:36,620
+Pancaran ke bawah ini disebut radiasi balik.
+
+49
+00:02:36,870 --> 00:02:40,590
+Akibatnya, panas tertahan lebih lama di dekat permukaan.
+
+50
+00:02:40,940 --> 00:02:42,890
+Inilah efek rumah kaca.
+
+51
+00:02:43,320 --> 00:02:46,420
+Penting dicatat, efek rumah kaca alami itu baik.
+
+52
+00:02:46,440 --> 00:02:51,140
+Tanpa efek ini, suhu rata-rata bumi hanya sekitar minus delapan belas derajat
+
+53
+00:02:51,190 --> 00:02:51,910
+Celsius.
+
+54
+00:02:52,020 --> 00:02:56,780
+Dengan efek ini, suhunya sekitar lima belas derajat, sehingga bumi layak
+
+55
+00:02:56,830 --> 00:02:57,450
+huni.
+
+56
+00:02:57,750 --> 00:03:02,160
+Masalahnya muncul ketika manusia menambah gas rumah kaca ke atmosfer.
+
+57
+00:03:02,250 --> 00:03:05,430
+Penambahan ini disebut efek rumah kaca tambahan.
+
+58
+00:03:05,850 --> 00:03:10,580
+Sejak Revolusi Industri, konsentrasi karbon dioksida naik dari sekitar dua
+
+59
+00:03:10,630 --> 00:03:15,250
+ratus delapan puluh ppm menjadi lebih dari empat ratus dua puluh ppm.
+
+60
+00:03:15,610 --> 00:03:17,950
+ppm artinya bagian per sejuta.
+
+61
+00:03:17,970 --> 00:03:22,070
+Angka ini tertinggi setidaknya dalam delapan ratus ribu tahun terakhir,
+
+62
+00:03:22,120 --> 00:03:23,870
+berdasarkan data inti es.
+
+63
+00:03:24,240 --> 00:03:28,710
+Kenaikan ini terekam jelas oleh pengukuran di Gunung Mauna Loa, Hawaii,
+
+64
+00:03:28,760 --> 00:03:31,830
+sejak tahun seribu sembilan ratus lima puluh delapan.
+
+65
+00:03:32,280 --> 00:03:34,350
+Grafiknya disebut kurva Keeling.
+
+66
+00:03:34,730 --> 00:03:38,780
+Garisnya terus naik, dengan gelombang kecil setiap tahun karena tumbuhan
+
+67
+00:03:38,830 --> 00:03:42,540
+di belahan bumi utara menyerap karbon dioksida di musim panas.
+
+68
+00:03:42,940 --> 00:03:44,760
+Kalau gas rumah kaca bertambah, radiasi yang lolos ke angkasa berkurang.
+
+69
+00:03:44,880 --> 00:03:50,770
+Energi yang masuk menjadi lebih besar daripada energi yang keluar.
+
+70
+00:03:51,190 --> 00:03:55,040
+Bumi lalu memanas sampai keseimbangan baru tercapai.
+
+71
+00:03:55,380 --> 00:03:59,450
+Lebih dari sembilan puluh persen kelebihan panas ini tersimpan di lautan.
+
+72
+00:03:59,850 --> 00:04:01,840
+Gas rumah kaca tidak sama kuat.
+
+73
+00:04:02,110 --> 00:04:07,310
+Kekuatan suatu gas memerangkap panas dibandingkan karbon dioksida disebut
+
+74
+00:04:07,360 --> 00:04:10,370
+GWP, atau Global Warming Potential.
+
+75
+00:04:10,830 --> 00:04:14,070
+Karbon dioksida menjadi patokan, nilainya satu.
+
+76
+00:04:14,250 --> 00:04:18,270
+Metana sekitar dua puluh delapan kali lebih kuat dalam seratus tahun.
+
+77
+00:04:18,340 --> 00:04:22,220
+Dinitrogen oksida dari pupuk sekitar dua ratus enam puluh lima kali.
+
+78
+00:04:22,240 --> 00:04:25,750
+Gas berfluorin dari pendingin ruangan bisa ribuan kali.
+
+79
+00:04:25,980 --> 00:04:31,740
+Supaya bisa dibandingkan, semua emisi diubah ke satuan karbon dioksida ekuivalen,
+
+80
+00:04:31,790 --> 00:04:33,670
+atau CO2-ekuivalen.
+
+81
+00:04:34,100 --> 00:04:35,370
+Rumusnya sederhana:
+
+82
+00:04:35,460 --> 00:04:37,570
+massa gas dikali GWP.
+
+83
+00:04:37,930 --> 00:04:42,600
+Misalnya, seratus ton metana setara dengan dua ribu delapan ratus ton C
+
+84
+00:04:42,650 --> 00:04:44,240
+O dua ekuivalen.
+
+85
+00:04:44,670 --> 00:04:46,430
+Apa buktinya bumi memanas?
+
+86
+00:04:46,450 --> 00:04:50,650
+Laporan IPCC menyatakan suhu rata-rata global periode dua ribu sebelas
+
+87
+00:04:50,700 --> 00:04:54,750
+sampai dua ribu dua puluh sudah sekitar satu koma satu derajat lebih tinggi
+
+88
+00:04:54,800 --> 00:04:56,470
+daripada masa praindustri.
+
+89
+00:04:56,810 --> 00:05:01,510
+Muka laut global naik sekitar dua puluh sentimeter sejak tahun seribu sembilan
+
+90
+00:05:01,560 --> 00:05:03,780
+ratus satu, dan lajunya makin cepat.
+
+91
+00:05:04,170 --> 00:05:06,320
+Kenaikan ini terjadi karena dua hal:
+
+92
+00:05:06,660 --> 00:05:10,500
+es di daratan mencair, dan air laut memuai ketika memanas.
+
+93
+00:05:10,910 --> 00:05:13,420
+Pemuaian ini disebut ekspansi termal.
+
+94
+00:05:13,680 --> 00:05:16,350
+Pemanasan juga bisa memperkuat dirinya sendiri.
+
+95
+00:05:16,370 --> 00:05:19,280
+Proses seperti ini disebut umpan balik positif.
+
+96
+00:05:19,590 --> 00:05:23,050
+Contoh paling terkenal adalah umpan balik es dan albedo.
+
+97
+00:05:23,460 --> 00:05:26,380
+Es mencair, permukaan laut yang gelap terbuka, albedo turun, lebih banyak
+
+98
+00:05:26,430 --> 00:05:27,560
+panas diserap, dan es makin cepat mencair.
+
+99
+00:05:27,600 --> 00:05:31,460
+Contoh lainnya, udara yang lebih hangat menampung lebih banyak uap air,
+
+100
+00:05:31,510 --> 00:05:32,570
+padahal uap air juga gas rumah kaca.
+
+101
+00:05:32,790 --> 00:05:38,590
+Tanah beku abadi di Siberia yang mencair juga melepaskan metana.
+
+102
+00:05:39,030 --> 00:05:41,500
+Lautan tidak hanya memanas.
+
+103
+00:05:41,520 --> 00:05:45,290
+Laut juga menyerap karbon dioksida, sehingga air laut menjadi lebih asam.
+
+104
+00:05:45,320 --> 00:05:47,570
+Proses ini disebut pengasaman laut.
+
+105
+00:05:47,590 --> 00:05:52,060
+pH laut sudah turun sekitar nol koma satu sejak masa praindustri.
+
+106
+00:05:52,470 --> 00:05:56,530
+Laut yang lebih asam menyulitkan karang dan kerang membentuk cangkang.
+
+107
+00:05:56,920 --> 00:06:02,340
+Ketika suhu laut naik sekitar satu derajat di atas rata-rata maksimum selama
+
+108
+00:06:02,390 --> 00:06:06,830
+beberapa minggu, karang mengeluarkan alga yang hidup di jaringannya.
+
+109
+00:06:06,950 --> 00:06:09,830
+Karang kehilangan warna dan makanannya, lalu tampak putih.
+
+110
+00:06:10,180 --> 00:06:13,830
+Peristiwa ini disebut pemutihan karang.
+
+111
+00:06:14,230 --> 00:06:18,420
+Di daratan Indonesia, dampaknya terasa di banyak sektor.
+
+112
+00:06:18,460 --> 00:06:23,500
+Musim tanam bergeser, kekeringan dan banjir lebih sering, demam berdarah
+
+113
+00:06:23,550 --> 00:06:28,660
+meluas ke dataran tinggi, dan risiko kebakaran gambut meningkat.
+
+114
+00:06:29,060 --> 00:06:31,940
+Lalu bagaimana dengan Desa Timbulsloko di awal tadi?
+
+115
+00:06:32,250 --> 00:06:36,290
+Banjir rob di pesisir utara Jawa memang dipengaruhi kenaikan muka laut.
+
+116
+00:06:36,310 --> 00:06:40,840
+Tetapi penyebab terbesarnya adalah amblesan tanah, yaitu turunnya permukaan
+
+117
+00:06:40,890 --> 00:06:43,830
+tanah akibat penyedotan air tanah berlebihan.
+
+118
+00:06:43,850 --> 00:06:48,640
+Di beberapa titik Jakarta Utara, Semarang, dan Demak, tanah turun beberapa
+
+119
+00:06:48,690 --> 00:06:53,030
+sentimeter per tahun, jauh lebih cepat daripada kenaikan muka laut yang
+
+120
+00:06:53,080 --> 00:06:55,520
+hanya sekitar empat milimeter per tahun.
+
+121
+00:06:55,870 --> 00:06:59,560
+Menghadapi perubahan iklim, ada dua strategi besar.
+
+122
+00:06:59,940 --> 00:07:04,730
+Yang pertama mitigasi, yaitu mengurangi emisi atau menambah penyerapan gas
+
+123
+00:07:04,780 --> 00:07:05,660
+rumah kaca.
+
+124
+00:07:06,070 --> 00:07:10,160
+Contohnya mengganti pembangkit batu bara dengan energi terbarukan, mencegah
+
+125
+00:07:10,210 --> 00:07:14,100
+kebakaran gambut, dan menangkap metana dari tempat pembuangan sampah.
+
+126
+00:07:14,120 --> 00:07:18,930
+Yang kedua adaptasi, yaitu menyesuaikan diri terhadap dampak yang sudah
+
+127
+00:07:18,980 --> 00:07:20,070
+dan akan terjadi.
+
+128
+00:07:20,440 --> 00:07:24,740
+Contohnya menanam padi tahan kekeringan, meninggikan rumah di daerah rob,
+
+129
+00:07:24,790 --> 00:07:26,980
+dan membangun sistem peringatan dini.
+
+130
+00:07:27,410 --> 00:07:30,780
+Ada satu tindakan yang sekaligus mitigasi dan adaptasi:
+
+131
+00:07:30,870 --> 00:07:32,180
+menanam mangrove.
+
+132
+00:07:32,570 --> 00:07:35,910
+Mangrove menyerap karbon dan melindungi pantai dari gelombang.
+
+133
+00:07:35,970 --> 00:07:40,420
+Karbon yang tersimpan di ekosistem pesisir seperti mangrove dan padang lamun
+
+134
+00:07:40,470 --> 00:07:41,980
+disebut karbon biru.
+
+135
+00:07:42,090 --> 00:07:45,690
+Per hektare, simpanannya bisa beberapa kali lipat hutan daratan.
+
+136
+00:07:45,990 --> 00:07:50,250
+Di tingkat dunia, negara-negara menyepakati Persetujuan Paris pada tahun
+
+137
+00:07:50,300 --> 00:07:51,780
+dua ribu lima belas.
+
+138
+00:07:52,060 --> 00:07:56,160
+Targetnya menahan kenaikan suhu jauh di bawah dua derajat, dan berupaya
+
+139
+00:07:56,210 --> 00:07:58,920
+membatasinya pada satu koma lima derajat.
+
+140
+00:07:59,210 --> 00:08:04,650
+Setiap negara menyusun target penurunan emisinya sendiri, yang disebut N
+
+141
+00:08:04,700 --> 00:08:08,140
+D C, atau Nationally Determined Contribution.
+
+142
+00:08:08,170 --> 00:08:12,490
+Indonesia menargetkan penurunan emisi tiga puluh satu koma delapan sembilan
+
+143
+00:08:12,540 --> 00:08:16,240
+persen dengan usaha sendiri, dan empat puluh tiga koma dua persen dengan
+
+144
+00:08:16,290 --> 00:08:20,750
+dukungan internasional pada tahun dua ribu tiga puluh, serta emisi nol bersih
+
+145
+00:08:20,800 --> 00:08:22,980
+pada tahun dua ribu enam puluh.
+
+146
+00:08:23,420 --> 00:08:25,740
+Sekarang, coba kerjakan soal ini.
+
+147
+00:08:30,060 --> 00:08:32,380
+Langkah pertama, hitung emisi awal.
+
+148
+00:08:32,770 --> 00:08:37,480
+Dua ribu ton metana dikali GWP dua puluh delapan, hasilnya lima puluh
+
+149
+00:08:37,530 --> 00:08:40,090
+enam ribu ton CO2-ekuivalen.
+
+150
+00:08:40,110 --> 00:08:44,890
+Langkah kedua, setelah metana dibakar, setiap ton metana menjadi dua koma
+
+151
+00:08:44,940 --> 00:08:46,870
+tujuh lima ton karbon dioksida.
+
+152
+00:08:47,270 --> 00:08:50,200
+Jadi emisinya menjadi lima ribu lima ratus ton.
+
+153
+00:08:50,620 --> 00:08:55,030
+Langkah ketiga, pengurangannya adalah lima puluh enam ribu dikurangi lima
+
+154
+00:08:55,080 --> 00:09:00,020
+ribu lima ratus, yaitu lima puluh ribu lima ratus ton CO2-ekuivalen,
+
+155
+00:09:00,070 --> 00:09:02,050
+atau sekitar sembilan puluh persen.
+
+156
+00:09:02,460 --> 00:09:03,570
+Jawabannya B.
+
+157
+00:09:03,930 --> 00:09:08,410
+Inilah alasan penangkapan gas sampah termasuk mitigasi yang sangat efektif.
+
+158
+00:09:08,830 --> 00:09:10,970
+Ada tiga jebakan yang sering muncul.
+
+159
+00:09:10,990 --> 00:09:14,540
+Pertama, efek rumah kaca bukan sesuatu yang buruk.
+
+160
+00:09:14,890 --> 00:09:19,820
+Yang menjadi masalah adalah efek rumah kaca tambahan dari aktivitas manusia.
+
+161
+00:09:20,210 --> 00:09:23,800
+Kedua, lubang ozon bukan penyebab pemanasan global.
+
+162
+00:09:24,140 --> 00:09:28,750
+Lubang ozon membuat lebih banyak sinar ultraviolet masuk, tetapi mekanismenya
+
+163
+00:09:28,800 --> 00:09:29,550
+berbeda.
+
+164
+00:09:29,990 --> 00:09:34,740
+Ketiga, banjir rob di Pantura bukan hanya karena kenaikan muka laut, tetapi
+
+165
+00:09:34,790 --> 00:09:37,960
+gabungan kenaikan muka laut dan amblesan tanah.
+
+166
+00:09:38,350 --> 00:09:41,670
+Sebelum selesai, mari ulang delapan belas istilah tadi.
+
+167
+00:09:41,900 --> 00:09:43,800
+Radiasi gelombang pendek.
+
+168
+00:09:43,820 --> 00:09:45,520
+Radiasi gelombang panjang.
+
+169
+00:09:45,870 --> 00:09:46,720
+Albedo.
+
+170
+00:09:46,910 --> 00:09:48,050
+Neraca energi.
+
+171
+00:09:48,280 --> 00:09:49,490
+Gas rumah kaca.
+
+172
+00:09:49,700 --> 00:09:50,880
+Radiasi balik.
+
+173
+00:09:51,050 --> 00:09:52,370
+Efek rumah kaca.
+
+174
+00:09:52,590 --> 00:09:54,350
+Efek rumah kaca tambahan.
+
+175
+00:09:54,740 --> 00:09:56,090
+ppm.
+
+176
+00:09:56,480 --> 00:09:57,570
+Kurva Keeling.
+
+177
+00:09:57,670 --> 00:09:59,230
+GWP.
+
+178
+00:09:59,450 --> 00:10:01,510
+CO2-ekuivalen.
+
+179
+00:10:01,740 --> 00:10:03,100
+Ekspansi termal.
+
+180
+00:10:03,180 --> 00:10:04,610
+Umpan balik positif.
+
+181
+00:10:04,900 --> 00:10:06,150
+Pengasaman laut.
+
+182
+00:10:06,270 --> 00:10:07,530
+Pemutihan karang.
+
+183
+00:10:07,850 --> 00:10:09,020
+Amblesan tanah.
+
+184
+00:10:09,170 --> 00:10:10,960
+Mitigasi dan adaptasi.
+
+185
+00:10:10,980 --> 00:10:15,140
+Kalau kamu bisa menjelaskan semuanya dengan kata-katamu sendiri, kamu siap
+
+186
+00:10:15,190 --> 00:10:17,900
+menghadapi soal olimpiade tentang topik ini.
+
+187
+00:10:18,280 --> 00:10:24,100
+Latihan soalnya ada di OSNGEO.id, menu Soal Pendalaman Materi,
+
+188
+00:10:24,150 --> 00:10:25,140
+Bab satu.
+
+189
+00:10:25,160 --> 00:10:29,430
+Video berikutnya membahas sirkulasi atmosfer global dan monsun.
+
+190
+00:10:29,460 --> 00:10:30,710
+Sampai jumpa!
+

@@ -17,6 +17,9 @@ export type LearningVideo = {
   is_premium?: boolean | null
   aktif?: boolean | null
   topik_materi?: { nama: string } | null
+  tahap?: string | null
+  level?: string | null
+  prasyarat?: string | null
 }
 
 type Topic = { id: number; nama: string; urutan?: number | null }
@@ -25,6 +28,8 @@ type Topic = { id: number; nama: string; urutan?: number | null }
 export const isComingSoon = (video: LearningVideo) => !getYouTubeVideoId(video.youtube_id)
 
 const isConcept = (video: LearningVideo) => /-V00$/.test(video.kode ?? '') || /^konsep dasar/i.test(video.judul)
+const seqNo = (video: LearningVideo) => { const m = /^B\d{2}-(\d{2})$/.exec(video.kode ?? ''); return m ? Number(m[1]) : null }
+const codeNo = (kode: string) => { const m = /^B\d{2}-(\d{2})$/.exec(kode); return m ? Number(m[1]) : null }
 const cleanTitle = (judul: string) => judul.replace(/^konsep dasar:\s*/i, '')
 
 function VideoPlayer({ video, id, dialog, titleId, playing, onClose }: {
@@ -70,23 +75,37 @@ function usePlayer() {
   return { dialog, titleId, playing, open, close: () => setPlaying(false) }
 }
 
-export function LearningVideoCard({ video }: { video: LearningVideo }) {
+export function LearningVideoCard({ video, lookup }: { video: LearningVideo; lookup?: Map<string, LearningVideo> }) {
   const player = usePlayer()
   const id = getYouTubeVideoId(video.youtube_id)
   const access = requiredAccess(video, true)
   const concept = isConcept(video)
+  const no = seqNo(video)
+  const prereq = (video.prasyarat ?? '').split(',').map(s => s.trim()).filter(Boolean)
+  const meta = (
+    <>
+      <div className="video-meta-row">
+        {no !== null && <span className="video-no">#{no}</span>}
+        {concept && <span className="video-kind" data-kind="concept">Konsep Dasar</span>}
+        {video.level && <span className="video-level">{video.level}</span>}
+      </div>
+      <h3>{cleanTitle(video.judul)}</h3>
+      {video.deskripsi && <p className="video-desc">{video.deskripsi}</p>}
+      {prereq.length > 0 && (
+        <p className="video-prereq">Tonton dulu: {prereq.map((k, i) => { const v = lookup?.get(k); const n = codeNo(k); return <span key={k}>{i ? ', ' : ''}{n !== null ? '#' + n : k}{v ? ' ' + cleanTitle(v.judul) : ''}</span> })}</p>
+      )}
+    </>
+  )
 
   if (!id) {
     return (
       <article className="learn-card video-soon" aria-label={video.judul + ' — segera tayang'}>
         <div className="video-thumb video-soon-thumb" aria-hidden="true">
-          <span className="video-soon-code">{video.kode ?? 'Video'}</span>
+          <span className="video-soon-code">{no !== null ? '#' + no : video.kode ?? 'Video'}</span>
           <span className="video-soon-badge"><Clock3 size={14} /> Segera tayang</span>
         </div>
         <div className="learn-card-body">
-          {concept && <span className="video-kind" data-kind="concept">Konsep Dasar</span>}
-          <h3>{cleanTitle(video.judul)}</h3>
-          {video.deskripsi && <p className="video-desc">{video.deskripsi}</p>}
+          {meta}
           <div className="learn-card-foot">
             <span className="video-soon-note">Sedang diproduksi</span>
           </div>
@@ -107,9 +126,7 @@ export function LearningVideoCard({ video }: { video: LearningVideo }) {
           : video.topik_materi?.nama && <span className="video-thumb-topic">{video.topik_materi.nama}</span>}
       </button>
       <div className="learn-card-body">
-        {concept && <span className="video-kind" data-kind="concept">Konsep Dasar</span>}
-        <h3>{cleanTitle(video.judul)}</h3>
-        {video.deskripsi && <p className="video-desc">{video.deskripsi}</p>}
+        {meta}
         <div className="learn-card-foot">
           <span className="access-badge" data-access={access}>{accessLabels[access]}</span>
           <button type="button" aria-haspopup="dialog" onClick={player.open} className="atlas-link inline-flex items-center gap-1 text-sm">
@@ -146,6 +163,16 @@ function Spotlight({ video }: { video: LearningVideo }) {
   )
 }
 
+function groupByStage(items: LearningVideo[]): [string, LearningVideo[]][] {
+  const out: [string, LearningVideo[]][] = []
+  for (const v of items) {
+    const st = v.tahap ?? ''
+    if (out.length && out[out.length - 1][0] === st) out[out.length - 1][1].push(v)
+    else out.push([st, [v]])
+  }
+  return out
+}
+
 /** Student video library: grouped per chapter, live videos first-class, the rest shown as "segera tayang". */
 export function VideoLibrary({ videos, topics }: { videos: LearningVideo[]; topics: Topic[] }) {
   const [bab, setBab] = useState<number | 'semua'>('semua')
@@ -162,6 +189,7 @@ export function VideoLibrary({ videos, topics }: { videos: LearningVideo[]; topi
   const live = videos.filter(v => !isComingSoon(v))
   const newest = [...live].sort((a, b) => b.id - a.id)[0]
   const shownIds = bab === 'semua' ? chapterIds : chapterIds.filter(id => id === bab)
+  const lookup = new Map(videos.filter(v => v.kode).map(v => [v.kode as string, v]))
 
   return (
     <div className="video-library">
@@ -207,9 +235,14 @@ export function VideoLibrary({ videos, topics }: { videos: LearningVideo[]; topi
                 {done}/{all.length} tayang
               </span>
             </header>
-            <div className="learn-grid">
-              {items.map(v => <LearningVideoCard key={v.id} video={v} />)}
-            </div>
+            {groupByStage(items).map(([stage, vids]) => (
+              <div key={stage || 'semua'} className="video-stage">
+                {stage && <h4 className="video-stage-head">{stage}</h4>}
+                <div className="learn-grid">
+                  {vids.map(v => <LearningVideoCard key={v.id} video={v} lookup={lookup} />)}
+                </div>
+              </div>
+            ))}
           </section>
         )
       })}
