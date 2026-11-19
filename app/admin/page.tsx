@@ -1214,6 +1214,9 @@ const handleResetPassword = async (email: string) => {
                     <label className="grid gap-1 text-xs font-semibold text-gray-600">Tipe akses{sel('akses', mediaAccessOptions, 'Gratis')}</label>
                     <label className="grid gap-1 text-xs font-semibold text-gray-600">Kode video{inp('mis. B01-V01', 'kode')}</label>
                     <label className="grid gap-1 text-xs font-semibold text-gray-600">Urutan{inp('Urutan tampil', 'urutan', 'number')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Tahap{inp('mis. Tahap 2 · Udara bergerak', 'tahap')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Level{inp('Dasar / Menengah / Lanjut', 'level')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600 sm:col-span-2">Prasyarat (kode, pisahkan koma){inp('mis. B01-06, B01-07', 'prasyarat')}</label>
                     <label className="grid gap-1 text-xs font-semibold text-gray-600 sm:col-span-2">Deskripsi singkat{ta('Ringkasan isi video (tampil di kartu siswa)', 'deskripsi', 2)}</label>
                   </div>
                   <FormBtns onSave={() => {
@@ -1232,6 +1235,9 @@ const handleResetPassword = async (email: string) => {
                       kode: typeof formData.kode === 'string' && formData.kode.trim() ? formData.kode.trim().toUpperCase() : null,
                       deskripsi: typeof formData.deskripsi === 'string' && formData.deskripsi.trim() ? formData.deskripsi.trim() : null,
                       urutan: formData.urutan ? Number(formData.urutan) : (editData?.urutan ?? (videoList.length + 1)),
+                      tahap: typeof formData.tahap === 'string' && formData.tahap.trim() ? formData.tahap.trim() : null,
+                      level: typeof formData.level === 'string' && formData.level.trim() ? formData.level.trim() : null,
+                      prasyarat: typeof formData.prasyarat === 'string' && formData.prasyarat.trim() ? formData.prasyarat.split(',').map((k: string) => k.trim().toUpperCase()).filter(Boolean).join(', ') : null,
                       // a video with a link is live; without one it is listed as "segera tayang"
                       aktif: !!youtubeId,
                     })
@@ -1271,7 +1277,7 @@ const handleResetPassword = async (email: string) => {
                           <td className="px-5 py-3 text-center whitespace-nowrap">
                             <button onClick={() => {
                               setEditData(v)
-                              setFormData({ judul: v.judul, youtube_id: v.youtube_id ?? '', topik_id: v.topik_id ?? '', akses: requiredAccess(v, true), kode: v.kode ?? '', urutan: v.urutan ?? '', deskripsi: v.deskripsi ?? '' })
+                              setFormData({ judul: v.judul, youtube_id: v.youtube_id ?? '', topik_id: v.topik_id ?? '', akses: requiredAccess(v, true), kode: v.kode ?? '', urutan: v.urutan ?? '', deskripsi: v.deskripsi ?? '', tahap: v.tahap ?? '', level: v.level ?? '', prasyarat: v.prasyarat ?? '' })
                               setShowForm(true)
                               window.scrollTo({ top: 0, behavior: 'smooth' })
                             }} className="mr-2 text-xs text-forest-700 border border-forest-200 px-2 py-1 rounded transition">{live ? 'Edit' : 'Isi tautan'}</button>

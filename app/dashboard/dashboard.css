@@ -190,6 +190,13 @@
 .video-chapter-progress[data-done="true"] { background: var(--color-forest-100); color: var(--color-forest-700); }
 .video-kind { width: fit-content; padding: .15rem .5rem; border-radius: 999px; background: var(--color-sand-100); color: var(--color-clay-600); font-size: .68rem; font-weight: 750; letter-spacing: .03em; text-transform: uppercase; }
 .video-desc { color: var(--color-gray-500); font-size: .8rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.video-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
+.video-no { padding: .1rem .45rem; border-radius: 6px; background: var(--color-forest-700); color: var(--color-white); font-size: .7rem; font-weight: 750; }
+.video-level { padding: .15rem .5rem; border-radius: 999px; background: var(--color-forest-100); color: var(--color-forest-700); font-size: .68rem; font-weight: 700; }
+.video-prereq { font-size: .74rem; color: var(--color-clay-600); font-weight: 600; line-height: 1.4; }
+.video-stage { display: grid; gap: .75rem; }
+.video-stage + .video-stage { margin-top: .6rem; }
+.video-stage-head { font-size: .82rem; font-weight: 750; color: var(--color-gray-600); letter-spacing: .02em; }
 .video-soon { background: var(--color-gray-50); }
 .video-soon:hover { transform: none; box-shadow: none; border-color: var(--color-gray-200); }
 .video-soon-thumb {
