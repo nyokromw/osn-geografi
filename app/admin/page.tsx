@@ -290,7 +290,7 @@ const handleResetPassword = async (email: string) => {
     ] },
     { group: 'Ujian', items: [
       { label: 'Paket tryout', key: 'paket_tryout', Icon: ClipboardList },
-      { label: 'Pendalaman materi', key: 'pendalaman', Icon: Layers3 },
+      { label: 'Soal Pendalaman Materi', key: 'pendalaman', Icon: Layers3 },
     ] },
     { group: 'Materi', items: [
       { label: 'Video pembelajaran', key: 'video', Icon: Video },
@@ -931,8 +931,8 @@ const handleResetPassword = async (email: string) => {
           {view === 'pendalaman' && !selectedTopik && (
             <div>
               <div className="mb-5">
-                <h2 className="text-xl font-black text-gray-800">Pendalaman Materi</h2>
-                <p className="text-gray-500 text-sm">Pilih topik untuk kelola paket pendalaman</p>
+                <h2 className="text-xl font-black text-gray-800">Soal Pendalaman Materi</h2>
+                <p className="text-gray-500 text-sm">Pilih topik untuk kelola paket Soal Pendalaman Materi</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {topikList.map((t) => {
@@ -941,7 +941,7 @@ const handleResetPassword = async (email: string) => {
                     <button key={t.id} onClick={() => setSelectedTopik(t)}
                       className="bg-white border border-gray-200 rounded-xl p-4 text-left hover:border-forest-400 hover:shadow-sm transition">
                       <div className="font-bold text-gray-800 text-sm mb-1">{t.nama}</div>
-                      <div className="text-xs text-gray-400">{jumlahPaket} paket pendalaman</div>
+                      <div className="text-xs text-gray-400">{jumlahPaket} paket Soal Pendalaman Materi</div>
                     </button>
                   )
                 })}
@@ -954,7 +954,7 @@ const handleResetPassword = async (email: string) => {
             <div>
               <div className="flex items-center gap-2 mb-5 text-sm">
                 <button onClick={() => { setSelectedTopik(null); resetForm() }}
-                  className="text-forest-600 hover:underline font-medium">Pendalaman Materi</button>
+                  className="text-forest-600 hover:underline font-medium">Soal Pendalaman Materi</button>
                 <span className="text-gray-400">›</span>
                 <span className="font-bold text-gray-800">{selectedTopik.nama}</span>
               </div>
@@ -962,7 +962,7 @@ const handleResetPassword = async (email: string) => {
               <div className="mb-5 flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-black text-gray-800">{selectedTopik.nama}</h2>
-                  <p className="text-gray-500 text-sm">Paket pendalaman untuk topik ini</p>
+                  <p className="text-gray-500 text-sm">Paket Soal Pendalaman Materi untuk topik ini</p>
                 </div>
                 <button onClick={openAdd} className="bg-forest-600 hover:bg-forest-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition">
                   + Tambah Paket
@@ -971,7 +971,7 @@ const handleResetPassword = async (email: string) => {
 
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
-                  <h3 className="font-bold text-gray-800 mb-4">{editData ? 'Edit Paket Pendalaman' : 'Tambah Paket Pendalaman'}</h3>
+                  <h3 className="font-bold text-gray-800 mb-4">{editData ? 'Edit Paket Soal Pendalaman Materi' : 'Tambah Paket Soal Pendalaman Materi'}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {inp('Nama paket (contoh: Latihan Soal Hidrosfer)', 'nama')}
                     {inp('Durasi (menit)', 'durasi_menit', 'number')}
@@ -1055,7 +1055,7 @@ const handleResetPassword = async (email: string) => {
             <div>
               <div className="flex items-center gap-2 mb-5 text-sm flex-wrap">
                 <button onClick={() => { setSelectedTopik(null); setSelectedPaketPendalaman(null); resetForm() }}
-                  className="text-forest-600 hover:underline font-medium">Pendalaman Materi</button>
+                  className="text-forest-600 hover:underline font-medium">Soal Pendalaman Materi</button>
                 <span className="text-gray-400">›</span>
                 <button onClick={() => { setSelectedPaketPendalaman(null); resetForm() }}
                   className="text-forest-600 hover:underline font-medium">{selectedTopik.nama}</button>
@@ -1075,7 +1075,7 @@ const handleResetPassword = async (email: string) => {
 
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
-                  <h3 className="font-bold text-gray-800 mb-4">Tambah Soal Pendalaman</h3>
+                  <h3 className="font-bold text-gray-800 mb-4">Tambah Soal Pendalaman Materi</h3>
                   <div className="flex flex-col gap-3">
                     {ta('Tulis pertanyaan di sini...', 'pertanyaan', 4)}
                     <div>

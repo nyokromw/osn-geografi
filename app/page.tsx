@@ -159,7 +159,7 @@ export default function Home() {
           <div className="atlas-container flex flex-wrap items-center justify-between gap-5">
             <div>
               <h2 className="atlas-subtitle">Coba latihan gratis</h2>
-              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba tryout OSN-K dan OSN-P serta latihan pendalaman gratis per topik. Pantau hasilnya di dashboard.</p>
+              <p className="mt-2 max-w-prose text-sm text-gray-600">Coba tryout OSN-K dan OSN-P serta Soal Pendalaman Materi gratis per topik. Pantau hasilnya di dashboard.</p>
             </div>
             <Link href="/register" className="atlas-button atlas-button--primary">
               Buat akun gratis <ArrowRight size={17} aria-hidden="true" />

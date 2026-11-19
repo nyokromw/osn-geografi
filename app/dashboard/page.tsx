@@ -18,7 +18,7 @@ import './dashboard.css'
 const menu = [
   { key: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard },
   { key: 'tryout', label: 'Tryout', Icon: ClipboardList },
-  { key: 'pendalaman', label: 'Pendalaman', Icon: Layers3 },
+  { key: 'pendalaman', label: 'Soal Pendalaman Materi', Icon: Layers3 },
   { key: 'video', label: 'Video', Icon: Video },
   { key: 'modul', label: 'Modul', Icon: FileText },
   { key: 'pengumuman', label: 'Pengumuman', Icon: Megaphone },
@@ -259,7 +259,7 @@ export default function DashboardPage() {
 
             <dl className="dash-kpis">
               <KpiCard label="Sesi selesai" value={loadErrors.tryout ? null : totalSessions}
-                hint={`${riwayat.length} tryout · ${practiceAll.length} pendalaman`} />
+                hint={`${riwayat.length} tryout · ${practiceAll.length} soal pendalaman materi`} />
               <KpiCard label="Poin tryout terakhir" value={points.length ? points[points.length - 1] : null} unit="poin"
                 delta={lastTwo(points)} />
               <KpiCard label="Akurasi tryout terakhir" value={accuracies.length ? accuracies[accuracies.length - 1] : null} unit="%"
@@ -414,10 +414,10 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* ── PENDALAMAN MATERI ─────────────────────────────────── */}
+        {/* ── SOAL PENDALAMAN MATERI ─────────────────────────────────── */}
         {activeTab === 'pendalaman' && (
           <div>
-            <SectionHead eyebrow="Latihan per topik" title="Pendalaman materi"
+            <SectionHead eyebrow="Latihan per topik" title="Soal Pendalaman Materi"
               detail={selectedTopik ? undefined : 'Pilih topik, kerjakan paketnya, dan lihat kemajuanmu per topik.'} />
 
             {!selectedTopik ? (
