@@ -12,14 +12,14 @@ import { supabase } from '../lib/supabase'
 import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFilter } from '../lib/tryout-levels'
 import { groupTryoutPackages, predictionYear, tryoutCategories, tryoutCategory, tryoutCategoryLabels, type TryoutCategoryFilter } from '../lib/tryout-catalog'
 import { LearningProgress, type StudyResult } from './learning-progress'
-import { LearningVideoCard, type LearningVideo } from './learning-video'
+import { VideoLibrary, isComingSoon, type LearningVideo } from './learning-video'
 import { accuracy, activityByDay, ActivityHeatmap, DashboardHero, KpiCard, MeterBar, QuickLink, studyStreak } from './overview'
 import './dashboard.css'
 
 const menu = [
   { key: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard },
   { key: 'tryout', label: 'Tryout', Icon: ClipboardList },
-  { key: 'pendalaman', label: 'Pendalaman', Icon: Layers3 },
+  { key: 'pendalaman', label: 'Soal Pendalaman Materi', Icon: Layers3 },
   { key: 'video', label: 'Video', Icon: Video },
   { key: 'modul', label: 'Modul', Icon: FileText },
   { key: 'pengumuman', label: 'Pengumuman', Icon: Megaphone },
@@ -90,7 +90,6 @@ export default function DashboardPage() {
   const [riwayat, setRiwayat] = useState<StudyResult[]>([])
   const [practiceResults, setPracticeResults] = useState<StudyResult[]>([])
   const [practiceAll, setPracticeAll] = useState<PracticeRow[]>([])
-  const [videoTopic, setVideoTopic] = useState('semua')
   const [loadErrors, setLoadErrors] = useState({ tryout: false, latihan: false })
 
   const [paketTO, setPaketTO] = useState<TryoutPackage[]>([])
@@ -151,7 +150,7 @@ export default function DashboardPage() {
       setTopikList(tp.data ?? [])
       setPaketPendalaman(pp.data ?? [])
       const access = account.data?.role === 'admin' ? 'platinum' : activeAccess(account.data)
-      setVideoList((v.data ?? []).filter(item => item.aktif !== false && bisaAkses(access, requiredAccess(item, true))))
+      setVideoList((v.data ?? []).filter(item => isComingSoon(item) || (item.aktif !== false && bisaAkses(access, requiredAccess(item, true)))))
       setModulList((m.data ?? []).filter(item => item.aktif !== false && bisaAkses(access, requiredAccess(item, true))))
       setPengumumanList(pg.data ?? [])
       setMembershipList(mb.data ?? [])
@@ -196,8 +195,7 @@ export default function DashboardPage() {
     tryoutByPackage.set(row.paket_id, [...(tryoutByPackage.get(row.paket_id) ?? []), row])
   }
 
-  const videoTopics = Array.from(new Set(videoList.map(video => video.topik_materi?.nama).filter((name): name is string => !!name)))
-  const shownVideos = videoTopic === 'semua' ? videoList : videoList.filter(video => video.topik_materi?.nama === videoTopic)
+  const liveVideos = videoList.filter(video => !isComingSoon(video)).length
 
   const navTo = (tab: Tab) => {
     setActiveTab(tab)
@@ -260,7 +258,7 @@ export default function DashboardPage() {
 
             <dl className="dash-kpis">
               <KpiCard label="Sesi selesai" value={loadErrors.tryout ? null : totalSessions}
-                hint={`${riwayat.length} tryout · ${practiceAll.length} pendalaman`} />
+                hint={`${riwayat.length} tryout · ${practiceAll.length} soal pendalaman materi`} />
               <KpiCard label="Poin tryout terakhir" value={points.length ? points[points.length - 1] : null} unit="poin"
                 delta={lastTwo(points)} />
               <KpiCard label="Akurasi tryout terakhir" value={accuracies.length ? accuracies[accuracies.length - 1] : null} unit="%"
@@ -312,7 +310,7 @@ export default function DashboardPage() {
                   <div className="mt-3 grid gap-2">
                     <QuickLink icon={<ClipboardList size={18} />} label="Tryout" detail={paketTO.length + ' paket'} onClick={() => navTo('tryout')} />
                     <QuickLink icon={<Layers3 size={18} />} label="Pendalaman materi" detail={topikList.length + ' topik'} onClick={() => navTo('pendalaman')} />
-                    <QuickLink icon={<BookOpen size={18} />} label="Video pembelajaran" detail={videoList.length + ' video'} onClick={() => navTo('video')} />
+                    <QuickLink icon={<BookOpen size={18} />} label="Video pembelajaran" detail={liveVideos + ' video tayang'} onClick={() => navTo('video')} />
                     <QuickLink icon={<FileText size={18} />} label="Modul" detail={modulList.length + ' modul'} onClick={() => navTo('modul')} />
                   </div>
                 </section>
@@ -415,10 +413,10 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* ── PENDALAMAN MATERI ─────────────────────────────────── */}
+        {/* ── SOAL PENDALAMAN MATERI ─────────────────────────────────── */}
         {activeTab === 'pendalaman' && (
           <div>
-            <SectionHead eyebrow="Latihan per topik" title="Pendalaman materi"
+            <SectionHead eyebrow="Latihan per topik" title="Soal Pendalaman Materi"
               detail={selectedTopik ? undefined : 'Pilih topik, kerjakan paketnya, dan lihat kemajuanmu per topik.'} />
 
             {!selectedTopik ? (
@@ -502,20 +500,9 @@ export default function DashboardPage() {
         {/* ── VIDEO PEMBELAJARAN ────────────────────────────────── */}
         {activeTab === 'video' && (
           <div>
-            <SectionHead eyebrow="Belajar konsep" title="Video pembelajaran" detail={videoList.length + ' video tersedia untuk aksesmu.'} />
-            {videoTopics.length > 1 && (
-              <div role="group" aria-label="Filter topik video" className="learn-filter">
-                {['semua', ...videoTopics].map(topic => (
-                  <button key={topic} type="button" aria-pressed={videoTopic === topic} onClick={() => setVideoTopic(topic)}>
-                    {topic === 'semua' ? 'Semua topik' : topic}
-                  </button>
-                ))}
-              </div>
-            )}
-            <div className="learn-grid">
-              {shownVideos.map(video => <LearningVideoCard key={video.id} video={video} />)}
-              {shownVideos.length === 0 && <div className="learn-empty col-span-full">Belum ada video tersedia.</div>}
-            </div>
+            <SectionHead eyebrow="Belajar konsep" title="Video pembelajaran"
+              detail={'Penjelasan konsep 2–3 menit per bab, ditutup materi yang paling sering muncul di OSN.'} />
+            <VideoLibrary videos={videoList} topics={topikList} />
           </div>
         )}
 

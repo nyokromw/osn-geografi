@@ -1,0 +1,236 @@
+1
+00:00:03,000 --> 00:00:06,850
+Siang ini Jakarta terasa gerah, sekitar tiga puluh dua derajat.
+
+2
+00:00:07,360 --> 00:00:10,780
+Di saat yang sama, orang di Puncak masih memakai jaket.
+
+3
+00:00:11,150 --> 00:00:13,480
+Jaraknya kurang dari seratus kilometer.
+
+4
+00:00:13,680 --> 00:00:15,640
+Kenapa bisa berbeda sejauh itu?
+
+5
+00:00:15,870 --> 00:00:18,170
+Jawabannya ada di mesin iklim bumi.
+
+6
+00:00:18,590 --> 00:00:21,200
+Pertama, bedakan cuaca dan iklim.
+
+7
+00:00:21,570 --> 00:00:25,790
+Cuaca adalah keadaan atmosfer pada saat tertentu di wilayah yang sempit.
+
+8
+00:00:26,220 --> 00:00:29,170
+Misalnya, sore ini Bogor hujan lebat.
+
+9
+00:00:29,480 --> 00:00:33,870
+Iklim adalah rata-rata dan variasi cuaca dalam jangka panjang di wilayah
+
+10
+00:00:33,920 --> 00:00:34,640
+yang luas.
+
+11
+00:00:34,660 --> 00:00:39,470
+Organisasi Meteorologi Dunia menetapkan acuannya minimal tiga puluh tahun.
+
+12
+00:00:39,700 --> 00:00:42,930
+Jadi, pembedanya adalah skala ruang dan waktu.
+
+13
+00:00:43,270 --> 00:00:44,760
+Unsurnya sama persis:
+
+14
+00:00:44,780 --> 00:00:51,260
+suhu, tekanan udara, angin, kelembapan, awan, curah hujan, dan lama penyinaran
+
+15
+00:00:51,310 --> 00:00:52,150
+matahari.
+
+16
+00:00:52,570 --> 00:00:55,810
+Inilah besaran yang diukur setiap hari di stasiun cuaca.
+
+17
+00:00:56,090 --> 00:01:00,280
+Semua unsur itu digerakkan oleh satu sumber energi, yaitu matahari.
+
+18
+00:01:00,700 --> 00:01:05,340
+Karena bumi bulat, sinar matahari jatuh hampir tegak di sekitar khatulistiwa,
+
+19
+00:01:05,390 --> 00:01:07,240
+tetapi miring di lintang tinggi.
+
+20
+00:01:07,310 --> 00:01:11,340
+Berkas sinar yang sama tersebar ke area yang lebih luas, sehingga kutub
+
+21
+00:01:11,390 --> 00:01:12,320
+lebih dingin.
+
+22
+00:01:12,730 --> 00:01:16,200
+Pemanasan yang tidak merata inilah yang menyalakan mesin iklim.
+
+23
+00:01:16,520 --> 00:01:17,710
+Rantainya begini.
+
+24
+00:01:18,090 --> 00:01:20,790
+Beda suhu menimbulkan beda tekanan udara.
+
+25
+00:01:20,810 --> 00:01:24,120
+Udara mengalir dari tekanan tinggi ke tekanan rendah.
+
+26
+00:01:24,540 --> 00:01:25,640
+Itulah angin.
+
+27
+00:01:25,770 --> 00:01:27,480
+Angin membawa uap air.
+
+28
+00:01:27,890 --> 00:01:32,790
+Uap air naik, mendingin, menjadi awan, lalu turun sebagai hujan.
+
+29
+00:01:33,170 --> 00:01:35,940
+Satu unsur berubah, yang lain ikut berubah.
+
+30
+00:01:36,220 --> 00:01:39,040
+Lalu, kenapa iklim tiap tempat berbeda?
+
+31
+00:01:39,060 --> 00:01:40,830
+Karena ada pengendali iklim:
+
+32
+00:01:40,930 --> 00:01:46,130
+lintang, ketinggian tempat, sebaran darat dan laut, arus laut, relief, dan
+
+33
+00:01:46,180 --> 00:01:47,960
+sirkulasi atmosfer.
+
+34
+00:01:48,220 --> 00:01:53,180
+Hati-hati, lintang dan ketinggian itu pengendali, bukan unsur iklim.
+
+35
+00:01:53,590 --> 00:01:55,980
+Sekarang, kita jawab pertanyaan di awal.
+
+36
+00:01:56,170 --> 00:01:57,610
+Coba kerjakan soal ini.
+
+37
+00:02:00,800 --> 00:02:05,150
+Menurut rumus Braak, T sama dengan dua puluh enam koma tiga, dikurangi nol
+
+38
+00:02:05,200 --> 00:02:06,550
+koma enam kali h.
+
+39
+00:02:06,730 --> 00:02:08,950
+Ingat, h dalam ratusan meter.
+
+40
+00:02:09,170 --> 00:02:13,980
+Puncak berada sekitar seribu lima ratus meter, jadi h sama dengan lima belas.
+
+41
+00:02:14,000 --> 00:02:17,260
+Nol koma enam kali lima belas sama dengan sembilan.
+
+42
+00:02:17,640 --> 00:02:22,530
+Dua puluh enam koma tiga dikurangi sembilan, hasilnya tujuh belas koma tiga
+
+43
+00:02:22,580 --> 00:02:24,040
+derajat Celsius.
+
+44
+00:02:24,430 --> 00:02:25,330
+Jawabannya A.
+
+45
+00:02:25,500 --> 00:02:28,330
+Pengendalinya adalah ketinggian tempat.
+
+46
+00:02:28,870 --> 00:02:30,460
+Jebakan yang sering terjadi:
+
+47
+00:02:30,620 --> 00:02:34,240
+h diisi seribu lima ratus, bukan lima belas.
+
+48
+00:02:34,530 --> 00:02:38,260
+Hasilnya minus delapan ratus tujuh puluh tiga derajat.
+
+49
+00:02:38,580 --> 00:02:39,820
+Jelas mustahil.
+
+50
+00:02:40,040 --> 00:02:42,780
+Ingat, h dalam ratusan meter.
+
+51
+00:02:43,070 --> 00:02:45,110
+Itulah konsep dasar Bab Iklim.
+
+52
+00:02:45,130 --> 00:02:50,400
+Di olimpiade, materi yang paling sering muncul adalah El Niño, La Niña,
+
+53
+00:02:50,450 --> 00:02:54,740
+dan IOD, serta efek rumah kaca dan pemanasan global.
+
+54
+00:02:55,150 --> 00:03:01,420
+Berikutnya ada sirkulasi atmosfer dan monsun, klasifikasi iklim, suhu udara,
+
+55
+00:03:01,470 --> 00:03:03,080
+serta awan dan hujan.
+
+56
+00:03:03,490 --> 00:03:06,470
+Semuanya kita bahas satu per satu di video berikutnya.
+
+57
+00:03:06,750 --> 00:03:12,450
+Latihan soalnya ada di OSNGEO.id, menu Soal Pendalaman Materi,
+
+58
+00:03:12,500 --> 00:03:13,380
+Bab satu.
+
+59
+00:03:13,710 --> 00:03:14,950
+Sampai jumpa!
+

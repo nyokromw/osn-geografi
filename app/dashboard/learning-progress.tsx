@@ -51,7 +51,7 @@ function prepareSessions(results: StudyResult[], mode: Mode): Session[] {
     return {
       id: row.id,
       title: (mode === 'tryout' ? row.paket_to?.nama : row.paket_pendalaman?.nama)
-        || (mode === 'tryout' ? 'Tryout' : 'Pendalaman materi'),
+        || (mode === 'tryout' ? 'Tryout' : 'Soal Pendalaman Materi'),
       date: date && Number.isFinite(date.getTime()) ? dateFormat.format(date) : 'Tanggal belum tercatat',
       points: typeof row.total_poin === 'number' && Number.isFinite(row.total_poin) ? row.total_poin : null,
       correct: countIsValid(correct) && total > 0 && correct <= total ? Math.round(correct / total * 100) : null,
@@ -293,7 +293,7 @@ export function LearningProgress({ tryouts, practices, loadErrors, openPractice 
         </div>
         <div className="progress-toggle" role="group" aria-label="Jenis hasil">
           <button type="button" aria-pressed={mode === 'tryout'} onClick={() => { setMode('tryout'); setSelectedId(undefined) }}>Tryout</button>
-          <button type="button" aria-pressed={mode === 'latihan'} onClick={() => { setMode('latihan'); setSelectedId(undefined) }}>Pendalaman</button>
+          <button type="button" aria-pressed={mode === 'latihan'} onClick={() => { setMode('latihan'); setSelectedId(undefined) }}>Soal Pendalaman Materi</button>
         </div>
       </header>
 

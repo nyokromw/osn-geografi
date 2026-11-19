@@ -121,7 +121,7 @@ export function ExamScreen({ mode, title, topic, timeLeft, questions, answers, i
               type="button" onClick={() => setZoom(true)} aria-label="Perbesar gambar soal">
               {/* Images uploaded by the admin can be hosted on external domains. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={current.gambar_url} alt="Gambar soal" className="mx-auto max-h-64 object-contain" />
+              <img src={current.gambar_url} alt="Gambar soal" className="mx-auto max-h-[28rem] w-full object-contain" />
               <span className="mt-2 flex items-center justify-center gap-2">
                 <Maximize2 size={14} aria-hidden="true" /> Perbesar gambar
               </span>
@@ -235,7 +235,7 @@ export function ExamResults({ mode, title, score, questions, answers }: {
                     </div>
                     {question.gambar_url && (
                       /* eslint-disable-next-line @next/next/no-img-element */
-                      <img src={question.gambar_url} alt="Gambar soal" className="mx-auto mt-3 max-h-48 object-contain" loading="lazy" />
+                      <img src={question.gambar_url} alt="Gambar soal" className="mx-auto mt-3 max-h-80 w-full object-contain" loading="lazy" />
                     )}
                     <div className="mt-3 flex flex-wrap gap-3 text-sm text-gray-600">
                       <span>Jawaban kamu <strong>{answer || 'Kosong'}</strong></span>
