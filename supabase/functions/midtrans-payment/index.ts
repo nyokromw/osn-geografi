@@ -80,8 +80,15 @@ Deno.serve(async (req: Request) => {
       if (!order) return json({ received: true })
       const key = serverKey(order.environment)
       if (!key) return json({ error: 'Konfigurasi pembayaran belum lengkap.' }, 503)
-      if (!await validSignature(body, key)) return json({ error: 'Notifikasi tidak valid.' }, 401)
-      // Signature does NOT bind transaction_status. Always retrieve authoritative status.
+      // Since 28 Oct 2026, notification signatures use a separate Signature Secret Key.
+      // It is optional here: authenticated GET Status is always the source of truth,
+      // matching the verification method used by the official Midtrans libraries.
+      const signatureSecret = Deno.env.get(order.environment === 'production'
+        ? 'MIDTRANS_PRODUCTION_SIGNATURE_SECRET_KEY' : 'MIDTRANS_SANDBOX_SIGNATURE_SECRET_KEY')
+      if (signatureSecret && !await validSignature(body, signatureSecret)) {
+        return json({ error: 'Notifikasi tidak valid.' }, 401)
+      }
+      // Never use a status or amount supplied by the caller to grant access.
       const status = await gatewayRequest(order.environment, key, `/v2/${encodeURIComponent(order.order_id)}/status`)
       if (!status) return json({ error: 'Status transaksi belum tersedia.' }, 503)
       await reconcile(order, status)

@@ -115,7 +115,7 @@ export default function PaymentPage() {
     try {
       const url = new URL(order.qr_url)
       return url.origin === (order.environment === 'production' ? 'https://api.midtrans.com' : 'https://api.sandbox.midtrans.com')
-        && url.pathname.startsWith('/v2/qris/')
+        && /^\/v(?:2|4)\/qris\//.test(url.pathname) && !url.username && !url.password
     } catch { return false }
   })()
 

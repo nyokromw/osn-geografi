@@ -8,7 +8,7 @@ const status = {
   payment_type: 'qris', currency: 'IDR',
 }
 
-Deno.test('valid signature binds order, amount, status code, and server key', async () => {
+Deno.test('optional signature verification uses the separate signature secret', async () => {
   const body = { order_id: order.order_id, status_code: '200', gross_amount: '50000.00', signature_key: '' }
   const digest = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(body.order_id + body.status_code + body.gross_amount + 'test-key'))
   body.signature_key = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('')
@@ -16,6 +16,7 @@ Deno.test('valid signature binds order, amount, status code, and server key', as
   assert.equal(await validSignature({ ...body, gross_amount: '1.00' }, 'test-key'), false)
   assert.equal(await validSignature(body, 'wrong-key'), false)
   assert.equal(await validSignature({ ...body, signature_key: 'bad' }, 'test-key'), false)
+  assert.equal(await validSignature(body, 'new-server-api-key'), false)
 })
 
 Deno.test('verification rejects mismatched amount, order, currency, and payment method', () => {
@@ -45,11 +46,15 @@ Deno.test('sandbox is default; a malformed environment cannot turn on production
 
 Deno.test('QR images are restricted to the matching Midtrans API environment', () => {
   assert.equal(validQrUrl('https://api.midtrans.com/v2/qris/tx/qr-code', 'production'), true)
+  assert.equal(validQrUrl('https://api.midtrans.com/v4/qris/tx/qr-code', 'production'), true)
+  assert.equal(validQrUrl('https://api.midtrans.com/v40/qris/tx/qr-code', 'production'), false)
   assert.equal(validQrUrl('https://api.sandbox.midtrans.com/v2/qris/tx/qr-code', 'production'), false)
   assert.equal(validQrUrl('https://evil.example/v2/qris/tx/qr-code', 'sandbox'), false)
   assert.equal(validQrUrl('https://user:pass@api.midtrans.com/v2/qris/tx/qr-code', 'production'), false)
-  assert.equal(qrUrl({ ...status, actions: [{ name: 'generate-qr-code-v2', url: 'https://api.sandbox.midtrans.com/v2/qris/tx/qr-code-v2' }] }, 'sandbox'),
-    'https://api.sandbox.midtrans.com/v2/qris/tx/qr-code-v2')
+  assert.equal(qrUrl({ ...status, actions: [
+    { name: 'generate-qr-code', url: 'https://api.sandbox.midtrans.com/v2/qris/tx/qr-code' },
+    { name: 'generate-qr-code-v2', url: 'https://api.sandbox.midtrans.com/v4/qris/tx/qr-code' },
+  ] }, 'sandbox'), 'https://api.sandbox.midtrans.com/v4/qris/tx/qr-code')
 })
 
 Deno.test('gateway requests retrieve authoritative status and never send keys to a different host', async () => {

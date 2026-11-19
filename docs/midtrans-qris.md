@@ -5,7 +5,7 @@ Integrasi menggunakan QRIS dinamis GoPay melalui Midtrans Core API. Checkout ada
 ## Konfigurasi awal: Sandbox
 
 1. Buka Midtrans Dashboard, pilih **Sandbox**, lalu **Settings → Access Keys**.
-2. Salin **Server Key Sandbox** langsung ke [Supabase Edge Functions Secrets](https://supabase.com/dashboard/project/lhzlcaxlemlmjhfmichz/functions/secrets), dengan nama `MIDTRANS_SANDBOX_SERVER_KEY`.
+2. Buat **Server Key Sandbox** dengan izin **Core API: Write**; produk dan capability lainnya **None**. Salin langsung ke [Supabase Edge Functions Secrets](https://supabase.com/dashboard/project/lhzlcaxlemlmjhfmichz/functions/secrets), dengan nama `MIDTRANS_SANDBOX_SERVER_KEY`. Kunci baru hanya ditampilkan sekali.
 3. Tambahkan `MIDTRANS_ENVIRONMENT` dengan nilai `sandbox`. Biarkan `MIDTRANS_PAYMENTS_ENABLED` bernilai `false` atau belum diisi.
 4. Di Midtrans Sandbox, isi **Payment Notification URL** pada pengaturan pembayaran/konfigurasi dengan:
 
@@ -45,7 +45,9 @@ Perubahan secrets berlaku tanpa redeploy fungsi. Matikan pembelian baru dengan `
 
 ## Keamanan dan pemeliharaan
 
-Fungsi `midtrans-payment` memverifikasi login Supabase untuk checkout/pemeriksaan status. Notifikasi Midtrans tidak membutuhkan login pengguna: fungsi memeriksa SHA-512 signature, kemudian mengambil **GET Transaction Status** langsung dari Midtrans. Status sukses di browser tidak dipakai untuk aktivasi.
+Fungsi `midtrans-payment` memverifikasi login Supabase untuk checkout/pemeriksaan status. Notifikasi Midtrans tidak membutuhkan login pengguna: fungsi selalu mengambil **GET Transaction Status** langsung dari Midtrans dengan otorisasi Server Key, lalu mencocokkan identitas transaksi, nominal, metode pembayaran, dan mata uang dengan pesanan di database. Status/nominal dari notifikasi atau browser tidak dipakai untuk aktivasi. Ini mengikuti metode verifikasi status langsung yang digunakan library resmi Midtrans.
+
+Sejak 28 Oktober 2026, Midtrans memisahkan **Signature Secret Key** dari Server Key. Jika ingin menambahkan pemeriksaan signature sebelum GET Status, simpan rahasia tersebut sebagai `MIDTRANS_SANDBOX_SIGNATURE_SECRET_KEY` dan/atau `MIDTRANS_PRODUCTION_SIGNATURE_SECRET_KEY`. Konfigurasi ini opsional; GET Status yang terautentikasi tetap wajib dijalankan. Jangan menggunakan Server Key baru sebagai pengganti Signature Secret Key. Dokumentasi: [Access Keys](https://docs.midtrans.com/docs/access-keys).
 
 RPC `midtrans_create_order` dan `midtrans_reconcile_order` memakai **SECURITY INVOKER**, dengan izin eksekusi hanya untuk `service_role`. Tabel `pembayaran_midtrans` memakai RLS: siswa hanya membaca pesanan sendiri dan admin dapat membaca semua pesanan. Klien tidak dapat menyisipkan/mengubah pesanan atau memanggil RPC aktivasi.
 

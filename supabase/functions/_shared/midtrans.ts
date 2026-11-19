@@ -29,15 +29,16 @@ export function configuredEnvironment(value: string | undefined): Environment {
 export function validQrUrl(value: string, environment: Environment) {
   try {
     const url = new URL(value)
-    return url.origin === apiBase(environment) && url.pathname.startsWith('/v2/qris/')
+    return url.origin === apiBase(environment) && /^\/v(?:2|4)\/qris\//.test(url.pathname)
       && !url.username && !url.password
   } catch { return false }
 }
 
 export function qrUrl(status: GatewayStatus, environment: Environment) {
-  const action = status.actions?.find(item => item.name === 'generate-qr-code-v2')
-    ?? status.actions?.find(item => item.name === 'generate-qr-code')
-  if (action && validQrUrl(action.url, environment)) return action.url
+  for (const name of ['generate-qr-code-v2', 'generate-qr-code']) {
+    const action = status.actions?.find(item => item.name === name && validQrUrl(item.url, environment))
+    if (action) return action.url
+  }
   // GET Status need not repeat actions. This image endpoint is documented by Midtrans.
   if (/^[a-zA-Z0-9-]{1,100}$/.test(status.transaction_id)) {
     return `${apiBase(environment)}/v2/qris/${status.transaction_id}/qr-code`
@@ -45,13 +46,13 @@ export function qrUrl(status: GatewayStatus, environment: Environment) {
   return null
 }
 
-export async function validSignature(body: Record<string, unknown>, serverKey: string) {
+export async function validSignature(body: Record<string, unknown>, signatureSecretKey: string) {
   const { order_id, status_code, gross_amount, signature_key } = body
   if (typeof order_id !== 'string' || typeof status_code !== 'string'
     || typeof gross_amount !== 'string' || typeof signature_key !== 'string'
     || !/^[a-f0-9]{128}$/i.test(signature_key)) return false
   const digest = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(
-    `${order_id}${status_code}${gross_amount}${serverKey}`,
+    `${order_id}${status_code}${gross_amount}${signatureSecretKey}`,
   ))
   const expected = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('')
   let mismatch = 0
