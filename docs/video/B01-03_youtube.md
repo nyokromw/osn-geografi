@@ -18,7 +18,6 @@ https://osngeo.id
 
 ⏱️ Daftar isi
 0:00 Intro
-0:09 Pembuka: kutub utara 21 Juni
 0:23 Hukum Wien
 0:44 Gelombang pendek dan gelombang panjang
 1:10 Hukum Stefan–Boltzmann

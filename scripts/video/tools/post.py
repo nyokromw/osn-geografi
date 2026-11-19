@@ -4,7 +4,7 @@ R = "/home/user/osn-geografi"
 REPL = [(r'O S N Geo titik I D', 'OSNGEO.id')]
 P = {
  "b01v03": dict(code="B01-02", slug="Atmosfer-Bumi", no=2, name="Atmosfer Bumi", prev="#1 · B01-01 · Mesin Iklim Bumi", next="#3 · B01-03 · Radiasi Matahari dan Insolasi",
-   ch=[("Pembuka: Rinjani, pesawat jet, aurora", 2), ("Komposisi udara", 7), ("Aerosol dan inti kondensasi", 11), ("Lapisan atmosfer dan profil suhu", 15), ("Troposfer, lapse rate, tropopause", 17), ("Stratosfer dan lapisan ozon", 24), ("Mesosfer", 27), ("Termosfer, ionosfer, aurora", 30), ("Tekanan udara", 35), ("Contoh soal OSN", 42), ("Dua jebakan", 47), ("Ringkasan dan glosarium", 51)],
+   ch=[("Pembuka: Rinjani, pesawat jet, aurora", 2), ("Komposisi udara", 7), ("Aerosol dan inti kondensasi", 11), ("Lapisan atmosfer: troposfer, lapse rate, tropopause", 15), ("Stratosfer dan lapisan ozon", 24), ("Mesosfer", 27), ("Termosfer, ionosfer, aurora", 30), ("Tekanan udara", 35), ("Contoh soal OSN", 42), ("Dua jebakan", 47), ("Ringkasan dan glosarium", 51)],
    titles=["Atmosfer Bumi: Komposisi, Lapisan, dan Tekanan Udara", "Lapisan Atmosfer dan Istilah Asingnya", "Kenapa Sesak Napas di Puncak Gunung?"],
    desc="Kenapa pendaki sesak napas di puncak Rinjani, kenapa pesawat jet terbang di ketinggian sepuluh kilometer, dan dari mana cahaya aurora? Di video ini kamu belajar komposisi udara, aerosol sebagai inti kondensasi, lima lapisan atmosfer beserta profil suhunya, lapisan ozon, ionosfer, aurora, dan cara tekanan udara turun terhadap ketinggian.",
    sum=["Udara kering: N2 ±78%, O2 ±21%, Ar 0,93%, CO2 ±0,04%; uap air 0–4%.", "Aerosol = inti kondensasi (condensation nuclei) tempat titik awan terbentuk.", "Troposfer 0–12 km (ekuator ±17, kutub ±8 km): cuaca, suhu turun 0,6 °C/100 m (lapse rate).", "Stratosfer 12–50 km: ozon menyerap UV, suhu naik. Mesosfer 50–85 km: terdingin, meteor terbakar.", "Termosfer: ionosfer memantulkan radio, aurora borealis/australis.", "Tekanan ±1.013 mb di permukaan laut, separuhnya di 5,5 km; ±1 mb per 10 m di lapisan bawah."],
@@ -22,7 +22,7 @@ P = {
    sum=["Albedo = radiasi dipantulkan ÷ diterima. Salju 80–90%, awan 60–90%, hutan 10–15%, laut/aspal 5–10%; bumi ±30%.", "Dari 100 satuan: 30 dipantulkan, 20 diserap atmosfer, 50 diserap permukaan.", "Permukaan melepas energi lewat inframerah, panas sensibel, dan panas laten.", "Jangka panjang: energi masuk = keluar (radiative equilibrium).", "UHI: beton/aspal menyimpan panas, vegetasi sedikit, panas buangan, gedung rapat.", "Energi diserap = radiasi × (1 − albedo); hati-hati faktor lain di soal OSN."],
    tags="albedo, neraca energi, energy budget, panas sensibel, panas laten, sensible heat, latent heat, urban heat island, pulau bahang kota, cool roof, green roof, ruang terbuka hijau"),
  "b01v06": dict(code="B01-05", slug="Suhu-Udara", no=5, name="Suhu Udara", prev="#4 · B01-04 · Albedo dan Neraca Energi", next="#6 · B01-06 · Tekanan Udara dan Lahirnya Angin",
-   ch=[("Pembuka: Siberia, Jakarta, Dieng", 2), ("Enam faktor suhu", 6), ("Darat vs laut dan amplitudo", 8), ("Iklim maritim vs kontinental", 12), ("Ketinggian dan rumus Braak", 16), ("Zona Junghuhn", 23), ("Inversi suhu", 28), ("Embun upas Dieng", 35), ("Isoterm dan ekuator termal", 36), ("Contoh soal OSN", 39), ("Jebakan", 45), ("Ringkasan dan glosarium", 48)],
+   ch=[("Pembuka: Siberia, Jakarta, Dieng", 2), ("Enam faktor suhu", 6), ("Darat vs laut dan amplitudo", 8), ("Iklim maritim vs kontinental", 12), ("Ketinggian dan rumus Braak", 16), ("Zona Junghuhn", 23), ("Inversi suhu", 28), ("Embun upas Dieng", 35), ("Isoterm dan ekuator termal", 36), ("Contoh soal OSN", 39), ("Jebakan dan ringkasan", 45)],
    titles=["Suhu Udara: Amplitudo, Rumus Braak, Zona Junghuhn, Inversi", "Kenapa Puncak Gunung Dingin padahal Dekat Matahari?", "Inversi Suhu dan Embun Upas Dieng"],
    desc="Siberia berayun dari −40 °C sampai +25 °C, Jakarta hampir sama sepanjang tahun, dan di Dieng embun bisa membeku. Video ini membahas faktor pengendali suhu, darat vs laut, amplitudo suhu, iklim maritim dan kontinental, rumus Braak, zona Junghuhn, inversi suhu, embun upas, isoterm, ekuator termal, dan Arus Teluk.",
    sum=["Laut lambat panas dan lambat dingin: iklim maritim beramplitudo kecil; pedalaman benua kontinental.", "Lapse rate ±0,6 °C per 100 m. Braak: T = 26,3 − 0,6h (h dalam ratusan m).", "Jika suhu titik awal diketahui: T baru = T lama − 0,6 × selisih h.", "Junghuhn: panas 0–700 m, sedang 700–1.500 m, sejuk 1.500–2.500 m, dingin >2.500 m.", "Inversi suhu (radiation inversion, cold air drainage) memerangkap polutan; embun upas = frost.", "Isoterm membelok di batas darat–laut dan arus hangat (Gulf Stream)."],
@@ -48,6 +48,12 @@ for film in sys.argv[1:]:
             f.write(f"{i}\n{fmt(a)} --> {fmt(b)}\n{s}\n\n")
     chap = ["0:00 Intro"] + [f"{int((tt:=max(3.0, tm['units'][ui]['v0']-0.2))//60)}:{int(tt%60):02d} {n}" for n, ui in c["ch"]]
     chap.append(f"{int((tt:=tm['units'][-1]['v0']-0.2)//60)}:{int(tt%60):02d} Penutup")
+    keep = []; last = -99
+    for line in chap:
+        mm, ss = line.split(' ')[0].split(':'); sec = int(mm) * 60 + int(ss)
+        if sec - last >= 10: keep.append(line); last = sec
+        elif keep and line.endswith('Penutup'): pass
+    chap = keep
     dur = json.load(open(f"{V}/{film}/film.json"))["duration"]
     T = [f"{x} | OSN Geografi 2027" for x in c["titles"]]
     md = f"""# {c['code']} · {c['name']} · Paket Unggah YouTube

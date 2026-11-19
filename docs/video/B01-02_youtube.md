@@ -21,8 +21,7 @@ https://osngeo.id
 0:10 Pembuka: Rinjani, pesawat jet, aurora
 0:29 Komposisi udara
 0:58 Aerosol dan inti kondensasi
-1:19 Lapisan atmosfer dan profil suhu
-1:25 Troposfer, lapse rate, tropopause
+1:19 Lapisan atmosfer: troposfer, lapse rate, tropopause
 2:04 Stratosfer dan lapisan ozon
 2:21 Mesosfer
 2:33 Termosfer, ionosfer, aurora

@@ -28,8 +28,7 @@ https://osngeo.id
 3:08 Embun upas Dieng
 3:20 Isoterm dan ekuator termal
 3:47 Contoh soal OSN
-4:20 Jebakan
-4:27 Ringkasan dan glosarium
+4:20 Jebakan dan ringkasan
 4:44 Penutup
 
 🧠 Ringkasan
