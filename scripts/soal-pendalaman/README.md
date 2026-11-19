@@ -10,3 +10,11 @@ Skrip untuk membangun 6 paket × 10 soal per bab (13 bab) beserta gambar.
 - `sheet.py` — lembar kontak untuk memeriksa gambar.
 
 Butuh: `pip install matplotlib numpy pillow`. Update DB butuh kredensial yang berhak menulis.
+
+## Citra satelit asli (Bab 13)
+
+`sat.py` mengunduh potongan citra Sentinel-2 L2A (Copernicus/ESA, data terbuka) dari
+AWS Earth Search untuk 12 lokasi di Indonesia dan menyimpannya di `sat/*.npz`.
+`satfig.py` merender citra warna asli, komposit warna semu (NIR-merah-hijau), dan NDVI
+lengkap dengan skala, arah utara, label, dan atribusi. `satq.py` berisi fungsi gambar
+yang dipakai soal di `ch13.py`. Butuh `pip install rasterio pystac-client`.
