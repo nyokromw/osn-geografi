@@ -581,3 +581,6 @@ Setelah membaca brief ini, balas dengan:
 1. Ringkasan singkat pemahamanmu: jumlah video, urutan Gelombang 1, dan aturan watermark.
 2. Alat atau stack animasi yang akan kamu pakai beserta alasannya.
 3. Langsung kerjakan **Tahap 1 untuk Urutan 1: B13-V00 "Dari Bumi ke Peta"**, yaitu naskah narasi, tabel adegan, contoh soal, dan sumber data. Lalu berhenti dan tunggu persetujuan saya.
+
+## Aturan tambahan: istilah asing
+Setiap istilah kunci disebut dalam bahasa Indonesia **dan** istilah asingnya, karena soal OSN sering memakai istilah Inggris (ITCZ, polar cell, lapse rate, trade winds, upwelling, dan sebagainya). Pola narasi: "…, atau dalam bahasa Inggris disebut …". Di layar, kartu istilah menampilkan istilah asing dengan huruf miring di bawah istilah Indonesia.
