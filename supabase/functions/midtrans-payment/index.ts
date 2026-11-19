@@ -9,6 +9,10 @@ const corsHeaders = {
   'Cache-Control': 'no-store',
 }
 
+// Temporary WhatsApp-only ordering while the Midtrans merchant is verified.
+// Existing orders and notifications remain accessible; no new QRIS is created.
+const checkoutPaused = true
+
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
 })
@@ -96,7 +100,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const environment = configuredEnvironment(Deno.env.get('MIDTRANS_ENVIRONMENT'))
-    const live = environment === 'production' && Deno.env.get('MIDTRANS_PAYMENTS_ENABLED') === 'true'
+    const live = !checkoutPaused && environment === 'production' && Deno.env.get('MIDTRANS_PAYMENTS_ENABLED') === 'true'
       && !!serverKey('production')
     const authorization = req.headers.get('Authorization') ?? ''
     const token = authorization.startsWith('Bearer ') ? authorization.slice(7) : ''
@@ -108,10 +112,12 @@ Deno.serve(async (req: Request) => {
       isAdmin = profile?.role === 'admin'
     }
     if (body.action === 'config') return json({ available: live,
-      test_available: isAdmin && environment === 'sandbox' && !!serverKey('sandbox'), environment })
+      test_available: !checkoutPaused && isAdmin && environment === 'sandbox' && !!serverKey('sandbox'),
+      environment, booking_mode: checkoutPaused ? 'whatsapp' : 'qris' })
     if (!user) return json({ error: 'Silakan masuk ke akun OSNGEO.id.' }, 401)
 
     if (body.action === 'create') {
+      if (checkoutPaused) return json({ error: 'Pemesanan paket sementara melalui WhatsApp. Silakan hubungi admin OSNGEO.id.' }, 503)
       if (!Number.isSafeInteger(body.paket_id) || Number(body.paket_id) <= 0) return json({ error: 'Paket tidak valid.' }, 400)
       if (!live && !(isAdmin && environment === 'sandbox' && serverKey('sandbox'))) {
         return json({ error: 'Pembayaran QRIS sedang disiapkan. Hubungi admin untuk membeli paket.' }, 503)

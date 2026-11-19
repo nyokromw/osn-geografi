@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-export type PaymentConfig = { available: boolean; test_available: boolean; environment: 'sandbox' | 'production' }
+export type PaymentConfig = { available: boolean; test_available: boolean; environment: 'sandbox' | 'production'; booking_mode?: 'whatsapp' | 'qris' }
 export type PaymentOrder = {
   order_id: string
   environment: 'sandbox' | 'production'

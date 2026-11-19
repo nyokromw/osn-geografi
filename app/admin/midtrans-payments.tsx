@@ -40,9 +40,9 @@ export function MidtransPayments() {
       <button type="button" className="atlas-button text-sm" disabled={loading} onClick={() => setRevision(value => value + 1)}>Muat ulang</button>
     </div>
     {config && !config.available && <div className="my-4 rounded-lg bg-gray-50 p-4 text-sm leading-relaxed">
-      <p className="font-semibold">{config.test_available ? 'Mode uji admin aktif' : 'Pembayaran otomatis belum diaktifkan'}</p>
+      <p className="font-semibold">{config.booking_mode === 'whatsapp' ? 'Pemesanan sementara melalui WhatsApp' : config.test_available ? 'Mode uji admin aktif' : 'Pembayaran otomatis belum diaktifkan'}</p>
       <p className="mt-2">Pelanggan tetap dapat memesan melalui WhatsApp. Simulasi tidak mengubah keanggotaan akun.</p>
-      {!config.test_available && <p className="mt-2">Untuk mulai menguji, tambahkan <code>MIDTRANS_SANDBOX_SERVER_KEY</code> di pengaturan rahasia Edge Functions dan gunakan <code>MIDTRANS_ENVIRONMENT=sandbox</code>.</p>}
+      {!config.test_available && config.booking_mode !== 'whatsapp' && <p className="mt-2">Untuk mulai menguji, tambahkan <code>MIDTRANS_SANDBOX_SERVER_KEY</code> di pengaturan rahasia Edge Functions dan gunakan <code>MIDTRANS_ENVIRONMENT=sandbox</code>.</p>}
       <div className="mt-3 flex flex-wrap gap-4">
         <a className="atlas-link" href="https://supabase.com/dashboard/project/lhzlcaxlemlmjhfmichz/functions/secrets" target="_blank" rel="noreferrer">Pengaturan kunci pembayaran</a>
         <a className="atlas-link" href="https://github.com/nyokromw/osn-geografi/blob/main/docs/midtrans-qris.md" target="_blank" rel="noreferrer">Panduan aktivasi</a>

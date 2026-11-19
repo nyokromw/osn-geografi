@@ -1,5 +1,7 @@
 # Pembayaran QRIS otomatis OSNGEO.id
 
+**Status sementara:** pemesanan paket menggunakan WhatsApp. Tombol paket mengarah ke admin dan `checkoutPaused = true` pada Edge Function menghentikan pembuatan QRIS baru, termasuk uji admin. Riwayat, pemeriksaan status, dan notifikasi pesanan lama tetap tersedia. Untuk melanjutkan QRIS nanti, buka kembali gate ini dan pulihkan tombol checkout di `MembershipPlans` setelah merchant siap dan pengujian berhasil.
+
 Integrasi menggunakan QRIS dinamis GoPay melalui Midtrans Core API. Checkout ada di `/pembayaran?paket=<id>`, riwayat siswa di dashboard **Paket dan akses**, dan riwayat admin di **Transaksi**.
 
 ## Konfigurasi awal: Sandbox
