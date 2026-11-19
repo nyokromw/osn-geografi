@@ -1,6 +1,10 @@
+'use client'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { ArrowRight, Check, MessageCircle } from 'lucide-react'
 import { accessLabels, membershipFeatures, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
+import { paymentConfig } from '../lib/payments'
 
 export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
   plans: MembershipPlan[]
@@ -8,6 +12,15 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
   onFree?: () => void
   highlightPlanId?: number | null
 }) {
+  const [qris, setQris] = useState(false)
+  const [sandbox, setSandbox] = useState(false)
+  useEffect(() => {
+    let active = true
+    void paymentConfig().then(config => {
+      if (active) { setQris(config.available); setSandbox(config.test_available) }
+    })
+    return () => { active = false }
+  }, [])
   if (!plans.length) {
     return <p className="mt-5 text-sm text-gray-600">{loading ? 'Memuat paket…' : 'Daftar paket belum tersedia.'}</p>
   }
@@ -58,6 +71,10 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
                       Mulai gratis <ArrowRight size={15} aria-hidden="true" />
                     </Link>
                   )
+                ) : plan.aktif && (qris || sandbox) ? (
+                  <Link className="atlas-button atlas-button--primary w-full" href={`/pembayaran?paket=${plan.id}`}>
+                    {sandbox ? 'Uji pembayaran QRIS' : 'Bayar dengan QRIS'}
+                  </Link>
                 ) : (
                   <a className="atlas-button w-full" href={planWhatsAppLink(plan)} target="_blank" rel="noreferrer"
                     aria-label={`${plan.aktif ? 'Pesan' : 'Tanya'} ${plan.nama} via WhatsApp`}>
@@ -70,7 +87,9 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
         })}
       </div>
       <p className="mt-4 max-w-prose text-sm leading-relaxed text-gray-600">
-        Hubungi admin lewat WhatsApp untuk mengecek ketersediaan paket. Admin mengaktifkan akses setelah pembayaran diverifikasi.
+        {qris ? 'Akses paket aktif otomatis setelah pembayaran QRIS berhasil diverifikasi.'
+          : sandbox ? 'Simulasi QRIS tersedia untuk admin. Pembayaran simulasi tidak mengubah akses akun.'
+          : 'Hubungi admin lewat WhatsApp untuk mengecek ketersediaan paket. Admin mengaktifkan akses setelah pembayaran diverifikasi.'}
       </p>
     </>
   )

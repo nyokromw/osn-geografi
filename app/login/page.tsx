@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, type FormEvent } from 'react'
 import { AuthShell, Notice } from '../components/atlas'
 import { supabase } from '../lib/supabase'
+import { safePaymentReturn } from '../lib/payments'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -32,7 +33,7 @@ export default function Login() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) setNotice({ message: 'Email atau kata sandi salah.', error: true })
-        else window.location.href = '/dashboard'
+        else window.location.href = safePaymentReturn(new URLSearchParams(window.location.search).get('next'))
       }
     } catch {
       setNotice({ message: 'Terjadi gangguan koneksi. Coba lagi.', error: true })
