@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+QRIS payment setup and Sandbox/Production verification: [Midtrans integration](docs/midtrans-qris.md).
+
 ## Getting Started
 
 First, run the development server:

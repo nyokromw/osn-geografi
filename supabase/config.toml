@@ -1,0 +1,6 @@
+project_id = "osngeo"
+
+[functions.midtrans-payment]
+# Browser actions verify Supabase Auth inside the handler; webhooks verify the
+# Midtrans signature AND fetch the authoritative status from Midtrans.
+verify_jwt = false

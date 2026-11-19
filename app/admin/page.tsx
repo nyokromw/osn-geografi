@@ -11,6 +11,7 @@ import { predictionYear, tryoutCategories, tryoutCategory, tryoutCategoryLabel, 
 import { LandingVideoSettings } from './landing-videos'
 import { loadStudentOverview, type StudentProfile } from './student-data'
 import { StudentRoster } from './students'
+import { MidtransPayments } from './midtrans-payments'
 
 type View =
   | 'dashboard' | 'siswa'
@@ -1486,6 +1487,7 @@ const handleResetPassword = async (email: string) => {
           {/* ── TRANSAKSI ─────────────────────────────────────────── */}
           {view === 'transaksi' && (
             <div>
+              <MidtransPayments />
               <div className="mb-5">
                 <h2 className="text-xl font-black text-gray-800">Daftar Transaksi</h2>
                 <p className="text-gray-500 text-sm">{transaksiList.length} transaksi</p>

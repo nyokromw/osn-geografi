@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { ArrowRight, Check, MessageCircle } from 'lucide-react'
 import { accessLabels, membershipFeatures, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
@@ -70,7 +72,7 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
         })}
       </div>
       <p className="mt-4 max-w-prose text-sm leading-relaxed text-gray-600">
-        Hubungi admin lewat WhatsApp untuk mengecek ketersediaan paket. Admin mengaktifkan akses setelah pembayaran diverifikasi.
+        Pemesanan paket melalui WhatsApp. Admin mengaktifkan akses setelah pembayaran diverifikasi.
       </p>
     </>
   )

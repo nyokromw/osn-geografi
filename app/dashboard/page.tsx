@@ -6,6 +6,7 @@ import type { User } from '@supabase/supabase-js'
 import { ArrowRight, BookOpen, CheckCircle2, CircleDashed, ClipboardList, Clock, FileText, LayoutDashboard, Layers3, Lock, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, Video } from 'lucide-react'
 import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
 import { MembershipPlans } from '../components/membership-plans'
+import { PaymentHistory } from '../components/payment-history'
 import { accessLabels, activeAccess, adminWhatsApp, bisaAkses, membershipExpiry, requiredAccess, type AccessLevel, type MembershipPlan } from '../lib/membership'
 import { supabase } from '../lib/supabase'
 import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFilter } from '../lib/tryout-levels'
@@ -115,7 +116,7 @@ export default function DashboardPage() {
         setAccessDenied(true)
         setActiveTab('paket')
         window.history.replaceState({}, '', '/dashboard')
-      } else if (tab === 'modul' || tab === 'video' || tab === 'tryout') {
+      } else if (tab === 'modul' || tab === 'video' || tab === 'tryout' || tab === 'paket') {
         setActiveTab(tab)
         window.history.replaceState({}, '', '/dashboard')
       }
@@ -589,6 +590,7 @@ export default function DashboardPage() {
             <SectionHead eyebrow="Keanggotaan" title="Paket dan akses"
               detail={`Akses saat ini ${accessLabels[statusAkun]}${expiry ? ` hingga ${expiry}` : ''}.`} />
             <MembershipPlans plans={membershipList} onFree={() => navTo('tryout')} highlightPlanId={upgradePlanId} />
+            <PaymentHistory />
           </div>
         )}
       </main>
