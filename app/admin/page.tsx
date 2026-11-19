@@ -53,6 +53,7 @@ export default function AdminPage() {
   const [paketPendalaman, setPaketPendalaman] = useState<any[]>([])
   const [soalPendalaman, setSoalPendalaman] = useState<any[]>([])
   const [videoList, setVideoList] = useState<any[]>([])
+  const [videoPendingOnly, setVideoPendingOnly] = useState(false)
   const [modulList, setModulList] = useState<any[]>([])
   const [membershipList, setMembershipList] = useState<MembershipPlan[]>([])
   const [transaksiList, setTransaksiList] = useState<any[]>([])
@@ -1203,20 +1204,23 @@ const handleResetPassword = async (email: string) => {
               </div>
               {showForm && (
                 <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5">
-                  <h3 className="font-bold text-gray-800 mb-4">Tambah Video</h3>
+                  <h3 className="font-bold text-gray-800 mb-1">{editData ? `Edit video ${editData.kode ?? ''}` : 'Tambah Video'}</h3>
+                  <p className="mb-4 text-xs text-gray-500">Kosongkan tautan YouTube agar video tampil sebagai &ldquo;Segera tayang&rdquo; di halaman siswa. Begitu tautan diisi, video langsung bisa ditonton.</p>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-3">
-                    {inp('Judul video', 'judul')}
-                    {inp('Tautan atau ID YouTube', 'youtube_id')}
-                    {sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih topik (opsional)')}
-                    {sel('akses', mediaAccessOptions, 'Tipe akses (Gratis)')}
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Judul video{inp('Judul video', 'judul')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Tautan atau ID YouTube{inp('https://youtu.be/…', 'youtube_id')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Topik / bab{sel('topik_id', topikList.map(t => ({ value: t.id, label: t.nama })), 'Pilih topik (opsional)')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Tipe akses{sel('akses', mediaAccessOptions, 'Gratis')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Kode video{inp('mis. B01-V01', 'kode')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600">Urutan{inp('Urutan tampil', 'urutan', 'number')}</label>
+                    <label className="grid gap-1 text-xs font-semibold text-gray-600 sm:col-span-2">Deskripsi singkat{ta('Ringkasan isi video (tampil di kartu siswa)', 'deskripsi', 2)}</label>
                   </div>
                   <FormBtns onSave={() => {
-                    const youtubeId = getYouTubeVideoId(formData.youtube_id)
+                    const raw = typeof formData.youtube_id === 'string' ? formData.youtube_id.trim() : ''
+                    const youtubeId = raw ? getYouTubeVideoId(raw) : null
                     const title = typeof formData.judul === 'string' ? formData.judul.trim() : ''
-                    if (!title || !youtubeId) {
-                      alert('Isi judul dan tempel tautan atau ID video YouTube yang valid.')
-                      return
-                    }
+                    if (!title) { alert('Judul video wajib diisi.'); return }
+                    if (raw && !youtubeId) { alert('Tautan atau ID YouTube tidak valid. Kosongkan bila video belum tayang.'); return }
 
                     void handleSave('video_pembelajaran', {
                       judul: title,
@@ -1224,34 +1228,59 @@ const handleResetPassword = async (email: string) => {
                       topik_id: formData.topik_id ? Number(formData.topik_id) : null,
                       akses: formData.akses || 'gratis',
                       is_premium: formData.akses === 'platinum',
-                      urutan: videoList.length + 1,
+                      kode: typeof formData.kode === 'string' && formData.kode.trim() ? formData.kode.trim().toUpperCase() : null,
+                      deskripsi: typeof formData.deskripsi === 'string' && formData.deskripsi.trim() ? formData.deskripsi.trim() : null,
+                      urutan: formData.urutan ? Number(formData.urutan) : (editData?.urutan ?? (videoList.length + 1)),
+                      // a video with a link is live; without one it is listed as "segera tayang"
+                      aktif: !!youtubeId,
                     })
                   }} />
                 </div>
               )}
+              <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
+                <span className="rounded-full bg-forest-100 px-3 py-1 font-semibold text-forest-700">{videoList.filter(v => getYouTubeVideoId(v.youtube_id)).length} tayang</span>
+                <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-900">{videoList.filter(v => !getYouTubeVideoId(v.youtube_id)).length} segera tayang</span>
+                <label className="ml-auto inline-flex items-center gap-2 text-gray-600">
+                  <input type="checkbox" checked={videoPendingOnly} onChange={e => setVideoPendingOnly(e.target.checked)} /> Tampilkan yang belum ada tautan saja
+                </label>
+              </div>
               <div className="bg-white border border-gray-200 rounded-xl atlas-table-scroll">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50">
-                      <Th>Judul</Th><Th>Topik</Th><Th>YouTube ID</Th><ThC>Tipe</ThC><ThC>Aksi</ThC>
+                      <Th>Kode</Th><Th>Judul</Th><Th>Topik</Th><ThC>Status</ThC><ThC>Tipe</ThC><ThC>Aksi</ThC>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
-                    {videoList.map((v, i) => (
-                      <tr key={i} className="hover:bg-gray-50">
-                        <td className="px-5 py-3 font-medium text-gray-800">{v.judul}</td>
-                        <td className="px-5 py-3 text-gray-500 text-xs">{v.topik_materi?.nama || '—'}</td>
-                        <td className="px-5 py-3 text-gray-500 text-xs font-mono">{v.youtube_id}</td>
-                        <td className="px-5 py-3 text-center">
-                          <Badge v={accessLabels[requiredAccess(v, true)]} map={accessBadge} />
-                        </td>
-                        <td className="px-5 py-3 text-center">
-                          <button onClick={() => handleDelete('video_pembelajaran', v.id)}
-                            className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">Hapus</button>
-                        </td>
-                      </tr>
-                    ))}
-                    {videoList.length === 0 && <tr><td colSpan={5} className="px-5 py-8 text-center text-gray-400 text-sm">Belum ada video.</td></tr>}
+                    {videoList.filter(v => !videoPendingOnly || !getYouTubeVideoId(v.youtube_id)).map(v => {
+                      const live = !!getYouTubeVideoId(v.youtube_id)
+                      return (
+                        <tr key={v.id} className="hover:bg-gray-50">
+                          <td className="px-5 py-3 text-gray-500 text-xs font-mono whitespace-nowrap">{v.kode || '—'}</td>
+                          <td className="px-5 py-3 font-medium text-gray-800">{v.judul}</td>
+                          <td className="px-5 py-3 text-gray-500 text-xs">{v.topik_materi?.nama || '—'}</td>
+                          <td className="px-5 py-3 text-center">
+                            {live
+                              ? <span className="rounded-full bg-forest-100 px-2 py-0.5 text-xs font-semibold text-forest-700">{v.aktif === false ? 'Disembunyikan' : 'Tayang'}</span>
+                              : <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900">Segera tayang</span>}
+                          </td>
+                          <td className="px-5 py-3 text-center">
+                            <Badge v={accessLabels[requiredAccess(v, true)]} map={accessBadge} />
+                          </td>
+                          <td className="px-5 py-3 text-center whitespace-nowrap">
+                            <button onClick={() => {
+                              setEditData(v)
+                              setFormData({ judul: v.judul, youtube_id: v.youtube_id ?? '', topik_id: v.topik_id ?? '', akses: requiredAccess(v, true), kode: v.kode ?? '', urutan: v.urutan ?? '', deskripsi: v.deskripsi ?? '' })
+                              setShowForm(true)
+                              window.scrollTo({ top: 0, behavior: 'smooth' })
+                            }} className="mr-2 text-xs text-forest-700 border border-forest-200 px-2 py-1 rounded transition">{live ? 'Edit' : 'Isi tautan'}</button>
+                            <button onClick={() => handleDelete('video_pembelajaran', v.id)}
+                              className="text-xs text-red-500 border border-red-200 px-2 py-1 rounded transition">Hapus</button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                    {videoList.length === 0 && <tr><td colSpan={6} className="px-5 py-8 text-center text-gray-400 text-sm">Belum ada video.</td></tr>}
                   </tbody>
                 </table>
               </div>
