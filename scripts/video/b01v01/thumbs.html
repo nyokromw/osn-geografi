@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:UI;src:url(fonts/ui.woff2);font-weight:100 900}
+@font-face{font-family:D;src:url(fonts/display.woff2)}
+*{margin:0;box-sizing:border-box}
+body{background:#000}
+.t{width:1280px;height:720px;position:relative;overflow:hidden;font-family:UI}
+.brand{position:absolute;display:flex;align-items:center;gap:14px;border-radius:60px;padding:10px 26px 10px 10px}
+.brand svg{width:70px;height:70px}.brand span{font-weight:700;font-size:48px;letter-spacing:-1px}
+canvas{position:absolute}
+/* 1 OSN */
+#a{background:#1d4138}
+#a .brand{left:40px;top:34px;background:#fffefa}#a .brand span{color:#1d4138}
+#a h1{position:absolute;left:46px;top:170px;color:#fffefa;font-weight:800;font-size:104px;line-height:.94;letter-spacing:-3px}
+#a h1 .w{color:#f2b13a}#a h1 .c{color:#9cc8ee}
+#a .vs{font-size:60px;color:#e0794f;vertical-align:middle}
+#a .badge{position:absolute;left:48px;top:520px;background:#e0794f;color:#fff;font-weight:800;font-size:38px;padding:12px 28px;border-radius:40px}
+#a .sub{position:absolute;left:52px;top:612px;color:#aac6b5;font-weight:600;font-size:30px}
+/* 2 formal */
+#b{background:#f7f1e8}
+#b .brand{right:40px;top:34px;background:#1d4138;padding:8px 22px 8px 8px}#b .brand svg{width:56px;height:56px}#b .brand span{color:#fffefa;font-size:38px}
+#b .chip{position:absolute;left:60px;top:58px;color:#983f29;font-weight:700;font-size:26px;letter-spacing:3px}
+#b h1{position:absolute;left:58px;top:110px;font-family:D;font-weight:400;font-size:112px;line-height:1;color:#1d4138}
+#b p{position:absolute;left:62px;top:250px;font-size:30px;color:#52655d;font-weight:500;max-width:1100px}
+/* 3 umum */
+#c{background:#222}
+#c .brand{left:36px;bottom:30px;background:#fffefa}#c .brand span{color:#1d4138}
+#c h1{position:absolute;left:0;right:0;top:40px;text-align:center;color:#fff;font-weight:900;font-size:86px;line-height:1;letter-spacing:-2px;text-shadow:0 6px 24px #000a}
+#c h1 em{font-style:normal;color:#f2b13a}
+#c .lab{position:absolute;bottom:150px;font-weight:900;font-size:64px;color:#fff;text-shadow:0 4px 18px #000a}
+#c .tag{position:absolute;right:36px;bottom:40px;background:#e0794f;color:#fff;font-weight:800;font-size:34px;padding:12px 24px;border-radius:14px}
+</style></head><body>
+<div class="t" id="a"><canvas id="ca" width="1280" height="720"></canvas>
+ <div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSNGEO.id">   <rect width="64" height="64" rx="15" fill="#1d4138"/>   <g fill="none" stroke="#fffefa" stroke-linecap="round">     <path d="M14.6 32h34.8M32 14.6c-5.2 4.6-7.8 10.4-7.8 17.4s2.6 12.8 7.8 17.4" stroke-width="2.2" opacity=".45"/>     <path d="M44.3 19.7A17.4 17.4 0 1 0 49.4 32" stroke-width="3.6"/>   </g>   <path d="M51.5 12.5 35.4 35.4 28.6 28.6Z" fill="#e0794f"/>   <path d="M12.5 51.5 28.6 28.6 35.4 35.4Z" fill="#fffefa"/>   <circle cx="32" cy="32" r="2.4" fill="#1d4138"/> </svg> <span>OSNGEO.id</span></div>
+ <h1><span class="w">EL NIÑO</span><br><span class="vs">vs</span> <span class="c">LA NIÑA</span><br>+ IOD</h1>
+ <div class="badge">18 ISTILAH OSN</div><div class="sub">Bab 1 Iklim · ONI · SOI · DMI · MJO</div></div>
+<div class="t" id="b"><canvas id="cb" width="1280" height="720"></canvas>
+ <div class="chip">GEOGRAFI · IKLIM</div><div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSNGEO.id">   <rect width="64" height="64" rx="15" fill="#1d4138"/>   <g fill="none" stroke="#fffefa" stroke-linecap="round">     <path d="M14.6 32h34.8M32 14.6c-5.2 4.6-7.8 10.4-7.8 17.4s2.6 12.8 7.8 17.4" stroke-width="2.2" opacity=".45"/>     <path d="M44.3 19.7A17.4 17.4 0 1 0 49.4 32" stroke-width="3.6"/>   </g>   <path d="M51.5 12.5 35.4 35.4 28.6 28.6Z" fill="#e0794f"/>   <path d="M12.5 51.5 28.6 28.6 35.4 35.4Z" fill="#fffefa"/>   <circle cx="32" cy="32" r="2.4" fill="#1d4138"/> </svg> <span>OSNGEO.id</span></div>
+ <h1>El Niño, La Niña, dan IOD</h1><p>Mekanisme, indeks ONI–SOI–DMI, dampaknya bagi Indonesia, dan 18 istilah penting</p></div>
+<div class="t" id="c"><canvas id="cc" width="1280" height="720"></canvas>
+ <h1>KENAPA INDONESIA BISA<br><em>KEMARAU PANJANG?</em></h1>
+ <div class="lab" style="left:120px">ASAP</div><div class="lab" style="right:120px">BANJIR</div>
+ <div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSNGEO.id">   <rect width="64" height="64" rx="15" fill="#1d4138"/>   <g fill="none" stroke="#fffefa" stroke-linecap="round">     <path d="M14.6 32h34.8M32 14.6c-5.2 4.6-7.8 10.4-7.8 17.4s2.6 12.8 7.8 17.4" stroke-width="2.2" opacity=".45"/>     <path d="M44.3 19.7A17.4 17.4 0 1 0 49.4 32" stroke-width="3.6"/>   </g>   <path d="M51.5 12.5 35.4 35.4 28.6 28.6Z" fill="#e0794f"/>   <path d="M12.5 51.5 28.6 28.6 35.4 35.4Z" fill="#fffefa"/>   <circle cx="32" cy="32" r="2.4" fill="#1d4138"/> </svg> <span>OSNGEO.id</span></div><div class="tag">Jawabannya di Pasifik</div></div>
+<script>
+Promise.all([document.fonts.load('800 40px UI'),document.fonts.load('700 26px UI')]).then(()=>fetch('assets/indo.json')).then(r=>r.json()).then(IND=>{
+ const map=(ctx,box,ext,fill,edge)=>{const PX=l=>box.x+(l-ext[0])/(ext[1]-ext[0])*box.w,PY=a=>box.y+(ext[3]-a)/(ext[3]-ext[2])*box.h;
+  for(const r of IND.IDN){ctx.beginPath();r.forEach(([l,a],i)=>i?ctx.lineTo(PX(l),PY(a)):ctx.moveTo(PX(l),PY(a)));ctx.closePath();ctx.fillStyle=typeof fill==='function'?fill(r):fill;ctx.fill();if(edge){ctx.strokeStyle=edge;ctx.lineWidth=1;ctx.stroke()}}};
+ // A: Indonesia half dry half wet
+ let c=document.getElementById('ca').getContext('2d');
+ c.fillStyle='#16302a';c.fillRect(640,0,640,720);
+ const g=c.createLinearGradient(640,0,1280,0);g.addColorStop(0,'rgba(224,121,79,.35)');g.addColorStop(1,'rgba(74,144,194,.35)');c.fillStyle=g;c.fillRect(640,120,640,480);
+ map(c,{x:600,y:250,w:700,h:280},[94,142,-11.5,7],r=>{const cl=r.reduce((s,q)=>s+q[0],0)/r.length;return cl<116?'#d98a4e':'#7fb7e3'},'#0d211b');
+ c.font='800 40px UI';c.fillStyle='#f2b13a';c.fillText('KERING',700,580);c.fillStyle='#9cc8ee';c.fillText('BASAH',1080,240);
+ // B: cross-section
+ c=document.getElementById('cb').getContext('2d');
+ const x=60,y=340,w=1160,h=330;c.fillStyle='#dfeaf0';c.beginPath();c.roundRect(x,y,w,h,28);c.fill();
+ c.save();c.beginPath();c.roundRect(x,y,w,h,28);c.clip();c.fillStyle='#2f6f9e';c.fillRect(x,y+140,w,h);
+ const gr=c.createLinearGradient(x,0,x+w,0);gr.addColorStop(0,'#e07a4f');gr.addColorStop(1,'#7fb7d6');c.fillStyle=gr;c.beginPath();c.moveTo(x,y+140);c.lineTo(x,y+260);c.lineTo(x+w,y+170);c.lineTo(x+w,y+140);c.fill();
+ c.setLineDash([14,10]);c.strokeStyle='#fffefa';c.lineWidth=4;c.beginPath();c.moveTo(x,y+260);c.lineTo(x+w,y+170);c.stroke();c.setLineDash([]);
+ c.strokeStyle='#1d4138';c.lineWidth=5;c.setLineDash([14,10]);c.beginPath();c.moveTo(x+220,y+110);c.lineTo(x+220,y+40);c.lineTo(x+960,y+40);c.lineTo(x+960,y+110);c.stroke();c.setLineDash([]);
+ c.fillStyle='#fff';c.strokeStyle='#1b322b';c.lineWidth=4;c.beginPath();c.arc(x+190,y+60,30,0,7);c.arc(x+230,y+45,38,0,7);c.arc(x+270,y+62,30,0,7);c.fill();
+ c.fillStyle='#1d4138';for(let k=0;k<4;k++){const xx=x+880-k*180;c.fillRect(xx-60,y+118,60,6);c.beginPath();c.moveTo(xx-74,y+121);c.lineTo(xx-56,y+110);c.lineTo(xx-56,y+132);c.fill();}
+ c.font='700 26px UI';c.fillStyle='#1b322b';c.fillText('Indonesia',x+30,y+130);c.textAlign='right';c.fillText('Peru',x+w-30,y+130);c.textAlign='left';c.fillStyle='#fffefa';c.fillText('termoklin',x+520,y+250);
+ c.restore();
+ // C: smoke vs flood photo-like
+ c=document.getElementById('cc').getContext('2d');
+ let s=c.createLinearGradient(0,0,0,720);s.addColorStop(0,'#c9662c');s.addColorStop(1,'#5a2c18');c.fillStyle=s;c.fillRect(0,0,640,720);
+ for(let k=0;k<14;k++){c.fillStyle='rgba(90,60,45,.35)';c.beginPath();c.ellipse(Math.random()*640,150+Math.random()*450,200,60,0,0,7);c.fill();}
+ c.fillStyle='rgba(255,190,90,.6)';c.beginPath();c.arc(470,300,60,0,7);c.fill();
+ c.fillStyle='#3a1d12';[[20,240],[110,320],[200,260],[290,380],[380,300],[470,350],[560,280]].forEach(([bx,bh])=>c.fillRect(bx,720-bh,70,bh));
+ s=c.createLinearGradient(0,0,0,720);s.addColorStop(0,'#3c556a');s.addColorStop(1,'#1d2c38');c.fillStyle=s;c.fillRect(640,0,640,720);
+ c.strokeStyle='rgba(220,236,247,.55)';c.lineWidth=3;for(let k=0;k<160;k++){const xx=640+Math.random()*640,yy=Math.random()*720;c.beginPath();c.moveTo(xx,yy);c.lineTo(xx-8,yy+30);c.stroke();}
+ c.fillStyle='#24323b';[[660,260],[760,330],[870,280],[980,360],[1090,300],[1190,340]].forEach(([bx,bh])=>c.fillRect(bx,720-bh,80,bh));
+ c.fillStyle='rgba(120,96,64,.9)';c.fillRect(640,600,640,120);
+ c.fillStyle='rgba(0,0,0,.35)';c.fillRect(0,0,1280,250);
+ document.body.dataset.ready=1;
+});
+</script></body></html>
