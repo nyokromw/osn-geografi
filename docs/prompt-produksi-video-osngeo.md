@@ -10,7 +10,9 @@ Seri **"Video Konsep OSN Geografi"** dari OSNGEO.id terdiri atas **78 video** be
 - **1 video Konsep Dasar** (kode `-V00`), yaitu gambaran utuh bab, dan
 - **5 video Materi yang Sering Muncul** (kode `-V01` sampai `-V05`), berdasarkan frekuensi soal OSN.
 
-Produksi dilakukan **bertahap, satu video per siklus**, dalam dua gelombang.
+Produksi dilakukan **bertahap, satu video per siklus**.
+
+> **PEMBARUAN URUTAN:** produksi kini mengikuti urutan bab: B01-V00, B01-V01 … B01-V05, lalu B02-V00, dan seterusnya sampai B13-V05. Setiap video Konsep Dasar (V00) **ditutup dengan segmen "Sering Muncul di OSN"** yang memuat daftar materi berfrekuensi "sangat sering" dan "sering" dari tabel A.1 modul bab tersebut, lengkap dengan kode video lanjutannya. Pembagian Gelombang 1 dan 2 di bawah hanya menjadi acuan prioritas.
 
 ### Gelombang 1: 26 video prioritas (diproduksi lebih dulu, sesuai urutan)
 
