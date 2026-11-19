@@ -1,5 +1,5 @@
 import { strict as assert } from 'node:assert'
-import { configuredEnvironment, gatewayRequest, qrUrl, validOrderId, validQrUrl, validSignature, validateGatewayStatus } from './midtrans.ts'
+import { configuredEnvironment, gatewayRequest, midtransOrderTime, MidtransApiError, qrUrl, validOrderId, validQrUrl, validSignature, validateGatewayStatus } from './midtrans.ts'
 
 const order = { order_id: 'OSNGEO-SB-' + 'a'.repeat(32), nominal: 50000 }
 const status = {
@@ -42,6 +42,30 @@ Deno.test('sandbox is default; a malformed environment cannot turn on production
   assert.throws(() => configuredEnvironment('prod'))
   assert.equal(validOrderId(order.order_id), true)
   assert.equal(validOrderId('../../status'), false)
+})
+
+Deno.test('custom expiry uses GMT+7 without changing the order instant', () => {
+  assert.equal(midtransOrderTime('2026-11-19T03:42:20.369666+00:00'), '2026-11-19 10:42:20 +0700')
+  assert.equal(midtransOrderTime('2026-11-19T20:00:00Z'), '2026-11-20 03:00:00 +0700')
+  assert.equal(midtransOrderTime('2026-11-19T10:42:20+07:00'), '2026-11-19 10:42:20 +0700')
+})
+
+Deno.test('provider errors expose only a safe code and explanation, never provider payloads', async () => {
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = (() => Promise.resolve(new Response(JSON.stringify({
+    status_code: '402', status_message: 'sensitive-provider-payload',
+    error_messages: ['sensitive-provider-payload'],
+  }), { status: 402 }))) as typeof fetch
+  try {
+    await assert.rejects(() => gatewayRequest('sandbox', 'test-key', '/v2/charge', {}), error => {
+      assert.ok(error instanceof MidtransApiError)
+      assert.equal(error.gatewayCode, '402')
+      assert.equal(error.httpStatus, 402)
+      assert.ok(error.message.includes('QRIS belum tersedia'))
+      assert.ok(!error.message.includes('sensitive-provider-payload'))
+      return true
+    })
+  } finally { globalThis.fetch = originalFetch }
 })
 
 Deno.test('QR images are restricted to the matching Midtrans API environment', () => {

@@ -1,5 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.106.2'
-import { configuredEnvironment, gatewayRequest, qrUrl, validOrderId, validSignature, validateGatewayStatus,
+import { configuredEnvironment, gatewayRequest, midtransOrderTime, MidtransApiError, qrUrl, validOrderId, validSignature, validateGatewayStatus,
   type Environment, type GatewayStatus } from '../_shared/midtrans.ts'
 
 const corsHeaders = {
@@ -138,7 +138,7 @@ Deno.serve(async (req: Request) => {
         item_details: [{ id: String(order.paket_id), price: order.nominal, quantity: 1, name: order.nama_paket }],
         customer_details: { first_name: customer?.nama?.slice(0, 100) || 'Peserta OSNGEO',
           email: user.email, ...(customer?.nomor_hp ? { phone: customer.nomor_hp } : {}) },
-        custom_expiry: { order_time: new Date(order.created_at).toISOString().replace('T', ' ').slice(0, 19) + ' +0000',
+        custom_expiry: { order_time: midtransOrderTime(order.created_at),
           expiry_duration: 15, unit: 'minute' },
       })
       if (!status) throw new Error('Charge unavailable')
@@ -163,6 +163,10 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'Permintaan tidak dikenal.' }, 400)
   } catch (error) {
     // Never log provider bodies, auth headers, server keys, or customer details.
+    if (error instanceof MidtransApiError) {
+      console.error('Midtrans API rejected request:', { httpStatus: error.httpStatus, code: error.gatewayCode })
+      return json({ error: error.message, code: error.gatewayCode }, 503)
+    }
     console.error('Midtrans operation failed:', error instanceof Error ? error.name : 'UnknownError')
     return json({ error: 'Pembayaran belum dapat diproses. Coba cek status kembali atau hubungi admin.' }, 503)
   }

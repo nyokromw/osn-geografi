@@ -32,6 +32,8 @@ Sesudah Midtrans menyetujui merchant dan QRIS Production aktif:
 
 Perubahan secrets berlaku tanpa redeploy fungsi. Matikan pembelian baru dengan `MIDTRANS_PAYMENTS_ENABLED=false`; webhook dan pemeriksaan pesanan yang sudah dibuat tetap berjalan. Jangan menghapus kunci Production ketika masih ada pesanan.
 
+Waktu pesanan untuk `custom_expiry` dikirim dalam GMT+7 sesuai format Core API. Jika penerbitan QRIS ditolak, layar menampilkan kode kesalahan tanpa membocorkan respons penyedia: `400`/`408` menunjukkan format data, `401` menunjukkan kunci atau mode, `402` menunjukkan akses metode pembayaran, dan `403` memerlukan pemeriksaan izin kunci serta pengaturan integrasi. Log fungsi hanya menyimpan kode dan status HTTP.
+
 ## Aturan keanggotaan
 
 - Harga, tingkat akses, nama, dan durasi disalin dari paket aktif di database saat pesanan dibuat. Perubahan katalog berikutnya tidak mengubah pesanan itu.
