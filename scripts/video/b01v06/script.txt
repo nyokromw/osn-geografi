@@ -1,0 +1,23 @@
+Ini video nomor lima dari jalur belajar Bab Iklim. Sebelumnya, tonton dulu video nomor dua tentang atmosfer, dan nomor empat tentang albedo dan neraca energi.
+
+Siberia bisa mencapai minus empat puluh derajat di musim dingin dan plus dua puluh lima derajat di musim panas. Sementara itu, suhu rata-rata Jakarta hampir sama sepanjang tahun. Di Dieng, pada puncak kemarau, embun bisa membeku dan merusak kentang. Apa yang mengatur semua itu?
+
+Suhu udara di suatu tempat ditentukan oleh enam faktor: lintang, ketinggian tempat, jarak dari laut, arus laut di dekatnya, tutupan awan, dan jenis permukaan.
+
+Faktor jarak dari laut sangat penting. Laut memiliki kapasitas panas jauh lebih besar daripada daratan, menyerap panas sampai kedalaman puluhan meter, dan sebagian energinya dipakai untuk penguapan. Akibatnya, daratan cepat panas dan cepat dingin, sedangkan laut lambat panas dan lambat dingin. Selisih suhu tertinggi dan terendah disebut amplitudo suhu, atau temperature range. Daerah dekat laut memiliki iklim maritim, atau maritime climate, dengan amplitudo kecil. Pedalaman benua seperti Siberia memiliki iklim kontinental, atau continental climate, dengan amplitudo sangat besar. Sifat daratan yang memperbesar amplitudo ini disebut kontinentalitas, atau continentality. Indonesia sebagai negara kepulauan tropis memiliki amplitudo tahunan hanya sekitar satu sampai dua derajat.
+
+Faktor kedua yang paling sering diuji adalah ketinggian. Di troposfer, suhu turun sekitar nol koma enam derajat setiap naik seratus meter. Ingat, inilah lapse rate dari video nomor dua. Untuk Indonesia, Braak merumuskan: T sama dengan dua puluh enam koma tiga dikurangi nol koma enam kali h, dengan h dalam ratusan meter. Kalau suhu di satu titik sudah diketahui, gunakan bentuk selisih: suhu baru sama dengan suhu lama dikurangi nol koma enam kali selisih tinggi dalam ratusan meter.
+
+Junghuhn membagi Jawa menjadi empat zona suhu berdasarkan ketinggian. Zona panas, nol sampai tujuh ratus meter, cocok untuk padi, kelapa, dan tebu. Zona sedang, tujuh ratus sampai seribu lima ratus meter, cocok untuk kopi dan sayuran. Zona sejuk, seribu lima ratus sampai dua ribu lima ratus meter, cocok untuk teh dan sayuran dataran tinggi. Zona dingin, di atas dua ribu lima ratus meter, hanya ditumbuhi lumut dan rerumputan.
+
+Biasanya suhu turun terhadap ketinggian. Tetapi kadang terjadi kebalikannya: suhu justru naik di suatu lapisan. Ini disebut inversi suhu, atau temperature inversion. Inversi sering terjadi pada malam cerah dan tenang, ketika tanah mendingin cepat, disebut radiation inversion. Bisa juga di lembah, ketika udara dingin mengalir turun dari lereng, disebut cold air drainage. Lapisan inversi sangat stabil, sehingga polutan terperangkap di dekat permukaan, seperti kabut asap pagi di kota cekungan Bandung. Embun upas di Dieng, yang dalam bahasa Inggris disebut frost, juga terjadi karena langit cerah, udara kering, ketinggian, dan bentuk kaldera yang menampung udara dingin.
+
+Terakhir, garis di peta yang menghubungkan tempat-tempat bersuhu sama disebut isoterm, atau isotherm. Garis yang menghubungkan tempat-tempat terpanas di setiap garis bujur disebut ekuator termal, atau thermal equator. Isoterm umumnya sejajar garis lintang, tetapi membelok ketika melintasi batas darat dan laut, atau arus laut hangat seperti Arus Teluk, atau Gulf Stream, yang menghangatkan Eropa Barat.
+
+Sekarang, coba kerjakan soal ini.
+
+Selisih tingginya seribu empat ratus dikurangi dua ratus, yaitu seribu dua ratus meter, atau dua belas ratusan meter. Penurunan suhunya nol koma enam kali dua belas, yaitu tujuh koma dua derajat. Jadi suhu di Q adalah dua puluh tujuh dikurangi tujuh koma dua, sama dengan sembilan belas koma delapan derajat Celsius. Ketinggian seribu empat ratus meter termasuk zona sedang Junghuhn. Jawabannya B.
+
+Jebakannya: jangan memakai dua puluh enam koma tiga kalau suhu titik awal sudah diketahui. Pakai bentuk selisih.
+
+Ringkasnya: laut meredam perubahan suhu, ketinggian menurunkan suhu nol koma enam derajat per seratus meter, dan inversi membuat polutan terperangkap. Dengan ini, Tahap Satu selesai. Video berikutnya masuk ke Tahap Dua: tekanan udara dan lahirnya angin. Latihan soalnya ada di O S N Geo titik I D.

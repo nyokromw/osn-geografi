@@ -1,0 +1,336 @@
+1
+00:00:03,000 --> 00:00:06,110
+Ini video nomor lima dari jalur belajar Bab Iklim.
+
+2
+00:00:06,190 --> 00:00:10,370
+Sebelumnya, tonton dulu video nomor dua tentang atmosfer, dan nomor empat
+
+3
+00:00:10,420 --> 00:00:12,470
+tentang albedo dan neraca energi.
+
+4
+00:00:12,830 --> 00:00:16,900
+Siberia bisa mencapai minus empat puluh derajat di musim dingin dan plus
+
+5
+00:00:16,950 --> 00:00:19,420
+dua puluh lima derajat di musim panas.
+
+6
+00:00:19,800 --> 00:00:23,980
+Sementara itu, suhu rata-rata Jakarta hampir sama sepanjang tahun.
+
+7
+00:00:24,290 --> 00:00:28,800
+Di Dieng, pada puncak kemarau, embun bisa membeku dan merusak kentang.
+
+8
+00:00:29,210 --> 00:00:30,910
+Apa yang mengatur semua itu?
+
+9
+00:00:30,930 --> 00:00:34,390
+Suhu udara di suatu tempat ditentukan oleh enam faktor:
+
+10
+00:00:34,780 --> 00:00:40,480
+lintang, ketinggian tempat, jarak dari laut, arus laut di dekatnya, tutupan
+
+11
+00:00:40,530 --> 00:00:42,370
+awan, dan jenis permukaan.
+
+12
+00:00:42,800 --> 00:00:44,980
+Faktor jarak dari laut sangat penting.
+
+13
+00:00:45,420 --> 00:00:49,870
+Laut memiliki kapasitas panas jauh lebih besar daripada daratan, menyerap
+
+14
+00:00:49,920 --> 00:00:54,420
+panas sampai kedalaman puluhan meter, dan sebagian energinya dipakai untuk
+
+15
+00:00:54,470 --> 00:00:55,230
+penguapan.
+
+16
+00:00:55,670 --> 00:01:00,500
+Akibatnya, daratan cepat panas dan cepat dingin, sedangkan laut lambat panas
+
+17
+00:01:00,550 --> 00:01:01,670
+dan lambat dingin.
+
+18
+00:01:01,690 --> 00:01:06,140
+Selisih suhu tertinggi dan terendah disebut amplitudo suhu, atau temperature
+
+19
+00:01:06,190 --> 00:01:06,700
+range.
+
+20
+00:01:07,100 --> 00:01:11,420
+Daerah dekat laut memiliki iklim maritim, atau maritime climate, dengan
+
+21
+00:01:11,470 --> 00:01:12,640
+amplitudo kecil.
+
+22
+00:01:13,050 --> 00:01:18,280
+Pedalaman benua seperti Siberia memiliki iklim kontinental, atau continental
+
+23
+00:01:18,330 --> 00:01:20,740
+climate, dengan amplitudo sangat besar.
+
+24
+00:01:21,210 --> 00:01:25,820
+Sifat daratan yang memperbesar amplitudo ini disebut kontinentalitas, atau
+
+25
+00:01:25,870 --> 00:01:26,990
+continentality.
+
+26
+00:01:27,400 --> 00:01:32,070
+Indonesia sebagai negara kepulauan tropis memiliki amplitudo tahunan hanya
+
+27
+00:01:32,120 --> 00:01:34,290
+sekitar satu sampai dua derajat.
+
+28
+00:01:34,330 --> 00:01:37,550
+Faktor kedua yang paling sering diuji adalah ketinggian.
+
+29
+00:01:37,950 --> 00:01:42,420
+Di troposfer, suhu turun sekitar nol koma enam derajat setiap naik seratus
+
+30
+00:01:42,470 --> 00:01:43,020
+meter.
+
+31
+00:01:43,460 --> 00:01:46,500
+Ingat, inilah lapse rate dari video nomor dua.
+
+32
+00:01:46,820 --> 00:01:49,230
+Untuk Indonesia, Braak merumuskan:
+
+33
+00:01:49,510 --> 00:01:54,200
+T sama dengan dua puluh enam koma tiga dikurangi nol koma enam kali h, dengan
+
+34
+00:01:54,250 --> 00:01:55,880
+h dalam ratusan meter.
+
+35
+00:01:56,210 --> 00:02:01,190
+Kalau suhu di satu titik sudah diketahui, gunakan bentuk selisih:
+
+36
+00:02:01,210 --> 00:02:05,170
+suhu baru sama dengan suhu lama dikurangi nol koma enam kali selisih tinggi
+
+37
+00:02:05,220 --> 00:02:06,400
+dalam ratusan meter.
+
+38
+00:02:06,420 --> 00:02:10,610
+Junghuhn membagi Jawa menjadi empat zona suhu berdasarkan ketinggian.
+
+39
+00:02:11,040 --> 00:02:16,180
+Zona panas, nol sampai tujuh ratus meter, cocok untuk padi, kelapa, dan
+
+40
+00:02:16,230 --> 00:02:16,800
+tebu.
+
+41
+00:02:17,250 --> 00:02:21,930
+Zona sedang, tujuh ratus sampai seribu lima ratus meter, cocok untuk kopi
+
+42
+00:02:21,980 --> 00:02:22,890
+dan sayuran.
+
+43
+00:02:23,380 --> 00:02:28,060
+Zona sejuk, seribu lima ratus sampai dua ribu lima ratus meter, cocok untuk
+
+44
+00:02:28,110 --> 00:02:29,940
+teh dan sayuran dataran tinggi.
+
+45
+00:02:30,420 --> 00:02:34,640
+Zona dingin, di atas dua ribu lima ratus meter, hanya ditumbuhi lumut dan
+
+46
+00:02:34,690 --> 00:02:35,540
+rerumputan.
+
+47
+00:02:35,920 --> 00:02:38,190
+Biasanya suhu turun terhadap ketinggian.
+
+48
+00:02:38,210 --> 00:02:40,470
+Tetapi kadang terjadi kebalikannya:
+
+49
+00:02:40,670 --> 00:02:43,200
+suhu justru naik di suatu lapisan.
+
+50
+00:02:43,600 --> 00:02:47,670
+Ini disebut inversi suhu, atau temperature inversion.
+
+51
+00:02:48,140 --> 00:02:52,390
+Inversi sering terjadi pada malam cerah dan tenang, ketika tanah mendingin
+
+52
+00:02:52,440 --> 00:02:54,680
+cepat, disebut radiation inversion.
+
+53
+00:02:55,110 --> 00:02:59,400
+Bisa juga di lembah, ketika udara dingin mengalir turun dari lereng, disebut
+
+54
+00:02:59,450 --> 00:03:00,840
+cold air drainage.
+
+55
+00:03:01,250 --> 00:03:05,860
+Lapisan inversi sangat stabil, sehingga polutan terperangkap di dekat permukaan,
+
+56
+00:03:05,910 --> 00:03:08,790
+seperti kabut asap pagi di kota cekungan Bandung.
+
+57
+00:03:08,810 --> 00:03:13,730
+Embun upas di Dieng, yang dalam bahasa Inggris disebut frost, juga terjadi
+
+58
+00:03:13,780 --> 00:03:19,120
+karena langit cerah, udara kering, ketinggian, dan bentuk kaldera yang menampung
+
+59
+00:03:19,170 --> 00:03:20,250
+udara dingin.
+
+60
+00:03:20,720 --> 00:03:26,020
+Terakhir, garis di peta yang menghubungkan tempat-tempat bersuhu sama disebut
+
+61
+00:03:26,070 --> 00:03:28,110
+isoterm, atau isotherm.
+
+62
+00:03:28,520 --> 00:03:33,100
+Garis yang menghubungkan tempat-tempat terpanas di setiap garis bujur disebut
+
+63
+00:03:33,150 --> 00:03:36,040
+ekuator termal, atau thermal equator.
+
+64
+00:03:36,100 --> 00:03:40,620
+Isoterm umumnya sejajar garis lintang, tetapi membelok ketika melintasi
+
+65
+00:03:40,670 --> 00:03:45,230
+batas darat dan laut, atau arus laut hangat seperti Arus Teluk, atau Gulf
+
+66
+00:03:45,280 --> 00:03:47,440
+Stream, yang menghangatkan Eropa Barat.
+
+67
+00:03:47,840 --> 00:03:50,030
+Sekarang, coba kerjakan soal ini.
+
+68
+00:03:54,490 --> 00:03:58,980
+Selisih tingginya seribu empat ratus dikurangi dua ratus, yaitu seribu dua
+
+69
+00:03:59,030 --> 00:04:01,510
+ratus meter, atau dua belas ratusan meter.
+
+70
+00:04:01,900 --> 00:04:06,930
+Penurunan suhunya nol koma enam kali dua belas, yaitu tujuh koma dua derajat.
+
+71
+00:04:06,970 --> 00:04:11,610
+Jadi suhu di Q adalah dua puluh tujuh dikurangi tujuh koma dua, sama dengan
+
+72
+00:04:11,660 --> 00:04:14,560
+sembilan belas koma delapan derajat Celsius.
+
+73
+00:04:14,920 --> 00:04:18,940
+Ketinggian seribu empat ratus meter termasuk zona sedang Junghuhn.
+
+74
+00:04:19,080 --> 00:04:20,480
+Jawabannya B.
+
+75
+00:04:20,770 --> 00:04:21,680
+Jebakannya:
+
+76
+00:04:21,700 --> 00:04:26,320
+jangan memakai dua puluh enam koma tiga kalau suhu titik awal sudah diketahui.
+
+77
+00:04:26,620 --> 00:04:27,850
+Pakai bentuk selisih.
+
+78
+00:04:28,110 --> 00:04:28,990
+Ringkasnya:
+
+79
+00:04:29,060 --> 00:04:34,010
+laut meredam perubahan suhu, ketinggian menurunkan suhu nol koma enam derajat
+
+80
+00:04:34,060 --> 00:04:37,340
+per seratus meter, dan inversi membuat polutan terperangkap.
+
+81
+00:04:37,750 --> 00:04:40,150
+Dengan ini, Tahap Satu selesai.
+
+82
+00:04:40,220 --> 00:04:42,220
+Video berikutnya masuk ke Tahap Dua:
+
+83
+00:04:42,320 --> 00:04:44,350
+tekanan udara dan lahirnya angin.
+
+84
+00:04:44,370 --> 00:04:48,360
+Latihan soalnya ada di OSNGEO.id.
+

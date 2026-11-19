@@ -1,0 +1,260 @@
+1
+00:00:03,000 --> 00:00:05,980
+Ini video nomor empat dari jalur belajar Bab Iklim.
+
+2
+00:00:06,230 --> 00:00:11,430
+Pastikan kamu sudah menonton video nomor tiga, Radiasi Matahari dan Insolasi.
+
+3
+00:00:11,800 --> 00:00:14,650
+Coba pakai kaus hitam dan kaus putih di siang hari.
+
+4
+00:00:15,030 --> 00:00:17,360
+Kaus hitam terasa jauh lebih panas.
+
+5
+00:00:17,610 --> 00:00:18,980
+Bumi juga begitu.
+
+6
+00:00:19,210 --> 00:00:23,210
+Ada permukaan yang memantulkan banyak cahaya, ada yang menyerapnya.
+
+7
+00:00:23,490 --> 00:00:25,790
+Ukuran pantulan ini disebut albedo.
+
+8
+00:00:26,040 --> 00:00:30,100
+Albedo adalah perbandingan radiasi yang dipantulkan terhadap radiasi yang
+
+9
+00:00:30,150 --> 00:00:32,010
+diterima suatu permukaan.
+
+10
+00:00:32,030 --> 00:00:36,300
+Salju segar memiliki albedo delapan puluh sampai sembilan puluh persen,
+
+11
+00:00:36,350 --> 00:00:37,560
+pemantul terkuat.
+
+12
+00:00:37,770 --> 00:00:40,870
+Awan tebal enam puluh sampai sembilan puluh persen.
+
+13
+00:00:41,220 --> 00:00:44,120
+Pasir gurun tiga puluh sampai empat puluh persen.
+
+14
+00:00:44,330 --> 00:00:47,690
+Sawah dan rumput lima belas sampai dua puluh lima persen.
+
+15
+00:00:47,970 --> 00:00:51,600
+Hutan hujan tropis hanya sepuluh sampai lima belas persen.
+
+16
+00:00:51,730 --> 00:00:55,960
+Dan aspal serta laut yang terkena sinar tegak, hanya lima sampai sepuluh
+
+17
+00:00:56,010 --> 00:00:56,540
+persen.
+
+18
+00:00:57,020 --> 00:01:01,460
+Albedo rata-rata bumi sekitar tiga puluh persen, dan penyumbang terbesarnya
+
+19
+00:01:01,510 --> 00:01:02,520
+adalah awan.
+
+20
+00:01:02,550 --> 00:01:06,970
+Sekarang kita lihat seluruh aliran energi bumi, yang disebut neraca energi,
+
+21
+00:01:07,020 --> 00:01:08,660
+atau energy budget.
+
+22
+00:01:09,050 --> 00:01:13,150
+Dari seratus satuan radiasi matahari yang masuk ke puncak atmosfer, sekitar
+
+23
+00:01:13,200 --> 00:01:16,130
+tiga puluh satuan dipantulkan kembali ke angkasa.
+
+24
+00:01:16,400 --> 00:01:19,520
+Sekitar dua puluh satuan diserap atmosfer dan awan.
+
+25
+00:01:19,810 --> 00:01:23,680
+Sisanya, sekitar lima puluh satuan, diserap permukaan bumi.
+
+26
+00:01:24,120 --> 00:01:28,270
+Permukaan yang hangat lalu memindahkan energinya ke atmosfer dengan tiga
+
+27
+00:01:28,320 --> 00:01:28,910
+cara.
+
+28
+00:01:29,320 --> 00:01:31,590
+Pertama, radiasi inframerah.
+
+29
+00:01:31,610 --> 00:01:36,960
+Kedua, panas sensibel, atau sensible heat, yaitu panas yang dibawa udara
+
+30
+00:01:37,010 --> 00:01:39,900
+hangat yang naik melalui konduksi dan konveksi.
+
+31
+00:01:40,370 --> 00:01:46,240
+Ketiga, panas laten, atau latent heat, yaitu energi yang terbawa ketika
+
+32
+00:01:46,290 --> 00:01:50,340
+air menguap, lalu dilepaskan ketika uap mengembun menjadi awan.
+
+33
+00:01:50,830 --> 00:01:55,460
+Dalam jangka panjang, energi yang masuk harus sama dengan energi yang keluar.
+
+34
+00:01:55,900 --> 00:01:59,930
+Inilah keseimbangan radiasi, atau radiative equilibrium.
+
+35
+00:02:00,430 --> 00:02:04,430
+Konsep albedo dan neraca energi menjelaskan fenomena di kota.
+
+36
+00:02:04,450 --> 00:02:09,350
+Pusat kota seperti Jakarta bisa dua sampai empat derajat lebih hangat daripada
+
+37
+00:02:09,400 --> 00:02:11,630
+pinggirannya, terutama pada malam hari.
+
+38
+00:02:12,080 --> 00:02:16,430
+Fenomena ini disebut pulau bahang kota, atau urban heat island.
+
+39
+00:02:16,840 --> 00:02:18,210
+Penyebabnya ada empat.
+
+40
+00:02:18,530 --> 00:02:23,170
+Beton dan aspal menyimpan panas di siang hari lalu melepasnya di malam hari.
+
+41
+00:02:23,630 --> 00:02:27,600
+Vegetasi sedikit, sehingga pendinginan melalui penguapan rendah.
+
+42
+00:02:27,990 --> 00:02:32,510
+Ada panas buangan dari kendaraan, industri, dan pendingin ruangan.
+
+43
+00:02:32,930 --> 00:02:37,100
+Dan gedung tinggi yang rapat memerangkap radiasi serta menghambat angin.
+
+44
+00:02:37,120 --> 00:02:41,610
+Cara mengatasinya antara lain ruang terbuka hijau minimal tiga puluh persen,
+
+45
+00:02:41,660 --> 00:02:46,330
+atap hijau atau green roof, atap terang yang memantulkan panas atau cool
+
+46
+00:02:46,380 --> 00:02:49,700
+roof, serta perkerasan berpori atau permeable pavement.
+
+47
+00:02:50,150 --> 00:02:52,060
+Sekarang, coba kerjakan soal ini.
+
+48
+00:02:56,230 --> 00:03:00,310
+Energi yang diserap sama dengan radiasi dikali satu dikurangi albedo.
+
+49
+00:03:00,680 --> 00:03:04,890
+Hutan menyerap delapan ratus dikali nol koma delapan delapan, yaitu tujuh
+
+50
+00:03:04,940 --> 00:03:06,840
+ratus empat watt per meter persegi.
+
+51
+00:03:06,860 --> 00:03:11,250
+Permukiman menyerap delapan ratus dikali nol koma tujuh, yaitu lima ratus
+
+52
+00:03:11,300 --> 00:03:12,120
+enam puluh.
+
+53
+00:03:12,480 --> 00:03:16,420
+Jadi energi yang diserap berkurang seratus empat puluh empat watt per meter
+
+54
+00:03:16,470 --> 00:03:17,200
+persegi.
+
+55
+00:03:17,560 --> 00:03:19,080
+Jawabannya A.
+
+56
+00:03:19,190 --> 00:03:21,950
+Tetapi hati-hati, inilah jebakannya.
+
+57
+00:03:22,210 --> 00:03:26,510
+Walaupun energi yang diserap berkurang, kawasan permukiman tetap bisa lebih
+
+58
+00:03:26,560 --> 00:03:29,700
+panas, karena penguapan hilang dan ada panas buangan.
+
+59
+00:03:30,170 --> 00:03:34,290
+Soal olimpiade sering menguji kemampuan melihat lebih dari satu faktor.
+
+60
+00:03:34,320 --> 00:03:35,100
+Ringkasnya:
+
+61
+00:03:35,120 --> 00:03:39,710
+albedo menentukan berapa energi yang dipantulkan, neraca energi menjaga
+
+62
+00:03:39,760 --> 00:03:44,380
+masuk sama dengan keluar, dan kota menjadi pulau bahang karena beton, minim
+
+63
+00:03:44,430 --> 00:03:46,500
+vegetasi, dan panas buangan.
+
+64
+00:03:46,990 --> 00:03:49,120
+Video berikutnya membahas suhu udara.
+
+65
+00:03:49,360 --> 00:03:53,300
+Latihan soalnya ada di OSNGEO.id.
+

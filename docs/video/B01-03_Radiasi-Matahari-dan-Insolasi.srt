@@ -1,0 +1,276 @@
+1
+00:00:03,000 --> 00:00:06,070
+Ini video nomor tiga dari jalur belajar Bab Iklim.
+
+2
+00:00:06,350 --> 00:00:09,610
+Prasyaratnya video nomor satu, Mesin Iklim Bumi.
+
+3
+00:00:09,990 --> 00:00:13,970
+Pada tanggal dua puluh satu Juni, ada tempat di bumi yang menerima energi
+
+4
+00:00:14,020 --> 00:00:17,000
+matahari harian lebih banyak daripada ekuator.
+
+5
+00:00:17,270 --> 00:00:19,200
+Tempat itu adalah kutub utara.
+
+6
+00:00:19,380 --> 00:00:20,250
+Kok bisa?
+
+7
+00:00:20,600 --> 00:00:23,850
+Jawabannya ada di cara matahari mengirim energi ke bumi.
+
+8
+00:00:24,110 --> 00:00:27,260
+Semua benda memancarkan radiasi sesuai suhunya.
+
+9
+00:00:27,280 --> 00:00:31,490
+Hubungannya dijelaskan oleh hukum pergeseran Wien, atau Wien's displacement
+
+10
+00:00:31,540 --> 00:00:31,960
+law:
+
+11
+00:00:32,090 --> 00:00:36,250
+panjang gelombang puncak sama dengan dua ribu delapan ratus sembilan puluh
+
+12
+00:00:36,300 --> 00:00:39,840
+delapan dibagi suhu mutlak, dengan hasil dalam mikrometer.
+
+13
+00:00:40,150 --> 00:00:43,810
+Makin panas bendanya, makin pendek panjang gelombangnya.
+
+14
+00:00:44,280 --> 00:00:48,750
+Matahari, dengan suhu permukaan sekitar lima ribu delapan ratus kelvin,
+
+15
+00:00:48,800 --> 00:00:53,920
+memancarkan puncak pada sekitar nol koma lima mikrometer, yaitu cahaya tampak.
+
+16
+00:00:54,360 --> 00:00:58,160
+Inilah radiasi gelombang pendek, atau shortwave radiation.
+
+17
+00:00:58,180 --> 00:01:02,340
+Bumi, sekitar dua ratus delapan puluh delapan kelvin, memancarkan puncak
+
+18
+00:01:02,390 --> 00:01:05,670
+pada sekitar sepuluh mikrometer, yaitu inframerah.
+
+19
+00:01:06,070 --> 00:01:09,910
+Inilah radiasi gelombang panjang, atau longwave radiation.
+
+20
+00:01:10,230 --> 00:01:14,030
+Ada juga hukum Stefan Boltzmann, atau Stefan Boltzmann law:
+
+21
+00:01:14,270 --> 00:01:18,150
+energi total yang dipancarkan sebanding dengan suhu mutlak pangkat empat.
+
+22
+00:01:18,530 --> 00:01:22,790
+Artinya, kalau suhu mutlak naik dua kali, energi yang dipancarkan naik enam
+
+23
+00:01:22,840 --> 00:01:23,650
+belas kali.
+
+24
+00:01:23,690 --> 00:01:28,590
+Radiasi matahari yang sampai ke permukaan bumi disebut insolasi, singkatan
+
+25
+00:01:28,640 --> 00:01:30,770
+dari incoming solar radiation.
+
+26
+00:01:31,230 --> 00:01:35,660
+Di puncak atmosfer, setiap meter persegi yang menghadap tegak lurus ke matahari
+
+27
+00:01:35,710 --> 00:01:39,060
+menerima sekitar seribu tiga ratus enam puluh satu watt.
+
+28
+00:01:39,380 --> 00:01:43,560
+Angka ini disebut konstanta matahari, atau solar constant.
+
+29
+00:01:43,990 --> 00:01:48,760
+Tetapi karena bumi bulat dan berotasi, rata-rata yang diterima seluruh permukaan
+
+30
+00:01:48,810 --> 00:01:52,850
+hanya sekitar seperempatnya, yaitu sekitar tiga ratus empat puluh watt per
+
+31
+00:01:52,900 --> 00:01:53,870
+meter persegi.
+
+32
+00:01:53,890 --> 00:01:57,260
+Besarnya insolasi di suatu tempat ditentukan empat faktor.
+
+33
+00:01:57,520 --> 00:02:01,490
+Pertama, sudut datang sinar, atau angle of incidence.
+
+34
+00:02:01,840 --> 00:02:06,220
+Sinar tegak lurus memusatkan energi ke area sempit, sedangkan sinar miring
+
+35
+00:02:06,270 --> 00:02:10,630
+menyebarkan energi yang sama ke area lebih luas dan menembus atmosfer yang
+
+36
+00:02:10,680 --> 00:02:11,610
+lebih tebal.
+
+37
+00:02:12,100 --> 00:02:17,540
+Kedua, lama penyinaran, atau day length, yaitu panjang siang, yang bergantung
+
+38
+00:02:17,590 --> 00:02:19,790
+pada lintang dan musim.
+
+39
+00:02:20,220 --> 00:02:22,780
+Ketiga, jarak bumi dan matahari.
+
+40
+00:02:22,800 --> 00:02:27,730
+Bumi paling dekat ke matahari sekitar tanggal tiga Januari, disebut perihelion,
+
+41
+00:02:27,780 --> 00:02:31,190
+dan paling jauh sekitar empat Juli, disebut aphelion.
+
+42
+00:02:31,500 --> 00:02:33,000
+Pengaruhnya relatif kecil.
+
+43
+00:02:33,270 --> 00:02:38,630
+Keempat, keadaan atmosfer, seperti awan, aerosol, dan uap air.
+
+44
+00:02:39,030 --> 00:02:40,820
+Sekarang kembali ke kutub utara.
+
+45
+00:02:41,050 --> 00:02:45,500
+Pada dua puluh satu Juni, matahari bersinar dua puluh empat jam di sana.
+
+46
+00:02:45,780 --> 00:02:50,060
+Walaupun sudut sinarnya miring, lamanya penyinaran membuat total energi
+
+47
+00:02:50,110 --> 00:02:52,490
+hariannya melampaui ekuator.
+
+48
+00:02:52,510 --> 00:02:56,500
+Tetapi suhu kutub tetap rendah, karena es memantulkan banyak sinar, dan
+
+49
+00:02:56,550 --> 00:02:59,790
+sebagian besar energinya dipakai untuk mencairkan es.
+
+50
+00:03:00,150 --> 00:03:02,310
+Sekarang, coba kerjakan soal ini.
+
+51
+00:03:06,590 --> 00:03:07,970
+Gunakan hukum Wien.
+
+52
+00:03:08,440 --> 00:03:12,250
+Panjang gelombang puncak sama dengan dua ribu delapan ratus sembilan puluh
+
+53
+00:03:12,300 --> 00:03:16,380
+delapan dibagi dua ratus delapan puluh delapan, hasilnya sekitar sepuluh
+
+54
+00:03:16,430 --> 00:03:17,280
+mikrometer.
+
+55
+00:03:17,640 --> 00:03:20,390
+Itu termasuk inframerah, atau gelombang panjang.
+
+56
+00:03:20,810 --> 00:03:22,170
+Jawabannya D.
+
+57
+00:03:22,390 --> 00:03:23,710
+Ada dua jebakan.
+
+58
+00:03:23,740 --> 00:03:28,370
+Pertama, musim di bumi bukan disebabkan jarak bumi dan matahari, melainkan
+
+59
+00:03:28,420 --> 00:03:32,850
+kemiringan sumbu bumi, atau axial tilt, sebesar dua puluh tiga setengah
+
+60
+00:03:32,900 --> 00:03:33,560
+derajat.
+
+61
+00:03:33,980 --> 00:03:38,700
+Buktinya, saat perihelion di bulan Januari, belahan bumi utara justru musim
+
+62
+00:03:38,750 --> 00:03:39,330
+dingin.
+
+63
+00:03:39,810 --> 00:03:44,340
+Kedua, menerima insolasi besar belum tentu panas, karena ada pantulan dan
+
+64
+00:03:44,390 --> 00:03:46,140
+energi untuk mencairkan es.
+
+65
+00:03:46,160 --> 00:03:47,020
+Ringkasnya:
+
+66
+00:03:47,170 --> 00:03:51,220
+matahari mengirim gelombang pendek, bumi memancarkan gelombang panjang,
+
+67
+00:03:51,270 --> 00:03:56,860
+dan insolasi ditentukan sudut sinar, lama penyinaran, jarak, serta atmosfer.
+
+68
+00:03:57,300 --> 00:04:00,190
+Video berikutnya membahas albedo dan neraca energi.
+
+69
+00:04:00,630 --> 00:04:04,440
+Latihan soalnya ada di OSNGEO.id.
+

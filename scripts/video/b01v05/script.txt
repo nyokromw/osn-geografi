@@ -1,0 +1,21 @@
+Ini video nomor empat dari jalur belajar Bab Iklim. Pastikan kamu sudah menonton video nomor tiga, Radiasi Matahari dan Insolasi.
+
+Coba pakai kaus hitam dan kaus putih di siang hari. Kaus hitam terasa jauh lebih panas. Bumi juga begitu. Ada permukaan yang memantulkan banyak cahaya, ada yang menyerapnya. Ukuran pantulan ini disebut albedo.
+
+Albedo adalah perbandingan radiasi yang dipantulkan terhadap radiasi yang diterima suatu permukaan. Salju segar memiliki albedo delapan puluh sampai sembilan puluh persen, pemantul terkuat. Awan tebal enam puluh sampai sembilan puluh persen. Pasir gurun tiga puluh sampai empat puluh persen. Sawah dan rumput lima belas sampai dua puluh lima persen. Hutan hujan tropis hanya sepuluh sampai lima belas persen. Dan aspal serta laut yang terkena sinar tegak, hanya lima sampai sepuluh persen. Albedo rata-rata bumi sekitar tiga puluh persen, dan penyumbang terbesarnya adalah awan.
+
+Sekarang kita lihat seluruh aliran energi bumi, yang disebut neraca energi, atau energy budget. Dari seratus satuan radiasi matahari yang masuk ke puncak atmosfer, sekitar tiga puluh satuan dipantulkan kembali ke angkasa. Sekitar dua puluh satuan diserap atmosfer dan awan. Sisanya, sekitar lima puluh satuan, diserap permukaan bumi.
+
+Permukaan yang hangat lalu memindahkan energinya ke atmosfer dengan tiga cara. Pertama, radiasi inframerah. Kedua, panas sensibel, atau sensible heat, yaitu panas yang dibawa udara hangat yang naik melalui konduksi dan konveksi. Ketiga, panas laten, atau latent heat, yaitu energi yang terbawa ketika air menguap, lalu dilepaskan ketika uap mengembun menjadi awan. Dalam jangka panjang, energi yang masuk harus sama dengan energi yang keluar. Inilah keseimbangan radiasi, atau radiative equilibrium.
+
+Konsep albedo dan neraca energi menjelaskan fenomena di kota. Pusat kota seperti Jakarta bisa dua sampai empat derajat lebih hangat daripada pinggirannya, terutama pada malam hari. Fenomena ini disebut pulau bahang kota, atau urban heat island. Penyebabnya ada empat. Beton dan aspal menyimpan panas di siang hari lalu melepasnya di malam hari. Vegetasi sedikit, sehingga pendinginan melalui penguapan rendah. Ada panas buangan dari kendaraan, industri, dan pendingin ruangan. Dan gedung tinggi yang rapat memerangkap radiasi serta menghambat angin.
+
+Cara mengatasinya antara lain ruang terbuka hijau minimal tiga puluh persen, atap hijau atau green roof, atap terang yang memantulkan panas atau cool roof, serta perkerasan berpori atau permeable pavement.
+
+Sekarang, coba kerjakan soal ini.
+
+Energi yang diserap sama dengan radiasi dikali satu dikurangi albedo. Hutan menyerap delapan ratus dikali nol koma delapan delapan, yaitu tujuh ratus empat watt per meter persegi. Permukiman menyerap delapan ratus dikali nol koma tujuh, yaitu lima ratus enam puluh. Jadi energi yang diserap berkurang seratus empat puluh empat watt per meter persegi. Jawabannya A.
+
+Tetapi hati-hati, inilah jebakannya. Walaupun energi yang diserap berkurang, kawasan permukiman tetap bisa lebih panas, karena penguapan hilang dan ada panas buangan. Soal olimpiade sering menguji kemampuan melihat lebih dari satu faktor.
+
+Ringkasnya: albedo menentukan berapa energi yang dipantulkan, neraca energi menjaga masuk sama dengan keluar, dan kota menjadi pulau bahang karena beton, minim vegetasi, dan panas buangan. Video berikutnya membahas suhu udara. Latihan soalnya ada di O S N Geo titik I D.

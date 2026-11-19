@@ -1,0 +1,29 @@
+Ini video nomor dua dari jalur belajar Bab Iklim. Kalau belum, tonton dulu video nomor satu, Mesin Iklim Bumi.
+
+Pendaki di puncak Gunung Rinjani sering merasa sesak napas, padahal udaranya bersih. Pesawat jet justru sengaja terbang di ketinggian sepuluh kilometer. Dan di langit kutub, muncul cahaya hijau yang menari. Ketiganya bisa dijelaskan kalau kita paham satu hal: atmosfer bumi.
+
+Kita mulai dari isinya. Udara kering terdiri atas nitrogen sekitar tujuh puluh delapan persen, oksigen sekitar dua puluh satu persen, argon nol koma sembilan tiga persen, dan karbon dioksida hanya sekitar nol koma nol empat persen. Selain itu ada uap air, yang kadarnya berubah-ubah, dari hampir nol di gurun dingin sampai sekitar empat persen di udara tropis. Uap air dan karbon dioksida memang sedikit, tetapi sangat penting karena keduanya gas rumah kaca.
+
+Atmosfer juga berisi partikel kecil seperti debu, garam laut, abu gunung api, dan asap. Partikel ini disebut aerosol. Aerosol berperan sebagai inti kondensasi, dalam bahasa Inggris condensation nuclei, yaitu tempat uap air mengembun menjadi titik awan. Tanpa aerosol, awan sulit terbentuk.
+
+Sekarang kita naik ke atas. Atmosfer dibagi menjadi lapisan berdasarkan perubahan suhu terhadap ketinggian.
+
+Lapisan terbawah adalah troposfer, atau troposphere, dari permukaan sampai sekitar dua belas kilometer. Di ekuator tebalnya sekitar tujuh belas kilometer, sedangkan di kutub hanya sekitar delapan kilometer, karena pemanasan kuat di ekuator membuat udara mengembang. Hampir semua cuaca terjadi di sini, dan suhunya turun sekitar nol koma enam derajat setiap naik seratus meter. Laju penurunan suhu ini disebut lapse rate.
+
+Batas atas troposfer disebut tropopause. Di sini suhu berhenti turun. Puncak awan badai kumulonimbus yang mendatar seperti landasan, disebut anvil, terbentuk karena menabrak lapisan ini.
+
+Di atasnya ada stratosfer, atau stratosphere, sampai sekitar lima puluh kilometer. Anehnya, suhu di sini justru naik, karena lapisan ozon, atau ozone layer, menyerap sinar ultraviolet. Udaranya stabil, sehingga pesawat jet terbang di bagian bawahnya.
+
+Lalu mesosfer, atau mesosphere, sampai sekitar delapan puluh lima kilometer. Suhunya turun lagi sampai sekitar minus sembilan puluh derajat, terdingin di atmosfer. Meteor terbakar di lapisan ini.
+
+Paling atas adalah termosfer, atau thermosphere. Bagian yang mengandung ion disebut ionosfer, atau ionosphere, yang memantulkan gelombang radio. Di sinilah aurora terjadi. Di belahan utara disebut aurora borealis, di belahan selatan aurora australis. Aurora muncul ketika partikel bermuatan dari matahari diarahkan medan magnet bumi ke kutub dan bertumbukan dengan atom oksigen dan nitrogen.
+
+Bagaimana dengan sesak napas di gunung? Tekanan udara, atau atmospheric pressure, adalah berat kolom udara di atas kita. Di permukaan laut, tekanannya sekitar seribu tiga belas milibar. Makin tinggi, kolom udara di atas kita makin pendek, sehingga tekanan turun. Pada ketinggian sekitar lima koma lima kilometer, tekanannya tinggal separuh. Untuk lapisan bawah, kita bisa memakai pendekatan: tekanan turun sekitar satu milibar setiap naik sepuluh meter.
+
+Sekarang, coba kerjakan soal ini.
+
+Penurunannya adalah dua ribu dibagi sepuluh, yaitu dua ratus milibar. Jadi tekanan di Dieng sekitar seribu dua belas dikurangi dua ratus, sama dengan delapan ratus dua belas milibar. Jawabannya C. Ingat, pendekatan ini hanya berlaku kasar untuk beberapa kilometer pertama.
+
+Ada dua jebakan. Pertama, aurora bukan pantulan sinar matahari oleh es kutub. Kedua, lapisan ozon pelindung ada di stratosfer. Ozon di dekat permukaan justru polutan.
+
+Ringkasnya: troposfer tempat cuaca, stratosfer tempat ozon, dan tekanan udara turun saat kita naik. Video berikutnya membahas radiasi matahari dan insolasi. Latihan soalnya ada di O S N Geo titik I D.

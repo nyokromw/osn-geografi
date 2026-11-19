@@ -1,0 +1,23 @@
+Ini video nomor tiga dari jalur belajar Bab Iklim. Prasyaratnya video nomor satu, Mesin Iklim Bumi.
+
+Pada tanggal dua puluh satu Juni, ada tempat di bumi yang menerima energi matahari harian lebih banyak daripada ekuator. Tempat itu adalah kutub utara. Kok bisa? Jawabannya ada di cara matahari mengirim energi ke bumi.
+
+Semua benda memancarkan radiasi sesuai suhunya. Hubungannya dijelaskan oleh hukum pergeseran Wien, atau Wien's displacement law: panjang gelombang puncak sama dengan dua ribu delapan ratus sembilan puluh delapan dibagi suhu mutlak, dengan hasil dalam mikrometer. Makin panas bendanya, makin pendek panjang gelombangnya.
+
+Matahari, dengan suhu permukaan sekitar lima ribu delapan ratus kelvin, memancarkan puncak pada sekitar nol koma lima mikrometer, yaitu cahaya tampak. Inilah radiasi gelombang pendek, atau shortwave radiation. Bumi, sekitar dua ratus delapan puluh delapan kelvin, memancarkan puncak pada sekitar sepuluh mikrometer, yaitu inframerah. Inilah radiasi gelombang panjang, atau longwave radiation.
+
+Ada juga hukum Stefan Boltzmann, atau Stefan Boltzmann law: energi total yang dipancarkan sebanding dengan suhu mutlak pangkat empat. Artinya, kalau suhu mutlak naik dua kali, energi yang dipancarkan naik enam belas kali.
+
+Radiasi matahari yang sampai ke permukaan bumi disebut insolasi, singkatan dari incoming solar radiation. Di puncak atmosfer, setiap meter persegi yang menghadap tegak lurus ke matahari menerima sekitar seribu tiga ratus enam puluh satu watt. Angka ini disebut konstanta matahari, atau solar constant. Tetapi karena bumi bulat dan berotasi, rata-rata yang diterima seluruh permukaan hanya sekitar seperempatnya, yaitu sekitar tiga ratus empat puluh watt per meter persegi.
+
+Besarnya insolasi di suatu tempat ditentukan empat faktor. Pertama, sudut datang sinar, atau angle of incidence. Sinar tegak lurus memusatkan energi ke area sempit, sedangkan sinar miring menyebarkan energi yang sama ke area lebih luas dan menembus atmosfer yang lebih tebal. Kedua, lama penyinaran, atau day length, yaitu panjang siang, yang bergantung pada lintang dan musim. Ketiga, jarak bumi dan matahari. Bumi paling dekat ke matahari sekitar tanggal tiga Januari, disebut perihelion, dan paling jauh sekitar empat Juli, disebut aphelion. Pengaruhnya relatif kecil. Keempat, keadaan atmosfer, seperti awan, aerosol, dan uap air.
+
+Sekarang kembali ke kutub utara. Pada dua puluh satu Juni, matahari bersinar dua puluh empat jam di sana. Walaupun sudut sinarnya miring, lamanya penyinaran membuat total energi hariannya melampaui ekuator. Tetapi suhu kutub tetap rendah, karena es memantulkan banyak sinar, dan sebagian besar energinya dipakai untuk mencairkan es.
+
+Sekarang, coba kerjakan soal ini.
+
+Gunakan hukum Wien. Panjang gelombang puncak sama dengan dua ribu delapan ratus sembilan puluh delapan dibagi dua ratus delapan puluh delapan, hasilnya sekitar sepuluh mikrometer. Itu termasuk inframerah, atau gelombang panjang. Jawabannya D.
+
+Ada dua jebakan. Pertama, musim di bumi bukan disebabkan jarak bumi dan matahari, melainkan kemiringan sumbu bumi, atau axial tilt, sebesar dua puluh tiga setengah derajat. Buktinya, saat perihelion di bulan Januari, belahan bumi utara justru musim dingin. Kedua, menerima insolasi besar belum tentu panas, karena ada pantulan dan energi untuk mencairkan es.
+
+Ringkasnya: matahari mengirim gelombang pendek, bumi memancarkan gelombang panjang, dan insolasi ditentukan sudut sinar, lama penyinaran, jarak, serta atmosfer. Video berikutnya membahas albedo dan neraca energi. Latihan soalnya ada di O S N Geo titik I D.
