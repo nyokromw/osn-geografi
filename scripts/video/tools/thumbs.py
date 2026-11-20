@@ -35,6 +35,14 @@ CFG = {
    formal="Sirkulasi Tiga Sel dan Angin Pasat", desc="Sel Hadley, Ferrel, dan kutub; ITCZ dan doldrums, antipasat, tekanan tinggi subtropis dan gurun dunia, angin pasat, baratan, timuran kutub, serta front kutub.",
    q=["KENAPA GURUN BERJAJAR", "DI LINTANG 30°?"], tag="jawabannya: sel Hadley",
    a=("t120.000.png", (280, 300, 1100, 990)), f=("t120.000.png", (250, 260, 1880, 960)), u=("t22.000.png", (0, 0, 1920, 940))),
+ "b01n10": dict(no=10, osn=["ITCZ &", "MONSUN"], hl="barat · timur · pancaroba", badge="5 ISTILAH ASING OSN", osnsub="ITCZ · west monsoon · east monsoon",
+   formal="ITCZ dan Monsun di Indonesia", desc="Pergeseran ITCZ mengikuti matahari, monsun barat yang basah, monsun timur yang kering, pancaroba, serta wilayah yang tidak mengikuti pola monsun seperti Pontianak dan Ambon.",
+   q=["KENAPA AMBON HUJAN", "SAAT JAWA KEMARAU?"], tag="jawabannya: monsun timur",
+   a=("t48.000.png", (240, 200, 1040, 1000)), f=("t110.000.png", (100, 225, 1270, 935)), u=("t185.000.png", (100, 225, 1270, 935))),
+ "b01n11": dict(no=11, osn=["SIRKULASI", "WALKER"], hl="naik Indonesia · turun Peru", badge="6 ISTILAH ASING OSN", osnsub="Walker circulation · warm pool · upwelling",
+   formal="Sirkulasi Walker di Ekuator Pasifik", desc="Sirkulasi meridional dan zonal, kolam air hangat Indonesia, upwelling Peru, loop udara naik dan turun di sepanjang ekuator, pemantauan Tahiti–Darwin, dan kaitannya dengan El Niño, La Niña, serta MJO.",
+   q=["KENAPA LAUT INDONESIA", "HANGAT, PERU DINGIN?"], tag="jawabannya: sirkulasi Walker",
+   a=("t123.000.png", (60, 380, 1230, 960)), f=("t123.000.png", (60, 380, 1230, 960)), u=("t18.000.png", (0, 0, 1920, 940))),
 }
 ONLY = sys.argv[1:]
 for film, c in CFG.items():
