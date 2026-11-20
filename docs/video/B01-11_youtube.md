@@ -22,8 +22,8 @@ https://osngeo.id
 0:54 Kondisi normal: laut
 1:35 Kondisi normal: atmosfer
 2:04 Tahiti dan Darwin
-2:18 Kaitan dengan El Niño dan La Niña
-2:36 MJO
+2:18 El Niño, La Niña, dan MJO
+2:45 Contoh soal OSN
 3:01 Dua jebakan
 3:17 Ringkasan dan glosarium
 3:32 Penutup
