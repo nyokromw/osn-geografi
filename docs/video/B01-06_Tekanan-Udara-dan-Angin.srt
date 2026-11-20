@@ -1,0 +1,268 @@
+1
+00:00:03,000 --> 00:00:06,200
+Buka aplikasi cuaca, lalu lihat peta angin.
+
+2
+00:00:06,420 --> 00:00:10,570
+Kamu akan melihat garis-garis melengkung dan huruf besar H dan L.
+
+3
+00:00:10,990 --> 00:00:15,230
+Garis dan huruf itulah kunci untuk menebak ke mana angin bertiup dan seberapa
+
+4
+00:00:15,280 --> 00:00:15,840
+kencang.
+
+5
+00:00:16,340 --> 00:00:19,250
+Angin adalah udara yang bergerak secara horizontal.
+
+6
+00:00:19,640 --> 00:00:23,480
+Penyebab utamanya adalah perbedaan tekanan udara, dan perbedaan tekanan
+
+7
+00:00:23,530 --> 00:00:25,380
+lahir dari perbedaan pemanasan.
+
+8
+00:00:25,840 --> 00:00:27,930
+Bayangkan dua tempat yang bersebelahan.
+
+9
+00:00:28,340 --> 00:00:30,890
+Tempat pertama dipanaskan matahari dengan kuat.
+
+10
+00:00:31,330 --> 00:00:34,990
+Udaranya mengembang, menjadi lebih ringan, lalu naik.
+
+11
+00:00:35,010 --> 00:00:37,680
+Akibatnya, tekanan di permukaannya turun.
+
+12
+00:00:37,840 --> 00:00:41,050
+Inilah tekanan rendah karena panas, atau thermal low.
+
+13
+00:00:41,370 --> 00:00:42,980
+Tempat kedua lebih dingin.
+
+14
+00:00:43,030 --> 00:00:46,730
+Udaranya padat dan turun, sehingga tekanan di permukaan naik.
+
+15
+00:00:46,960 --> 00:00:49,690
+Inilah tekanan tinggi, atau high pressure.
+
+16
+00:00:50,130 --> 00:00:54,270
+Udara selalu bergerak dari tekanan tinggi ke tekanan rendah, seperti udara
+
+17
+00:00:54,320 --> 00:00:56,300
+yang keluar dari balon yang ditusuk.
+
+18
+00:00:56,750 --> 00:00:58,830
+Gerakan inilah yang kita sebut angin.
+
+19
+00:00:58,940 --> 00:01:03,740
+Tekanan udara diukur dengan barometer, dalam satuan milibar atau hektopascal.
+
+20
+00:01:03,760 --> 00:01:06,470
+Satu milibar sama dengan satu hektopascal.
+
+21
+00:01:06,940 --> 00:01:11,130
+Di peta cuaca, tempat-tempat yang tekanannya sama dihubungkan dengan garis
+
+22
+00:01:11,180 --> 00:01:12,550
+yang disebut isobar.
+
+23
+00:01:12,890 --> 00:01:16,290
+Dalam bahasa Inggris istilahnya sama, isobar.
+
+24
+00:01:16,780 --> 00:01:21,170
+Pusat tekanan tinggi diberi huruf H dari kata high, dan pusat tekanan rendah
+
+25
+00:01:21,220 --> 00:01:23,290
+diberi huruf L dari kata low.
+
+26
+00:01:23,730 --> 00:01:28,440
+Dalam peta berbahasa Indonesia, kadang ditulis T untuk tinggi dan R untuk
+
+27
+00:01:28,490 --> 00:01:29,140
+rendah.
+
+28
+00:01:29,570 --> 00:01:31,970
+Sekarang perhatikan jarak antarisobar.
+
+29
+00:01:32,440 --> 00:01:37,350
+Selisih tekanan dibagi jarak disebut gradien barometrik, atau pressure gradient.
+
+30
+00:01:37,430 --> 00:01:41,960
+Dalam soal, gradien biasanya dinyatakan dalam milibar per seratus sebelas
+
+31
+00:01:42,010 --> 00:01:46,590
+kilometer, karena seratus sebelas kilometer sama dengan satu derajat lintang.
+
+32
+00:01:47,030 --> 00:01:48,410
+Aturannya sederhana.
+
+33
+00:01:48,500 --> 00:01:53,510
+Makin rapat isobar, makin besar gradien barometrik, dan makin kencang angin.
+
+34
+00:01:53,890 --> 00:01:56,740
+Makin renggang isobar, makin lemah anginnya.
+
+35
+00:01:57,120 --> 00:02:01,740
+Di sekitar badai, isobar sangat rapat, sehingga angin bisa sangat kencang.
+
+36
+00:02:02,220 --> 00:02:06,070
+Di daerah tekanan tinggi yang luas, isobar renggang dan udara cenderung
+
+37
+00:02:06,120 --> 00:02:06,710
+tenang.
+
+38
+00:02:06,850 --> 00:02:11,120
+Gaya yang mendorong udara dari tekanan tinggi ke tekanan rendah disebut
+
+39
+00:02:11,170 --> 00:02:14,730
+gaya gradien tekanan, atau pressure gradient force.
+
+40
+00:02:15,160 --> 00:02:17,140
+Arahnya tegak lurus isobar.
+
+41
+00:02:17,460 --> 00:02:20,240
+Gaya inilah yang pertama kali menggerakkan udara.
+
+42
+00:02:20,660 --> 00:02:25,160
+Tetapi di dunia nyata, angin tidak bertiup lurus tegak lurus isobar.
+
+43
+00:02:25,620 --> 00:02:30,200
+Ada gaya lain yang membelokkannya, dan itu kita bahas di video berikutnya.
+
+44
+00:02:30,640 --> 00:02:35,130
+Perbedaan pemanasan juga menjelaskan pola tekanan di atas benua dan lautan.
+
+45
+00:02:35,150 --> 00:02:39,320
+Pada bulan Januari, daratan Asia sangat dingin sehingga terbentuk tekanan
+
+46
+00:02:39,370 --> 00:02:40,540
+tinggi Siberia.
+
+47
+00:02:40,920 --> 00:02:44,930
+Sementara itu, Australia sedang musim panas dan bertekanan rendah.
+
+48
+00:02:45,190 --> 00:02:47,510
+Pada bulan Juli, keadaannya berbalik.
+
+49
+00:02:47,810 --> 00:02:51,530
+Pola inilah yang nantinya melahirkan angin monsun di Indonesia.
+
+50
+00:02:51,970 --> 00:02:54,210
+Sekarang, coba kerjakan soal ini.
+
+51
+00:02:58,500 --> 00:03:03,110
+Selisih tekanannya seribu dua belas dikurangi seribu empat, yaitu delapan
+
+52
+00:03:03,160 --> 00:03:03,990
+milibar.
+
+53
+00:03:04,370 --> 00:03:08,380
+Jaraknya empat ratus empat puluh empat kilometer, atau empat kali seratus
+
+54
+00:03:08,430 --> 00:03:09,550
+sebelas kilometer.
+
+55
+00:03:09,570 --> 00:03:14,790
+Jadi gradien barometriknya delapan dibagi empat, yaitu dua milibar per seratus
+
+56
+00:03:14,840 --> 00:03:16,140
+sebelas kilometer.
+
+57
+00:03:16,520 --> 00:03:21,280
+Angin bertiup dari kota P ke kota Q, dari tekanan tinggi ke tekanan rendah.
+
+58
+00:03:21,580 --> 00:03:22,950
+Jawabannya B.
+
+59
+00:03:23,360 --> 00:03:24,680
+Ada dua jebakan.
+
+60
+00:03:25,090 --> 00:03:28,250
+Pertama, angin diberi nama menurut arah asalnya.
+
+61
+00:03:28,610 --> 00:03:32,870
+Angin barat adalah angin yang datang dari barat, bukan yang menuju ke barat.
+
+62
+00:03:33,360 --> 00:03:38,190
+Kedua, isobar yang rapat berarti angin kencang, bukan tekanan tinggi.
+
+63
+00:03:38,210 --> 00:03:39,130
+Ringkasnya:
+
+64
+00:03:39,280 --> 00:03:44,110
+perbedaan pemanasan menciptakan perbedaan tekanan, udara bergerak dari tekanan
+
+65
+00:03:44,160 --> 00:03:47,850
+tinggi ke rendah, dan isobar yang rapat berarti angin kencang.
+
+66
+00:03:48,320 --> 00:03:52,000
+Berikutnya, kita lihat bagaimana rotasi bumi membelokkan angin.
+
+67
+00:03:52,440 --> 00:03:55,750
+Latihan soalnya ada di OSNGEO.id.
+

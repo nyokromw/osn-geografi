@@ -1,0 +1,23 @@
+Badai besar di Amerika Serikat selalu berputar berlawanan arah jarum jam. Badai di Australia berputar searah jarum jam. Tetapi hampir tidak pernah ada badai yang lahir tepat di garis khatulistiwa. Ketiganya disebabkan oleh satu hal: bumi berputar.
+
+Bayangkan kamu melempar bola dari kutub utara ke arah selatan. Selama bola melayang, bumi di bawahnya terus berputar ke timur. Bagi orang yang berdiri di bumi, bola itu tampak berbelok ke kanan. Pembelokan semu akibat rotasi bumi ini disebut gaya Coriolis, atau Coriolis effect. Disebut semu, karena sebenarnya tidak ada yang mendorong bola. Kitalah yang ikut berputar bersama bumi.
+
+Aturan gaya Coriolis wajib dihafal. Di belahan bumi utara, benda yang bergerak dibelokkan ke kanan. Di belahan bumi selatan, dibelokkan ke kiri. Besarnya nol di ekuator dan maksimum di kutub. Selain itu, makin cepat angin bertiup, makin besar pembelokannya.
+
+Karena gaya Coriolis nol di ekuator, udara di dekat khatulistiwa tidak bisa diputar menjadi pusaran. Itulah sebabnya siklon tropis hampir tidak pernah terbentuk di lintang nol sampai lima derajat.
+
+Sekarang kita gabungkan dengan video sebelumnya. Udara mula-mula didorong gaya gradien tekanan dari tekanan tinggi ke tekanan rendah. Begitu bergerak, gaya Coriolis membelokkannya. Di lapisan atas, sekitar satu kilometer ke atas, tidak ada gesekan. Pembelokan terus terjadi sampai gaya Coriolis seimbang dengan gaya gradien tekanan. Hasilnya, angin bertiup sejajar isobar. Angin ini disebut angin geostropik, atau geostrophic wind.
+
+Di dekat permukaan, ada gaya ketiga, yaitu gaya gesekan, atau friction. Pohon, bukit, dan bangunan memperlambat angin. Karena angin melambat, gaya Coriolis ikut melemah, sehingga angin memotong isobar menuju tekanan rendah dengan sudut sekitar sepuluh sampai empat puluh lima derajat. Gesekan lebih besar di daratan kasar daripada di laut.
+
+Semua ini dirangkum dalam hukum Buys Ballot, atau Buys Ballot's law. Angin bertiup dari tekanan tinggi ke tekanan rendah, dibelokkan ke kanan di belahan bumi utara dan ke kiri di belahan bumi selatan. Cara praktisnya: di belahan bumi utara, kalau kamu membelakangi angin, tekanan rendah ada di sebelah kirimu.
+
+Sekarang lihat pusat-pusat tekanan. Siklon, atau cyclone, adalah sistem tekanan rendah. Udara mengalir menuju pusatnya, atau konvergen, lalu naik dan membentuk awan serta hujan. Di belahan bumi utara, siklon berputar berlawanan arah jarum jam, di belahan bumi selatan searah jarum jam. Antisiklon, atau anticyclone, adalah sistem tekanan tinggi. Udara turun di pusatnya lalu menyebar, atau divergen, sehingga cuaca cerah dan kering. Arah putarannya berkebalikan dengan siklon.
+
+Sekarang, coba kerjakan soal ini.
+
+Darwin ada di belahan bumi selatan, sehingga angin dibelokkan ke kiri. Kalau kita membelakangi angin di belahan bumi selatan, tekanan rendah ada di sebelah kanan. Jawabannya D.
+
+Ada dua jebakan. Pertama, arah putaran air di wastafel tidak ditentukan gaya Coriolis, karena skalanya terlalu kecil. Kedua, gaya Coriolis tidak membuat angin, hanya membelokkan arahnya.
+
+Ringkasnya: Coriolis membelokkan ke kanan di utara dan ke kiri di selatan, nol di ekuator, angin geostropik sejajar isobar, dan gesekan membuat angin permukaan memotong isobar. Berikutnya, angin-angin lokal di sekitar kita. Latihan soalnya ada di O S N Geo titik I D.

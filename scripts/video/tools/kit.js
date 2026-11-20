@@ -210,7 +210,7 @@ export function run(cfg) {
       else if (S === 'outro') outro(ctx, t, SC.outro[0], SC.outro[0] + 1.4, 'Menu Soal Pendalaman Materi  ·  Bab 1', cfg.next);
       else DRAW[S](ctx, t);
       if (S !== 'intro' && S !== 'outro') { centerMark(ctx, S === 'ringkas' ? 0.9 : 1, S === 'ringkas' ? C.cream : C.forest); if (S !== 'ringkas') termCard(ctx, t); }
-      lowerThird(ctx, t, `OSNGEO.id  ·  Bab 1 Iklim  ·  Video #${cfg.no}  ·  ${cfg.code}`);
+      lowerThird(ctx, t, cfg.lt || `OSNGEO.id  ·  Bab 1 Iklim  ·  Video #${cfg.no}  ·  ${cfg.code}`);
       if (S !== 'intro') captions(ctx, t);
       cornerMark(ctx);
     },

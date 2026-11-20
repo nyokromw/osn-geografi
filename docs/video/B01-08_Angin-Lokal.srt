@@ -1,0 +1,272 @@
+1
+00:00:03,000 --> 00:00:07,250
+Nelayan tradisional di pesisir Indonesia berangkat melaut dini hari dan
+
+2
+00:00:07,300 --> 00:00:08,470
+pulang siang hari.
+
+3
+00:00:08,840 --> 00:00:12,840
+Petani tembakau di Probolinggo justru cemas saat angin kering turun dari
+
+4
+00:00:12,890 --> 00:00:14,070
+Pegunungan Tengger.
+
+5
+00:00:14,350 --> 00:00:16,730
+Keduanya berurusan dengan angin lokal.
+
+6
+00:00:17,290 --> 00:00:21,870
+Angin lokal, atau local wind, adalah angin yang terjadi karena perbedaan
+
+7
+00:00:21,920 --> 00:00:25,980
+pemanasan dalam skala kecil, hanya beberapa puluh kilometer, dan berubah
+
+8
+00:00:26,030 --> 00:00:27,290
+arah dalam sehari.
+
+9
+00:00:27,720 --> 00:00:29,150
+Kita mulai dari pantai.
+
+10
+00:00:29,610 --> 00:00:32,990
+Pada siang hari, daratan lebih cepat panas daripada laut.
+
+11
+00:00:33,120 --> 00:00:35,940
+Udara di atas daratan naik dan tekanannya turun.
+
+12
+00:00:36,330 --> 00:00:39,000
+Udara dari laut yang lebih sejuk bergerak ke darat.
+
+13
+00:00:39,500 --> 00:00:43,340
+Inilah angin laut, atau sea breeze, yang biasanya bertiup sekitar pukul
+
+14
+00:00:43,390 --> 00:00:45,270
+sembilan pagi sampai empat sore.
+
+15
+00:00:45,720 --> 00:00:47,970
+Pada malam hari, keadaannya berbalik.
+
+16
+00:00:48,180 --> 00:00:51,930
+Daratan lebih cepat dingin, sehingga tekanan di darat lebih tinggi daripada
+
+17
+00:00:51,980 --> 00:00:52,640
+di laut.
+
+18
+00:00:52,960 --> 00:00:54,810
+Angin bertiup dari darat ke laut.
+
+19
+00:00:55,150 --> 00:00:59,130
+Inilah angin darat, atau land breeze, sekitar pukul delapan malam sampai
+
+20
+00:00:59,180 --> 00:00:59,990
+enam pagi.
+
+21
+00:01:00,430 --> 00:01:02,510
+Sekarang kamu tahu rahasia nelayan.
+
+22
+00:01:02,550 --> 00:01:06,360
+Mereka berangkat dini hari didorong angin darat, dan pulang siang hari didorong
+
+23
+00:01:06,410 --> 00:01:07,230
+angin laut.
+
+24
+00:01:07,960 --> 00:01:09,970
+Pola yang mirip terjadi di pegunungan.
+
+25
+00:01:10,320 --> 00:01:14,070
+Pada siang hari, lereng gunung lebih cepat panas daripada udara di atas
+
+26
+00:01:14,120 --> 00:01:15,850
+lembah pada ketinggian yang sama.
+
+27
+00:01:16,240 --> 00:01:18,420
+Udara naik dari lembah menyusuri lereng.
+
+28
+00:01:18,870 --> 00:01:23,610
+Inilah angin lembah, atau valley breeze, yang juga disebut angin anabatik,
+
+29
+00:01:23,660 --> 00:01:25,140
+atau anabatic wind.
+
+30
+00:01:25,560 --> 00:01:27,860
+Pada malam hari, lereng cepat dingin.
+
+31
+00:01:28,240 --> 00:01:30,790
+Udara dingin yang berat mengalir turun ke lembah.
+
+32
+00:01:30,840 --> 00:01:35,990
+Inilah angin gunung, atau mountain breeze, yang disebut juga angin katabatik,
+
+33
+00:01:36,040 --> 00:01:37,510
+atau katabatic wind.
+
+34
+00:01:37,950 --> 00:01:42,040
+Angin gunung inilah yang membuat udara dingin berkumpul di lembah dan kaldera
+
+35
+00:01:42,090 --> 00:01:43,290
+pada malam hari.
+
+36
+00:01:43,720 --> 00:01:47,890
+Jenis berikutnya adalah angin jatuh, yaitu angin yang turun menuruni lereng
+
+37
+00:01:47,940 --> 00:01:48,750
+pegunungan.
+
+38
+00:01:49,080 --> 00:01:53,310
+Ada yang panas dan kering, disebut angin fohn, atau foehn wind.
+
+39
+00:01:53,700 --> 00:01:56,860
+Udara lembap naik di lereng depan dan menurunkan hujan.
+
+40
+00:01:57,220 --> 00:02:01,190
+Setelah melewati puncak, udara yang sudah kering turun dan memanas di lereng
+
+41
+00:02:01,240 --> 00:02:01,920
+belakang.
+
+42
+00:02:02,050 --> 00:02:05,210
+Perhitungan lengkapnya kita bahas di video efek fohn.
+
+43
+00:02:05,520 --> 00:02:08,760
+Indonesia punya banyak angin fohn dengan nama lokal.
+
+44
+00:02:09,200 --> 00:02:13,420
+Angin Gending di Probolinggo dan Pasuruan, turun dari Pegunungan Tengger
+
+45
+00:02:13,470 --> 00:02:16,540
+pada Juli sampai September dan merusak tembakau.
+
+46
+00:02:16,980 --> 00:02:19,140
+Angin Kumbang di Cirebon dan Tegal.
+
+47
+00:02:19,460 --> 00:02:21,060
+Angin Brubu di Makassar.
+
+48
+00:02:21,430 --> 00:02:25,710
+Angin Bahorok di Deli, Sumatra Utara, yang merusak tembakau Deli.
+
+49
+00:02:26,170 --> 00:02:28,170
+Dan angin Wambraw di Biak, Papua.
+
+50
+00:02:28,190 --> 00:02:32,880
+Ada juga angin jatuh yang dingin, disebut angin bora, atau bora wind.
+
+51
+00:02:32,940 --> 00:02:38,540
+Contoh terkenalnya di pantai Laut Adriatik, ketika udara sangat dingin dari
+
+52
+00:02:38,590 --> 00:02:40,830
+dataran tinggi meluncur turun ke pantai.
+
+53
+00:02:41,290 --> 00:02:43,420
+Sekarang, coba kerjakan soal ini.
+
+54
+00:02:47,780 --> 00:02:51,990
+Dini hari, daratan lebih dingin daripada laut, sehingga tekanan di darat
+
+55
+00:02:52,040 --> 00:02:52,840
+lebih tinggi.
+
+56
+00:02:53,180 --> 00:02:56,340
+Angin bertiup dari darat ke laut, yaitu angin darat.
+
+57
+00:02:56,600 --> 00:02:57,940
+Jawabannya E.
+
+58
+00:02:58,350 --> 00:02:59,570
+Ada dua jebakan.
+
+59
+00:02:59,870 --> 00:03:04,890
+Pertama, angin laut bertiup dari laut ke darat, bukan sebaliknya, karena
+
+60
+00:03:04,940 --> 00:03:07,250
+nama angin mengikuti asalnya.
+
+61
+00:03:07,520 --> 00:03:12,000
+Kedua, angin fohn itu kering dan panas, sedangkan angin bora dingin, walaupun
+
+62
+00:03:12,050 --> 00:03:13,820
+keduanya sama-sama angin jatuh.
+
+63
+00:03:14,200 --> 00:03:15,040
+Ringkasnya:
+
+64
+00:03:15,060 --> 00:03:19,750
+angin laut siang dan angin darat malam, angin lembah siang dan angin gunung
+
+65
+00:03:19,800 --> 00:03:22,620
+malam, serta angin fohn yang kering dan panas.
+
+66
+00:03:23,040 --> 00:03:25,300
+Berikutnya, kita naik ke skala dunia:
+
+67
+00:03:25,420 --> 00:03:27,850
+sirkulasi tiga sel dan angin pasat.
+
+68
+00:03:28,080 --> 00:03:31,630
+Latihan soalnya ada di OSNGEO.id.
+

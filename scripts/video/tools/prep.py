@@ -14,7 +14,7 @@ s = sh(f"ffmpeg -hide_banner -nostats -i {A}/vo/raw.mp3 -af silencedetect=noise=
 v = re.findall(r"silence_(start|end): ([0-9.]+)", s); vals = [float(x[1]) for x in v]
 if len(vals) % 2: vals = vals[:-1]
 open(f"{A}/sil.txt", "w").write("\n".join(f"{vals[i]} {vals[i+1]}" for i in range(0, len(vals), 2)) + "\n")
-md = open("/home/user/osn-geografi/docs/video/B01-02-05_naskah.md").read()
+md = open(os.environ.get("NASKAH", "/home/user/osn-geografi/docs/video/B01-02-05_naskah.md")).read()
 blk = re.findall(r"```\n(.*?)```", md, re.S)[block]
 open(f"{A}/script.txt", "w").write(blk.strip() + "\n")
 al = open(f"{V}/b01v02/audio/align.py").read().replace("max(0, j - 8)", "max(0, j - 16)"); al = re.sub(r"^DUR = .*$", f"DUR = {D}", al, flags=re.M)

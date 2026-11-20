@@ -1,0 +1,23 @@
+Ratusan tahun lalu, kapal layar Eropa berlayar ke Amerika melalui rute selatan, lalu pulang lewat rute utara. Gurun-gurun terbesar dunia berjajar di sekitar lintang tiga puluh derajat. Dan di sekitar khatulistiwa, para pelaut takut terjebak di laut tanpa angin. Semuanya diatur oleh satu pola: sirkulasi atmosfer global.
+
+Ekuator menerima lebih banyak energi daripada yang dipancarkannya, sedangkan kutub sebaliknya. Atmosfer bekerja seperti mesin raksasa yang memindahkan kelebihan panas dari tropis ke kutub. Karena bumi berputar, pemindahan ini terpecah menjadi tiga sel di setiap belahan bumi. Inilah model tiga sel, atau three cell model.
+
+Sel pertama adalah sel Hadley, atau Hadley cell, dari ekuator sampai sekitar lintang tiga puluh derajat. Di ekuator, udara panas naik dan membentuk sabuk tekanan rendah yang banyak hujan. Zona ini disebut Zona Konvergensi Intertropis, atau Intertropical Convergence Zone, disingkat I T C Z. Anginnya lemah dan tidak menentu, sehingga para pelaut menyebutnya doldrums.
+
+Di lapisan atas, udara mengalir ke arah kutub sebagai angin antipasat, atau antitrade winds. Udara ini mendingin, lalu turun di sekitar lintang tiga puluh derajat dan membentuk sabuk tekanan tinggi subtropis, atau subtropical high. Udara yang turun memanas dan kering, sehingga gurun-gurun besar seperti Sahara, Arab, Kalahari, dan gurun Australia berada di sekitar lintang ini. Pelaut menyebut daerah tenang ini horse latitudes.
+
+Dari sabuk subtropis, udara permukaan kembali ke ekuator. Gaya Coriolis membelokkannya. Di belahan bumi utara, angin ini datang dari timur laut, disebut pasat timur laut. Di belahan bumi selatan, datang dari tenggara, disebut pasat tenggara. Dalam bahasa Inggris, angin pasat disebut trade winds, karena dulu menjadi andalan kapal dagang.
+
+Sel kedua adalah sel Ferrel, atau Ferrel cell, dari lintang tiga puluh sampai enam puluh derajat. Udara permukaan bergerak ke arah kutub, lalu dibelokkan menjadi angin baratan, atau westerlies. Sel Ferrel tidak digerakkan oleh pemanasan langsung, melainkan diputar oleh dua sel di sampingnya, seperti roda gigi.
+
+Sel ketiga adalah sel kutub, atau polar cell, dari lintang enam puluh derajat sampai kutub. Udara dingin turun di kutub, membentuk tekanan tinggi kutub, lalu mengalir ke arah lintang enam puluh sebagai angin timuran kutub, atau polar easterlies. Di sekitar lintang enam puluh, udara kutub yang dingin bertemu angin baratan yang lebih hangat. Batas ini disebut front kutub, atau polar front, tempat lahirnya siklon lintang tengah.
+
+Jadi dari ekuator ke kutub, sabuk tekanannya bergantian: rendah di ekuator, tinggi di tiga puluh, rendah di enam puluh, dan tinggi di kutub.
+
+Sekarang, coba kerjakan soal ini.
+
+Berangkat ke barat di lintang lima sampai tiga puluh derajat lintang utara, kapal didorong pasat timur laut. Pulang ke timur di lintang tiga puluh sampai enam puluh derajat, kapal didorong angin baratan. Jawabannya A.
+
+Ada dua jebakan. Pertama, pasat tenggara hanya bertiup di belahan bumi selatan, jadi tidak bisa dipakai di rute Atlantik utara. Kedua, sel Ferrel tidak digerakkan langsung oleh pemanasan.
+
+Ringkasnya: tiga sel di tiap belahan bumi, Hadley, Ferrel, dan kutub. Angin pasat bertiup ke ekuator, angin baratan di lintang tengah, dan gurun berjajar di sabuk tekanan tinggi subtropis. Berikutnya, I T C Z yang bergeser dan lahirnya monsun. Latihan soalnya ada di O S N Geo titik I D.

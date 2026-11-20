@@ -1,0 +1,25 @@
+Buka aplikasi cuaca, lalu lihat peta angin. Kamu akan melihat garis-garis melengkung dan huruf besar H dan L. Garis dan huruf itulah kunci untuk menebak ke mana angin bertiup dan seberapa kencang.
+
+Angin adalah udara yang bergerak secara horizontal. Penyebab utamanya adalah perbedaan tekanan udara, dan perbedaan tekanan lahir dari perbedaan pemanasan.
+
+Bayangkan dua tempat yang bersebelahan. Tempat pertama dipanaskan matahari dengan kuat. Udaranya mengembang, menjadi lebih ringan, lalu naik. Akibatnya, tekanan di permukaannya turun. Inilah tekanan rendah karena panas, atau thermal low. Tempat kedua lebih dingin. Udaranya padat dan turun, sehingga tekanan di permukaan naik. Inilah tekanan tinggi, atau high pressure.
+
+Udara selalu bergerak dari tekanan tinggi ke tekanan rendah, seperti udara yang keluar dari balon yang ditusuk. Gerakan inilah yang kita sebut angin.
+
+Tekanan udara diukur dengan barometer, dalam satuan milibar atau hektopascal. Satu milibar sama dengan satu hektopascal. Di peta cuaca, tempat-tempat yang tekanannya sama dihubungkan dengan garis yang disebut isobar. Dalam bahasa Inggris istilahnya sama, isobar. Pusat tekanan tinggi diberi huruf H dari kata high, dan pusat tekanan rendah diberi huruf L dari kata low. Dalam peta berbahasa Indonesia, kadang ditulis T untuk tinggi dan R untuk rendah.
+
+Sekarang perhatikan jarak antarisobar. Selisih tekanan dibagi jarak disebut gradien barometrik, atau pressure gradient. Dalam soal, gradien biasanya dinyatakan dalam milibar per seratus sebelas kilometer, karena seratus sebelas kilometer sama dengan satu derajat lintang.
+
+Aturannya sederhana. Makin rapat isobar, makin besar gradien barometrik, dan makin kencang angin. Makin renggang isobar, makin lemah anginnya. Di sekitar badai, isobar sangat rapat, sehingga angin bisa sangat kencang. Di daerah tekanan tinggi yang luas, isobar renggang dan udara cenderung tenang.
+
+Gaya yang mendorong udara dari tekanan tinggi ke tekanan rendah disebut gaya gradien tekanan, atau pressure gradient force. Arahnya tegak lurus isobar. Gaya inilah yang pertama kali menggerakkan udara. Tetapi di dunia nyata, angin tidak bertiup lurus tegak lurus isobar. Ada gaya lain yang membelokkannya, dan itu kita bahas di video berikutnya.
+
+Perbedaan pemanasan juga menjelaskan pola tekanan di atas benua dan lautan. Pada bulan Januari, daratan Asia sangat dingin sehingga terbentuk tekanan tinggi Siberia. Sementara itu, Australia sedang musim panas dan bertekanan rendah. Pada bulan Juli, keadaannya berbalik. Pola inilah yang nantinya melahirkan angin monsun di Indonesia.
+
+Sekarang, coba kerjakan soal ini.
+
+Selisih tekanannya seribu dua belas dikurangi seribu empat, yaitu delapan milibar. Jaraknya empat ratus empat puluh empat kilometer, atau empat kali seratus sebelas kilometer. Jadi gradien barometriknya delapan dibagi empat, yaitu dua milibar per seratus sebelas kilometer. Angin bertiup dari kota P ke kota Q, dari tekanan tinggi ke tekanan rendah. Jawabannya B.
+
+Ada dua jebakan. Pertama, angin diberi nama menurut arah asalnya. Angin barat adalah angin yang datang dari barat, bukan yang menuju ke barat. Kedua, isobar yang rapat berarti angin kencang, bukan tekanan tinggi.
+
+Ringkasnya: perbedaan pemanasan menciptakan perbedaan tekanan, udara bergerak dari tekanan tinggi ke rendah, dan isobar yang rapat berarti angin kencang. Berikutnya, kita lihat bagaimana rotasi bumi membelokkan angin. Latihan soalnya ada di O S N Geo titik I D.

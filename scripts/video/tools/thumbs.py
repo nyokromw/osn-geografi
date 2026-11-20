@@ -19,8 +19,26 @@ CFG = {
    formal="Suhu Udara: Amplitudo, Ketinggian, dan Inversi", desc="Pengaruh darat dan laut, amplitudo suhu, rumus Braak, zona Junghuhn, inversi suhu, embun upas Dieng, serta isoterm dan ekuator termal.",
    q=["KENAPA PUNCAK", "GUNUNG DINGIN?"], tag="padahal lebih dekat ke matahari",
    a=("t154.000.png", (100, 290, 1830, 900)), f=("t154.000.png", (100, 290, 1830, 900)), u=("t112.000.png", (110, 290, 990, 900))),
+ "b01n06": dict(no=6, osn=["TEKANAN", "& ANGIN"], hl="isobar · gradien barometrik", badge="6 ISTILAH ASING OSN", osnsub="pressure gradient · thermal low · Siberian High",
+   formal="Tekanan Udara dan Lahirnya Angin", desc="Perbedaan pemanasan, tekanan rendah dan tinggi, isobar, gradien barometrik dalam mb per 111 km, gaya gradien tekanan, serta pola tekanan Januari dan Juli di Asia–Australia.",
+   q=["KENAPA ANGIN", "BISA BERTIUP?"], tag="jawabannya ada di peta isobar",
+   a=("t158.000.png", (300, 200, 1100, 1000)), f=("t118.000.png", (100, 230, 1820, 930)), u=("t158.000.png", (180, 140, 1220, 1000))),
+ "b01n07": dict(no=7, osn=["GAYA", "CORIOLIS"], hl="kanan di BBU, kiri di BBS", badge="8 ISTILAH ASING OSN", osnsub="geostrophic wind · Buys Ballot's law · cyclone",
+   formal="Gaya Coriolis, Gesekan, dan Hukum Buys Ballot", desc="Mengapa angin dibelokkan rotasi bumi, angin geostropik, peran gesekan, hukum Buys Ballot, serta siklon dan antisiklon di kedua belahan bumi.",
+   q=["KENAPA BADAI", "SELALU BERPUTAR?"], tag="karena bumi berputar",
+   a=("t9.000.png", (540, 170, 1380, 1010)), f=("t173.000.png", (60, 380, 1860, 960)), u=("t9.000.png", (360, 90, 1560, 1090))),
+ "b01n08": dict(no=8, osn=["ANGIN", "LOKAL"], hl="laut · darat · lembah · fohn", badge="7 ISTILAH ASING OSN", osnsub="sea breeze · katabatic wind · foehn wind",
+   formal="Angin Lokal: Angin Laut, Darat, Lembah, Gunung, dan Fohn", desc="Angin laut dan darat, angin lembah dan gunung (anabatik–katabatik), angin fohn beserta nama-nama lokalnya di Indonesia, dan angin bora.",
+   q=["KENAPA NELAYAN", "BERANGKAT DINI HARI?"], tag="jawabannya: angin darat",
+   a=("t132.000.png", (100, 230, 1820, 930)), f=("t63.000.png", (0, 330, 1920, 940)), u=("t63.000.png", (0, 300, 1920, 940))),
+ "b01n09": dict(no=9, osn=["SIRKULASI", "TIGA SEL"], hl="Hadley · Ferrel · kutub", badge="11 ISTILAH ASING OSN", osnsub="Hadley cell · trade winds · westerlies · ITCZ",
+   formal="Sirkulasi Tiga Sel dan Angin Pasat", desc="Sel Hadley, Ferrel, dan kutub; ITCZ dan doldrums, antipasat, tekanan tinggi subtropis dan gurun dunia, angin pasat, baratan, timuran kutub, serta front kutub.",
+   q=["KENAPA GURUN BERJAJAR", "DI LINTANG 30°?"], tag="jawabannya: sel Hadley",
+   a=("t120.000.png", (280, 300, 1100, 990)), f=("t120.000.png", (250, 260, 1880, 960)), u=("t22.000.png", (0, 0, 1920, 940))),
 }
+ONLY = sys.argv[1:]
 for film, c in CFG.items():
+    if ONLY and film not in ONLY: continue
     B = f"{V}/{film}"
     for k in "afu":
         fn, box = c[k]; Image.open(f"{V}/out/{film}/stills/{fn}").crop(box).save(f"{B}/thumb_{k}.png")
