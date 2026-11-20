@@ -1,0 +1,268 @@
+1
+00:00:03,000 --> 00:00:08,280
+Ratusan tahun lalu, kapal layar Eropa berlayar ke Amerika melalui rute selatan,
+
+2
+00:00:08,330 --> 00:00:10,200
+lalu pulang lewat rute utara.
+
+3
+00:00:10,480 --> 00:00:15,050
+Gurun-gurun terbesar dunia berjajar di sekitar lintang tiga puluh derajat.
+
+4
+00:00:15,440 --> 00:00:20,100
+Dan di sekitar khatulistiwa, para pelaut takut terjebak di laut tanpa angin.
+
+5
+00:00:20,570 --> 00:00:22,580
+Semuanya diatur oleh satu pola:
+
+6
+00:00:22,670 --> 00:00:24,680
+sirkulasi atmosfer global.
+
+7
+00:00:25,120 --> 00:00:29,240
+Ekuator menerima lebih banyak energi daripada yang dipancarkannya, sedangkan
+
+8
+00:00:29,290 --> 00:00:30,470
+kutub sebaliknya.
+
+9
+00:00:30,490 --> 00:00:34,530
+Atmosfer bekerja seperti mesin raksasa yang memindahkan kelebihan panas
+
+10
+00:00:34,580 --> 00:00:35,970
+dari tropis ke kutub.
+
+11
+00:00:36,410 --> 00:00:40,490
+Karena bumi berputar, pemindahan ini terpecah menjadi tiga sel di setiap
+
+12
+00:00:40,540 --> 00:00:41,490
+belahan bumi.
+
+13
+00:00:41,920 --> 00:00:45,070
+Inilah model tiga sel, atau three cell model.
+
+14
+00:00:45,430 --> 00:00:50,640
+Sel pertama adalah sel Hadley, atau Hadley cell, dari ekuator sampai sekitar
+
+15
+00:00:50,690 --> 00:00:52,160
+lintang tiga puluh derajat.
+
+16
+00:00:52,550 --> 00:00:57,190
+Di ekuator, udara panas naik dan membentuk sabuk tekanan rendah yang banyak
+
+17
+00:00:57,240 --> 00:00:57,820
+hujan.
+
+18
+00:00:57,840 --> 00:01:03,270
+Zona ini disebut Zona Konvergensi Intertropis, atau Intertropical Convergence
+
+19
+00:01:03,320 --> 00:01:05,410
+Zone, disingkat I T C Z.
+
+20
+00:01:05,940 --> 00:01:10,370
+Anginnya lemah dan tidak menentu, sehingga para pelaut menyebutnya doldrums.
+
+21
+00:01:10,760 --> 00:01:15,710
+Di lapisan atas, udara mengalir ke arah kutub sebagai angin antipasat, atau
+
+22
+00:01:15,760 --> 00:01:17,050
+antitrade winds.
+
+23
+00:01:17,420 --> 00:01:21,960
+Udara ini mendingin, lalu turun di sekitar lintang tiga puluh derajat dan
+
+24
+00:01:22,010 --> 00:01:26,310
+membentuk sabuk tekanan tinggi subtropis, atau subtropical high.
+
+25
+00:01:26,330 --> 00:01:30,580
+Udara yang turun memanas dan kering, sehingga gurun-gurun besar seperti
+
+26
+00:01:30,630 --> 00:01:35,810
+Sahara, Arab, Kalahari, dan gurun Australia berada di sekitar lintang ini.
+
+27
+00:01:36,310 --> 00:01:39,800
+Pelaut menyebut daerah tenang ini horse latitudes.
+
+28
+00:01:40,210 --> 00:01:43,900
+Dari sabuk subtropis, udara permukaan kembali ke ekuator.
+
+29
+00:01:44,280 --> 00:01:46,150
+Gaya Coriolis membelokkannya.
+
+30
+00:01:46,560 --> 00:01:51,080
+Di belahan bumi utara, angin ini datang dari timur laut, disebut pasat timur
+
+31
+00:01:51,130 --> 00:01:51,700
+laut.
+
+32
+00:01:52,210 --> 00:01:56,660
+Di belahan bumi selatan, datang dari tenggara, disebut pasat tenggara.
+
+33
+00:01:56,680 --> 00:02:01,600
+Dalam bahasa Inggris, angin pasat disebut trade winds, karena dulu menjadi
+
+34
+00:02:01,650 --> 00:02:02,970
+andalan kapal dagang.
+
+35
+00:02:03,410 --> 00:02:08,570
+Sel kedua adalah sel Ferrel, atau Ferrel cell, dari lintang tiga puluh sampai
+
+36
+00:02:08,620 --> 00:02:09,890
+enam puluh derajat.
+
+37
+00:02:10,310 --> 00:02:14,700
+Udara permukaan bergerak ke arah kutub, lalu dibelokkan menjadi angin baratan,
+
+38
+00:02:14,750 --> 00:02:16,130
+atau westerlies.
+
+39
+00:02:16,530 --> 00:02:20,830
+Sel Ferrel tidak digerakkan oleh pemanasan langsung, melainkan diputar oleh
+
+40
+00:02:20,880 --> 00:02:23,350
+dua sel di sampingnya, seperti roda gigi.
+
+41
+00:02:23,370 --> 00:02:28,600
+Sel ketiga adalah sel kutub, atau polar cell, dari lintang enam puluh derajat
+
+42
+00:02:28,650 --> 00:02:29,660
+sampai kutub.
+
+43
+00:02:30,120 --> 00:02:34,460
+Udara dingin turun di kutub, membentuk tekanan tinggi kutub, lalu mengalir
+
+44
+00:02:34,510 --> 00:02:39,700
+ke arah lintang enam puluh sebagai angin timuran kutub, atau polar easterlies.
+
+45
+00:02:40,090 --> 00:02:44,060
+Di sekitar lintang enam puluh, udara kutub yang dingin bertemu angin baratan
+
+46
+00:02:44,110 --> 00:02:45,090
+yang lebih hangat.
+
+47
+00:02:45,530 --> 00:02:50,370
+Batas ini disebut front kutub, atau polar front, tempat lahirnya siklon
+
+48
+00:02:50,420 --> 00:02:51,300
+lintang tengah.
+
+49
+00:02:51,320 --> 00:02:55,080
+Jadi dari ekuator ke kutub, sabuk tekanannya bergantian:
+
+50
+00:02:55,190 --> 00:03:00,150
+rendah di ekuator, tinggi di tiga puluh, rendah di enam puluh, dan tinggi
+
+51
+00:03:00,200 --> 00:03:01,040
+di kutub.
+
+52
+00:03:01,500 --> 00:03:03,760
+Sekarang, coba kerjakan soal ini.
+
+53
+00:03:08,180 --> 00:03:12,230
+Berangkat ke barat di lintang lima sampai tiga puluh derajat lintang utara,
+
+54
+00:03:12,280 --> 00:03:14,260
+kapal didorong pasat timur laut.
+
+55
+00:03:14,670 --> 00:03:18,860
+Pulang ke timur di lintang tiga puluh sampai enam puluh derajat, kapal didorong
+
+56
+00:03:18,910 --> 00:03:19,930
+angin baratan.
+
+57
+00:03:20,090 --> 00:03:21,640
+Jawabannya A.
+
+58
+00:03:22,010 --> 00:03:23,200
+Ada dua jebakan.
+
+59
+00:03:23,220 --> 00:03:27,440
+Pertama, pasat tenggara hanya bertiup di belahan bumi selatan, jadi tidak
+
+60
+00:03:27,490 --> 00:03:29,810
+bisa dipakai di rute Atlantik utara.
+
+61
+00:03:30,240 --> 00:03:33,840
+Kedua, sel Ferrel tidak digerakkan langsung oleh pemanasan.
+
+62
+00:03:34,190 --> 00:03:35,090
+Ringkasnya:
+
+63
+00:03:35,260 --> 00:03:39,570
+tiga sel di tiap belahan bumi, Hadley, Ferrel, dan kutub.
+
+64
+00:03:40,070 --> 00:03:44,810
+Angin pasat bertiup ke ekuator, angin baratan di lintang tengah, dan gurun
+
+65
+00:03:44,860 --> 00:03:48,650
+berjajar di sabuk tekanan tinggi subtropis.
+
+66
+00:03:48,850 --> 00:03:52,320
+Berikutnya, I T C Z yang bergeser dan lahirnya monsun.
+
+67
+00:03:52,750 --> 00:03:56,520
+Latihan soalnya ada di OSNGEO.id.
+
