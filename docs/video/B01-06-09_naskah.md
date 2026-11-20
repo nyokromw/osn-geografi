@@ -179,7 +179,7 @@ Berangkat ke barat di lintang lima sampai tiga puluh derajat lintang utara, kapa
 
 Ada dua jebakan. Pertama, pasat tenggara hanya bertiup di belahan bumi selatan, jadi tidak bisa dipakai di rute Atlantik utara. Kedua, sel Ferrel tidak digerakkan langsung oleh pemanasan.
 
-Ringkasnya: tiga sel di tiap belahan bumi, Hadley, Ferrel, dan kutub. Angin pasat bertiup ke ekuator, angin baratan di lintang tengah, dan gurun berjajar di sabuk tekanan tinggi subtropis. Berikutnya, ITCZ yang bergeser dan lahirnya monsun. Latihan soalnya ada di O S N Geo titik I D.
+Ringkasnya: tiga sel di tiap belahan bumi, Hadley, Ferrel, dan kutub. Angin pasat bertiup ke ekuator, angin baratan di lintang tengah, dan gurun berjajar di sabuk tekanan tinggi subtropis. Berikutnya, I T C Z yang bergeser dan lahirnya monsun. Latihan soalnya ada di O S N Geo titik I D.
 ```
 
 **Kartu istilah:** Model tiga sel / *three cell model* · Sel Hadley / *Hadley cell* · ITCZ / *Intertropical Convergence Zone, doldrums* · Antipasat / *antitrade winds* · Tekanan tinggi subtropis / *subtropical high, horse latitudes* · Angin pasat / *trade winds* · Sel Ferrel / *Ferrel cell* · Angin baratan / *westerlies* · Sel kutub / *polar cell* · Angin timuran kutub / *polar easterlies* · Front kutub / *polar front*
