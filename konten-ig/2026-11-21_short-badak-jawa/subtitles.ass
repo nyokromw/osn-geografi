@@ -1,0 +1,73 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,OSN Sub,70,&H00FAFEFF,&H00FAFEFF,&H00231916,&H96231916,0,0,0,0,100,100,-1,0,1,7,0,2,90,90,420,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.55,Sub,,0,0,0,,{\fad(60,40)}Badak jawa mau {\c&H4F79E0&}dipindahkan{\c&H00FAFEFF&}
+Dialogue: 0,0:00:01.50,0:00:02.48,Sub,,0,0,0,,{\fad(60,40)}dari {\c&H4F79E0&}Ujung Kulon{\c&H00FAFEFF&}?
+Dialogue: 0,0:00:03.05,0:00:04.56,Sub,,0,0,0,,{\fad(60,40)}Ini alasan kenapa ramai
+Dialogue: 0,0:00:04.89,0:00:06.55,Sub,,0,0,0,,{\fad(60,40)}dan kenapa topik ini bisa
+Dialogue: 0,0:00:06.50,0:00:08.31,Sub,,0,0,0,,{\fad(60,40)}keluar di soal {\c&H4F79E0&}OSN Geografi{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:09.00,0:00:10.59,Sub,,0,0,0,,{\fad(60,40)}Badak jawa adalah salah satu
+Dialogue: 0,0:00:10.54,0:00:12.25,Sub,,0,0,0,,{\fad(60,40)}mamalia paling {\c&H4F79E0&}langka{\c&H00FAFEFF&} di dunia.
+Dialogue: 0,0:00:12.75,0:00:15.51,Sub,,0,0,0,,{\fad(60,40)}Populasinya diperkirakan tinggal {\c&H4F79E0&}puluhan ekor{\c&H00FAFEFF&}
+Dialogue: 0,0:00:15.51,0:00:16.62,Sub,,0,0,0,,{\fad(60,40)}dan semuanya hidup
+Dialogue: 0,0:00:16.57,0:00:17.45,Sub,,0,0,0,,{\fad(60,40)}di satu tempat:
+Dialogue: 0,0:00:17.95,0:00:19.39,Sub,,0,0,0,,{\fad(60,40)}Taman Nasional {\c&H4F79E0&}Ujung Kulon{\c&H00FAFEFF&}
+Dialogue: 0,0:00:19.63,0:00:20.82,Sub,,0,0,0,,{\fad(60,40)}di ujung barat Pulau Jawa.
+Dialogue: 0,0:00:20.82,0:00:21.11,Sub,,0,0,0,,{\fad(60,40)}Nah
+Dialogue: 0,0:00:21.70,0:00:23.18,Sub,,0,0,0,,{\fad(60,40)}di sinilah masalahnya.
+Dialogue: 0,0:00:23.56,0:00:25.34,Sub,,0,0,0,,{\fad(60,40)}Kalau satu spesies cuma punya
+Dialogue: 0,0:00:25.29,0:00:27.02,Sub,,0,0,0,,{\fad(60,40)}satu populasi di satu lokasi
+Dialogue: 0,0:00:27.27,0:00:28.41,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}satu bencana{\c&H00FAFEFF&} saja
+Dialogue: 0,0:00:28.36,0:00:29.89,Sub,,0,0,0,,{\fad(60,40)}bisa menghapus semuanya.
+Dialogue: 0,0:00:30.12,0:00:31.13,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}Ujung Kulon{\c&H00FAFEFF&} berada
+Dialogue: 0,0:00:31.08,0:00:32.04,Sub,,0,0,0,,{\fad(60,40)}dekat Selat Sunda
+Dialogue: 0,0:00:32.30,0:00:34.35,Sub,,0,0,0,,{\fad(60,40)}yang pernah diterjang {\c&H4F79E0&}tsunami{\c&H00FAFEFF&}
+Dialogue: 0,0:00:34.30,0:00:36.02,Sub,,0,0,0,,{\fad(60,40)}Anak Krakatau tahun 2018.
+Dialogue: 0,0:00:36.68,0:00:38.41,Sub,,0,0,0,,{\fad(60,40)}Belum lagi risiko {\c&H4F79E0&}wabah penyakit{\c&H00FAFEFF&}
+Dialogue: 0,0:00:38.68,0:00:40.00,Sub,,0,0,0,,{\fad(60,40)}dan {\c&H4F79E0&}kawin sedarah{\c&H00FAFEFF&} yang
+Dialogue: 0,0:00:39.95,0:00:41.63,Sub,,0,0,0,,{\fad(60,40)}menurunkan {\c&H4F79E0&}keragaman genetik{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:42.19,0:00:43.87,Sub,,0,0,0,,{\fad(60,40)}Karena itu muncul wacana lama:
+Dialogue: 0,0:00:44.25,0:00:45.70,Sub,,0,0,0,,{\fad(60,40)}membentuk {\c&H4F79E0&}populasi kedua{\c&H00FAFEFF&}
+Dialogue: 0,0:00:45.65,0:00:46.58,Sub,,0,0,0,,{\fad(60,40)}di {\c&H4F79E0&}habitat{\c&H00FAFEFF&} lain.
+Dialogue: 0,0:00:47.21,0:00:48.98,Sub,,0,0,0,,{\fad(60,40)}Kementerian Kehutanan menyebut ini
+Dialogue: 0,0:00:48.93,0:00:50.40,Sub,,0,0,0,,{\fad(60,40)}masih menunggu {\c&H4F79E0&}kajian ilmiah{\c&H00FAFEFF&}
+Dialogue: 0,0:00:50.80,0:00:52.13,Sub,,0,0,0,,{\fad(60,40)}dan {\c&H4F79E0&}Ujung Kulon{\c&H00FAFEFF&} tetap
+Dialogue: 0,0:00:52.08,0:00:53.23,Sub,,0,0,0,,{\fad(60,40)}jadi {\c&H4F79E0&}habitat utama{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:53.88,0:00:55.32,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}Alas Purwo{\c&H00FAFEFF&} dan {\c&H4F79E0&}Baluran{\c&H00FAFEFF&}
+Dialogue: 0,0:00:55.27,0:00:57.22,Sub,,0,0,0,,{\fad(60,40)}disebut-sebut sebagai kandidat.
+Dialogue: 0,0:00:57.70,0:00:59.05,Sub,,0,0,0,,{\fad(60,40)}Tapi banyak yang {\c&H4F79E0&}menolak{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:59.27,0:01:01.36,Sub,,0,0,0,,{\fad(60,40)}Pemerintah Provinsi Banten keberatan
+Dialogue: 0,0:01:01.58,0:01:03.64,Sub,,0,0,0,,{\fad(60,40)}dan WWF mengingatkan pemindahan
+Dialogue: 0,0:01:03.59,0:01:05.21,Sub,,0,0,0,,{\fad(60,40)}bisa membuat badak {\c&H4F79E0&}stres{\c&H00FAFEFF&}
+Dialogue: 0,0:01:05.50,0:01:06.44,Sub,,0,0,0,,{\fad(60,40)}bahkan {\c&H4F79E0&}mati{\c&H00FAFEFF&}.
+Dialogue: 0,0:01:07.08,0:01:08.67,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}Habitat{\c&H00FAFEFF&} baru juga harus cocok:
+Dialogue: 0,0:01:09.06,0:01:09.86,Sub,,0,0,0,,{\fad(60,40)}ada {\c&H4F79E0&}pakan{\c&H00FAFEFF&}
+Dialogue: 0,0:01:10.09,0:01:10.92,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}sumber air{\c&H00FAFEFF&}
+Dialogue: 0,0:01:11.22,0:01:12.14,Sub,,0,0,0,,{\fad(60,40)}tempat {\c&H4F79E0&}berkubang{\c&H00FAFEFF&}
+Dialogue: 0,0:01:12.37,0:01:13.19,Sub,,0,0,0,,{\fad(60,40)}dan {\c&H4F79E0&}daya dukung{\c&H00FAFEFF&}
+Dialogue: 0,0:01:13.14,0:01:14.02,Sub,,0,0,0,,{\fad(60,40)}lahan yang cukup.
+Dialogue: 0,0:01:14.70,0:01:15.16,Sub,,0,0,0,,{\fad(60,40)}Jadi
+Dialogue: 0,0:01:15.48,0:01:16.61,Sub,,0,0,0,,{\fad(60,40)}kalau ketemu soal
+Dialogue: 0,0:01:16.56,0:01:17.70,Sub,,0,0,0,,{\fad(60,40)}konservasi di {\c&H4F79E0&}OSN{\c&H00FAFEFF&}
+Dialogue: 0,0:01:18.00,0:01:19.40,Sub,,0,0,0,,{\fad(60,40)}ingat tiga kata kunci:
+Dialogue: 0,0:01:19.90,0:01:20.35,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}habitat{\c&H00FAFEFF&}
+Dialogue: 0,0:01:20.81,0:01:21.49,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}daya dukung{\c&H00FAFEFF&}
+Dialogue: 0,0:01:21.79,0:01:23.08,Sub,,0,0,0,,{\fad(60,40)}dan {\c&H4F79E0&}keragaman genetik{\c&H00FAFEFF&}.
+Dialogue: 0,0:01:23.75,0:01:25.59,Sub,,0,0,0,,{\fad(60,40)}Plus satu fakta biogeografi:
+Dialogue: 0,0:01:25.99,0:01:28.35,Sub,,0,0,0,,{\fad(60,40)}badak jawa termasuk {\c&H4F79E0&}fauna Asiatis{\c&H00FAFEFF&}
+Dialogue: 0,0:01:28.66,0:01:30.32,Sub,,0,0,0,,{\fad(60,40)}di sebelah barat {\c&H4F79E0&}garis Wallace{\c&H00FAFEFF&}.
+Dialogue: 0,0:01:30.94,0:01:31.66,Sub,,0,0,0,,{\fad(60,40)}Menurut kamu
+Dialogue: 0,0:01:32.00,0:01:33.81,Sub,,0,0,0,,{\fad(60,40)}badak jawa sebaiknya {\c&H4F79E0&}dipindahkan{\c&H00FAFEFF&}
+Dialogue: 0,0:01:34.14,0:01:35.51,Sub,,0,0,0,,{\fad(60,40)}atau tetap di {\c&H4F79E0&}Ujung Kulon{\c&H00FAFEFF&}?
+Dialogue: 0,0:01:35.80,0:01:37.44,Sub,,0,0,0,,{\fad(60,40)}Tulis pendapatmu di kolom komentar
+Dialogue: 0,0:01:37.71,0:01:39.78,Sub,,0,0,0,,{\fad(60,40)}dan follow OSNGEO untuk belajar
+Dialogue: 0,0:01:39.73,0:01:41.62,Sub,,0,0,0,,{\fad(60,40)}geografi dari berita terkini.
