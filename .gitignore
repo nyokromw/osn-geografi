@@ -47,3 +47,4 @@ next-env.d.ts
 
 # rekaman mentah demo (besar)
 konten-ig/**/rec/
+konten-ig/out/
