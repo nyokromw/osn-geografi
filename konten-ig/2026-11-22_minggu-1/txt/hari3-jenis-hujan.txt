@@ -1,0 +1,41 @@
+## HARI 3 · Selasa, 24 Nov · Konsep visual
+
+### 🎬 Reel: "Kenapa Indonesia cuma punya 2 musim?" (±30 detik)
+Audio: VO jelas + musik pelan · Visual: peta Asia–Australia sederhana dengan panah angin animasi (CapCut keyframe atau Canva animate)
+
+| Detik | Visual | Teks di layar | Voice-over |
+|---|---|---|---|
+| 0–3 | Wajah/HP menghadap kamera, ekspresi bingung | **Kenapa Indonesia cuma punya 2 musim? 🤔** | "Pernah kepikiran kenapa Indonesia cuma punya dua musim?" |
+| 3–8 | Peta dengan Indonesia di antara dua benua | **Jawabannya: angin muson** | "Jawabannya ada di angin muson, angin yang arahnya berbalik tiap setengah tahun." |
+| 8–16 | Panah dari Asia → Indonesia → Australia, warna biru | **Muson Barat (±Okt–Apr):** dari Asia, lewat samudra luas → **basah = hujan** 🌧️ | "Sekitar Oktober sampai April, angin bertiup dari Asia, melewati samudra luas, dan membawa banyak uap air. Hasilnya: musim hujan." |
+| 16–24 | Panah dari Australia → Indonesia, warna oranye | **Muson Timur (±Apr–Okt):** dari Australia, lewat gurun → **kering = kemarau** ☀️ | "Sebaliknya, April sampai Oktober angin datang dari Australia yang kering. Itulah musim kemarau." |
+| 24–28 | Matahari bergeser utara–selatan | **Pemicunya: gerak semu matahari → beda tekanan udara** | "Pemicunya gerak semu matahari yang membuat tekanan udara di dua benua bergantian tinggi-rendah." |
+| 28–30 | Logo | **Soal kayak gini sering keluar di topik Iklim! Follow 🔔** | |
+
+**Caption Reel:**
+```
+2 musim, 1 penyebab: ANGIN MUSON 🌬️
+
+🌧️ Muson Barat (±Okt–Apr) → dari Asia, lembap → musim hujan
+☀️ Muson Timur (±Apr–Okt) → dari Australia, kering → musim kemarau
+
+Konsep ini dasar banget buat topik Iklim di OSN. Udah paham? Tulis "PAHAM" di komen 👇
+
+#OSNGeografi #AnginMuson #Iklim #BelajarGeografi #OSN2027 #FaktaGeografi
+```
+
+### 🖼️ Feed: Carousel "4 Jenis Hujan" · `feed/hari3-jenis-hujan/` (6 slide)
+**Caption:**
+```
+Orografis, konveksi, frontal, siklonal: apa bedanya? 🌧️
+
+Triknya cuma satu pertanyaan: APA yang membuat udara naik?
+⛰️ Orografis → lereng gunung
+☀️ Konveksi → pemanasan matahari
+🌡️ Frontal → pertemuan massa udara panas & dingin
+🌀 Siklonal → pusat tekanan rendah
+
+Geser sampai akhir untuk ringkasannya, lalu simpan 🔖
+
+#OSNGeografi #JenisHujan #Iklim #Atmosfer #BelajarGeografi #OSN2027
+```

@@ -1,0 +1,21 @@
+# Paket Produksi @osngeo.id · Minggu 1 (22–28 November 2026)
+
+Format: Reels 9:16 (1080×1920), durasi 15–35 detik · Feed 4:5 (1080×1350), file PNG ada di folder `feed/`.
+
+**Jadwal unggah:** Reel 16.00–17.00 WIB · Feed 19.00–20.00 WIB
+
+**Gaya visual Reel** (samakan dengan feed):
+- Latar hijau tua `#1D4138`, aksen oranye `#E0794F`, krem `#F7F1E8`
+- Font: DM Sans (tebal) untuk teks utama, Instrument Serif *italic* untuk kata yang ditekankan
+- Teks di layar maksimal 2 baris dan di luar area aman: jangan menaruh teks di 250 px teratas dan 350 px terbawah
+
+**Hashtag dasar** (pakai di semua postingan, tambah 2–3 hashtag topik):
+`#OSNGeografi #OSN2027 #OSNK #OlimpiadeGeografi #BelajarGeografi #Geografi #AnakSMA #osngeo`
+
+## Checklist sebelum posting
+- [ ] Cek ulang jadwal resmi OSN 2027 (Puspresnas) sebelum menyebut tanggal atau hitung mundur
+- [ ] Cek harga paket masih sama (Hari 5)
+- [ ] Rekam layar Hari 5 memakai akun demo dan tidak menampilkan data pribadi
+- [ ] Pasang link osngeo.id di bio
+- [ ] Balas komentar jawaban kuis/soal dalam 1 jam pertama untuk membantu jangkauan
+- [ ] Sematkan (pin) postingan Hari 1 (peta materi) dan Hari 5 (paket) di profil

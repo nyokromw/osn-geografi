@@ -1,0 +1,50 @@
+## HARI 5 · Kamis, 26 Nov · Promosi platform
+
+### 🎬 Reel: "Cara coba tryout OSN Geografi gratis" (±30 detik)
+Audio: musik upbeat + suara klik · Visual: **rekam layar HP** di osngeo.id, dipercepat 1,5–2×, dengan kursor/jari terlihat
+
+| Detik | Visual | Teks di layar |
+|---|---|---|
+| 0–3 | Wajah kaget lihat HP / teks besar | **Pernah ngerasain soal level OSN? Coba dulu, GRATIS 👀** |
+| 3–8 | Rekam layar: buka osngeo.id → daftar | **1. Daftar akun (gratis)** |
+| 8–14 | Pilih menu tryout → Latihan OSN-K | **2. Pilih tryout OSN-K atau OSN-P** |
+| 14–20 | Mengerjakan 2–3 soal, timer terlihat | **3. Kerjakan dengan timer, seperti aslinya ⏱️** |
+| 20–25 | Halaman hasil + pembahasan | **4. Langsung ada pembahasan tiap soal** |
+| 25–28 | Dashboard grafik kemajuan | **5. Pantau perkembanganmu di dashboard 📈** |
+| 28–30 | Logo + link | **3.600+ soal · link di bio 🔗** |
+
+> Tips: sebelum merekam, siapkan akun demo dengan beberapa riwayat tryout supaya grafik dashboard terlihat "hidup". Sembunyikan email/nama asli.
+
+**Caption Reel:**
+```
+Tryout OSN Geografi gratis + pembahasan + grafik kemajuan? Ada 👇
+
+✅ 1 latihan OSN-K & 1 OSN-P
+✅ 13 paket pendalaman per topik
+✅ Pembahasan setiap soal
+✅ Grafik kemajuan belajar
+
+Semuanya GRATIS. Daftar lewat link di bio 🔗
+
+#OSNGeografi #TryoutOSN #TryoutGratis #OSNK #OSNP #OSN2027
+```
+
+### 🖼️ Feed: Carousel "3 Alasan Wajib Tryout" + paket · `feed/hari5-alasan-tryout/` (6 slide)
+**Caption:**
+```
+Yang lolos OSN biasanya bukan yang paling banyak membaca, tapi yang paling banyak BERLATIH 💪
+
+3 alasan kamu wajib tryout sebelum hari-H:
+1️⃣ Kenal pola soal
+2️⃣ Latihan ritme waktu
+3️⃣ Tahu topik terlemahmu
+
+Mulai dari paket Gratis (Rp0), atau ambil akses lebih lengkap:
+💚 Premium Rp50rb/bulan · Rp200rb/tahun
+🖤 Platinum Rp100rb/bulan · Rp500rb/tahun (termasuk 13 modul belajar)
+
+Link di bio 🔗
+
+#OSNGeografi #TryoutOSN #PersiapanOSN #OSN2027 #BelajarGeografi
+```
+> Harga sesuai data paket di database per 21 Nov 2026. Cek ulang sebelum posting jika ada perubahan.

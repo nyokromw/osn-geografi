@@ -1,0 +1,46 @@
+## HARI 6 · Jumat, 27 Nov · Fakta geografi Indonesia
+
+### 🎬 Reel: "5 Fakta Geografi Indonesia yang Sering Keluar di Soal" (±30 detik)
+Audio: beat cepat dengan pergantian visual tiap ketukan · Visual: peta + ikon, satu fakta tiap ±5 detik, nomor besar oranye
+
+| Detik | Teks di layar | Visual |
+|---|---|---|
+| 0–3 | **5 fakta geografi Indonesia yang sering muncul di soal OSN 🇮🇩** | Peta Indonesia zoom-in |
+| 3–8 | **#1 Letak astronomis: 6°LU–11°LS, 95°BT–141°BT** | Garis lintang/bujur di peta |
+| 8–13 | **#2 Pertemuan 3 lempeng besar: Indo-Australia, Eurasia, Pasifik** | Panah lempeng bertabrakan |
+| 13–18 | **#3 Bagian dari Ring of Fire 🔥** | Rangkaian gunung api menyala |
+| 18–23 | **#4 Garis Wallace & Weber membagi wilayah fauna** | Garis di peta + ikon orangutan/anoa/cenderawasih |
+| 23–27 | **#5 Punya 3 zona waktu: WIB, WITA, WIT** | Tiga jam berbeda |
+| 27–30 | **Detail garis Wallace–Weber ada di postingan malam ini 🔖** | Logo |
+
+**Caption Reel:**
+```
+5 fakta ini kecil, tapi sering banget jadi soal 🇮🇩
+
+1. Letak astronomis 6°LU–11°LS, 95°BT–141°BT
+2. Pertemuan Lempeng Indo-Australia, Eurasia, Pasifik
+3. Bagian dari Ring of Fire
+4. Garis Wallace & Weber membagi fauna
+5. Punya 3 zona waktu
+
+Fakta mana yang baru kamu tahu? 👇
+
+#OSNGeografi #FaktaGeografi #GeografiIndonesia #OSN2027 #BelajarGeografi
+```
+
+### 🖼️ Feed: Single peta "Garis Wallace, Weber & Lydekker" · `feed/hari6-garis-wallace-weber/01.png`
+**Caption:**
+```
+Kenapa orangutan cuma ada di barat, tapi cenderawasih cuma ada di timur? 🦧🦜
+
+Jawabannya: 3 garis biogeografi ini 👇
+🟤 Garis Wallace → batas fauna Asiatis (Selat Lombok–Selat Makassar)
+🟠 Garis Weber → garis keseimbangan fauna di wilayah peralihan
+⚫ Garis Lydekker → batas fauna Australis (tepi Paparan Sahul)
+
+Di antara Wallace dan Lydekker ada zona PERALIHAN (Wallacea): rumahnya anoa, babirusa, komodo, dan maleo.
+
+Simpan buat persiapan topik biogeografi 🔖
+
+#OSNGeografi #GarisWallace #Biogeografi #FaunaIndonesia #BelajarGeografi #OSN2027
+```

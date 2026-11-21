@@ -1,0 +1,48 @@
+## HARI 1 · Minggu, 22 Nov · Mulai hitung mundur
+
+### 🎬 Reel: "Roadmap belajar OSN Geografi" (±25 detik)
+Audio: musik lo-fi/upbeat yang sedang tren, volume pelan · Visual: B-roll meja belajar, peta, atlas, buku catatan (rekam dari atas)
+
+| Detik | Visual | Teks di layar | Voice-over (opsional) |
+|---|---|---|---|
+| 0–3 | Tangan membuka atlas, zoom cepat | **Mulai belajar OSN Geografi HARI INI? Ikuti urutan ini 👇** | "Kalau kamu mulai persiapan OSN Geografi hari ini, ini urutannya." |
+| 3–8 | Menulis "FASE 1" di buku | **Fase 1 · Desember:** Geografi fisik (iklim, bencana, geologi) | "Bulan pertama, kuasai dulu geografi fisik: iklim, bencana, dan geologi." |
+| 8–13 | Highlight buku/peta | **Fase 2 · Januari:** Manusia & ekonomi (penduduk, kota, pembangunan) | "Lanjut ke geografi manusia: kependudukan, kota, ekonomi." |
+| 13–18 | Penggaris di atas peta kontur | **Fase 3 · Februari:** Perpetaan + latihan per topik | "Lalu perpetaan dan latihan soal per topik." |
+| 18–23 | Rekaman layar tryout di HP | **Fase 4 · Maret:** Tryout rutin & evaluasi | "Terakhir, tryout rutin dan evaluasi kelemahanmu." |
+| 23–25 | Logo OSNGEO.id | **Save + follow biar nggak ketinggalan materi harian** | "Save video ini, ya!" |
+
+> Catatan: urutan fase ini contoh. Sesuaikan dengan jadwal resmi OSN-K 2027 dari Puspresnas begitu diumumkan.
+
+**Caption Reel:**
+```
+Bingung mulai belajar OSN Geografi dari mana? 🧭
+
+Ini roadmap 4 fase yang bisa kamu ikuti mulai sekarang:
+1️⃣ Geografi fisik
+2️⃣ Geografi manusia & ekonomi
+3️⃣ Perpetaan + latihan per topik
+4️⃣ Tryout rutin & evaluasi
+
+Simpan video ini dan tandai temen seperjuanganmu 👇
+
+#OSNGeografi #OSN2027 #OSNK #OlimpiadeGeografi #BelajarGeografi #TipsBelajar
+```
+
+### 🖼️ Feed: Carousel "13 Topik OSN Geografi" · `feed/hari1-peta-materi/` (6 slide)
+**Caption:**
+```
+13 topik ini yang perlu kamu kuasai untuk OSN Geografi 📚
+
+Dibagi jadi 4 kelompok besar:
+🌋 Geografi Fisik & Lingkungan
+🌾 Sumber Daya & Ekonomi
+🏙️ Manusia & Ruang
+🗺️ Geospasial
+
+Belum tahu topik mana yang paling lemah? Coba 13 paket pendalaman GRATIS (10 soal per topik + pembahasan) di osngeo.id, link di bio.
+
+Simpan postingan ini sebagai peta belajarmu 🔖
+
+#OSNGeografi #OSN2027 #MateriOSN #OlimpiadeGeografi #BelajarGeografi #Geografi
+```

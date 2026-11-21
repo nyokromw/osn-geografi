@@ -1,0 +1,36 @@
+## HARI 4 · Rabu, 25 Nov · 🎉 Hari Guru Nasional
+
+### 🎬 Reel: "Kalimat legendaris guru geografi" (±20 detik)
+Audio: lagu "Hymne Guru" versi instrumental (atau audio haru yang sedang tren) · Format: POV dengan teks + B-roll kelas, papan tulis, globe
+
+| Detik | Visual | Teks di layar |
+|---|---|---|
+| 0–3 | Globe berputar pelan | **Kalimat yang pasti pernah kamu dengar dari guru geografi 🌏** |
+| 3–6 | Tangan menunjuk peta dinding | **"Coba maju, tunjukkan di peta…"** |
+| 6–9 | Papan tulis | **"Ini nanti keluar di ujian, ya."** |
+| 9–12 | Atlas dibuka | **"Atlasnya dibawa, bukan cuma dijadikan bantal."** 😂 |
+| 12–17 | Transisi lambat, cahaya hangat | **Tapi karena beliau, kami tahu arah. Bukan cuma di peta, tapi juga hidup.** |
+| 17–20 | Logo + teks | **Selamat Hari Guru Nasional 🤍 Tag guru geografi terbaikmu!** |
+
+**Caption Reel:**
+```
+Dari "coba tunjukkan di peta" sampai "ini keluar di ujian", semua kalimat itu yang mengantar kami sejauh ini 🧭🤍
+
+Selamat Hari Guru Nasional untuk semua guru geografi dan pembina olimpiade di seluruh Indonesia.
+
+Tag guru geografi terbaikmu di komentar dan kirimkan ucapan terima kasihmu 👇
+
+#HariGuruNasional #HariGuru2026 #TerimaKasihGuru #GuruGeografi #OSNGeografi
+```
+
+### 🖼️ Feed: Single poster ucapan · `feed/hari4-hari-guru-nasional/01.png`
+**Caption:**
+```
+Guru adalah kompas kami: menunjukkan arah, bukan sekadar jalan 🧭
+
+Terima kasih untuk setiap peta yang diajarkan, setiap soal yang dibahas, dan setiap semangat yang ditularkan.
+
+Selamat Hari Guru Nasional, 25 November 2026 🤍
+
+#HariGuruNasional #SelamatHariGuru #GuruGeografi #OSNGeografi #osngeo
+```

@@ -1,0 +1,40 @@
+## HARI 2 · Senin, 23 Nov · Tantangan soal
+
+### 🎬 Reel: "Bisa jawab dalam 15 detik?" (±22 detik)
+Audio: suara detak jam + musik tegang · Visual: teks penuh layar dengan latar hijau tua dan garis kontur (bisa dibuat di Canva/CapCut)
+
+| Detik | Visual | Teks di layar |
+|---|---|---|
+| 0–2 | Zoom-in cepat + efek "ding" | **SOAL OSN-K · 15 DETIK ⏱️** |
+| 2–4 | Soal muncul | **Peta berskala 1 : 50.000. Berapa interval konturnya?** |
+| 4–17 | Pilihan A–D muncul satu per satu + timer 15→0 | A. 10 m · B. 20 m · C. 25 m · D. 50 m |
+| 15–17 | Teks kecil berkedip | **Tulis jawabanmu di komen SEKARANG 👇** |
+| 17–20 | Pilihan C menyala oranye | **Jawaban: C. 25 m** |
+| 20–22 | Rumus | **Ci = 1/2000 × penyebut skala** · "Rumus lengkap di postingan malam ini 🔖" |
+
+**Caption Reel:**
+```
+Jawab dulu SEBELUM jawabannya muncul ya 😤⏱️
+
+Kalau benar, tulis "EZ" di komen.
+Kalau salah, tenang. Malam ini kami posting cheat sheet rumus skala & kontur 🔖
+
+#OSNGeografi #SoalOSN #LatihanSoal #OlimpiadeGeografi #Perpetaan #OSNK
+```
+
+### 🖼️ Feed: Single "Rumus Cepat Skala & Kontur" · `feed/hari2-cheatsheet-skala-kontur/01.png`
+**Caption:**
+```
+5 rumus perpetaan yang WAJIB nempel di kepala sebelum OSN 🗺️
+
+1. Jarak sebenarnya
+2. Mencari skala
+3. Interval kontur
+4. Kemiringan lereng
+5. Skala peta yang diperbesar
+
+Simpan, lalu screenshot buat wallpaper HP belajarmu 😎
+Mau langsung latihan? Paket pendalaman "Perpetaan dan Interpretasi Informasi Geospasial" bisa dicoba gratis, link di bio.
+
+#OSNGeografi #Perpetaan #RumusGeografi #BelajarGeografi #OSN2027
+```
