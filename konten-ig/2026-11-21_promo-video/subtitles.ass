@@ -1,0 +1,48 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,OSN Sub,70,&H00FAFEFF,&H00FAFEFF,&H00231916,&H96231916,0,0,0,0,100,100,-1,0,1,7,0,2,90,90,420,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.62,Sub,,0,0,0,,{\fad(60,40)}Belajar geografi buat {\c&H4F79E0&}OSN{\c&H00FAFEFF&}
+Dialogue: 0,0:00:01.57,0:00:03.15,Sub,,0,0,0,,{\fad(60,40)}kok rasanya berat banget?
+Dialogue: 0,0:00:03.58,0:00:04.83,Sub,,0,0,0,,{\fad(60,40)}Hafalannya banyak
+Dialogue: 0,0:00:05.11,0:00:06.17,Sub,,0,0,0,,{\fad(60,40)}konsepnya {\c&H4F79E0&}abstrak{\c&H00FAFEFF&}
+Dialogue: 0,0:00:06.47,0:00:08.19,Sub,,0,0,0,,{\fad(60,40)}peta dan grafiknya bikin pusing.
+Dialogue: 0,0:00:08.61,0:00:09.09,Sub,,0,0,0,,{\fad(60,40)}Kenalin
+Dialogue: 0,0:00:09.38,0:00:10.90,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}OSNGEO dot ID{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:10.90,0:00:11.88,Sub,,0,0,0,,{\fad(60,40)}Di sini
+Dialogue: 0,0:00:12.46,0:00:13.96,Sub,,0,0,0,,{\fad(60,40)}materi {\c&H4F79E0&}OSN Geografi{\c&H00FAFEFF&} dijelasin
+Dialogue: 0,0:00:13.91,0:00:14.90,Sub,,0,0,0,,{\fad(60,40)}lewat {\c&H4F79E0&}video animasi{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:14.90,0:00:16.34,Sub,,0,0,0,,{\fad(60,40)}Konsep yang tadinya {\c&H4F79E0&}abstrak{\c&H00FAFEFF&}
+Dialogue: 0,0:00:16.89,0:00:18.32,Sub,,0,0,0,,{\fad(60,40)}jadi kelihatan
+Dialogue: 0,0:00:18.58,0:00:19.42,Sub,,0,0,0,,{\fad(60,40)}gampang dipahami
+Dialogue: 0,0:00:19.70,0:00:20.64,Sub,,0,0,0,,{\fad(60,40)}dan nempel di kepala.
+Dialogue: 0,0:00:20.84,0:00:23.94,Sub,,0,0,0,,{\fad(60,40)}Videonya disusun per topik
+Dialogue: 0,0:00:24.21,0:00:25.26,Sub,,0,0,0,,{\fad(60,40)}mengikuti tiga belas
+Dialogue: 0,0:00:25.21,0:00:26.16,Sub,,0,0,0,,{\fad(60,40)}topik {\c&H4F79E0&}OSN Geografi{\c&H00FAFEFF&}
+Dialogue: 0,0:00:26.16,0:00:26.80,Sub,,0,0,0,,{\fad(60,40)}dari iklim
+Dialogue: 0,0:00:27.14,0:00:27.80,Sub,,0,0,0,,{\fad(60,40)}kebencanaan
+Dialogue: 0,0:00:28.06,0:00:28.81,Sub,,0,0,0,,{\fad(60,40)}sampai perpetaan.
+Dialogue: 0,0:00:29.01,0:00:31.27,Sub,,0,0,0,,{\fad(60,40)}Hampir {\c&H4F79E0&}seratus video{\c&H00FAFEFF&} animasi
+Dialogue: 0,0:00:31.22,0:00:33.11,Sub,,0,0,0,,{\fad(60,40)}sedang dirilis bertahap
+Dialogue: 0,0:00:33.41,0:00:35.05,Sub,,0,0,0,,{\fad(60,40)}dan sebagian sudah bisa kamu
+Dialogue: 0,0:00:35.00,0:00:36.30,Sub,,0,0,0,,{\fad(60,40)}tonton {\c&H4F79E0&}gratis{\c&H00FAFEFF&} hari ini.
+Dialogue: 0,0:00:36.95,0:00:37.83,Sub,,0,0,0,,{\fad(60,40)}Habis nonton
+Dialogue: 0,0:00:38.22,0:00:39.58,Sub,,0,0,0,,{\fad(60,40)}langsung uji pemahamanmu.
+Dialogue: 0,0:00:40.18,0:00:42.03,Sub,,0,0,0,,{\fad(60,40)}Ada {\c&H4F79E0&}puluhan paket tryout{\c&H00FAFEFF&}
+Dialogue: 0,0:00:41.98,0:00:43.18,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}OSN{\c&H00FAFEFF&}-K dan {\c&H4F79E0&}OSN{\c&H00FAFEFF&}-P
+Dialogue: 0,0:00:43.52,0:00:44.82,Sub,,0,0,0,,{\fad(60,40)}lengkap dengan {\c&H4F79E0&}pembahasan{\c&H00FAFEFF&}
+Dialogue: 0,0:00:45.17,0:00:46.88,Sub,,0,0,0,,{\fad(60,40)}plus {\c&H4F79E0&}grafik kemajuan{\c&H00FAFEFF&} yang nunjukin
+Dialogue: 0,0:00:46.83,0:00:48.19,Sub,,0,0,0,,{\fad(60,40)}topik mana yang masih lemah.
+Dialogue: 0,0:00:48.85,0:00:49.94,Sub,,0,0,0,,{\fad(60,40)}Belajar lebih gampang
+Dialogue: 0,0:00:50.18,0:00:51.29,Sub,,0,0,0,,{\fad(60,40)}latihan lebih terarah.
+Dialogue: 0,0:00:51.88,0:00:53.59,Sub,,0,0,0,,{\fad(60,40)}Coba {\c&H4F79E0&}gratis{\c&H00FAFEFF&} sekarang di
+Dialogue: 0,0:00:53.54,0:00:54.63,Sub,,0,0,0,,{\fad(60,40)}{\c&H4F79E0&}OSN-GEO dot ID{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:55.13,0:00:56.19,Sub,,0,0,0,,{\fad(60,40)}Link ada di bio.
