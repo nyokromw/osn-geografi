@@ -1,5 +1,9 @@
 export type Environment = 'sandbox' | 'production'
 
+export function sandboxCheckoutEnabled(environment: Environment, isAdmin: boolean, hasKey: boolean) {
+  return environment === 'sandbox' && isAdmin && hasKey
+}
+
 export type GatewayStatus = {
   order_id: string
   transaction_id: string

@@ -1,5 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.106.2'
-import { configuredEnvironment, gatewayRequest, midtransOrderTime, MidtransApiError, qrUrl, validOrderId, validSignature, validateGatewayStatus,
+import { configuredEnvironment, gatewayRequest, midtransOrderTime, MidtransApiError, qrUrl, sandboxCheckoutEnabled, validOrderId, validSignature, validateGatewayStatus,
   type Environment, type GatewayStatus } from '../_shared/midtrans.ts'
 
 const corsHeaders = {
@@ -10,7 +10,7 @@ const corsHeaders = {
 }
 
 // Temporary WhatsApp-only ordering while the Midtrans merchant is verified.
-// Existing orders and notifications remain accessible; no new QRIS is created.
+// Admin-only Sandbox checkout remains available for onboarding documentation.
 const checkoutPaused = true
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
@@ -111,15 +111,16 @@ Deno.serve(async (req: Request) => {
       if (error) throw error
       isAdmin = profile?.role === 'admin'
     }
+    const sandboxTest = sandboxCheckoutEnabled(environment, isAdmin, !!serverKey('sandbox'))
     if (body.action === 'config') return json({ available: live,
-      test_available: !checkoutPaused && isAdmin && environment === 'sandbox' && !!serverKey('sandbox'),
+      test_available: sandboxTest,
       environment, booking_mode: checkoutPaused ? 'whatsapp' : 'qris' })
     if (!user) return json({ error: 'Silakan masuk ke akun OSNGEO.id.' }, 401)
 
     if (body.action === 'create') {
-      if (checkoutPaused) return json({ error: 'Pemesanan paket sementara melalui WhatsApp. Silakan hubungi admin OSNGEO.id.' }, 503)
+      if (checkoutPaused && !sandboxTest) return json({ error: 'Pemesanan paket sementara melalui WhatsApp. Silakan hubungi admin OSNGEO.id.' }, 503)
       if (!Number.isSafeInteger(body.paket_id) || Number(body.paket_id) <= 0) return json({ error: 'Paket tidak valid.' }, 400)
-      if (!live && !(isAdmin && environment === 'sandbox' && serverKey('sandbox'))) {
+      if (!live && !sandboxTest) {
         return json({ error: 'Pembayaran QRIS sedang disiapkan. Hubungi admin untuk membeli paket.' }, 503)
       }
       const { data: created, error } = await db.rpc('midtrans_create_order', {

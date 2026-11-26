@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { ArrowRight, Check, MessageCircle } from 'lucide-react'
 import { accessLabels, membershipFeatures, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
+import { paymentConfig } from '../lib/payments'
 
 export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
   plans: MembershipPlan[]
@@ -10,6 +12,15 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
   onFree?: () => void
   highlightPlanId?: number | null
 }) {
+  const [sandboxCheckout, setSandboxCheckout] = useState(false)
+  const inDashboard = !!onFree
+  useEffect(() => {
+    if (!inDashboard) return
+    let active = true
+    void paymentConfig().then(config => { if (active) setSandboxCheckout(config.test_available) })
+    return () => { active = false }
+  }, [inDashboard])
+
   if (!plans.length) {
     return <p className="mt-5 text-sm text-gray-600">{loading ? 'Memuat paket…' : 'Daftar paket belum tersedia.'}</p>
   }
@@ -66,6 +77,8 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
                     <MessageCircle size={15} className="shrink-0" aria-hidden="true" />{plan.aktif ? 'Pesan via WhatsApp' : 'Tanya via WhatsApp'}
                   </a>
                 )}
+                {!free && plan.aktif && sandboxCheckout && <Link href={`/pembayaran?paket=${plan.id}`}
+                  className="atlas-link mt-3 block text-center text-sm">Uji QRIS (admin)</Link>}
               </div>
             </article>
           )

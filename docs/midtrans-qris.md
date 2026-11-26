@@ -1,6 +1,6 @@
 # Pembayaran QRIS otomatis OSNGEO.id
 
-**Status sementara:** pemesanan paket menggunakan WhatsApp. Tombol paket mengarah ke admin dan `checkoutPaused = true` pada Edge Function menghentikan pembuatan QRIS baru, termasuk uji admin. Riwayat, pemeriksaan status, dan notifikasi pesanan lama tetap tersedia. Untuk melanjutkan QRIS nanti, buka kembali gate ini dan pulihkan tombol checkout di `MembershipPlans` setelah merchant siap dan pengujian berhasil.
+**Status sementara:** pemesanan pelanggan menggunakan WhatsApp. `checkoutPaused = true` menghentikan checkout Production. Admin terautentikasi tetap dapat membuat transaksi Sandbox untuk pengujian dan dokumentasi onboarding; tautan **Uji QRIS (admin)** tersedia pada paket berbayar di dashboard jika kunci Sandbox terpasang dan mode lingkungan Sandbox. Sandbox tidak mengaktifkan keanggotaan sungguhan. Riwayat, pemeriksaan status, dan notifikasi pesanan lama tetap tersedia. Untuk melanjutkan QRIS pelanggan nanti, buka kembali gate Production dan pulihkan tombol checkout di `MembershipPlans` setelah merchant siap dan pengujian berhasil.
 
 Integrasi menggunakan QRIS dinamis GoPay melalui Midtrans Core API. Checkout ada di `/pembayaran?paket=<id>`, riwayat siswa di dashboard **Paket dan akses**, dan riwayat admin di **Transaksi**.
 
@@ -15,7 +15,7 @@ Integrasi menggunakan QRIS dinamis GoPay melalui Midtrans Core API. Checkout ada
    https://lhzlcaxlemlmjhfmichz.supabase.co/functions/v1/midtrans-payment
    ```
 
-5. Masuk OSNGEO.id menggunakan akun admin. Buka **Dashboard → Paket dan akses → Uji pembayaran QRIS**. Selesaikan pembayaran menggunakan [simulator Sandbox Midtrans](https://simulator.sandbox.midtrans.com/), bukan transfer uang sungguhan.
+5. Masuk OSNGEO.id menggunakan akun admin. Buka **Dashboard → Paket dan akses → Uji QRIS (admin)** pada paket yang dipilih. Selesaikan pembayaran menggunakan [simulator Sandbox Midtrans](https://simulator.sandbox.midtrans.com/), bukan transfer uang sungguhan.
 6. Pastikan pesanan berubah menjadi **Lunas** dan diberi label **Simulasi**. Profil dan tanggal kedaluwarsa akun harus tetap sama.
 
 Sandbox hanya tersedia untuk akun dengan `profiles.role = 'admin'`. Pelanggan tetap menggunakan alur pemesanan WhatsApp sampai mode Production diaktifkan. Pembayaran Sandbox tidak pernah mengaktifkan keanggotaan sungguhan.

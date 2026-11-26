@@ -1,5 +1,16 @@
 import { strict as assert } from 'node:assert'
-import { configuredEnvironment, gatewayRequest, midtransOrderTime, MidtransApiError, qrUrl, validOrderId, validQrUrl, validSignature, validateGatewayStatus } from './midtrans.ts'
+import { configuredEnvironment, gatewayRequest, midtransOrderTime, MidtransApiError, qrUrl, sandboxCheckoutEnabled, validOrderId, validQrUrl, validSignature, validateGatewayStatus } from './midtrans.ts'
+
+Deno.test('onboarding checkout is restricted to admins with a Sandbox key in Sandbox', () => {
+  for (const environment of ['sandbox', 'production'] as const) {
+    for (const isAdmin of [false, true]) {
+      for (const hasKey of [false, true]) {
+        assert.equal(sandboxCheckoutEnabled(environment, isAdmin, hasKey),
+          environment === 'sandbox' && isAdmin && hasKey)
+      }
+    }
+  }
+})
 
 const order = { order_id: 'OSNGEO-SB-' + 'a'.repeat(32), nominal: 50000 }
 const status = {
