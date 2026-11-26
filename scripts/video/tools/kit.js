@@ -32,7 +32,26 @@ function buildScenes() {
 }
 
 // ---------------------------------------------------------------- bilingual term cards
+function termBadge(ctx, t) {
+  const TM = CFG.TERMS, N = TM.length;
+  for (let i = 0; i < N; i++) {
+    const [term, eng, , ui] = TM[i];
+    const t0 = typeof ui === 'number' ? U_(ui).v0 : ui();
+    const nx = i < N - 1 ? (typeof TM[i + 1][3] === 'number' ? U_(TM[i + 1][3]).v0 : TM[i + 1][3]()) : 1e9;
+    const t1 = Math.min(t0 + 6, nx - 0.1, SC.soal[0]);
+    if (t < t0 || t > t1 + 0.4) continue;
+    const p = M.spring(t - t0, SPRING.snappy), q = E.inCubic(prog(t, t1, t1 + 0.4));
+    ctx.save(); ctx.globalAlpha = clamp(p * 1.4) * (1 - q);
+    ctx.font = fU(36, 800); const w1 = ctx.measureText(term).width; ctx.font = fI(34); const w2 = eng ? ctx.measureText(eng).width + 26 : 0;
+    const w = w1 + w2 + 56, x = 80 - (1 - p) * 60, y = 950;
+    ctx.shadowColor = 'rgba(0,0,0,0.25)'; ctx.shadowBlur = 18; rrect(ctx, x, y - 40, w, 80, 40); ctx.fillStyle = C.forest; ctx.fill(); ctx.shadowColor = 'transparent';
+    rrect(ctx, x, y - 40, 12, 80, 6); ctx.fillStyle = C.clay; ctx.fill();
+    text(ctx, term, x + 32, y + 13, fU(36, 800), C.cream); if (eng) text(ctx, eng, x + 32 + w1 + 26, y + 12, fI(34), C.amber);
+    ctx.restore();
+  }
+}
 function termCard(ctx, t) {
+  if (CFG.badge) return termBadge(ctx, t);
   const TM = CFG.TERMS, N = TM.length;
   for (let i = 0; i < N; i++) {
     const [term, eng, def, ui] = TM[i];
@@ -208,10 +227,11 @@ export function run(cfg) {
       const S = Object.keys(SC).find((k) => t >= SC[k][0] && t < SC[k][1]) || 'outro';
       if (S === 'intro') intro(ctx, t, cfg.chip, cfg.title, cfg.sub);
       else if (S === 'outro') outro(ctx, t, SC.outro[0], SC.outro[0] + 1.4, 'Menu Soal Pendalaman Materi  ·  Bab 1', cfg.next);
+      else if (cfg.cam && !['soal', 'jebakan', 'ringkas'].includes(S)) { const [a, b] = SC[S]; const k = prog(t, a, b); const z = 1 + 0.06 * E.inOutCubic(k); const dx = 30 * Math.sin(k * Math.PI) * (S.length % 2 ? 1 : -1); ctx.save(); ctx.translate(W / 2 + dx, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); DRAW[S](ctx, t); ctx.restore(); }
       else DRAW[S](ctx, t);
       if (S !== 'intro' && S !== 'outro') { centerMark(ctx, S === 'ringkas' ? 0.9 : 1, S === 'ringkas' ? C.cream : C.forest); if (S !== 'ringkas') termCard(ctx, t); }
       lowerThird(ctx, t, cfg.lt || `OSNGEO.id  ·  Bab 1 Iklim  ·  Video #${cfg.no}  ·  ${cfg.code}`);
-      if (S !== 'intro') captions(ctx, t);
+      if (S !== 'intro' && !cfg.noCaps) captions(ctx, t);
       cornerMark(ctx);
     },
   });

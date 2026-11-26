@@ -1,0 +1,31 @@
+Coba semprotkan deodoran ke tanganmu. Rasanya dingin. Sekarang pompa ban sepeda dengan cepat. Ujung pompanya terasa hangat. Tidak ada es dan tidak ada api, tetapi suhunya berubah. Rahasianya ada pada mengembang dan memampat.
+
+Udara yang mengembang akan mendingin. Udara yang dimampatkan akan memanas. Dan inilah yang terjadi pada Si Gumpal setiap kali ia naik.
+
+Ingat, makin tinggi, tekanan udara makin rendah. Saat Si Gumpal naik, udara di sekitarnya makin renggang, sehingga Si Gumpal mengembang. Karena mengembang, ia mendingin, tanpa ada panas yang keluar atau masuk. Perubahan suhu seperti ini disebut proses adiabatik, atau adiabatic process.
+
+Selama Si Gumpal belum jenuh, ia mendingin sekitar satu derajat setiap naik seratus meter. Ini disebut laju adiabatik kering, atau dry adiabatic lapse rate.
+
+Si Gumpal terus naik dan terus mendingin. Suatu saat suhunya sampai di titik embun. Gelasnya penuh. Uap air mulai mengembun, dan Si Gumpal menjadi awan. Ketinggian tempat awan mulai terbentuk disebut lifting condensation level, yaitu ketinggian dasar awan.
+
+Ada cara cepat menaksirnya: seratus dua puluh lima dikali selisih suhu udara dan titik embun di permukaan, hasilnya dalam meter. Misalnya suhu udara tiga puluh derajat dan titik embunnya dua puluh dua. Selisihnya delapan. Delapan dikali seratus dua puluh lima, yaitu seribu meter. Dasar awan ada di ketinggian sekitar satu kilometer.
+
+Setelah jenuh, Si Gumpal tetap naik dan tetap mendingin, tetapi lebih lambat, hanya sekitar nol koma lima sampai nol koma enam derajat per seratus meter. Ini disebut laju adiabatik basah, atau saturated adiabatic lapse rate. Kenapa lebih lambat? Karena saat uap air mengembun, ia melepaskan panas laten. Panas ini seperti penghangat kecil yang mengurangi pendinginan.
+
+Sekarang pertanyaan pentingnya: apakah Si Gumpal akan terus naik, atau turun lagi?
+
+Jawabannya, bandingkan Si Gumpal dengan udara di sekitarnya. Kalau Si Gumpal lebih hangat daripada sekitarnya, ia lebih ringan dan terus naik, seperti balon udara panas. Kalau lebih dingin, ia lebih berat dan turun kembali.
+
+Bayangkan sebuah bola. Bola di dasar mangkuk, kalau didorong, akan kembali ke tengah. Itu stabil. Bola di puncak bukit, sedikit didorong saja langsung menggelinding jauh. Itu labil.
+
+Atmosfer juga begitu. Kalau suhu lingkungan turun cepat ke atas, lebih cepat dari laju adiabatik, Si Gumpal selalu lebih hangat dari sekitarnya dan terus naik. Atmosfer labil, atau unstable. Hasilnya awan kumulonimbus yang menjulang dan badai petir. Kalau suhu lingkungan turun lambat, Si Gumpal cepat menjadi lebih dingin dan turun lagi. Atmosfer stabil, atau stable. Cuaca cerah atau berkabut.
+
+Di antara keduanya ada kondisi labil bersyarat, atau conditionally unstable: stabil saat udara masih kering, tetapi menjadi labil setelah udara jenuh.
+
+Sekarang, coba kerjakan soal ini.
+
+Selisih suhu udara dan titik embun adalah tiga puluh satu dikurangi dua puluh tiga, yaitu delapan derajat. Delapan dikali seratus dua puluh lima sama dengan seribu meter. Jawabannya C.
+
+Ada dua jebakan. Pertama, laju basah lebih kecil karena pelepasan panas laten, bukan karena udara jenuh lebih berat. Kedua, atmosfer stabil justru membuat cuaca tenang, bukan badai.
+
+Ringkasnya: udara yang naik mengembang dan mendingin, satu derajat per seratus meter saat kering dan sekitar nol koma enam saat jenuh. Atmosfer labil membuat udara terus naik dan membentuk badai. Berikutnya, kita bawa Si Gumpal melewati gunung: efek fohn. Latihan soalnya ada di O S N Geo titik I D.

@@ -1,0 +1,25 @@
+Ahli kehutanan, petani padi, dan ahli iklim dunia sama-sama butuh peta iklim. Tetapi kebutuhan mereka berbeda. Karena itu, ada banyak cara mengelompokkan iklim. Untuk OSN, tiga yang paling penting adalah Koppen, Schmidt Ferguson, dan Oldeman.
+
+Kita mulai dari Koppen, atau Koppen climate classification, yang dipakai untuk iklim seluruh dunia. Dasarnya suhu rata-rata bulanan, curah hujan, dan hubungannya dengan tumbuhan. Iklim dibagi menjadi lima kelompok besar dengan huruf.
+
+A untuk tropis, kalau suhu bulan terdingin masih delapan belas derajat atau lebih. B untuk kering, kalau penguapan lebih besar daripada hujan. C untuk sedang. D untuk dingin. Dan E untuk kutub, kalau bulan terpanas pun di bawah sepuluh derajat.
+
+Hampir seluruh Indonesia termasuk A. Huruf kedua lalu ditentukan oleh hujan di bulan terkering. Kalau bulan terkering masih di atas atau sama dengan enam puluh milimeter, iklimnya Af, hutan hujan tropis. Kalau di bawah enam puluh, kita hitung ambangnya: seratus dikurangi curah hujan tahunan dibagi dua puluh lima. Kalau bulan terkering masih di atas ambang itu, iklimnya Am, monsun tropis. Kalau di bawahnya, iklimnya Aw, sabana.
+
+Contoh. Sebuah kota punya hujan tahunan dua ribu dua ratus milimeter dan bulan terkeringnya empat puluh lima milimeter. Empat puluh lima di bawah enam puluh, jadi bukan Af. Ambangnya seratus dikurangi dua ribu dua ratus dibagi dua puluh lima, yaitu seratus dikurangi delapan puluh delapan, sama dengan dua belas. Empat puluh lima lebih besar dari dua belas. Jadi iklimnya Am.
+
+Berikutnya Schmidt Ferguson, yang dibuat untuk perkebunan dan kehutanan di Indonesia. Dasarnya jumlah bulan kering dan bulan basah. Bulan basah adalah bulan dengan hujan lebih dari seratus milimeter. Bulan kering, kurang dari enam puluh milimeter.
+
+Lalu hitung nilai Q: rata-rata jumlah bulan kering dibagi rata-rata jumlah bulan basah, dikali seratus persen. Makin kecil Q, makin basah. Tipe A, Q kurang dari empat belas koma tiga persen, sangat basah. Lalu B, C, D, dan seterusnya, sampai tipe H yang luar biasa kering, dengan Q di atas tujuh ratus persen.
+
+Ketiga Oldeman, yang dibuat khusus untuk padi dan palawija. Oldeman menghitung bulan basah berturut-turut, yaitu bulan dengan hujan lebih dari dua ratus milimeter, cukup untuk padi sawah. Makin banyak bulan basah berturut-turut, makin sering padi bisa ditanam dalam setahun.
+
+Jadi ingat pasangannya. Koppen untuk iklim dunia. Schmidt Ferguson untuk perkebunan dan kehutanan. Oldeman untuk tanaman pangan, terutama padi.
+
+Sekarang, coba kerjakan soal ini.
+
+Nilai Q awal adalah empat koma dua dibagi enam, dikali seratus persen, yaitu tujuh puluh persen, tipe D. Nilai Q baru adalah lima koma empat dibagi lima koma satu, sekitar seratus enam persen, tipe E. Jadi iklimnya bergeser dari D ke E, menjadi lebih kering. Jawabannya B.
+
+Ada dua jebakan. Pertama, batas bulan basah berbeda-beda. Schmidt Ferguson memakai seratus milimeter, sedangkan Oldeman memakai dua ratus milimeter. Kedua, nilai Q yang makin besar berarti makin kering, bukan makin basah.
+
+Ringkasnya: Koppen memakai suhu dan hujan untuk iklim dunia, Schmidt Ferguson memakai nilai Q untuk kehutanan, dan Oldeman memakai bulan basah berturut-turut untuk padi. Berikutnya, arus laut dan upwelling. Latihan soalnya ada di O S N Geo titik I D.

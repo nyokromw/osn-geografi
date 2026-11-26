@@ -1,0 +1,292 @@
+1
+00:00:03,000 --> 00:00:05,200
+Ambil segelas es teh di siang hari.
+
+2
+00:00:05,220 --> 00:00:08,490
+Tidak lama kemudian, bagian luar gelasnya basah.
+
+3
+00:00:08,710 --> 00:00:10,600
+Padahal gelasnya tidak bocor.
+
+4
+00:00:10,990 --> 00:00:12,480
+Dari mana air itu datang?
+
+5
+00:00:12,770 --> 00:00:13,600
+Jawabannya:
+
+6
+00:00:13,640 --> 00:00:14,740
+dari udara.
+
+7
+00:00:15,050 --> 00:00:19,310
+Udara di sekitar kita selalu membawa air dalam bentuk gas yang tidak terlihat,
+
+8
+00:00:19,360 --> 00:00:21,060
+yaitu uap air.
+
+9
+00:00:21,360 --> 00:00:25,670
+Uap air itu berasal dari laut, danau, dan tanah yang menguap.
+
+10
+00:00:26,020 --> 00:00:28,060
+Prosesnya disebut evaporasi.
+
+11
+00:00:28,320 --> 00:00:31,090
+Tumbuhan juga melepaskan uap air lewat daunnya.
+
+12
+00:00:31,300 --> 00:00:33,010
+Ini disebut transpirasi.
+
+13
+00:00:33,260 --> 00:00:38,090
+Gabungan keduanya disebut evapotranspirasi, atau evapotranspiration.
+
+14
+00:00:38,110 --> 00:00:40,490
+Sekarang bayangkan udara itu seperti gelas.
+
+15
+00:00:40,850 --> 00:00:42,600
+Uap air adalah isinya.
+
+16
+00:00:43,010 --> 00:00:45,520
+Yang menarik, ukuran gelas ini tidak tetap.
+
+17
+00:00:45,810 --> 00:00:47,500
+Gelasnya bergantung pada suhu.
+
+18
+00:00:47,840 --> 00:00:50,180
+Saat udara hangat, gelasnya besar.
+
+19
+00:00:50,460 --> 00:00:52,860
+Udara bisa menampung banyak uap air.
+
+20
+00:00:53,270 --> 00:00:55,770
+Saat udara dingin, gelasnya mengecil.
+
+21
+00:00:56,130 --> 00:01:00,530
+Kira-kira, setiap suhu naik satu derajat, gelasnya membesar sekitar tujuh
+
+22
+00:01:00,580 --> 00:01:01,140
+persen.
+
+23
+00:01:01,600 --> 00:01:05,320
+Mari kita kenalan dengan Si Gumpal, segumpal udara di atas sawah.
+
+24
+00:01:05,740 --> 00:01:07,970
+Siang ini suhunya tiga puluh derajat.
+
+25
+00:01:08,030 --> 00:01:11,800
+Gelasnya mampu menampung dua puluh gram uap air per kilogram udara.
+
+26
+00:01:11,860 --> 00:01:14,660
+Saat ini, Si Gumpal membawa lima belas gram.
+
+27
+00:01:14,680 --> 00:01:17,480
+Ada tiga cara mengukur kelembapan Si Gumpal.
+
+28
+00:01:17,900 --> 00:01:21,800
+Pertama, berapa gram uap air dalam setiap meter kubik udara.
+
+29
+00:01:22,210 --> 00:01:25,110
+Ini kelembapan mutlak, atau absolute humidity.
+
+30
+00:01:25,560 --> 00:01:29,370
+Kedua, berapa gram uap air dalam setiap kilogram udara.
+
+31
+00:01:29,810 --> 00:01:33,100
+Ini kelembapan spesifik, atau specific humidity.
+
+32
+00:01:33,490 --> 00:01:37,440
+Angka ini tidak berubah walaupun Si Gumpal mengembang, selama tidak ada
+
+33
+00:01:37,490 --> 00:01:38,600
+uap air yang hilang.
+
+34
+00:01:38,620 --> 00:01:40,950
+Ketiga, yang paling sering dipakai:
+
+35
+00:01:41,070 --> 00:01:42,820
+seberapa penuh gelasnya.
+
+36
+00:01:43,170 --> 00:01:46,200
+Ini kelembapan relatif, atau relative humidity.
+
+37
+00:01:46,620 --> 00:01:49,670
+Isi dibagi kapasitas, dikali seratus persen.
+
+38
+00:01:50,090 --> 00:01:54,710
+Untuk Si Gumpal, lima belas dibagi dua puluh, yaitu tujuh puluh lima persen.
+
+39
+00:01:55,130 --> 00:01:56,420
+Sekarang malam tiba.
+
+40
+00:01:56,480 --> 00:01:57,850
+Si Gumpal mendingin.
+
+41
+00:01:58,090 --> 00:02:01,480
+Isinya tetap lima belas gram, tetapi gelasnya mengecil.
+
+42
+00:02:01,930 --> 00:02:06,760
+Kelembapan relatifnya naik, delapan puluh, sembilan puluh, sampai akhirnya
+
+43
+00:02:06,810 --> 00:02:08,820
+gelasnya pas berisi lima belas gram.
+
+44
+00:02:09,180 --> 00:02:10,040
+Gelas penuh.
+
+45
+00:02:10,450 --> 00:02:12,460
+Kelembapan relatif seratus persen.
+
+46
+00:02:12,480 --> 00:02:16,700
+Udara yang gelasnya penuh disebut udara jenuh, atau saturated.
+
+47
+00:02:17,120 --> 00:02:22,390
+Suhu saat udara mulai jenuh disebut titik embun, atau dew point.
+
+48
+00:02:22,810 --> 00:02:26,480
+Kalau Si Gumpal terus mendingin di bawah titik embun, gelasnya tidak muat
+
+49
+00:02:26,530 --> 00:02:27,070
+lagi.
+
+50
+00:02:27,340 --> 00:02:30,490
+Uap air yang berlebih berubah menjadi titik-titik air.
+
+51
+00:02:30,900 --> 00:02:35,570
+Inilah embun di rumput pagi hari, kabut di lembah, dan air di luar gelas
+
+52
+00:02:35,620 --> 00:02:36,490
+es teh tadi.
+
+53
+00:02:36,950 --> 00:02:41,040
+Gelas yang dingin mendinginkan udara di sekitarnya sampai melewati titik
+
+54
+00:02:41,090 --> 00:02:41,620
+embun.
+
+55
+00:02:41,640 --> 00:02:42,400
+Jadi ingat:
+
+56
+00:02:42,680 --> 00:02:47,110
+embun dan awan terbentuk karena udara didinginkan, bukan dipanaskan.
+
+57
+00:02:47,540 --> 00:02:49,800
+Sekarang, coba kerjakan soal ini.
+
+58
+00:02:54,100 --> 00:02:58,790
+Kelembapan relatif sama dengan dua belas dibagi enam belas, dikali seratus
+
+59
+00:02:58,840 --> 00:03:01,130
+persen, yaitu tujuh puluh lima persen.
+
+60
+00:03:01,560 --> 00:03:06,470
+Agar jenuh, udara harus didinginkan sampai kapasitasnya tinggal dua belas
+
+61
+00:03:06,520 --> 00:03:06,940
+gram.
+
+62
+00:03:07,310 --> 00:03:08,720
+Jadi jawabannya B.
+
+63
+00:03:09,010 --> 00:03:10,280
+Ada dua jebakan.
+
+64
+00:03:10,750 --> 00:03:14,460
+Pertama, kenaikan suhu tidak menyebabkan kondensasi.
+
+65
+00:03:14,870 --> 00:03:17,810
+Justru pendinginanlah yang membuat udara jenuh.
+
+66
+00:03:17,860 --> 00:03:22,490
+Kedua, kelembapan relatif tinggi tidak selalu berarti uap airnya banyak.
+
+67
+00:03:22,890 --> 00:03:27,480
+Udara kutub yang dingin bisa jenuh walaupun uap airnya sedikit, karena gelasnya
+
+68
+00:03:27,530 --> 00:03:28,500
+sangat kecil.
+
+69
+00:03:28,920 --> 00:03:29,820
+Ringkasnya:
+
+70
+00:03:29,960 --> 00:03:34,970
+suhu menentukan besar gelas, kelembapan relatif adalah seberapa penuh gelasnya,
+
+71
+00:03:35,020 --> 00:03:38,260
+dan saat gelas penuh, udara jenuh di titik embun.
+
+72
+00:03:38,750 --> 00:03:41,880
+Berikutnya, kita ikuti Si Gumpal naik ke atas.
+
+73
+00:03:42,070 --> 00:03:46,220
+Latihan soalnya ada di OSNGEO.id.
+

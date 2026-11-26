@@ -1,0 +1,35 @@
+Ambil segelas es teh di siang hari. Tidak lama kemudian, bagian luar gelasnya basah. Padahal gelasnya tidak bocor. Dari mana air itu datang?
+
+Jawabannya: dari udara. Udara di sekitar kita selalu membawa air dalam bentuk gas yang tidak terlihat, yaitu uap air.
+
+Uap air itu berasal dari laut, danau, dan tanah yang menguap. Prosesnya disebut evaporasi. Tumbuhan juga melepaskan uap air lewat daunnya. Ini disebut transpirasi. Gabungan keduanya disebut evapotranspirasi, atau evapotranspiration.
+
+Sekarang bayangkan udara itu seperti gelas. Uap air adalah isinya. Yang menarik, ukuran gelas ini tidak tetap. Gelasnya bergantung pada suhu.
+
+Saat udara hangat, gelasnya besar. Udara bisa menampung banyak uap air. Saat udara dingin, gelasnya mengecil. Kira-kira, setiap suhu naik satu derajat, gelasnya membesar sekitar tujuh persen.
+
+Mari kita kenalan dengan Si Gumpal, segumpal udara di atas sawah. Siang ini suhunya tiga puluh derajat. Gelasnya mampu menampung dua puluh gram uap air per kilogram udara. Saat ini, Si Gumpal membawa lima belas gram.
+
+Ada tiga cara mengukur kelembapan Si Gumpal.
+
+Pertama, berapa gram uap air dalam setiap meter kubik udara. Ini kelembapan mutlak, atau absolute humidity.
+
+Kedua, berapa gram uap air dalam setiap kilogram udara. Ini kelembapan spesifik, atau specific humidity. Angka ini tidak berubah walaupun Si Gumpal mengembang, selama tidak ada uap air yang hilang.
+
+Ketiga, yang paling sering dipakai: seberapa penuh gelasnya. Ini kelembapan relatif, atau relative humidity. Isi dibagi kapasitas, dikali seratus persen. Untuk Si Gumpal, lima belas dibagi dua puluh, yaitu tujuh puluh lima persen.
+
+Sekarang malam tiba. Si Gumpal mendingin. Isinya tetap lima belas gram, tetapi gelasnya mengecil. Kelembapan relatifnya naik, delapan puluh, sembilan puluh, sampai akhirnya gelasnya pas berisi lima belas gram. Gelas penuh. Kelembapan relatif seratus persen.
+
+Udara yang gelasnya penuh disebut udara jenuh, atau saturated. Suhu saat udara mulai jenuh disebut titik embun, atau dew point.
+
+Kalau Si Gumpal terus mendingin di bawah titik embun, gelasnya tidak muat lagi. Uap air yang berlebih berubah menjadi titik-titik air. Inilah embun di rumput pagi hari, kabut di lembah, dan air di luar gelas es teh tadi. Gelas yang dingin mendinginkan udara di sekitarnya sampai melewati titik embun.
+
+Jadi ingat: embun dan awan terbentuk karena udara didinginkan, bukan dipanaskan.
+
+Sekarang, coba kerjakan soal ini.
+
+Kelembapan relatif sama dengan dua belas dibagi enam belas, dikali seratus persen, yaitu tujuh puluh lima persen. Agar jenuh, udara harus didinginkan sampai kapasitasnya tinggal dua belas gram. Jadi jawabannya B.
+
+Ada dua jebakan. Pertama, kenaikan suhu tidak menyebabkan kondensasi. Justru pendinginanlah yang membuat udara jenuh. Kedua, kelembapan relatif tinggi tidak selalu berarti uap airnya banyak. Udara kutub yang dingin bisa jenuh walaupun uap airnya sedikit, karena gelasnya sangat kecil.
+
+Ringkasnya: suhu menentukan besar gelas, kelembapan relatif adalah seberapa penuh gelasnya, dan saat gelas penuh, udara jenuh di titik embun. Berikutnya, kita ikuti Si Gumpal naik ke atas. Latihan soalnya ada di O S N Geo titik I D.
