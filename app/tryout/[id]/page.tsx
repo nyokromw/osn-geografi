@@ -6,6 +6,8 @@ import { getUserStatus } from '../../lib/checkAkses'
 import { bisaAkses, requiredAccess } from '../../lib/membership'
 import { PageLoading } from '../../components/atlas'
 import { ExamResults, ExamScreen, type ExamScore, type Question } from '../../components/exam'
+import { UpgradeOffer } from '../../components/upgrade-offer'
+import type { AccessLevel } from '../../lib/membership'
 
 export default function TryoutPage() {
   const params = useParams()
@@ -21,6 +23,7 @@ export default function TryoutPage() {
   const [submitted, setSubmitted] = useState(false)
   const [hasil, setHasil] = useState<ExamScore | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
+  const [access, setAccess] = useState<AccessLevel>('gratis')
   // Simpan jawaban selama belum submit
 useEffect(() => {
   if (!submitted && Object.keys(jawaban).length > 0) {
@@ -42,6 +45,7 @@ useEffect(() => {
         return
       }
 
+      setAccess(statusUser)
       setPaket(p)
 
       // Lanjutkan progress HANYA jika jawaban DAN timer tersimpan
@@ -105,7 +109,8 @@ useEffect(() => {
 
   const title = paket?.nama || 'Tryout'
   if (submitted && hasil) return (
-    <ExamResults mode="Tryout" title={title} score={hasil} questions={soalList} answers={jawaban} />
+    <ExamResults mode="Tryout" title={title} score={hasil} questions={soalList} answers={jawaban}
+      offer={<UpgradeOffer access={access} mode="Tryout" />} />
   )
 
   return (
