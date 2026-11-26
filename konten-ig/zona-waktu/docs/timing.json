@@ -1,0 +1,273 @@
+{
+ "duration": 59.637551,
+ "scenes": [
+  [
+   "hook",
+   0.0
+  ],
+  [
+   "globe",
+   6.72
+  ],
+  [
+   "indo",
+   18.724
+  ],
+  [
+   "zona",
+   30.327
+  ],
+  [
+   "quiz",
+   41.682
+  ],
+  [
+   "cta",
+   52.17
+  ]
+ ],
+ "phrases": [
+  [
+   "Pernah kepikiran,",
+   0.0,
+   0.94
+  ],
+  [
+   "kenapa Indonesia punya tiga zona waktu?",
+   1.29,
+   3.7
+  ],
+  [
+   "Jawabannya ada di garis bujur.",
+   4.23,
+   6.34
+  ],
+  [
+   "Bumi berputar tiga ratus enam puluh derajat dalam dua puluh empat jam.",
+   6.87,
+   10.52
+  ],
+  [
+   "Artinya,",
+   11.0,
+   12.1
+  ],
+  [
+   "setiap lima belas derajat bujur,",
+   12.1,
+   15.38
+  ],
+  [
+   "waktu bergeser satu jam.",
+   15.82,
+   16.46
+  ],
+  [
+   "Satu derajat,",
+   16.84,
+   17.3
+  ],
+  [
+   "empat menit.",
+   17.89,
+   18.87
+  ],
+  [
+   "Indonesia membentang dari sembilan puluh lima sampai seratus empat puluh satu derajat Bujur Timur.",
+   18.87,
+   25.43
+  ],
+  [
+   "Lebarnya empat puluh enam derajat.",
+   25.82,
+   28.62
+  ],
+  [
+   "Hampir tiga jam!",
+   28.62,
+   30.02
+  ],
+  [
+   "Makanya waktu Indonesia dibagi tiga.",
+   30.48,
+   33.27
+  ],
+  [
+   "WIB berpatokan pada meridian seratus lima derajat,",
+   33.27,
+   37.06
+  ],
+  [
+   "WITA seratus dua puluh derajat,",
+   37.43,
+   38.91
+  ],
+  [
+   "dan WIT seratus tiga puluh lima derajat Bujur Timur.",
+   38.91,
+   41.27
+  ],
+  [
+   "Sekarang coba jawab.",
+   41.83,
+   42.75
+  ],
+  [
+   "Kalau di Jakarta pukul tujuh pagi WIB,",
+   43.24,
+   46.1
+  ],
+  [
+   "pukul berapa di Jayapura?",
+   46.48,
+   49.15
+  ],
+  [
+   "Jawabannya:",
+   49.47,
+   50.3
+  ],
+  [
+   "pukul sembilan pagi WIT.",
+   50.3,
+   51.78
+  ],
+  [
+   "Soal hitungan waktu kayak gini sering keluar di OSN Geografi.",
+   52.32,
+   55.75
+  ],
+  [
+   "Latihan soal lainnya,",
+   56.21,
+   57.24
+  ],
+  [
+   "cek di OSNGEO dot ID.",
+   57.48,
+   59.4
+  ]
+ ],
+ "display": [
+  [
+   "Pernah kepikiran,",
+   0.0,
+   0.94
+  ],
+  [
+   "kenapa Indonesia punya tiga zona waktu?",
+   1.29,
+   3.7
+  ],
+  [
+   "Jawabannya ada di garis bujur.",
+   4.23,
+   6.34
+  ],
+  [
+   "Bumi berputar 360 derajat dalam 24 jam.",
+   6.87,
+   10.52
+  ],
+  [
+   "Artinya,",
+   11.0,
+   12.1
+  ],
+  [
+   "setiap 15 derajat bujur,",
+   12.1,
+   15.38
+  ],
+  [
+   "waktu bergeser satu jam.",
+   15.82,
+   16.46
+  ],
+  [
+   "Satu derajat,",
+   16.84,
+   17.3
+  ],
+  [
+   "empat menit.",
+   17.89,
+   18.87
+  ],
+  [
+   "Indonesia membentang dari 95 sampai 141 derajat Bujur Timur.",
+   18.87,
+   25.43
+  ],
+  [
+   "Lebarnya 46 derajat.",
+   25.82,
+   28.62
+  ],
+  [
+   "Hampir tiga jam!",
+   28.62,
+   30.02
+  ],
+  [
+   "Makanya waktu Indonesia dibagi tiga.",
+   30.48,
+   33.27
+  ],
+  [
+   "WIB berpatokan pada meridian 105 derajat,",
+   33.27,
+   37.06
+  ],
+  [
+   "WITA 120 derajat,",
+   37.43,
+   38.91
+  ],
+  [
+   "dan WIT 135 derajat Bujur Timur.",
+   38.91,
+   41.27
+  ],
+  [
+   "Sekarang coba jawab.",
+   41.83,
+   42.75
+  ],
+  [
+   "Kalau di Jakarta pukul tujuh pagi WIB,",
+   43.24,
+   46.1
+  ],
+  [
+   "pukul berapa di Jayapura?",
+   46.48,
+   49.15
+  ],
+  [
+   "Jawabannya:",
+   49.47,
+   50.3
+  ],
+  [
+   "pukul sembilan pagi WIT.",
+   50.3,
+   51.78
+  ],
+  [
+   "Soal hitungan waktu kayak gini sering keluar di OSN Geografi.",
+   52.32,
+   55.75
+  ],
+  [
+   "Latihan soal lainnya,",
+   56.21,
+   57.24
+  ],
+  [
+   "cek di OSNGEO.id.",
+   57.48,
+   59.4
+  ]
+ ]
+}

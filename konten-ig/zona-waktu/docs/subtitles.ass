@@ -1,0 +1,45 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,OSN Sub,70,&H00FAFEFF,&H00FAFEFF,&H00231916,&H96231916,0,0,0,0,100,100,-1,0,1,7,0,2,90,90,420,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.94,Sub,,0,0,0,,{\fad(60,40)}Pernah kepikiran
+Dialogue: 0,0:00:01.29,0:00:02.74,Sub,,0,0,0,,{\fad(60,40)}kenapa Indonesia punya
+Dialogue: 0,0:00:02.69,0:00:03.70,Sub,,0,0,0,,{\fad(60,40)}tiga zona waktu?
+Dialogue: 0,0:00:04.23,0:00:06.34,Sub,,0,0,0,,{\fad(60,40)}Jawabannya ada di garis bujur.
+Dialogue: 0,0:00:06.87,0:00:08.21,Sub,,0,0,0,,{\fad(60,40)}Bumi berputar tiga ratus
+Dialogue: 0,0:00:08.16,0:00:09.50,Sub,,0,0,0,,{\fad(60,40)}enam puluh derajat dalam
+Dialogue: 0,0:00:09.45,0:00:10.52,Sub,,0,0,0,,{\fad(60,40)}dua puluh empat jam.
+Dialogue: 0,0:00:11.00,0:00:12.10,Sub,,0,0,0,,{\fad(60,40)}Artinya
+Dialogue: 0,0:00:12.10,0:00:15.38,Sub,,0,0,0,,{\fad(60,40)}setiap lima belas derajat bujur
+Dialogue: 0,0:00:15.82,0:00:16.46,Sub,,0,0,0,,{\fad(60,40)}waktu bergeser satu jam.
+Dialogue: 0,0:00:16.84,0:00:17.30,Sub,,0,0,0,,{\fad(60,40)}Satu derajat
+Dialogue: 0,0:00:17.89,0:00:18.87,Sub,,0,0,0,,{\fad(60,40)}empat menit.
+Dialogue: 0,0:00:18.87,0:00:21.65,Sub,,0,0,0,,{\fad(60,40)}Indonesia membentang dari sembilan puluh
+Dialogue: 0,0:00:21.60,0:00:23.77,Sub,,0,0,0,,{\fad(60,40)}lima sampai seratus empat puluh
+Dialogue: 0,0:00:23.72,0:00:25.43,Sub,,0,0,0,,{\fad(60,40)}satu derajat Bujur Timur.
+Dialogue: 0,0:00:25.82,0:00:28.62,Sub,,0,0,0,,{\fad(60,40)}Lebarnya empat puluh enam derajat.
+Dialogue: 0,0:00:28.62,0:00:30.02,Sub,,0,0,0,,{\fad(60,40)}Hampir tiga jam!
+Dialogue: 0,0:00:30.48,0:00:33.27,Sub,,0,0,0,,{\fad(60,40)}Makanya waktu Indonesia dibagi tiga.
+Dialogue: 0,0:00:33.27,0:00:35.49,Sub,,0,0,0,,{\fad(60,40)}WIB berpatokan pada meridian
+Dialogue: 0,0:00:35.44,0:00:37.06,Sub,,0,0,0,,{\fad(60,40)}seratus lima derajat
+Dialogue: 0,0:00:37.43,0:00:38.91,Sub,,0,0,0,,{\fad(60,40)}WITA seratus dua puluh derajat
+Dialogue: 0,0:00:38.91,0:00:40.17,Sub,,0,0,0,,{\fad(60,40)}dan WIT seratus tiga puluh
+Dialogue: 0,0:00:40.12,0:00:41.27,Sub,,0,0,0,,{\fad(60,40)}lima derajat Bujur Timur.
+Dialogue: 0,0:00:41.83,0:00:42.75,Sub,,0,0,0,,{\fad(60,40)}Sekarang coba jawab.
+Dialogue: 0,0:00:43.24,0:00:44.99,Sub,,0,0,0,,{\fad(60,40)}Kalau di Jakarta pukul
+Dialogue: 0,0:00:44.94,0:00:46.10,Sub,,0,0,0,,{\fad(60,40)}tujuh pagi WIB
+Dialogue: 0,0:00:46.48,0:00:49.15,Sub,,0,0,0,,{\fad(60,40)}pukul berapa di Jayapura?
+Dialogue: 0,0:00:49.47,0:00:50.30,Sub,,0,0,0,,{\fad(60,40)}Jawabannya:
+Dialogue: 0,0:00:50.30,0:00:51.78,Sub,,0,0,0,,{\fad(60,40)}pukul sembilan pagi WIT.
+Dialogue: 0,0:00:52.32,0:00:54.09,Sub,,0,0,0,,{\fad(60,40)}Soal hitungan waktu kayak gini
+Dialogue: 0,0:00:54.04,0:00:55.75,Sub,,0,0,0,,{\fad(60,40)}sering keluar di {\c&H4F79E0&}OSN Geografi{\c&H00FAFEFF&}.
+Dialogue: 0,0:00:56.21,0:00:57.24,Sub,,0,0,0,,{\fad(60,40)}Latihan soal lainnya
+Dialogue: 0,0:00:57.48,0:00:59.40,Sub,,0,0,0,,{\fad(60,40)}cek di {\c&H4F79E0&}OSNGEO dot ID{\c&H00FAFEFF&}.
