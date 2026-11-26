@@ -1,0 +1,296 @@
+1
+00:00:03,000 --> 00:00:05,090
+Coba semprotkan deodoran ke tanganmu.
+
+2
+00:00:05,570 --> 00:00:06,750
+Rasanya dingin.
+
+3
+00:00:07,000 --> 00:00:09,090
+Sekarang pompa ban sepeda dengan cepat.
+
+4
+00:00:09,330 --> 00:00:11,010
+Ujung pompanya terasa hangat.
+
+5
+00:00:11,270 --> 00:00:14,590
+Tidak ada es dan tidak ada api, tetapi suhunya berubah.
+
+6
+00:00:14,860 --> 00:00:17,280
+Rahasianya ada pada mengembang dan memampat.
+
+7
+00:00:17,540 --> 00:00:19,500
+Udara yang mengembang akan mendingin.
+
+8
+00:00:19,580 --> 00:00:21,790
+Udara yang dimampatkan akan memanas.
+
+9
+00:00:22,160 --> 00:00:25,640
+Dan inilah yang terjadi pada Si Gumpal setiap kali ia naik.
+
+10
+00:00:25,840 --> 00:00:29,250
+Ingat, makin tinggi, tekanan udara makin rendah.
+
+11
+00:00:29,470 --> 00:00:33,720
+Saat Si Gumpal naik, udara di sekitarnya makin renggang, sehingga Si Gumpal
+
+12
+00:00:33,770 --> 00:00:34,470
+mengembang.
+
+13
+00:00:34,490 --> 00:00:39,030
+Karena mengembang, ia mendingin, tanpa ada panas yang keluar atau masuk.
+
+14
+00:00:39,440 --> 00:00:44,750
+Perubahan suhu seperti ini disebut proses adiabatik, atau adiabatic process.
+
+15
+00:00:45,190 --> 00:00:49,590
+Selama Si Gumpal belum jenuh, ia mendingin sekitar satu derajat setiap naik
+
+16
+00:00:49,640 --> 00:00:50,590
+seratus meter.
+
+17
+00:00:51,020 --> 00:00:55,450
+Ini disebut laju adiabatik kering, atau dry adiabatic lapse rate.
+
+18
+00:00:55,850 --> 00:00:58,080
+Si Gumpal terus naik dan terus mendingin.
+
+19
+00:00:58,440 --> 00:01:00,980
+Suatu saat suhunya sampai di titik embun.
+
+20
+00:01:01,140 --> 00:01:02,100
+Gelasnya penuh.
+
+21
+00:01:02,380 --> 00:01:05,920
+Uap air mulai mengembun, dan Si Gumpal menjadi awan.
+
+22
+00:01:05,940 --> 00:01:10,440
+Ketinggian tempat awan mulai terbentuk disebut lifting condensation level,
+
+23
+00:01:10,490 --> 00:01:12,340
+yaitu ketinggian dasar awan.
+
+24
+00:01:12,750 --> 00:01:14,440
+Ada cara cepat menaksirnya:
+
+25
+00:01:14,470 --> 00:01:18,980
+seratus dua puluh lima dikali selisih suhu udara dan titik embun di permukaan,
+
+26
+00:01:19,030 --> 00:01:20,480
+hasilnya dalam meter.
+
+27
+00:01:20,830 --> 00:01:25,570
+Misalnya suhu udara tiga puluh derajat dan titik embunnya dua puluh dua.
+
+28
+00:01:25,740 --> 00:01:27,110
+Selisihnya delapan.
+
+29
+00:01:27,400 --> 00:01:30,940
+Delapan dikali seratus dua puluh lima, yaitu seribu meter.
+
+30
+00:01:31,320 --> 00:01:34,220
+Dasar awan ada di ketinggian sekitar satu kilometer.
+
+31
+00:01:34,240 --> 00:01:39,110
+Setelah jenuh, Si Gumpal tetap naik dan tetap mendingin, tetapi lebih lambat,
+
+32
+00:01:39,160 --> 00:01:43,690
+hanya sekitar nol koma lima sampai nol koma enam derajat per seratus meter.
+
+33
+00:01:44,100 --> 00:01:49,050
+Ini disebut laju adiabatik basah, atau saturated adiabatic lapse rate.
+
+34
+00:01:49,360 --> 00:01:50,590
+Kenapa lebih lambat?
+
+35
+00:01:50,960 --> 00:01:54,760
+Karena saat uap air mengembun, ia melepaskan panas laten.
+
+36
+00:01:55,210 --> 00:01:58,750
+Panas ini seperti penghangat kecil yang mengurangi pendinginan.
+
+37
+00:01:59,170 --> 00:02:00,870
+Sekarang pertanyaan pentingnya:
+
+38
+00:02:01,170 --> 00:02:05,360
+apakah Si Gumpal akan terus naik, atau turun lagi?
+
+39
+00:02:05,450 --> 00:02:08,530
+Jawabannya, bandingkan Si Gumpal dengan udara di sekitarnya.
+
+40
+00:02:08,940 --> 00:02:13,320
+Kalau Si Gumpal lebih hangat daripada sekitarnya, ia lebih ringan dan terus
+
+41
+00:02:13,370 --> 00:02:15,750
+naik, seperti balon udara panas.
+
+42
+00:02:16,140 --> 00:02:19,280
+Kalau lebih dingin, ia lebih berat dan turun kembali.
+
+43
+00:02:19,700 --> 00:02:21,100
+Bayangkan sebuah bola.
+
+44
+00:02:21,400 --> 00:02:25,150
+Bola di dasar mangkuk, kalau didorong, akan kembali ke tengah.
+
+45
+00:02:25,480 --> 00:02:26,500
+Itu stabil.
+
+46
+00:02:26,760 --> 00:02:31,180
+Bola di puncak bukit, sedikit didorong saja langsung menggelinding jauh.
+
+47
+00:02:31,330 --> 00:02:32,210
+Itu labil.
+
+48
+00:02:32,350 --> 00:02:33,900
+Atmosfer juga begitu.
+
+49
+00:02:33,920 --> 00:02:38,310
+Kalau suhu lingkungan turun cepat ke atas, lebih cepat dari laju adiabatik,
+
+50
+00:02:38,360 --> 00:02:43,500
+Si Gumpal selalu lebih hangat dari sekitarnya dan terus naik.
+
+51
+00:02:43,520 --> 00:02:46,030
+Atmosfer labil, atau unstable.
+
+52
+00:02:46,110 --> 00:02:49,650
+Hasilnya awan kumulonimbus yang menjulang dan badai petir.
+
+53
+00:02:50,070 --> 00:02:53,670
+Kalau suhu lingkungan turun lambat, Si Gumpal cepat menjadi lebih dingin
+
+54
+00:02:53,720 --> 00:02:54,780
+dan turun lagi.
+
+55
+00:02:55,090 --> 00:02:57,310
+Atmosfer stabil, atau stable.
+
+56
+00:02:57,610 --> 00:02:59,490
+Cuaca cerah atau berkabut.
+
+57
+00:02:59,530 --> 00:03:04,470
+Di antara keduanya ada kondisi labil bersyarat, atau conditionally unstable:
+
+58
+00:03:04,580 --> 00:03:09,030
+stabil saat udara masih kering, tetapi menjadi labil setelah udara jenuh.
+
+59
+00:03:09,510 --> 00:03:11,700
+Sekarang, coba kerjakan soal ini.
+
+60
+00:03:16,060 --> 00:03:20,720
+Selisih suhu udara dan titik embun adalah tiga puluh satu dikurangi dua
+
+61
+00:03:20,770 --> 00:03:23,130
+puluh tiga, yaitu delapan derajat.
+
+62
+00:03:23,590 --> 00:03:27,590
+Delapan dikali seratus dua puluh lima sama dengan seribu meter.
+
+63
+00:03:28,050 --> 00:03:29,460
+Jawabannya C.
+
+64
+00:03:29,890 --> 00:03:31,170
+Ada dua jebakan.
+
+65
+00:03:31,390 --> 00:03:36,410
+Pertama, laju basah lebih kecil karena pelepasan panas laten, bukan karena
+
+66
+00:03:36,460 --> 00:03:38,490
+udara jenuh lebih berat.
+
+67
+00:03:38,720 --> 00:03:42,490
+Kedua, atmosfer stabil justru membuat cuaca tenang, bukan badai.
+
+68
+00:03:42,940 --> 00:03:43,770
+Ringkasnya:
+
+69
+00:03:43,790 --> 00:03:48,170
+udara yang naik mengembang dan mendingin, satu derajat per seratus meter
+
+70
+00:03:48,220 --> 00:03:51,440
+saat kering dan sekitar nol koma enam saat jenuh.
+
+71
+00:03:51,890 --> 00:03:55,670
+Atmosfer labil membuat udara terus naik dan membentuk badai.
+
+72
+00:03:56,140 --> 00:03:59,000
+Berikutnya, kita bawa Si Gumpal melewati gunung:
+
+73
+00:03:59,280 --> 00:04:00,240
+efek fohn.
+
+74
+00:04:00,680 --> 00:04:04,800
+Latihan soalnya ada di OSNGEO.id.
+

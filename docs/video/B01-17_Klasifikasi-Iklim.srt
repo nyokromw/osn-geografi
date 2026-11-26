@@ -1,0 +1,280 @@
+1
+00:00:03,000 --> 00:00:09,050
+Ahli kehutanan, petani padi, dan ahli iklim dunia sama-sama butuh peta iklim.
+
+2
+00:00:09,450 --> 00:00:12,480
+Tetapi kebutuhan mereka berbeda.
+
+3
+00:00:12,530 --> 00:00:16,410
+Karena itu, ada banyak cara mengelompokkan iklim.
+
+4
+00:00:16,440 --> 00:00:19,990
+Untuk OSN, tiga yang paling penting adalah Koppen, Schmidt Ferguson, dan
+
+5
+00:00:20,040 --> 00:00:20,910
+Oldeman.
+
+6
+00:00:21,360 --> 00:00:26,190
+Kita mulai dari Koppen, atau Koppen climate classification, yang dipakai
+
+7
+00:00:26,240 --> 00:00:27,910
+untuk iklim seluruh dunia.
+
+8
+00:00:28,210 --> 00:00:33,100
+Dasarnya suhu rata-rata bulanan, curah hujan, dan hubungannya dengan tumbuhan.
+
+9
+00:00:33,410 --> 00:00:36,600
+Iklim dibagi menjadi lima kelompok besar dengan huruf.
+
+10
+00:00:36,620 --> 00:00:40,780
+A untuk tropis, kalau suhu bulan terdingin masih delapan belas derajat atau
+
+11
+00:00:40,830 --> 00:00:41,340
+lebih.
+
+12
+00:00:41,740 --> 00:00:45,390
+B untuk kering, kalau penguapan lebih besar daripada hujan.
+
+13
+00:00:45,880 --> 00:00:47,100
+C untuk sedang.
+
+14
+00:00:47,270 --> 00:00:48,500
+D untuk dingin.
+
+15
+00:00:48,900 --> 00:00:53,220
+Dan E untuk kutub, kalau bulan terpanas pun di bawah sepuluh derajat.
+
+16
+00:00:53,670 --> 00:00:55,960
+Hampir seluruh Indonesia termasuk A.
+
+17
+00:00:56,370 --> 00:00:59,760
+Huruf kedua lalu ditentukan oleh hujan di bulan terkering.
+
+18
+00:01:00,200 --> 00:01:05,430
+Kalau bulan terkering masih di atas atau sama dengan enam puluh milimeter,
+
+19
+00:01:05,480 --> 00:01:06,880
+iklimnya Af, hutan hujan tropis.
+
+20
+00:01:06,900 --> 00:01:09,810
+Kalau di bawah enam puluh, kita hitung ambangnya:
+
+21
+00:01:10,000 --> 00:01:13,920
+seratus dikurangi curah hujan tahunan dibagi dua puluh lima.
+
+22
+00:01:14,190 --> 00:01:19,820
+Kalau bulan terkering masih di atas ambang itu, iklimnya Am, monsun tropis.
+
+23
+00:01:20,240 --> 00:01:23,570
+Kalau di bawahnya, iklimnya Aw, sabana.
+
+24
+00:01:23,760 --> 00:01:24,440
+Contoh.
+
+25
+00:01:24,710 --> 00:01:29,730
+Sebuah kota punya hujan tahunan dua ribu dua ratus milimeter dan bulan terkeringnya
+
+26
+00:01:29,780 --> 00:01:31,670
+empat puluh lima milimeter.
+
+27
+00:01:32,120 --> 00:01:35,770
+Empat puluh lima di bawah enam puluh, jadi bukan Af.
+
+28
+00:01:35,800 --> 00:01:41,210
+Ambangnya seratus dikurangi dua ribu dua ratus dibagi dua puluh lima, yaitu
+
+29
+00:01:41,260 --> 00:01:45,350
+seratus dikurangi delapan puluh delapan, sama dengan dua belas.
+
+30
+00:01:45,740 --> 00:01:48,250
+Empat puluh lima lebih besar dari dua belas.
+
+31
+00:01:48,530 --> 00:01:49,720
+Jadi iklimnya Am.
+
+32
+00:01:49,740 --> 00:01:54,650
+Berikutnya Schmidt Ferguson, yang dibuat untuk perkebunan dan kehutanan
+
+33
+00:01:54,700 --> 00:01:56,240
+di Indonesia.
+
+34
+00:01:56,670 --> 00:01:59,330
+Dasarnya jumlah bulan kering dan bulan basah.
+
+35
+00:01:59,750 --> 00:02:03,560
+Bulan basah adalah bulan dengan hujan lebih dari seratus milimeter.
+
+36
+00:02:03,990 --> 00:02:07,120
+Bulan kering, kurang dari enam puluh milimeter.
+
+37
+00:02:07,140 --> 00:02:08,800
+Lalu hitung nilai Q:
+
+38
+00:02:08,970 --> 00:02:13,320
+rata-rata jumlah bulan kering dibagi rata-rata jumlah bulan basah, dikali
+
+39
+00:02:13,370 --> 00:02:14,440
+seratus persen.
+
+40
+00:02:14,840 --> 00:02:17,060
+Makin kecil Q, makin basah.
+
+41
+00:02:17,490 --> 00:02:21,910
+Tipe A, Q kurang dari empat belas koma tiga persen, sangat basah.
+
+42
+00:02:22,210 --> 00:02:28,250
+Lalu B, C, D, dan seterusnya, sampai tipe H yang luar biasa kering, dengan
+
+43
+00:02:28,300 --> 00:02:30,220
+Q di atas tujuh ratus persen.
+
+44
+00:02:30,440 --> 00:02:34,210
+Ketiga Oldeman, yang dibuat khusus untuk padi dan palawija.
+
+45
+00:02:34,590 --> 00:02:38,560
+Oldeman menghitung bulan basah berturut-turut, yaitu bulan dengan hujan
+
+46
+00:02:38,610 --> 00:02:42,010
+lebih dari dua ratus milimeter, cukup untuk padi sawah.
+
+47
+00:02:42,030 --> 00:02:45,910
+Makin banyak bulan basah berturut-turut, makin sering padi bisa ditanam
+
+48
+00:02:45,960 --> 00:02:46,970
+dalam setahun.
+
+49
+00:02:47,280 --> 00:02:48,600
+Jadi ingat pasangannya.
+
+50
+00:02:48,740 --> 00:02:50,430
+Koppen untuk iklim dunia.
+
+51
+00:02:50,620 --> 00:02:53,710
+Schmidt Ferguson untuk perkebunan dan kehutanan.
+
+52
+00:02:54,010 --> 00:02:57,010
+Oldeman untuk tanaman pangan, terutama padi.
+
+53
+00:02:57,520 --> 00:02:59,660
+Sekarang, coba kerjakan soal ini.
+
+54
+00:03:03,870 --> 00:03:09,300
+Nilai Q awal adalah empat koma dua dibagi enam, dikali seratus persen, yaitu
+
+55
+00:03:09,350 --> 00:03:11,250
+tujuh puluh persen, tipe D.
+
+56
+00:03:11,710 --> 00:03:16,920
+Nilai Q baru adalah lima koma empat dibagi lima koma satu, sekitar seratus
+
+57
+00:03:16,970 --> 00:03:18,600
+enam persen, tipe E.
+
+58
+00:03:18,620 --> 00:03:22,550
+Jadi iklimnya bergeser dari D ke E, menjadi lebih kering.
+
+59
+00:03:22,960 --> 00:03:24,530
+Jawabannya B.
+
+60
+00:03:24,970 --> 00:03:26,170
+Ada dua jebakan.
+
+61
+00:03:26,540 --> 00:03:29,210
+Pertama, batas bulan basah berbeda-beda.
+
+62
+00:03:29,520 --> 00:03:33,890
+Schmidt Ferguson memakai seratus milimeter, sedangkan Oldeman memakai dua
+
+63
+00:03:33,940 --> 00:03:35,060
+ratus milimeter.
+
+64
+00:03:35,450 --> 00:03:40,200
+Kedua, nilai Q yang makin besar berarti makin kering, bukan makin basah.
+
+65
+00:03:40,620 --> 00:03:41,500
+Ringkasnya:
+
+66
+00:03:41,560 --> 00:03:45,960
+Koppen memakai suhu dan hujan untuk iklim dunia, Schmidt Ferguson memakai
+
+67
+00:03:46,010 --> 00:03:50,310
+nilai Q untuk kehutanan, dan Oldeman memakai bulan basah berturut-turut
+
+68
+00:03:50,360 --> 00:03:51,160
+untuk padi.
+
+69
+00:03:51,180 --> 00:03:53,780
+Berikutnya, arus laut dan upwelling.
+
+70
+00:03:54,180 --> 00:03:57,930
+Latihan soalnya ada di OSNGEO.id.
+
