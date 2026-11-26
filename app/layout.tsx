@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const sans = localFont({
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={[sans.variable, display.variable].join(" ")}>
-      <body>{children}</body>
+      <body>{children}<Analytics /></body>
     </html>
   );
 }

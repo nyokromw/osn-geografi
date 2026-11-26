@@ -6,6 +6,8 @@ import { getUserStatus } from '../../lib/checkAkses'
 import { bisaAkses, requiredAccess } from '../../lib/membership'
 import { PageLoading } from '../../components/atlas'
 import { ExamResults, ExamScreen, type ExamScore, type Question } from '../../components/exam'
+import { UpgradeOffer } from '../../components/upgrade-offer'
+import type { AccessLevel } from '../../lib/membership'
 
 export default function PendalamanPage() {
   const params = useParams()
@@ -31,6 +33,7 @@ const [jawaban, setJawaban] = useState<Record<number, string>>(() => {
   }
 }, [jawaban, paketId])
   const [userId, setUserId] = useState<string | null>(null)
+  const [access, setAccess] = useState<AccessLevel>('gratis')
 
   useEffect(() => {
     const init = async () => {
@@ -52,6 +55,7 @@ const [jawaban, setJawaban] = useState<Record<number, string>>(() => {
         return
       }
 
+      setAccess(statusUser)
       setPaket(p)
       
       const { data: soal } = await supabase
@@ -93,7 +97,8 @@ const [jawaban, setJawaban] = useState<Record<number, string>>(() => {
 
   const title = paket?.nama || 'Latihan'
   if (submitted && hasil) return (
-    <ExamResults mode="Latihan" title={title} score={hasil} questions={soalList} answers={jawaban} />
+    <ExamResults mode="Latihan" title={title} score={hasil} questions={soalList} answers={jawaban}
+      offer={<UpgradeOffer access={access} mode="Latihan" />} />
   )
 
   return (
