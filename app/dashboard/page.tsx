@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState, type ReactNode } from 'react'
 import type { User } from '@supabase/supabase-js'
-import { ArrowRight, BookOpen, CheckCircle2, CircleDashed, ClipboardList, Clock, FileText, LayoutDashboard, Layers3, Lock, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, Video } from 'lucide-react'
+import { ArrowRight, BookOpen, CheckCircle2, CircleDashed, ClipboardList, Clock, FileText, LayoutDashboard, Layers3, Lock, LogOut, Megaphone, MessageCircle, ShieldCheck, Ticket, UserRound, Users, Video } from 'lucide-react'
 import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
 import { MembershipPlans } from '../components/membership-plans'
 import { PaymentHistory } from '../components/payment-history'
@@ -13,6 +13,7 @@ import { tryoutLevel, tryoutLevelLabels, tryoutLevelOptions, type TryoutLevelFil
 import { groupTryoutPackages, predictionYear, tryoutCategories, tryoutCategory, tryoutCategoryLabels, type TryoutCategoryFilter } from '../lib/tryout-catalog'
 import { LearningProgress, type StudyResult } from './learning-progress'
 import { VideoLibrary, isComingSoon, type LearningVideo } from './learning-video'
+import { ClassroomPanel } from './classroom'
 import { accuracy, activityByDay, ActivityHeatmap, DashboardHero, KpiCard, MeterBar, QuickLink, studyStreak } from './overview'
 import './dashboard.css'
 
@@ -24,10 +25,11 @@ const menu = [
   { key: 'modul', label: 'Modul', Icon: FileText },
   { key: 'pengumuman', label: 'Pengumuman', Icon: Megaphone },
   { key: 'paket', label: 'Paket dan akses', Icon: Ticket },
+  { key: 'kelas', label: 'Kelas saya', Icon: Users },
 ] as const
 
 type Tab = (typeof menu)[number]['key']
-type Profile = { nama: string | null; status: string | null; status_expired: string | null; role: string | null }
+type Profile = { nama: string | null; status: string | null; status_expired: string | null; role: string | null; username?: string | null }
 type TryoutPackage = {
   id: number
   nama: string
@@ -101,6 +103,7 @@ export default function DashboardPage() {
   const [membershipList, setMembershipList] = useState<MembershipPlan[]>([])
   const [upgradePlanId, setUpgradePlanId] = useState<number | null>(null)
   const [selectedTopik, setSelectedTopik] = useState<any>(null)
+  const [isGuru, setIsGuru] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -116,13 +119,13 @@ export default function DashboardPage() {
         setAccessDenied(true)
         setActiveTab('paket')
         window.history.replaceState({}, '', '/dashboard')
-      } else if (tab === 'modul' || tab === 'video' || tab === 'tryout' || tab === 'paket') {
+      } else if (tab === 'modul' || tab === 'video' || tab === 'tryout' || tab === 'paket' || tab === 'kelas') {
         setActiveTab(tab)
         window.history.replaceState({}, '', '/dashboard')
       }
 
-      const [account, tryouts, practices, pt, tp, pp, v, m, pg, mb, allPractices] = await Promise.all([
-        supabase.from('profiles').select('nama, status, status_expired, role').eq('id', user.id).single(),
+      const [account, tryouts, practices, pt, tp, pp, v, m, pg, mb, allPractices, teaching] = await Promise.all([
+        supabase.from('profiles').select('nama, status, status_expired, role, username').eq('id', user.id).single(),
         supabase.from('hasil_to').select(resultColumns + ', paket_to(nama)')
           .eq('user_id', user.id).order('created_at', { ascending: true, nullsFirst: true }).order('id')
           .overrideTypes<StudyResult[], { merge: false }>(),
@@ -138,10 +141,12 @@ export default function DashboardPage() {
         supabase.from('paket_membership').select('*').order('id'),
         supabase.from('hasil_pendalaman').select('paket_id, created_at, poin_benar, poin_salah, poin_kosong, total_soal, total_poin')
           .eq('user_id', user.id).overrideTypes<PracticeRow[], { merge: false }>(),
+        supabase.from('kelas').select('id', { count: 'exact', head: true }).eq('guru_id', user.id),
       ])
       if (!active) return
 
       setProfile(account.data)
+      setIsGuru((teaching.count ?? 0) > 0)
       setRiwayat(tryouts.data ?? [])
       setPracticeResults((practices.data ?? []).slice().reverse())
       setPracticeAll(allPractices.data ?? [])
@@ -169,7 +174,7 @@ export default function DashboardPage() {
 
   if (loading) return <PageLoading>Memuat dashboard…</PageLoading>
 
-  const nama = user?.user_metadata?.nama || profile?.nama || 'Siswa'
+  const nama = profile?.nama || user?.user_metadata?.nama || 'Siswa'
   const namaDepan = String(nama).trim().split(/\s+/)[0] || 'Siswa'
   const statusAkun = activeAccess(profile)
   const learningAccess = profile?.role === 'admin' ? 'platinum' : statusAkun
@@ -220,6 +225,9 @@ export default function DashboardPage() {
             <ShieldCheck size={16} aria-hidden="true" /><span className="hidden sm:inline">Admin</span>
           </Link>
         )}
+        <Link href="/akun" className="atlas-button" aria-label="Akun saya" title="Akun saya">
+          <UserRound size={16} aria-hidden="true" /><span className="hidden sm:inline">Akun</span>
+        </Link>
         <a href={adminWhatsApp} target="_blank" rel="noreferrer"
           className="atlas-button" aria-label="Bantuan WhatsApp" title="Bantuan WhatsApp">
           <MessageCircle size={16} aria-hidden="true" /><span className="hidden sm:inline">Bantuan</span>
@@ -231,7 +239,7 @@ export default function DashboardPage() {
       </WorkspaceHeader>
       <div className="atlas-tabs-wrap">
         <nav className="atlas-container atlas-tabs" aria-label="Ruang belajar">
-          {menu.map(({ key, label, Icon }) => (
+          {menu.filter(item => item.key !== 'kelas' || isGuru).map(({ key, label, Icon }) => (
             <button key={key} type="button" aria-current={activeTab === key ? 'page' : undefined} onClick={() => navTo(key)}>
               <Icon size={16} aria-hidden="true" /> {label}
             </button>
@@ -242,6 +250,18 @@ export default function DashboardPage() {
       <main className="atlas-container atlas-work-content">
         {accessDenied && (
           <div className="mb-4"><Notice error>Konten ini memerlukan paket berbayar. Pilih tingkat akses yang sesuai.</Notice></div>
+        )}
+
+        {profile?.username && (!profile.nama || /^Siswa \d+$/.test(profile.nama)) && (
+          <div className="mb-4"><Notice>Akun ini dibuat oleh gurumu. <Link href="/akun" className="atlas-link">Lengkapi nama dan ganti kata sandi</Link> agar akunmu aman.</Notice></div>
+        )}
+
+        {/* ── KELAS SAYA (guru) ─────────────────────────────────── */}
+        {activeTab === 'kelas' && isGuru && user && (
+          <div>
+            <SectionHead eyebrow="Paket Kelas" title="Kelas saya" detail="Login siswa, nilai tryout, dan topik yang masih lemah." />
+            <ClassroomPanel userId={user.id} />
+          </div>
         )}
 
         {/* ── DASHBOARD ─────────────────────────────────────────── */}

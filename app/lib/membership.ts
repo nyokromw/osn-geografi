@@ -14,6 +14,8 @@ export type MembershipPlan = {
   fitur: unknown
   akses: AccessLevel
   aktif: boolean | null
+  jenis?: 'perorangan' | 'kelas' | null
+  kuota_siswa?: number | null
 }
 
 const rupiahFormatter = new Intl.NumberFormat('id-ID')
@@ -31,7 +33,9 @@ export function membershipFeatures(value: unknown): string[] {
 
 export function planWhatsAppLink(plan: MembershipPlan) {
   const action = plan.aktif ? 'memesan' : 'menanyakan ketersediaan'
-  const message = `Halo, saya ingin ${action} paket ${plan.nama} (${rupiah(plan.harga)}) di OSNGEO.id.\nEmail akun OSNGEO saya: `
+  const message = plan.jenis === 'kelas'
+    ? `Halo, saya guru dan ingin ${action} ${plan.nama} (${rupiah(plan.harga)}) di OSNGEO.id.\nNama sekolah/lembaga: \nEmail akun guru di OSNGEO: `
+    : `Halo, saya ingin ${action} paket ${plan.nama} (${rupiah(plan.harga)}) di OSNGEO.id.\nEmail akun OSNGEO saya: `
   return `${adminWhatsApp}?text=${encodeURIComponent(message)}`
 }
 

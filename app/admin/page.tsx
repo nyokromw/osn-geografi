@@ -12,13 +12,14 @@ import { LandingVideoSettings } from './landing-videos'
 import { loadStudentOverview, type StudentProfile } from './student-data'
 import { StudentRoster } from './students'
 import { MidtransPayments } from './midtrans-payments'
+import { ClassAdmin } from './classes'
 
 type View =
   | 'dashboard' | 'siswa'
   | 'paket_tryout' | 'soal_tryout'
   | 'pendalaman' | 'soal_pendalaman'
   | 'video' | 'modul'
-  | 'membership' | 'transaksi'
+  | 'membership' | 'transaksi' | 'kelas'
   | 'pengumuman' | 'banner' | 'video_beranda'
 
 const accessOptions = Object.entries(accessLabels).map(([value, label]) => ({ value, label }))
@@ -301,6 +302,7 @@ const handleResetPassword = async (email: string) => {
     { group: 'Transaksi', items: [
       { label: 'Paket membership', key: 'membership', Icon: Ticket },
       { label: 'Daftar transaksi', key: 'transaksi', Icon: Receipt },
+      { label: 'Paket Kelas', key: 'kelas', Icon: Users },
     ] },
     { group: 'Publikasi', items: [
       { label: 'Video beranda', key: 'video_beranda', Icon: Video },
@@ -1489,6 +1491,9 @@ const handleResetPassword = async (email: string) => {
               </div>
             </div>
           )}
+
+          {/* ── PAKET KELAS ───────────────────────────────────────── */}
+          {view === 'kelas' && <ClassAdmin />}
 
           {/* ── TRANSAKSI ─────────────────────────────────────────── */}
           {view === 'transaksi' && (

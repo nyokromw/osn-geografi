@@ -19,7 +19,7 @@ export function UpgradeOffer({ access, mode }: { access: AccessLevel; mode: 'Try
     const target: AccessLevel = access === 'gratis' ? 'premium' : 'platinum'
     void (async () => {
       const [plans, tryouts, config] = await Promise.all([
-        supabase.from('paket_membership').select('*').eq('akses', target).eq('aktif', true).order('harga'),
+        supabase.from('paket_membership').select('*').eq('akses', target).eq('aktif', true).neq('jenis', 'kelas').order('harga'),
         supabase.from('paket_to').select('akses').eq('status', 'aktif'),
         paymentConfig(),
       ])

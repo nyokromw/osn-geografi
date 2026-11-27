@@ -5,6 +5,7 @@ import { useState, type FormEvent } from 'react'
 import { AuthShell, Notice } from '../components/atlas'
 import { supabase } from '../lib/supabase'
 import { safePaymentReturn } from '../lib/payments'
+import { loginEmail } from '../lib/kelas'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -20,7 +21,9 @@ export default function Login() {
     setLoading(true)
     setNotice(null)
     try {
-      if (showForgot) {
+      if (showForgot && !forgotEmail.includes('@')) {
+        setNotice({ message: 'Akun siswa dari Paket Kelas tidak memakai email. Minta guru untuk mereset kata sandi dari dashboard kelas.', error: true })
+      } else if (showForgot) {
         const { error } = await supabase.auth.resetPasswordForEmail(forgotEmail, {
           redirectTo: window.location.origin + '/reset-password',
         })
@@ -31,8 +34,8 @@ export default function Login() {
           setNotice({ message: 'Tautan reset sudah dikirim. Periksa kotak masuk atau folder spam.', error: false })
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) setNotice({ message: 'Email atau kata sandi salah.', error: true })
+        const { error } = await supabase.auth.signInWithPassword({ email: loginEmail(email), password })
+        if (error) setNotice({ message: 'Email/username atau kata sandi salah.', error: true })
         else window.location.href = safePaymentReturn(new URLSearchParams(window.location.search).get('next'))
       }
     } catch {
@@ -53,9 +56,9 @@ export default function Login() {
       description={showForgot ? 'Masukkan email akun OSNGEO untuk menerima tautan reset.' : 'Lanjutkan persiapan OSN Geografi.'}>
       <form className="atlas-auth-form" onSubmit={submit}>
         <label>
-          Email
-          <input className="atlas-field" type="email" name="email" autoComplete="email"
-            placeholder="nama@contoh.id" required value={showForgot ? forgotEmail : email}
+          {showForgot ? 'Email' : 'Email atau username'}
+          <input className="atlas-field" type="text" inputMode="email" name="email" autoComplete={showForgot ? 'email' : 'username'}
+            autoCapitalize="none" spellCheck={false} placeholder={showForgot ? 'nama@contoh.id' : 'nama@contoh.id atau username kelas'} required value={showForgot ? forgotEmail : email}
             onChange={event => (showForgot ? setForgotEmail : setEmail)(event.target.value)} />
         </label>
         {!showForgot && (
