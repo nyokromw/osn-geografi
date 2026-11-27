@@ -14,7 +14,8 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 })
 
 export const STUDENT_EMAIL_DOMAIN = 'siswa.osngeo.id'
-const LEVEL: Record<string, number> = { gratis: 0, premium: 1, platinum: 2 }
+// Must match osngeo_private.access_rank().
+const LEVEL: Record<string, number> = { gratis: 0, pemula: 1, premium: 2, platinum: 3 }
 
 // Readable passwords: no 0/O, 1/l/I. 8 chars from 55 symbols ≈ 46 bits.
 export function generatePassword(length = 8) {

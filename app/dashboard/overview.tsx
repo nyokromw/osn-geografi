@@ -1,5 +1,7 @@
 'use client'
 
+import type { AccessLevel } from '../lib/membership'
+
 import type { ReactNode } from 'react'
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Flame, Minus } from 'lucide-react'
 
@@ -58,7 +60,7 @@ export function studyStreak(days: Map<string, number>) {
 
 export function DashboardHero({ name, access, accessLabel, expiry, streak, children }: {
   name: string
-  access: 'gratis' | 'premium' | 'platinum'
+  access: AccessLevel
   accessLabel: string
   expiry?: string
   streak: number

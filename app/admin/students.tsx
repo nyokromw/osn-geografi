@@ -9,6 +9,7 @@ import { defaultStudentFilters, loadStudentPage, studentPageSize, studentSortOpt
 
 const statuses = [
   ['gratis', 'Gratis'],
+  ['pemula', 'Pemula aktif'],
   ['premium', 'Premium aktif'],
   ['platinum', 'Platinum aktif'],
   ['akanHabis', 'Berakhir dalam 7 hari'],
@@ -16,6 +17,7 @@ const statuses = [
 ]
 const colors = {
   gratis: 'bg-gray-100 text-gray-700',
+  pemula: 'bg-emerald-100 text-emerald-800',
   premium: 'bg-yellow-100 text-yellow-800',
   platinum: 'bg-purple-100 text-purple-800',
 }
@@ -151,7 +153,7 @@ export function StudentRoster({ revision, onEdit }: { revision: number; onEdit: 
               {current?.rows.map((student, index) => {
                 const status = activeAccess(student)
                 const recordedPlan = student.status
-                const expired = status === 'gratis' && (recordedPlan === 'premium' || recordedPlan === 'platinum')
+                const expired = status === 'gratis' && (recordedPlan === 'pemula' || recordedPlan === 'premium' || recordedPlan === 'platinum')
                 return (
                   <tr key={student.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3 text-xs tabular-nums text-gray-500">{start + index + 1}</td>

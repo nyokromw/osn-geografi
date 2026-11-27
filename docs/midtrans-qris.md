@@ -41,8 +41,9 @@ Waktu pesanan untuk `custom_expiry` dikirim dalam GMT+7 sesuai format Core API. 
 - Harga, tingkat akses, nama, dan durasi disalin dari paket aktif di database saat pesanan dibuat. Perubahan katalog berikutnya tidak mengubah pesanan itu.
 - Akses baru dimulai setelah pembayaran diverifikasi oleh server.
 - Perpanjangan paket dengan tingkat yang sama menambahkan durasi ke masa aktif yang tersisa.
-- Upgrade Premium ke Platinum memulai durasi Platinum yang baru. Sisa Premium tidak dikonversi; informasi ini ditampilkan sebelum checkout.
-- Akun dengan Platinum aktif tidak dapat membeli Premium. Akun berbayar tanpa batas waktu diarahkan ke admin.
+- Level akses: Gratis < Pemula < Premium < Platinum (`osngeo_private.access_rank`). Upgrade ke level yang lebih tinggi memulai durasi baru; sisa level lama tidak dikonversi. Informasi ini ditampilkan sebelum checkout.
+- Akun dengan level aktif yang lebih tinggi tidak dapat membeli level yang lebih rendah. Akun berbayar tanpa batas waktu diarahkan ke admin.
+- Paket berjenis `kelas` (Paket Kelas) tidak dijual lewat checkout QRIS; admin membuat kelas melalui fungsi `kelas-admin`.
 - Jika akses berubah menjadi lebih tinggi ketika pembayaran masih tertunda, pesanan ditandai **Perlu peninjauan**. Sistem menjaga akses yang sudah lebih tinggi dan tidak menurunkannya.
 - Notifikasi berulang tidak menambah durasi dua kali. Notifikasi pending/kedaluwarsa tidak membatalkan pesanan yang sudah lunas.
 - Refund/chargeback dicatat dan ditandai untuk peninjauan admin. Penyesuaian akses terkait refund dilakukan admin; jangan menganggap refund otomatis mencabut semua akses, karena akun bisa memiliki perpanjangan atau pemberian akses lain.

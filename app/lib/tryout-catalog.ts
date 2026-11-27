@@ -9,8 +9,9 @@ export const tryoutCategories: TryoutCategory[] = ['latihan', 'prediksi']
 export const comparisonLevels = ['OSNK', 'OSNP'] as const
 
 export const tryoutTargets = {
-  OSNK: { gratis: { latihan: 1, prediksi: 1 }, premium: { latihan: 10, prediksi: 2 }, platinum: { latihan: 20, prediksi: 5 } },
-  OSNP: { gratis: { latihan: 1, prediksi: 0 }, premium: { latihan: 5, prediksi: 1 }, platinum: { latihan: 10, prediksi: 5 } },
+  // Cumulative packages each level can open (2026/2027 catalogue). Prediksi packages are all OSN-K.
+  OSNK: { gratis: { latihan: 2, prediksi: 1 }, pemula: { latihan: 5, prediksi: 2 }, premium: { latihan: 12, prediksi: 2 }, platinum: { latihan: 20, prediksi: 5 } },
+  OSNP: { gratis: { latihan: 2, prediksi: 0 }, pemula: { latihan: 3, prediksi: 0 }, premium: { latihan: 10, prediksi: 0 }, platinum: { latihan: 10, prediksi: 0 } },
 } satisfies Record<(typeof comparisonLevels)[number], Record<AccessLevel, Record<TryoutCategory, number>>>
 
 export type TryoutCatalogEntry = {

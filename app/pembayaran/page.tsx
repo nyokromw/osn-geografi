@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { CheckCircle2, QrCode, RefreshCw } from 'lucide-react'
 import { Notice, PageLoading, WorkspaceHeader } from '../components/atlas'
-import { accessLabels, activeAccess, adminWhatsApp, membershipExpiry, planWhatsAppLink, rupiah, type MembershipPlan } from '../lib/membership'
+import { accessLabels, activeAccess, adminWhatsApp, membershipExpiry, planWhatsAppLink, rupiah, type MembershipPlan, accessRank } from '../lib/membership'
 import { paymentConfig, paymentDate, paymentRequest, paymentStatusLabels, type PaymentConfig, type PaymentOrder } from '../lib/payments'
 import { supabase } from '../lib/supabase'
 
@@ -108,7 +108,7 @@ export default function PaymentPage() {
   const canPay = config?.available || config?.test_available
   const currentAccess = activeAccess(profile)
   const renewing = !!plan && currentAccess === plan.akses && !!profile?.status_expired
-  const upgraded = !!plan && currentAccess === 'premium' && plan.akses === 'platinum'
+  const upgraded = !!plan && currentAccess !== 'gratis' && accessRank[plan.akses] > accessRank[currentAccess]
   const paid = order?.status === 'paid'
   const sandbox = order?.environment === 'sandbox' || (!order && config?.test_available)
   const imageAllowed = order?.qr_url && (() => {
@@ -143,7 +143,7 @@ export default function PaymentPage() {
             <p className="mb-5 text-sm leading-relaxed text-gray-600">
               {renewing ? `Masa aktif akan ditambahkan setelah ${paymentDate(new Date(membershipExpiry(profile!.status_expired!)).toISOString())}.`
                 : 'Masa aktif dimulai setelah pembayaran berhasil diverifikasi.'}
-              {upgraded && ' Upgrade memulai masa aktif Platinum yang baru. Sisa masa aktif Premium tidak dikonversi.'}
+              {upgraded && ` Upgrade memulai masa aktif ${accessLabels[plan.akses]} yang baru. Sisa masa aktif ${accessLabels[currentAccess]} tidak dikonversi.`}
             </p>
             {canPay ? <button type="button" disabled={busy} onClick={createPayment}
               className="atlas-button atlas-button--primary w-full">

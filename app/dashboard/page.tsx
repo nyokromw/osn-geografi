@@ -44,6 +44,7 @@ type TryoutPackage = {
 
 const questionAccessLabels: Record<AccessLevel, string> = {
   gratis: 'Gratis',
+  pemula: 'Pemula ke atas',
   premium: 'Premium + Platinum',
   platinum: 'Khusus Platinum',
 }
@@ -138,7 +139,7 @@ export default function DashboardPage() {
         supabase.from('video_pembelajaran').select('*, topik_materi(nama)').order('urutan'),
         supabase.from('modul_materi').select('*, topik_materi(nama)').order('id'),
         supabase.from('pengumuman').select('*').eq('aktif', true).order('created_at', { ascending: false }),
-        supabase.from('paket_membership').select('*').order('id'),
+        supabase.from('paket_membership').select('*').eq('aktif', true).order('harga'),
         supabase.from('hasil_pendalaman').select('paket_id, created_at, poin_benar, poin_salah, poin_kosong, total_soal, total_poin')
           .eq('user_id', user.id).overrideTypes<PracticeRow[], { merge: false }>(),
         supabase.from('kelas').select('id', { count: 'exact', head: true }).eq('guru_id', user.id),

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Check, Lock, MessageCircle, Sparkles } from 'lucide-react'
 import { supabase } from '../lib/supabase'
-import { membershipFeatures, planWhatsAppLink, rupiah, type AccessLevel, type MembershipPlan } from '../lib/membership'
+import { accessLabels, accessRank, membershipFeatures, paidLevels, planWhatsAppLink, rupiah, type AccessLevel, type MembershipPlan } from '../lib/membership'
 import { paymentConfig } from '../lib/payments'
 
 type Offer = { plan: MembershipPlan; lockedTryouts: number; qris: boolean }
@@ -14,31 +14,31 @@ export function UpgradeOffer({ access, mode }: { access: AccessLevel; mode: 'Try
   const [offer, setOffer] = useState<Offer | null>(null)
 
   useEffect(() => {
-    if (access === 'platinum') return
+    // Offer the next level up: Gratis → Pemula → Premium → Platinum.
+    const target = paidLevels.find(level => accessRank[level] > accessRank[access])
+    if (!target) return
     let active = true
-    const target: AccessLevel = access === 'gratis' ? 'premium' : 'platinum'
     void (async () => {
       const [plans, tryouts, config] = await Promise.all([
         supabase.from('paket_membership').select('*').eq('akses', target).eq('aktif', true).neq('jenis', 'kelas').order('harga'),
-        supabase.from('paket_to').select('akses').eq('status', 'aktif'),
+        supabase.from('paket_to').select('akses, is_premium').eq('status', 'aktif'),
         paymentConfig(),
       ])
       const plan = (plans.data as MembershipPlan[] | null)?.[0]
       if (!active || !plan) return
-      const rank: Record<string, number> = { gratis: 0, premium: 1, platinum: 2 }
       const lockedTryouts = (tryouts.data ?? []).filter(row => {
-        const level = rank[row.akses ?? 'gratis'] ?? 0
-        return level > rank[access] && level <= rank[target]
+        const level = Math.max(accessRank[(row.akses ?? 'gratis') as AccessLevel] ?? 0, row.is_premium ? accessRank.premium : 0)
+        return level > accessRank[access] && level <= accessRank[target]
       }).length
       setOffer({ plan, lockedTryouts, qris: config.available })
     })()
     return () => { active = false }
   }, [access])
 
-  if (!offer) return null
+  if (!offer || access === 'platinum') return null
   const { plan, lockedTryouts, qris } = offer
   const features = membershipFeatures(plan.fitur).filter(item => !/^seluruh akses/i.test(item)).slice(0, 3)
-  const tierName = plan.akses === 'premium' ? 'Premium' : 'Platinum'
+  const tierName = accessLabels[plan.akses]
 
   return (
     <aside className="upgrade-offer mt-6" aria-labelledby="upgrade-offer-title">

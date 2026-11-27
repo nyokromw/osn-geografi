@@ -5,7 +5,7 @@ export type PaymentOrder = {
   order_id: string
   environment: 'sandbox' | 'production'
   nama_paket: string
-  akses: 'premium' | 'platinum'
+  akses: 'pemula' | 'premium' | 'platinum'
   durasi_hari: number
   nominal: number
   status: 'created' | 'pending' | 'paid' | 'expired' | 'failed' | 'review' | 'refunded'
