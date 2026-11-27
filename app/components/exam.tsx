@@ -202,9 +202,11 @@ export function ExamScreen({ mode, title, topic, timeLeft, questions, answers, i
   )
 }
 
-export function ExamResults({ mode, title, score, questions, answers }: {
-  mode: ExamMode; title: string; score: ExamScore; questions: Question[]; answers: Answers
+export function ExamResults({ mode, title, score, questions, answers, offer }: {
+  mode: ExamMode; title: string; score: ExamScore; questions: Question[]; answers: Answers; offer?: ReactNode
 }) {
+  // The exam screen is usually scrolled to the question list when it is submitted; start the result at the score.
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'auto' }) }, [])
   return (
     <>
       <WorkspaceHeader title={'Hasil ' + mode.toLowerCase()} />
@@ -220,6 +222,7 @@ export function ExamResults({ mode, title, score, questions, answers }: {
               ['Kosong (0)', score.kosong],
             ].map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}
           </dl>
+          {offer}
           <section className="mt-6" aria-labelledby="review-title">
             <h2 className="atlas-subtitle mb-3" id="review-title">Pembahasan</h2>
             <ol className="grid gap-2">
