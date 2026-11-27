@@ -30,8 +30,9 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
       <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {plans.map(plan => {
           const free = plan.akses === 'gratis' && plan.harga === 0
-          const monthly = plan.durasi_hari === 365
-            ? plans.find(item => item.akses === plan.akses && item.durasi_hari === 30)
+          // Only compare a yearly individual plan with its monthly sibling (never the class package).
+          const monthly = plan.durasi_hari === 365 && plan.jenis !== 'kelas'
+            ? plans.find(item => item.akses === plan.akses && item.durasi_hari === 30 && item.jenis !== 'kelas')
             : undefined
           const annualComparison = monthly ? monthly.harga * 12 : 0
           const highlighted = plan.id === highlightPlanId
@@ -77,7 +78,7 @@ export function MembershipPlans({ plans, loading, onFree, highlightPlanId }: {
                     <MessageCircle size={15} className="shrink-0" aria-hidden="true" />{plan.aktif ? 'Pesan via WhatsApp' : 'Tanya via WhatsApp'}
                   </a>
                 )}
-                {!free && plan.aktif && sandboxCheckout && <Link href={`/pembayaran?paket=${plan.id}`}
+                {!free && plan.aktif && plan.jenis !== 'kelas' && sandboxCheckout && <Link href={`/pembayaran?paket=${plan.id}`}
                   className="atlas-link mt-3 block text-center text-sm">Uji QRIS (admin)</Link>}
               </div>
             </article>

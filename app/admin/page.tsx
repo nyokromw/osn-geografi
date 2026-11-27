@@ -12,19 +12,21 @@ import { LandingVideoSettings } from './landing-videos'
 import { loadStudentOverview, type StudentProfile } from './student-data'
 import { StudentRoster } from './students'
 import { MidtransPayments } from './midtrans-payments'
+import { ClassAdmin } from './classes'
 
 type View =
   | 'dashboard' | 'siswa'
   | 'paket_tryout' | 'soal_tryout'
   | 'pendalaman' | 'soal_pendalaman'
   | 'video' | 'modul'
-  | 'membership' | 'transaksi'
+  | 'membership' | 'transaksi' | 'kelas'
   | 'pengumuman' | 'banner' | 'video_beranda'
 
 const accessOptions = Object.entries(accessLabels).map(([value, label]) => ({ value, label }))
-const mediaAccessOptions = accessOptions.filter(({ value }) => value !== 'premium')
+const mediaAccessOptions = accessOptions.filter(({ value }) => value === 'gratis' || value === 'platinum')
 const accessBadge = {
   Gratis: 'access-badge access-badge--gratis',
+  Pemula: 'access-badge access-badge--pemula',
   Premium: 'access-badge access-badge--premium',
   Platinum: 'access-badge access-badge--platinum',
 }
@@ -41,7 +43,7 @@ export default function AdminPage() {
   // Stats
   const [stats, setStats] = useState<Awaited<ReturnType<typeof loadStudentOverview>> & {
     totalTO: number | null; rataRata: number | null; totalTransaksi: number | null
-  }>({ total: null, registered: null, premium: null, platinum: null, submissions: null,
+  }>({ total: null, registered: null, pemula: null, premium: null, platinum: null, submissions: null,
     totalTO: null, rataRata: null, totalTransaksi: null })
   const [studentRevision, setStudentRevision] = useState(0)
 
@@ -301,6 +303,7 @@ const handleResetPassword = async (email: string) => {
     { group: 'Transaksi', items: [
       { label: 'Paket membership', key: 'membership', Icon: Ticket },
       { label: 'Daftar transaksi', key: 'transaksi', Icon: Receipt },
+      { label: 'Paket Kelas', key: 'kelas', Icon: Users },
     ] },
     { group: 'Publikasi', items: [
       { label: 'Video beranda', key: 'video_beranda', Icon: Video },
@@ -426,7 +429,7 @@ const handleResetPassword = async (email: string) => {
                 [
                   { label: 'Total siswa', value: stats.total },
                   { label: 'Pendaftar 7 hari', value: stats.registered },
-                  { label: 'Premium aktif', value: stats.premium },
+                  { label: 'Pemula + Premium aktif', value: stats.pemula === null || stats.premium === null ? null : stats.pemula + stats.premium },
                   { label: 'Platinum aktif', value: stats.platinum },
                 ],
                 [
@@ -618,7 +621,7 @@ const handleResetPassword = async (email: string) => {
                       status: formData.status || 'aktif',
                       aktif: formData.status !== 'nonaktif',
                       akses: formData.akses || 'gratis',
-                      is_premium: Boolean(formData.akses && formData.akses !== 'gratis'),
+                      is_premium: formData.akses === 'premium' || formData.akses === 'platinum',
                       deskripsi: formData.deskripsi || null,
                       ...(editData ? {} : { urutan: Math.max(0, ...paketTO.map(p => Number(p.urutan) || 0)) + 1 }),
                     })} />
@@ -776,7 +779,7 @@ const handleResetPassword = async (email: string) => {
                         jawaban_benar: formData.jawaban_benar,
                         pembahasan: formData.pembahasan,
                         akses,
-                        is_premium: akses !== 'gratis',
+                        is_premium: akses === 'premium' || akses === 'platinum',
                       })
                       await loadSoalTO(selectedPaket.id)
                     }} />
@@ -988,7 +991,7 @@ const handleResetPassword = async (email: string) => {
                       durasi_menit: formData.durasi_menit || 60,
                       status: formData.status || 'aktif',
                       akses: formData.akses || 'gratis',
-                      is_premium: Boolean(formData.akses && formData.akses !== 'gratis'),
+                      is_premium: formData.akses === 'premium' || formData.akses === 'platinum',
                       deskripsi: formData.deskripsi || null,
                     })} />
                   </div>
@@ -1489,6 +1492,9 @@ const handleResetPassword = async (email: string) => {
               </div>
             </div>
           )}
+
+          {/* ── PAKET KELAS ───────────────────────────────────────── */}
+          {view === 'kelas' && <ClassAdmin />}
 
           {/* ── TRANSAKSI ─────────────────────────────────────────── */}
           {view === 'transaksi' && (

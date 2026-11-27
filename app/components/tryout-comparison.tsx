@@ -2,7 +2,7 @@ import { accessLabels, type AccessLevel } from '../lib/membership'
 import { comparisonLevels, countTryoutPackages, predictionYear, tryoutCategories, tryoutCategoryLabels, tryoutTargets, type TryoutCatalogEntry } from '../lib/tryout-catalog'
 import { tryoutLevelLabels } from '../lib/tryout-levels'
 
-const plans: AccessLevel[] = ['gratis', 'premium', 'platinum']
+const plans: AccessLevel[] = ['gratis', 'pemula', 'premium', 'platinum']
 
 export function TryoutComparison({ catalog }: { catalog: TryoutCatalogEntry[] | null }) {
   return (

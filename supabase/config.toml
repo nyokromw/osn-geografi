@@ -4,3 +4,7 @@ project_id = "osngeo"
 # Browser actions verify Supabase Auth inside the handler; webhooks verify the
 # Midtrans signature AND fetch the authoritative status from Midtrans.
 verify_jwt = false
+
+[functions.kelas-admin]
+# Requires a signed-in user; the handler checks admin / guru rights itself.
+verify_jwt = true

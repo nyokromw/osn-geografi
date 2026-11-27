@@ -43,7 +43,7 @@ export default function Home() {
     const load = async () => {
       try {
         const [plans, news, catalog, featured, packages] = await Promise.all([
-          supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur, akses, aktif').order('id'),
+          supabase.from('paket_membership').select('id, nama, harga, durasi_hari, deskripsi, fitur, akses, aktif, jenis, kuota_siswa').eq('aktif', true).order('harga'),
           supabase.from('pengumuman').select('id, judul, isi, created_at').eq('aktif', true).order('created_at', { ascending: false }).limit(3),
           supabase.from('topik_materi').select('id, nama').order('urutan'),
           supabase.from('video_beranda').select('posisi, judul, youtube_id, thumbnail_url').order('posisi'),
@@ -147,7 +147,7 @@ export default function Home() {
         </section>
         <section id="tryout" className="atlas-container atlas-section">
           <h2 className="atlas-subtitle">Latihan dan Prediksi {predictionYear}</h2>
-          <p className="mt-2 mb-5 max-w-prose text-sm text-gray-600">Platinum mencakup seluruh akses Premium. Keterangan tersedia menunjukkan jumlah paket yang sudah bisa dikerjakan jika berbeda dari alokasi.</p>
+          <p className="mt-2 mb-5 max-w-prose text-sm text-gray-600">Setiap level mencakup isi level di bawahnya. Keterangan tersedia menunjukkan jumlah paket yang sudah bisa dikerjakan jika berbeda dari alokasi.</p>
           <TryoutComparison catalog={tryouts} />
         </section>
         <section id="paket" className="atlas-container atlas-section">

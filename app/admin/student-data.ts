@@ -14,7 +14,7 @@ export type StudentProfile = {
 
 const columns = 'id, nama, email, provinsi, nomor_hp, role, status, status_expired, created_at'
 const studentRoles = 'role.neq.admin,role.is.null'
-const paidPlans = ['premium', 'platinum']
+const paidPlans = ['pemula', 'premium', 'platinum']
 const week = 7 * 86_400_000
 export const studentPageSize = 25
 
@@ -43,9 +43,10 @@ export async function loadStudentOverview() {
   const now = new Date()
   const since = new Date(now.getTime() - week).toISOString()
   const countStudents = () => supabase.from('profiles').select('id', { count: 'exact', head: true }).or(studentRoles)
-  const [total, registered, premium, platinum, submissions] = await Promise.all([
+  const [total, registered, pemula, premium, platinum, submissions] = await Promise.all([
     countStudents(),
     countStudents().gte('created_at', since),
+    countStudents().eq('status', 'pemula').or(activeExpiry(now.toISOString())),
     countStudents().eq('status', 'premium').or(activeExpiry(now.toISOString())),
     countStudents().eq('status', 'platinum').or(activeExpiry(now.toISOString())),
     supabase.from('hasil_to').select('id', { count: 'exact', head: true }).gte('created_at', since),
@@ -53,6 +54,7 @@ export async function loadStudentOverview() {
   return {
     total: total.count,
     registered: registered.count,
+    pemula: pemula.count,
     premium: premium.count,
     platinum: platinum.count,
     submissions: submissions.count,
@@ -78,8 +80,9 @@ export function loadStudentPage(filters: typeof defaultStudentFilters, page: num
 
   switch (filters.status) {
     case 'gratis':
-      query.or('status.is.null,status.not.in.(premium,platinum),and(status.in.(premium,platinum),status_expired.lte.' + cutoff + ')')
+      query.or('status.is.null,status.not.in.(pemula,premium,platinum),and(status.in.(pemula,premium,platinum),status_expired.lte.' + cutoff + ')')
       break
+    case 'pemula':
     case 'premium':
     case 'platinum':
       query.eq('status', filters.status).or(activeExpiry(cutoff))
